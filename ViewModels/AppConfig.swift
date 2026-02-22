@@ -3,8 +3,11 @@ import SwiftUI
 /// Конфигурация приложения, хранимая в UserDefaults
 @MainActor
 final class AppConfig: ObservableObject {
+    /// API Token для авторизации
+    @AppStorage("api_token") var apiToken: String = ""
+
     /// Базовый URL LM Studio API
-    @AppStorage("lm_base_url") var baseURL: String = "http://192.168.1.91:64721/v1"
+    @AppStorage("lm_base_url") var baseURL: String = "http://192.168.1.91:64721"
 
     /// Таймаут запроса в секундах
     @AppStorage("lm_timeout") var timeout: Double = 30.0
@@ -32,19 +35,19 @@ final class AppConfig: ObservableObject {
 
     private init() {}
 
-    /// Полный URL для чата
+    /// Полный URL для чата (LM Studio v1 API)
     var chatURL: URL? {
-        URL(string: "\(baseURL)/chat/completions")
+        URL(string: "\(baseURL)/api/v1/chat")
     }
 
-    /// Полный URL для списка моделей
+    /// Полный URL для списка моделей (LM Studio v1 API)
     var modelsURL: URL? {
-        URL(string: "\(baseURL)/models")
+        URL(string: "\(baseURL)/api/v1/models")
     }
 
     /// Сбросить настройки к значениям по умолчанию
     func reset() {
-        baseURL = "http://192.168.1.91:64721/v1"
+        baseURL = "http://192.168.1.91:64721"
         timeout = 30.0
         mcpToolsEnabled = false
         temperature = 0.7

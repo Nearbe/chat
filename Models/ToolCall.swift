@@ -39,23 +39,3 @@ struct ToolCall: Identifiable, Hashable {
         result != nil && error == nil
     }
 }
-
-/// Результат выполнения инструмента
-struct ToolCallResult: Codable {
-    let toolCallId: String
-    let result: String
-
-    enum CodingKeys: String, CodingKey {
-        case toolCallId = "tool_call_id"
-        case result
-    }
-}
-
-/// Ответ с результатами инструментов
-struct ToolCallsResponse: Codable {
-    let toolCalls: [ToolCallResult]
-
-    enum CodingKeys: String, CodingKey {
-        case toolCalls = "tool_calls"
-    }
-}

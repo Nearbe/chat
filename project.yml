@@ -27,7 +27,10 @@ targets:
       - path: Services
       - path: Data
       - path: Utils
+      - path: Design
       - path: Resources
+      - path: Resources/Settings.bundle
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ru.nearbe.chat

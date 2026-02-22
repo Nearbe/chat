@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Network
 
 /// Основной ViewModel для чата
 @MainActor
@@ -15,6 +16,9 @@ final class ChatViewModel: ObservableObject {
     @Published var toolCalls: [ToolCall] = []
     @Published var isAuthenticated: Bool = false
     @Published var authError: String?
+    @Published var isConnected: Bool = true
+    @Published var isServerReachable: Bool = true
+    @Published var isModelSelected: Bool = false
 
     var config = AppConfig.shared
 
@@ -26,26 +30,63 @@ final class ChatViewModel: ObservableObject {
     private var modelContext: ModelContext?
     private var generationStartTime: Date?
     private var streamingTask: Task<Void, Never>?
+    private let pathMonitor = NWPathMonitor()
+    private let monitorQueue = DispatchQueue(label: "NetworkMonitor")
 
     // MARK: - Инициализация
 
     init() {
         self.networkService = NetworkService(deviceName: UIDevice.current.name)
+        checkAuthentication()  // Проверяем токен сразу при инициализации
+        startNetworkMonitoring()
+    }
+
+    deinit {
+        pathMonitor.cancel()
+    }
+
+    /// Обновить статус авторизации (вызывать при появлении view)
+    func refreshAuthentication() {
         checkAuthentication()
+    }
+
+    // MARK: - Мониторинг сети (реальное время)
+
+    private func startNetworkMonitoring() {
+        pathMonitor.pathUpdateHandler = { [weak self] path in
+            Task { @MainActor in
+                guard let self = self else { return }
+                // Проверяем именно WiFi или Ethernet (не любой интерфейс)
+                let hasWifiOrEthernet = path.usesInterfaceType(.wifi) || path.usesInterfaceType(.wiredEthernet)
+                self.isConnected = hasWifiOrEthernet && path.status == .satisfied
+
+                // Если есть wifi - проверяем сервер
+                if hasWifiOrEthernet && path.status == .satisfied {
+                    await self.checkServerConnection()
+                } else {
+                    self.isServerReachable = false
+                }
+            }
+        }
+        pathMonitor.start(queue: monitorQueue)
     }
 
     // MARK: - Авторизация
 
     func checkAuthentication() {
-        let result = authManager.authenticate()
-        switch result {
-        case .success:
+        // Проверяем токен в Keychain
+        if let token = authManager.getToken(), !token.isEmpty {
             isAuthenticated = true
             authError = nil
-        case .failure(let error):
+        } else {
             isAuthenticated = false
-            authError = error.localizedDescription
+            authError = "Введите токен"
         }
+    }
+
+    func saveToken(_ token: String) {
+        authManager.setToken(token)
+        checkAuthentication()
     }
 
     func setModelContext(_ context: ModelContext) {
@@ -58,13 +99,30 @@ final class ChatViewModel: ObservableObject {
         do {
             let models = try await networkService.fetchModels()
             availableModels = models
-            if config.selectedModel.isEmpty, let firstModel = models.first {
-                config.selectedModel = firstModel.id
+            isServerReachable = true
+            
+            // Если сохранённой модели нет в списке — сбрасываем
+            if !config.selectedModel.isEmpty && !models.contains(where: { $0.id == config.selectedModel }) {
+                config.selectedModel = ""
             }
+            isModelSelected = !config.selectedModel.isEmpty
         } catch {
-            // Не показываем алерт - оставляем пустую заглушку
             availableModels = []
+            isServerReachable = isConnected
+            isModelSelected = !config.selectedModel.isEmpty
         }
+    }
+
+    // MARK: - Проверка сервера
+
+    func checkServerConnection() async {
+        do {
+            _ = try await networkService.fetchModels()
+            isServerReachable = true
+        } catch {
+            isServerReachable = isConnected
+        }
+        isModelSelected = !config.selectedModel.isEmpty
     }
 
     // MARK: - Управление сессиями
@@ -141,23 +199,15 @@ final class ChatViewModel: ObservableObject {
 
     private func generateResponse(for sessionId: UUID) async {
         isGenerating = true
+        isConnected = true
         errorMessage = nil
         toolCalls = []
         generationStartTime = Date()
 
         let apiMessages: [ChatMessage] = messages.map { ChatMessage(from: $0) }
 
+        // LM Studio v1 API - tools передаются через integrations
         // mcpToolsEnabled: true = сервер использует свои tools, false = отключено
-        let tools: [ToolDefinition]? = config.mcpToolsEnabled ? nil : []
-
-        let request = ChatCompletionRequest(
-            model: config.selectedModel,
-            messages: apiMessages,
-            temperature: config.temperature,
-            maxTokens: config.maxTokens,
-            stream: true,
-            tools: tools
-        )
 
         let assistantIndex = messages.count
         let assistantMsg = Message.assistant(content: "", sessionId: sessionId, index: assistantIndex, modelName: config.selectedModel)
@@ -165,10 +215,23 @@ final class ChatViewModel: ObservableObject {
 
         do {
             var fullContent = ""
+            var reasoningContent = ""
             var currentToolCalls: [Int: ToolCall] = [:]
 
-            for try await chunk in await networkService.streamChat(request: request) {
+            for try await chunk in await networkService.streamChat(
+                messages: apiMessages,
+                model: config.selectedModel,
+                temperature: config.temperature,
+                maxTokens: config.maxTokens
+            ) {
                 for choice in chunk.choices {
+                    // Обрабатываем reasoning (цепочка мыслей)
+                    if let reasoning = choice.delta.reasoningContent {
+                        reasoningContent += reasoning
+                        messages[messages.count - 1].reasoning = reasoningContent
+                    }
+
+                    // Обрабатываем контент
                     if let content = choice.delta.content {
                         fullContent += content
                         messages[messages.count - 1].content = fullContent
@@ -190,7 +253,7 @@ final class ChatViewModel: ObservableObject {
                     }
 
                     if let reason = choice.finishReason {
-                        if reason == "tool_calls" {
+                        if reason == "tool_calls" || reason == "stop" {
                             await handleToolCalls(Array(currentToolCalls.values), sessionId: sessionId)
                         }
 
@@ -215,9 +278,11 @@ final class ChatViewModel: ObservableObject {
         } catch {
             // Обработка ошибок авторизации - не показываем алерт
             if let responseError = error as? NetworkError, case .unauthorized = responseError {
-                authManager.clearToken()
                 isAuthenticated = false
-                authError = "Токен истёк. Пожалуйста, добавьте новый токен."
+                authError = "Токен неверный. Пожалуйста, обновите токен в Настройках."
+            } else if let responseError = error as? NetworkError, case .networkError = responseError {
+                isConnected = false
+                errorMessage = "Нет соединения с сервером"
             } else if !(error is CancellationError) {
                 // Для остальных ошибок показываем алерт
                 errorMessage = "Ошибка: \(error.localizedDescription)"

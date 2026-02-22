@@ -32,6 +32,9 @@ final class Message {
     /// Токены, использованные для генерации (опционально)
     var tokensUsed: Int?
 
+    /// Цепочка мыслей (reasoning) для Claude-like моделей
+    var reasoning: String?
+
     /// Связь с сессией чата
     @Relationship(inverse: \ChatSession.messages)
     var session: ChatSession?

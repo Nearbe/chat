@@ -1,181 +1,104 @@
 import Foundation
-import UIKit
-import Security
 
-/// Ошибки сети
-enum NetworkError: LocalizedError {
-    case invalidURL
-    case noData
-    case decodingError(Error)
-    case serverError(Int, String?)
-    case unauthorized
-    case forbidden
-    case rateLimited(retryAfter: Int?)
-    case networkError(Error)
-    case unknown
-
-    var errorDescription: String? {
-        switch self {
-        case .invalidURL:
-            return "Неверный URL"
-        case .noData:
-            return "Нет данных от сервера"
-        case .decodingError(let error):
-            return "Ошибка декодирования: \(error.localizedDescription)"
-        case .serverError(let code, let message):
-            return "Ошибка сервера \(code): \(message ?? "неизвестно")"
-        case .unauthorized:
-            return "Не авторизован (401)"
-        case .forbidden:
-            return "Доступ запрещён (403)"
-        case .rateLimited(let retryAfter):
-            if let seconds = retryAfter {
-                return "Превышен лимит. Повторите через \(seconds) сек."
-            }
-            return "Превышен лимит запросов"
-        case .networkError(let error):
-            return "Ошибка сети: \(error.localizedDescription)"
-        case .unknown:
-            return "Неизвестная ошибка"
-        }
-    }
-}
-
-/// Actor для потокобезопасных сетевых запросов
-actor NetworkService {
-    private let session: URLSession
-    private let decoder = JSONDecoder()
-    private let encoder = JSONEncoder()
-    private let deviceName: String
+/// Сетевой сервис для работы с LM Studio API
+@MainActor
+final class NetworkService {
+    private let httpClient: HTTPClient
+    private let streamService: ChatStreamService
+    private let tokenKey: String
 
     init(deviceName: String = "Saint Celestine") {
-        self.deviceName = deviceName
-        let config = URLSessionConfiguration.default
-        let timeout: TimeInterval = 120
-        config.timeoutIntervalForRequest = timeout
-        config.timeoutIntervalForResource = timeout * 2
-        self.session = URLSession(configuration: config)
+        // Определяем ключ токена для устройства
+        self.tokenKey = DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.tokenKey ?? ""
+        
+        self.httpClient = HTTPClient()
+        self.streamService = ChatStreamService(httpClient: httpClient)
     }
 
-    private var authToken: String? {
-        let keychainKey = deviceName == "Saint Celestine" ? "auth_token_nearbe" : "auth_token_kotya"
-        return KeychainHelper.get(key: keychainKey)
-    }
+    // MARK: - API Methods
 
     /// Получить список доступных моделей
     func fetchModels() async throws -> [ModelInfo] {
-        guard let url = await AppConfig.shared.modelsURL else {
+        guard let url = AppConfig.shared.modelsURL else {
             throw NetworkError.invalidURL
         }
 
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        addAuthHeader(to: &request)
+        let (data, _) = try await httpClient.get(url: url)
+        let modelsResponse = try httpClient.decode(LMModelsResponse.self, from: data)
+        return modelsResponse.models
+    }
 
-        let (data, response) = try await session.data(for: request)
-        try handleResponse(response)
+    /// Загрузить модель в память
+    func loadModel(
+        model: String,
+        contextLength: Int? = nil,
+        flashAttention: Bool? = nil,
+        offloadKVCacheToGPU: Bool? = nil
+    ) async throws -> LMModelLoadResponse {
+        let baseURL = AppConfig.shared.baseURL
+        guard let url = URL(string: "\(baseURL)/api/v1/models/load") else {
+            throw NetworkError.invalidURL
+        }
 
-        let modelsResponse = try decoder.decode(ModelsResponse.self, from: data)
-        return modelsResponse.data
+        let loadRequest = LMModelLoadRequest(
+            model: model,
+            contextLength: contextLength,
+            evalBatchSize: nil,
+            flashAttention: flashAttention,
+            numExperts: nil,
+            offloadKVCacheToGPU: offloadKVCacheToGPU,
+            echoLoadConfig: true
+        )
+
+        let (data, _) = try await httpClient.post(url: url, body: loadRequest)
+        return try httpClient.decode(LMModelLoadResponse.self, from: data)
+    }
+
+    /// Выгрузить модель из памяти
+    func unloadModel(instanceId: String) async throws -> LMModelUnloadResponse {
+        let baseURL = AppConfig.shared.baseURL
+        guard let url = URL(string: "\(baseURL)/api/v1/models/unload") else {
+            throw NetworkError.invalidURL
+        }
+
+        let unloadRequest = LMModelUnloadRequest(instanceId: instanceId)
+
+        let (data, _) = try await httpClient.post(url: url, body: unloadRequest)
+        return try httpClient.decode(LMModelUnloadResponse.self, from: data)
+    }
+
+    /// Скачать модель
+    func downloadModel(model: String, quantization: String? = nil) async throws -> LMDownloadResponse {
+        let baseURL = AppConfig.shared.baseURL
+        guard let url = URL(string: "\(baseURL)/api/v1/models/download") else {
+            throw NetworkError.invalidURL
+        }
+
+        let downloadRequest = LMDownloadRequest(model: model, quantization: quantization)
+
+        let (data, _) = try await httpClient.post(url: url, body: downloadRequest)
+        return try httpClient.decode(LMDownloadResponse.self, from: data)
+    }
+
+    /// Получить статус скачивания
+    func getDownloadStatus(jobId: String) async throws -> LMDownloadStatus {
+        let baseURL = AppConfig.shared.baseURL
+        guard let url = URL(string: "\(baseURL)/api/v1/models/download/\(jobId)") else {
+            throw NetworkError.invalidURL
+        }
+
+        let (data, _) = try await httpClient.get(url: url)
+        return try httpClient.decode(LMDownloadStatus.self, from: data)
     }
 
     /// Streaming chat completion
-    func streamChat(request: ChatCompletionRequest) -> AsyncThrowingStream<ChatCompletionStreamPart, Error> {
-        AsyncThrowingStream { continuation in
-            let task = Task {
-                do {
-                    try Task.checkCancellation()
-
-                    guard let url = await AppConfig.shared.chatURL else {
-                        throw NetworkError.invalidURL
-                    }
-
-                    var urlRequest = URLRequest(url: url)
-                    urlRequest.httpMethod = "POST"
-                    urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                    urlRequest.setValue("text/event-stream", forHTTPHeaderField: "Accept")
-                    urlRequest.setValue("chunked", forHTTPHeaderField: "Transfer-Encoding")
-                    addAuthHeader(to: &urlRequest)
-
-                    urlRequest.httpBody = try encoder.encode(request)
-
-                    let (bytes, response) = try await session.bytes(for: urlRequest)
-                    try handleResponse(response)
-
-                    var buffer = ""
-
-                    for try await byte in bytes {
-                        try Task.checkCancellation()
-
-                        let char = Character(UnicodeScalar(byte))
-                        buffer.append(char)
-
-                        if char == "\n" {
-                            if let line = buffer.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty,
-                               line.hasPrefix("data: ") {
-                                let jsonString = String(line.dropFirst(6))
-                                if jsonString == "[DONE]" {
-                                    continuation.finish()
-                                    return
-                                }
-
-                                if let data = jsonString.data(using: .utf8) {
-                                    do {
-                                        let chunk = try decoder.decode(ChatCompletionStreamPart.self, from: data)
-                                        continuation.yield(chunk)
-                                    } catch {
-                                        // Логируем ошибку декодирования, но продолжаем
-                                        print("[NetworkService] Decode error: \(error.localizedDescription)")
-                                    }
-                                }
-                            }
-                            buffer = ""
-                        }
-                    }
-
-                    continuation.finish()
-                } catch is CancellationError {
-                    continuation.finish(throwing: CancellationError())
-                } catch {
-                    continuation.finish(throwing: error)
-                }
-            }
-
-            continuation.onTermination = { @Sendable _ in
-                task.cancel()
+    func streamChat(messages: [ChatMessage], model: String, temperature: Double?, maxTokens: Int?) -> AsyncThrowingStream<ChatCompletionStreamPart, Error> {
+        guard let url = AppConfig.shared.chatURL else {
+            return AsyncThrowingStream { continuation in
+                continuation.finish(throwing: NetworkError.invalidURL)
             }
         }
-    }
 
-    /// Добавить заголовок авторизации
-    private func addAuthHeader(to request: inout URLRequest) {
-        if let token = authToken {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        }
-    }
-
-    /// Обработать HTTP-ответ
-    private func handleResponse(_ response: URLResponse) throws {
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.unknown
-        }
-
-        switch httpResponse.statusCode {
-        case 200...299:
-            return
-        case 400:
-            throw NetworkError.serverError(400, "Неверный запрос")
-        case 401:
-            throw NetworkError.unauthorized
-        case 403:
-            throw NetworkError.forbidden
-        case 429:
-            let retryAfter = httpResponse.value(forHTTPHeaderField: "Retry-After").flatMap { Int($0) }
-            throw NetworkError.rateLimited(retryAfter: retryAfter)
-        case 500...503:
-            throw NetworkError.serverError(httpResponse.statusCode, "Сервер недоступен")
-        default:
-            throw NetworkError.serverError(httpResponse.statusCode, nil)
-        }
+        return streamService.streamChat(url: url, messages: messages, model: model, temperature: temperature, maxTokens: maxTokens)
     }
 }

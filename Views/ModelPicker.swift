@@ -51,12 +51,12 @@ struct ModelPicker: View {
             } label: {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(model.displayName)
+                        Text(model.name)
                             .font(.headline)
                             .foregroundStyle(.primary)
 
-                        if let ownedBy = model.ownedBy {
-                            Text(ownedBy)
+                        if let publisher = model.publisher {
+                            Text(publisher)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -80,8 +80,8 @@ struct ModelPicker: View {
 #Preview {
     ModelPicker(
         models: [
-            ModelInfo(id: "llama-3.2-3b-instruct", ownedBy: "meta"),
-            ModelInfo(id: "qwen-2.5-7b", ownedBy: "alibaba")
+            ModelInfo(id: "llama-3.2-3b-instruct"),
+            ModelInfo(id: "qwen-2.5-7b")
         ],
         selectedModel: .constant("llama-3.2-3b-instruct")
     )

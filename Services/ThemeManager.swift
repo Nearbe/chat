@@ -29,11 +29,20 @@ final class ThemeManager: ObservableObject {
         colorScheme = colorScheme == .light ? .dark : .light
     }
 
-    // MARK: - Цвета
+    // MARK: - Backward Compatibility (используйте AppColors)
 
-    static let primaryOrange = Color(hex: "#FF9F0A")!
-    static let primaryBlue = Color(hex: "#007AFF")!
-    static let successGreen = Color(hex: "#34C759")!
-    static let errorRed = Color(hex: "#FF3B30")!
-    static let warningOrange = Color(hex: "#FF9500")!
+    /// Основной оранжевый (для совместимости)
+    static let primaryOrange = AppColors.primaryOrange
+    
+    /// Основной синий (для совместимости)
+    static let primaryBlue = AppColors.primaryBlue
+    
+    /// Успех (для совместимости)
+    static let successGreen = AppColors.success
+    
+    /// Ошибка (для совместимости)
+    static let errorRed = AppColors.error
+    
+    /// Предупреждение (для совместимости)
+    static let warningOrange = AppColors.warning
 }

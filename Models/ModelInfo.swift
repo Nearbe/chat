@@ -1,35 +1,59 @@
 import Foundation
 
-/// Информация о доступной модели с LM Studio
+/// Информация о доступной модели с LM Studio (v1 API)
 struct ModelInfo: Codable, Identifiable, Hashable {
     let id: String
-    let object: String
-    let created: Int?
-    let ownedBy: String?
+    let type: String?
+    let publisher: String?
+    let displayName: String?
+    let architecture: String?
+    let quantization: ModelQuantization?
+    let sizeBytes: Int64?
+    let paramsString: String?
+    let maxContextLength: Int?
+    let format: String?
+    let capabilities: ModelCapabilities?
+    let description: String?
 
     enum CodingKeys: String, CodingKey {
-        case id
-        case object
-        case created
-        case ownedBy = "owned_by"
+        case id = "key"
+        case type
+        case publisher
+        case displayName = "display_name"
+        case architecture
+        case quantization
+        case sizeBytes = "size_bytes"
+        case paramsString = "params_string"
+        case maxContextLength = "max_context_length"
+        case format
+        case capabilities
+        case description
     }
 
-    init(id: String, object: String = "model", created: Int? = nil, ownedBy: String? = nil) {
+    /// Convenience initializer для превью
+    init(id: String, displayName: String? = nil) {
         self.id = id
-        self.object = object
-        self.created = created
-        self.ownedBy = ownedBy
+        self.type = nil
+        self.publisher = nil
+        self.displayName = displayName
+        self.architecture = nil
+        self.quantization = nil
+        self.sizeBytes = nil
+        self.paramsString = nil
+        self.maxContextLength = nil
+        self.format = nil
+        self.capabilities = nil
+        self.description = nil
+    }
+
+    /// ID модели (используется для API)
+    var modelId: String {
+        id
     }
 
     /// Отображаемое имя модели
-    var displayName: String {
-        id.replacingOccurrences(of: "ollama/", with: "")
-            .replacingOccurrences(of: "lmstudio/", with: "")
+    var name: String {
+        displayName ?? id.replacingOccurrences(of: "lmstudio-community/", with: "")
+            .replacingOccurrences(of: "ollama/", with: "")
     }
-}
-
-/// Ответ от /v1/models
-struct ModelsResponse: Codable {
-    let object: String
-    let data: [ModelInfo]
 }
