@@ -50,6 +50,7 @@
 		94CB5DADC34520D7FCA3FFF0 /* ChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BEAA7272777648A7960603 /* ChatApp.swift */; };
 		9927B733373AD7D8575A7DB9 /* LMSEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21062F7236C8B1C69E25A609 /* LMSEvent.swift */; };
 		9C85D6D4C2F4AAAB09E2DA67 /* LMChatRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D078672082FDDF1C16F7C9 /* LMChatRequest.swift */; };
+		9DE7ADDBEEAA7DC0F591353F /* ShieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AF07475E78E88E07CD216B /* ShieldView.swift */; };
 		9E13CE00E3A070DB4C2CB9B7 /* LMProviderInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E00852E7B6DF25F8836EA94 /* LMProviderInfo.swift */; };
 		9F91A719B596F7D0614BCF9E /* StreamChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD58051AC67338003A5833 /* StreamChoice.swift */; };
 		A0DCC6ACD120CA287A931049 /* ChatCompletionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C430AA3D520F69C3E92A4 /* ChatCompletionRequest.swift */; };
@@ -97,6 +98,7 @@
 		0881CA08A7EAFF4BE0064D59 /* LMModelUnloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMModelUnloadRequest.swift; sourceTree = "<group>"; };
 		0D18F967F63AA908D5625285 /* AnyCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCodable.swift; sourceTree = "<group>"; };
 		11B4F298F6366B5E12EA54CE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		14AF07475E78E88E07CD216B /* ShieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldView.swift; sourceTree = "<group>"; };
 		14BEF283365442C007EF7C2D /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		1B0587BB00D44CFF93234F76 /* ModelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInfo.swift; sourceTree = "<group>"; };
 		1D3BCDC49A426DDDE1CE8324 /* Chat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chat.entitlements; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				CAC39884BFB6D3276838C50E /* CopyButton.swift */,
 				55985AED92709D9A64B77BA6 /* GenerationStatsView.swift */,
 				8721807DD83D0BBB7FFC6C87 /* MessageBubble.swift */,
+				14AF07475E78E88E07CD216B /* ShieldView.swift */,
 				04661FB1B71B38A211C19B5B /* StatusBadgeView.swift */,
 				D5DCB1A91A58A0A0FEF0E15A /* StatusIndicator.swift */,
 				A8E1E4C66BBAE3C260885D17 /* ThinkingBlock.swift */,
@@ -517,6 +520,7 @@
 				CB9915319003DC8C221B0AA9 /* PersistenceController.swift in Sources */,
 				EE59DE73BA9136888BCED09B /* PrimaryButtonStyle.swift in Sources */,
 				E71C9DAB684C816713EA6951 /* SSEParser.swift in Sources */,
+				9DE7ADDBEEAA7DC0F591353F /* ShieldView.swift in Sources */,
 				63C2C786DBFE38AA14147427 /* Spacing.swift in Sources */,
 				4BC6CB1513ACBD7AFD6E61B3 /* StatusBadgeView.swift in Sources */,
 				8DBC9CDFDB1A509FAAC78B5F /* StatusIndicator.swift in Sources */,
