@@ -14,17 +14,47 @@ struct Check: AsyncParsableCommand {
         let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
         print("🚀  Начало технической проверки...")
 
-        var allResults: [CheckStepResult] = []
-        allResults += await runLintAndProjectChecks()
+        // Получаем список изменённых файлов
+        let changedFiles = try await getChangedFiles()
+        let hasChanges = !changedFiles.isEmpty
 
-        let infra = await runInfrastructure()
+        if !hasChanges {
+            print("ℹ️  Изменений не обнаружено. Пропускаем все проверки.")
+            print("ℹ️  Для принудительного запуска используйте: git add . && ./scripts check")
+            return
+        }
+
+        print("📝  Изменённые файлы: \(changedFiles.count)")
+        print("   Файлы: \(changedFiles.prefix(5).joined(separator: ", "))\(changedFiles.count > 5 ? "..." : "")")
+
+        var allResults: [CheckStepResult] = []
+
+        // SwiftLint — только если есть изменения в .swift
+        if needsSwiftLint(files: changedFiles) {
+            allResults += await runLintAndProjectChecks()
+        } else {
+            print("🔍  Пропускаем SwiftLint (нет изменений в .swift файлах)")
+            allResults.append(.success(step: "SwiftLint", duration: 0))
+            allResults.append(.success(step: "ProjectChecker", duration: 0))
+        }
+
+        // Инфраструктура
+        let infra = await runInfrastructure(skipXcodeGen: !needsXcodeGen(files: changedFiles),
+                                             skipSwiftGen: !needsSwiftGen(files: changedFiles))
         allResults.append(infra.xcodegen)
         allResults.append(infra.swiftgen)
 
         if case .failure = infra.xcodegen {
             print("⚠️  XcodeGen завершился с ошибкой, этап тестирования будет пропущен.")
         } else {
-            allResults += await runAllTests(device: device)
+            // Тесты — только если есть изменения
+            if needsUnitTests(files: changedFiles) || needsUITests(files: changedFiles) {
+                allResults += await runAllTests(device: device, changedFiles: changedFiles)
+            } else {
+                print("🧪  Пропускаем тесты (нет изменений в коде)")
+                allResults.append(.success(step: "Unit Tests", duration: 0))
+                allResults.append(.success(step: "UI Tests", duration: 0))
+            }
         }
 
         let hasProblems = printSummary(results: allResults)
@@ -51,21 +81,42 @@ struct Check: AsyncParsableCommand {
         return await [lintResult, checkerResult]
     }
 
-    private func runInfrastructure() async -> (xcodegen: CheckStepResult, swiftgen: CheckStepResult) {
+    private func runInfrastructure(skipXcodeGen: Bool, skipSwiftGen: Bool) async -> (xcodegen: CheckStepResult, swiftgen: CheckStepResult) {
         print("🛠️  Подготовка инфраструктуры...")
-        async let xcodegen = performStep("XcodeGen", emoji: "🛠️") {
-            try await Shell.run("xcodegen generate", quiet: true, logName: "XcodeGen")
+
+        var xcodegenResult: CheckStepResult = .success(step: "XcodeGen", duration: 0)
+        var swiftgenResult: CheckStepResult = .success(step: "SwiftGen", duration: 0)
+
+        if skipXcodeGen {
+            print("🛠️  Пропускаем XcodeGen (нет изменений в project.yml)")
+        } else {
+            xcodegenResult = await performStep("XcodeGen", emoji: "🛠️") {
+                try await Shell.run("xcodegen generate", quiet: true, logName: "XcodeGen")
+            }
         }
-        async let swiftgen = performStep("SwiftGen", emoji: "⚙️") {
-            try await runSwiftGen()
+
+        if skipSwiftGen {
+            print("⚙️  Пропускаем SwiftGen (нет изменений в дизайн-системе)")
+        } else {
+            swiftgenResult = await performStep("SwiftGen", emoji: "⚙️") {
+                try await runSwiftGen()
+            }
         }
-        return await (xcodegen, swiftgen)
+
+        return (xcodegenResult, swiftgenResult)
     }
 
-    private func runAllTests(device: String) async -> [CheckStepResult] {
+    private func runAllTests(device: String, changedFiles: [String]) async -> [CheckStepResult] {
         var results: [CheckStepResult] = []
-        results.append(await runUnitTests(device: device))
-        results.append(await runUITests(device: device))
+
+        if needsUnitTests(files: changedFiles) {
+            results.append(await runUnitTests(device: device))
+        }
+
+        if needsUITests(files: changedFiles) {
+            results.append(await runUITests(device: device))
+        }
+
         return results
     }
 
@@ -218,6 +269,50 @@ extension Check {
                 return "Низкое покрытие кода для \(target): \(String(format: "%.2f", actual))% (ожидается \(String(format: "%.2f", expected))%)"
             }
         }
+    }
+}
+
+// MARK: - Умный запуск проверок на основе изменений
+extension Check {
+    /// Получает список изменённых файлов относительно последнего коммита
+    func getChangedFiles() async throws -> [String] {
+        let output = try await Shell.run("git diff --name-only HEAD", quiet: true)
+        return output.components(separatedBy: .newlines).filter { !$0.isEmpty }
+    }
+
+    /// Проверяет, есть ли изменения в Swift-файлах (для SwiftLint)
+    func needsSwiftLint(files: [String]) -> Bool {
+        files.contains { $0.hasSuffix(".swift") }
+    }
+
+    /// Проверяет, нужно ли запускать XcodeGen (изменения в project.yml или конфигах)
+    func needsXcodeGen(files: [String]) -> Bool {
+        files.contains { $0 == "project.yml" || $0.hasPrefix("Tools/") }
+    }
+
+    /// Проверяет, нужно ли запускать SwiftGen (изменения в дизайн-системе или конфигах)
+    func needsSwiftGen(files: [String]) -> Bool {
+        let designFiles = files.filter { $0.hasPrefix("Design/") || $0.hasPrefix("Resources/") }
+        return !designFiles.isEmpty || files.contains { $0 == "swiftgen.yml" }
+    }
+
+    /// Проверяет, нужно ли запускать Unit-тесты
+    func needsUnitTests(files: [String]) -> Bool {
+        let testFiles = files.filter {
+            $0.hasPrefix("ChatTests/") || $0.hasPrefix("Chat/") ||
+            $0.hasPrefix("Features/") || $0.hasPrefix("Services/") ||
+            $0.hasPrefix("Models/") || $0.hasPrefix("Core/") ||
+            $0.hasPrefix("Data/")
+        }
+        return !testFiles.isEmpty
+    }
+
+    /// Проверяет, нужно ли запускать UI-тесты
+    func needsUITests(files: [String]) -> Bool {
+        let uiTestFiles = files.filter {
+            $0.hasPrefix("ChatUITests/") || $0.hasPrefix("Features/")
+        }
+        return !uiTestFiles.isEmpty
     }
 }
 

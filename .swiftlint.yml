@@ -98,6 +98,7 @@ excluded:
   - Resources
   - Design/Generated
   - Tools/Scripts/.build
+  - Tools/Scripts
   - .build
   - build/
   - chatbuild/

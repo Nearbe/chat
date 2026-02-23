@@ -1,3 +1,7 @@
+---
+apply: by model decision
+---
+
 # Chat Project — AI Rules
 
 Правила для JetBrains AI Assistant. Применяются ко всем файлам проекта.
