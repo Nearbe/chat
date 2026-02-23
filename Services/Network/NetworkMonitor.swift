@@ -1,11 +1,23 @@
 import Foundation
 import Network
+import Combine
+
+/// Протокол для монитора сетевого подключения
+@MainActor
+protocol NetworkMonitoring: AnyObject {
+    var isConnected: Bool { get }
+    var isConnectedPublisher: AnyPublisher<Bool, Never> { get }
+}
 
 /// Монитор сетевого подключения
 @MainActor
-final class NetworkMonitor: ObservableObject {
+final class NetworkMonitor: ObservableObject, NetworkMonitoring {
     @Published private(set) var isConnected: Bool = true
     @Published private(set) var isWifiOrEthernet: Bool = true
+    
+    var isConnectedPublisher: AnyPublisher<Bool, Never> {
+        $isConnected.eraseToAnyPublisher()
+    }
     
     private let pathMonitor = NWPathMonitor()
     private let monitorQueue = DispatchQueue(label: "NetworkMonitor")

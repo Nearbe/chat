@@ -31,8 +31,8 @@ final class ChatViewModel: ObservableObject {
     private var _currentSession: ChatSession?
     
     private var sessionManager: ChatSessionManager?
-    private var chatService: ChatService?
-    private var networkMonitor: NetworkMonitor?
+    private var chatService: ChatServiceProtocol?
+    private var networkMonitor: NetworkMonitoring?
     private var cancellables = Set<AnyCancellable>()
     private var streamingTask: Task<Void, Never>?
     private var generationStartTime: Date?
@@ -44,14 +44,14 @@ final class ChatViewModel: ObservableObject {
     ///   - networkMonitor: Монитор сетевого подключения
     func setup(
         sessionManager: ChatSessionManager,
-        chatService: ChatService,
-        networkMonitor: NetworkMonitor
+        chatService: ChatServiceProtocol,
+        networkMonitor: NetworkMonitoring
     ) {
         self.sessionManager = sessionManager
         self.chatService = chatService
         self.networkMonitor = networkMonitor
         
-        networkMonitor.$isConnected
+        networkMonitor.isConnectedPublisher
             .receive(on: RunLoop.main)
             .assign(to: \.isConnected, on: self)
             .store(in: &cancellables)
@@ -86,7 +86,7 @@ final class ChatViewModel: ObservableObject {
             isModelSelected = !config.selectedModel.isEmpty
         } catch {
             availableModels = []
-            isServerReachable = isConnected
+            isServerReachable = false
             isModelSelected = !config.selectedModel.isEmpty
         }
     }

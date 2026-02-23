@@ -50,6 +50,7 @@ struct MessageInputView: View {
                 )
                 .accessibilityLabel("Ввод сообщения")
                 .accessibilityHint("Введите текст сообщения")
+                .accessibilityIdentifier("message_input_field")
 
             sendButton
         }
@@ -76,5 +77,6 @@ struct MessageInputView: View {
         .opacity(isGenerating || (!inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty 
                                   && isServerReachable && !selectedModel.isEmpty) ? 1.0 : 0.5)
         .accessibilityLabel(isGenerating ? "Остановить генерацию" : "Отправить сообщение")
+        .accessibilityIdentifier("send_button")
     }
 }

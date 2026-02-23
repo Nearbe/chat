@@ -65,9 +65,11 @@ struct HistoryView: View {
             Image(systemName: "tray")
                 .font(.system(size: 60))
                 .foregroundStyle(.secondary)
+                .accessibilityHidden(true)
 
             Text("Нет истории")
                 .font(.headline)
+                .accessibilityAddTraits(.isHeader)
 
             Text("Ваши чаты появятся здесь")
                 .font(.subheadline)

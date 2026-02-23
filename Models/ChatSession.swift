@@ -128,7 +128,7 @@ final class ChatSession {
     /// Используется при создании нового сообщения
     var nextMessageIndex: Int {
         // Берем максимальный индекс или -1 если нет сообщений
-        messages.map(\.index).max() ?? -1 + 1
+        (messages.map(\.index).max() ?? -1) + 1
     }
 }
 

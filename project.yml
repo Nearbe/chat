@@ -13,6 +13,9 @@ packages:
   Pulse:
     url: https://github.com/kean/Pulse.git
     from: 4.0.0
+  SnapshotTesting:
+    url: https://github.com/pointfreeco/swift-snapshot-testing.git
+    from: 1.15.4
 
 settings:
   base:
@@ -105,6 +108,8 @@ targets:
       - path: ChatTests
     dependencies:
       - target: Chat
+      - package: SnapshotTesting
+        product: SnapshotTesting
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES

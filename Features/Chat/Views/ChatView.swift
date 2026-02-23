@@ -275,15 +275,18 @@ struct ChatView: View {
                 viewModel.saveToken(token)
             }
             .frame(width: 280, height: 280)
+            .accessibilityIdentifier("shield_view")
 
             Text("Требуется токен")
                 .font(.headline)
+                .accessibilityAddTraits(.isHeader)
 
             Text("Скопируйте токен и нажмите на щит")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
+                .accessibilityLabel("Инструкция: Скопируйте токен и нажмите на щит для ввода")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -299,10 +302,13 @@ struct ChatView: View {
 
             Text("Начните разговор")
                 .font(.headline)
+                .accessibilityIdentifier("empty_state_text")
+                .accessibilityAddTraits(.isHeader)
 
             Text("Отправьте сообщение, чтобы получить ответ от AI")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+                .accessibilityLabel("Описание: Отправьте сообщение, чтобы получить ответ от искусственного интеллекта")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

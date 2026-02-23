@@ -20,6 +20,7 @@ struct SessionRowView: View {
 
                         Text("•")
                             .foregroundStyle(.secondary)
+                            .accessibilityHidden(true)
 
                         Text("\(session.messageCount) сообщений")
                             .font(.caption)
@@ -28,6 +29,7 @@ struct SessionRowView: View {
                         if session.modelName != "default" {
                             Text("•")
                                 .foregroundStyle(.secondary)
+                                .accessibilityHidden(true)
 
                             Text(session.modelName)
                                 .font(.caption)
@@ -42,9 +44,13 @@ struct SessionRowView: View {
                 Image(systemName: "chevron.right")
                     .font(.caption)
                     .foregroundStyle(.tertiary)
+                    .accessibilityHidden(true)
             }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Чат: \(session.title). \(session.messageCount) сообщений. Дата: \(session.formattedDate).")
+        .accessibilityHint("Нажмите, чтобы открыть этот чат")
     }
 }

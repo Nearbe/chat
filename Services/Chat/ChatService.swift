@@ -1,8 +1,20 @@
 import Foundation
 
+/// Протокол для сервиса чата
+@MainActor
+protocol ChatServiceProtocol: AnyObject {
+    func fetchModels() async throws -> [ModelInfo]
+    func streamChat(
+        messages: [ChatMessage],
+        model: String,
+        temperature: Double?,
+        maxTokens: Int?
+    ) -> AsyncThrowingStream<ChatCompletionStreamPart, Error>
+}
+
 /// Сервис для управления бизнес-логикой чата
 @MainActor
-final class ChatService: ObservableObject {
+final class ChatService: ObservableObject, ChatServiceProtocol {
     private let networkService: NetworkService
     
     init(networkService: NetworkService) {
