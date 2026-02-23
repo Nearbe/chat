@@ -10,31 +10,76 @@ struct Check: AsyncParsableCommand {
     func run() async throws {
         let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
         
-        print("🚀  Начало технической проверки...")
+        print("🚀  Начало технической проверки (Асинхронный режим)...")
         
-        // Группа 1: Генерация и линтинг (Параллельно)
-        print("⏳  Этап 1: Генерация и статический анализ...")
-        try await withThrowingTaskGroup(of: Void.self) { group in
-            group.addTask { try await Shell.run("xcodegen generate") }
-            group.addTask { try await Shell.run("swiftlint --strict") }
-            group.addTask { try await runSwiftGen() }
-        }
-        
-        // Группа 2: Debug Build
-        print("🔨  Этап 2: Сборка Debug версии...")
-        try await Shell.run("xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Debug -destination \"\(device)\" build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO")
-        
-        // Группа 3: Тесты и Release Build (Параллельно)
-        print("🧪  Этап 3: Тестирование и сборка Release версии...")
-        try await withThrowingTaskGroup(of: Void.self) { group in
-            group.addTask {
-                print("🧪  Запуск тестов...")
-                try? FileManager.default.removeItem(atPath: "TestResult.xcresult")
-                try await Shell.run("xcodebuild -project Chat.xcodeproj -scheme Chat -destination \"\(device)\" -enableCodeCoverage YES -resultBundlePath TestResult.xcresult test CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | grep -E \"Test Suite|passed|failed|skipped\"")
+        try await withThrowingTaskGroup(of: Void.self) { mainGroup in
+            // 1. Параллельный линтинг
+            mainGroup.addTask {
+                print("🔍  Запуск SwiftLint...")
+                try await Shell.run("swiftlint --strict")
+                print("✅  SwiftLint завершен успешно.")
             }
-            group.addTask {
-                print("📦  Сборка релизной версии...")
-                try await Shell.run("xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Release -destination \"generic/platform=iOS\" SYMROOT=\"$(pwd)/build\" build")
+            
+            // 2. Группа генерации и последующей сборки/тестирования
+            mainGroup.addTask {
+                // Сначала инфраструктура (XcodeGen + SwiftGen)
+                print("🏗️  Этап 1: Подготовка инфраструктуры...")
+                try await withThrowingTaskGroup(of: Void.self) { genGroup in
+                    genGroup.addTask { 
+                        print("📦  Генерация проекта (XcodeGen)...")
+                        try await Shell.run("xcodegen generate") 
+                    }
+                    genGroup.addTask { 
+                        print("🎨  Генерация ресурсов (SwiftGen)...")
+                        try await runSwiftGen() 
+                    }
+                }
+                
+                // Как только генерация завершена, запускаем сборку и тесты параллельно
+                print("🧪  Этап 2: Сборка и тестирование (Параллельно)...")
+                try await withThrowingTaskGroup(of: Void.self) { buildGroup in
+                    // Unit + UI тесты
+                    buildGroup.addTask {
+                        print("🧪  Запуск тестов (Unit + UI) с распараллеливанием...")
+                        try? FileManager.default.removeItem(atPath: "TestResult.xcresult")
+                        
+                        // -parallel-testing-enabled YES позволяет xcodebuild запускать тесты в несколько потоков
+                        let testCommand = [
+                            "xcodebuild",
+                            "-project Chat.xcodeproj",
+                            "-scheme Chat",
+                            "-destination \"\(device)\"",
+                            "-enableCodeCoverage YES",
+                            "-resultBundlePath TestResult.xcresult",
+                            "-parallel-testing-enabled YES",
+                            "test",
+                            "CODE_SIGNING_ALLOWED=NO",
+                            "CODE_SIGNING_REQUIRED=NO",
+                            "| grep -E \"Test Suite|passed|failed|skipped\""
+                        ].joined(separator: " ")
+                        
+                        try await Shell.run(testCommand)
+                        print("✅  Все тесты пройдены успешно.")
+                    }
+                    
+                    // Релизная сборка
+                    buildGroup.addTask {
+                        print("📦  Сборка Release версии...")
+                        let releaseCommand = [
+                            "xcodebuild",
+                            "-quiet",
+                            "-project Chat.xcodeproj",
+                            "-scheme Chat",
+                            "-configuration Release",
+                            "-destination \"generic/platform=iOS\"",
+                            "SYMROOT=\"$(pwd)/build\"",
+                            "build"
+                        ].joined(separator: " ")
+                        
+                        try await Shell.run(releaseCommand)
+                        print("✅  Release сборка завершена.")
+                    }
+                }
             }
         }
         
