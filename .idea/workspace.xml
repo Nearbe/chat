@@ -150,6 +150,12 @@
     </configuration>
     <list>
       <item itemvalue="Swift Package Run.Scripts" />
+      <item itemvalue="Xcode Application.Chat" />
+      <item itemvalue="Xcode Application.📚 Download Docs" />
+      <item itemvalue="Xcode Application.🔐 Configure Sudo" />
+      <item itemvalue="Xcode Application.🔗 Update Docs Links" />
+      <item itemvalue="Xcode Application.🚢 Ship" />
+      <item itemvalue="Xcode Application.🛠️ Setup" />
       <item itemvalue="Xcode Application.🔍 Check" />
     </list>
   </component>
@@ -175,7 +181,7 @@
       <workItem from="1771853015410" duration="513000" />
       <workItem from="1771853540097" duration="1570000" />
       <workItem from="1771855122770" duration="4469000" />
-      <workItem from="1771859742990" duration="1764000" />
+      <workItem from="1771859742990" duration="2078000" />
     </task>
     <servers />
   </component>
