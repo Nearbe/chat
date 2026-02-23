@@ -143,21 +143,6 @@ targets:
         MACOSX_DEPLOYMENT_TARGET: "14.0"
         SWIFT_VERSION: "6.0"
 
-  RunCheck:
-    type: tool
-    platform: macOS
-    sources:
-      - path: run-check.sh
-        buildPhase: none
-    settings:
-      base:
-        MACOSX_DEPLOYMENT_TARGET: "14.0"
-        SWIFT_VERSION: "6.0"
-        SKIP_INSTALL: "YES"
-        LD_RUNPATH_SEARCH_PATHS:
-          - "@executable_path"
-          - "@loader_path"
-
 schemes:
   Chat:
     build:
@@ -181,38 +166,39 @@ schemes:
     build:
       targets:
         Scripts: all
-    run:
-      executable: Scripts
+    runnable:
+      target: Scripts
       arguments: setup
+      type: tool
   "🔍 Check":
     build:
       targets:
         Scripts: all
-    run:
-      executable: Scripts
+    runnable:
+      target: Scripts
       arguments: check
-      preActions:
-        - script: |
-            # Pre-run: ensure binary is built
-          name: Build Scripts
+      type: tool
   "🚢 Ship":
     build:
       targets:
         Scripts: all
-    run:
-      executable: Scripts
+    runnable:
+      target: Scripts
       arguments: ship
+      type: tool
   "📚 Download Docs":
     build:
       targets:
         Scripts: all
-    run:
-      executable: Scripts
+    runnable:
+      target: Scripts
       arguments: download-docs
+      type: tool
   "🔐 Configure Sudo":
     build:
       targets:
         Scripts: all
-    run:
-      executable: Scripts
+    runnable:
+      target: Scripts
       arguments: configure-sudo
+      type: tool

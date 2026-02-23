@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Получаем абсолютный путь к директории, где лежит этот скрипт
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# Передаем все аргументы в swift run для пакета в Tools/Scripts
-# Используем абсолютный путь к пакету
-swift run --package-path "$SCRIPT_DIR/Tools/Scripts" scripts "$@"
