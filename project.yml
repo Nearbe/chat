@@ -202,3 +202,11 @@ schemes:
       config: Debug
       commandLineArguments:
         configure-sudo: true
+  "🔗 Update Docs Links":
+    build:
+      targets:
+        Scripts: all
+    run:
+      config: Debug
+      commandLineArguments:
+        update-docs-links: true
