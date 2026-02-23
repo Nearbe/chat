@@ -27,17 +27,16 @@ DEVICE="Saint Celestine" # Имя устройства (iPhone 16 Pro Max)
 # Путь к собранному приложению (используем относительный путь для универсальности)
 APP_PATH="./build/Release-iphoneos/Chat.app"
 
-# Сборка проекта через xcodebuild
-echo "🔨 Сборка проекта (Build Release)..."
-# Собираем в локальную папку build для надежности
-xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Release \
-    -destination "platform=iOS,name=$DEVICE" \
-    SYMROOT="$(pwd)/build" \
-    build
+# Проверка на наличие собранного приложения
+if [ ! -d "$APP_PATH" ]; then
+  echo "❌ Ошибка: Релизная сборка не найдена."
+  echo "💡 Запустите техническую проверку для сборки: ./check.sh"
+  exit 1
+fi
 
 # Установка приложения на устройство
 echo "📱 Установка на устройство (Install)..."
-xcrun devicectl device install app --device "$DEVICE" $APP_PATH
+xcrun devicectl device install app --device "$DEVICE" "$APP_PATH"
 
 # Запуск приложения на устройстве
 echo "🚀 Запуск (Launch)..."

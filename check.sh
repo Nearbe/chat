@@ -45,6 +45,12 @@ xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Debug -des
 echo "🧪 Запуск тестов (Test)..."
 xcodebuild -project Chat.xcodeproj -scheme Chat -destination "$DEVICE" test CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | grep -E "Test Suite|passed|failed|skipped"
 
+echo "📦 Сборка релизной версии (Release Build)..."
+xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Release \
+    -destination "generic/platform=iOS" \
+    SYMROOT="$(pwd)/build" \
+    build
+
 echo "✅ Техническая проверка завершена!"
 
 # --- Новая логика коммита и отправки ---
