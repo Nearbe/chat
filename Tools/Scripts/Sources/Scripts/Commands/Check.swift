@@ -81,10 +81,15 @@ struct Check: AsyncParsableCommand {
                 "test",
                 "CODE_SIGNING_ALLOWED=NO",
                 "CODE_SIGNING_REQUIRED=NO",
-                "2>&1 | grep -E \"Test Suite|passed|failed|skipped\""
+                "2>&1 | grep -E \"Test Suite|passed|failed|skipped|warning:\""
             ].joined(separator: " ")
 
-            try await Shell.run(testCommand, failOnWarnings: false)
+            let allowedWarnings = [
+                "Metadata extraction skipped. No AppIntents.framework dependency found.",
+                "Ignoring --strip-bitcode because --sign was not passed"
+            ]
+
+            try await Shell.run(testCommand, failOnWarnings: true, allowedWarnings: allowedWarnings)
             // Временно ожидаем 50% покрытия, согласно плану (~50%)
             try await checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 50.0)
         })
@@ -166,34 +171,10 @@ struct Check: AsyncParsableCommand {
             print("❌ [\(duration)] \(info.step): ОШИБКА (Failed)")
         }
     }
+}
 
-    private func printWarningsDetails(_ warnings: [CheckStepResult]) {
-        print("\n" + String(repeating: "-", count: 60))
-        print("⚠️  ДЕТАЛИ ПРЕДУПРЕЖДЕНИЙ:")
-        for (index, warning) in warnings.enumerated() {
-            if case .warning(let step, let command, let output, _) = warning {
-                print("\n[\(index + 1)] Шаг: \(step)")
-                if let command = command { print("Команда: \(command)") }
-                print("Вывод:\n\(output)")
-            }
-        }
-    }
-
-    private func printFailuresDetails(_ failures: [CheckStepResult]) {
-        print("\n" + String(repeating: "-", count: 60))
-        print("❌  ДЕТАЛИ ОШИБОК:")
-        for (index, failure) in failures.enumerated() {
-            if case .failure(let info) = failure {
-                print("\n[\(index + 1)] Шаг: \(info.step)")
-                if let command = info.command { print("Команда: \(command)") }
-                print("Ошибка: \(info.error.localizedDescription)")
-                if let output = info.output, !output.isEmpty {
-                    print("Вывод:\n\(output)")
-                }
-            }
-        }
-    }
-
+// MARK: - Вспомогательные структуры
+extension Check {
     struct CheckStepFailureInfo {
         let step: String
         let command: String?
@@ -218,6 +199,50 @@ struct Check: AsyncParsableCommand {
 
         static func failure(step: String, command: String?, output: String?, error: Error, duration: TimeInterval) -> CheckStepResult {
             .failure(info: CheckStepFailureInfo(step: step, command: command, output: output, error: error, duration: duration))
+        }
+    }
+
+    enum CheckError: Error, LocalizedError {
+        case coverageCheckFailed(String)
+        case lowCoverage(target: String, actual: Double, expected: Double)
+
+        var errorDescription: String? {
+            switch self {
+            case .coverageCheckFailed(let message):
+                return "Ошибка проверки покрытия: \(message)"
+            case .lowCoverage(let target, let actual, let expected):
+                return "Низкое покрытие кода для \(target): \(String(format: "%.2f", actual))% (ожидается \(String(format: "%.2f", expected))%)"
+            }
+        }
+    }
+}
+
+// MARK: - Детализированный вывод и вспомогательные функции
+extension Check {
+    private func printWarningsDetails(_ warnings: [CheckStepResult]) {
+        print("\n" + String(repeating: "-", count: 60))
+        print("⚠️  ДЕТАЛИ ПРЕДУПРЕЖДЕНИЙ:")
+        for (index, warning) in warnings.enumerated() {
+            if case .warning(let step, let command, let output, _) = warning {
+                print("\n[\(index + 1)] Шаг: \(step)")
+                if let command = command { print("Команда: \(command)") }
+                print("Вывод:\n\(output)")
+            }
+        }
+    }
+
+    private func printFailuresDetails(_ failures: [CheckStepResult]) {
+        print("\n" + String(repeating: "-", count: 60))
+        print("❌  ДЕТАЛИ ОШИБОК:")
+        for (index, failure) in failures.enumerated() {
+            if case .failure(let info) = failure {
+                print("\n[\(index + 1)] Шаг: \(info.step)")
+                if let command = info.command { print("Команда: \(command)") }
+                print("Ошибка: \(info.error.localizedDescription)")
+                if let output = info.output, !output.isEmpty {
+                    print("Вывод:\n\(output)")
+                }
+            }
         }
     }
 
@@ -259,8 +284,6 @@ struct Check: AsyncParsableCommand {
             throw CheckError.coverageCheckFailed("Не удалось распарсить JSON отчета о покрытии")
         }
 
-        // Упрощенный парсинг JSON для поиска покрытия таргета
-        // Структура xccov JSON: { "targets": [ { "name": "Chat.app", "lineCoverage": 0.85, ... } ] }
         if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
            let targets = json["targets"] as? [[String: Any]] {
             for target in targets {
@@ -276,21 +299,6 @@ struct Check: AsyncParsableCommand {
                 }
             }
         }
-
         throw CheckError.coverageCheckFailed("Таргет \(targetName) не найден в отчете о покрытии")
-    }
-
-    enum CheckError: Error, LocalizedError {
-        case coverageCheckFailed(String)
-        case lowCoverage(target: String, actual: Double, expected: Double)
-
-        var errorDescription: String? {
-            switch self {
-            case .coverageCheckFailed(let message):
-                return "Ошибка проверки покрытия: \(message)"
-            case .lowCoverage(let target, let actual, let expected):
-                return "Низкое покрытие кода для \(target): \(String(format: "%.2f", actual))% (ожидается \(String(format: "%.2f", expected))%)"
-            }
-        }
     }
 }

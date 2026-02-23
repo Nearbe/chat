@@ -23,7 +23,8 @@ public enum Shell {
         environment: [String: String]? = nil,
         quiet: Bool = false,
         isInteractive: Bool = false,
-        failOnWarnings: Bool = true
+        failOnWarnings: Bool = true,
+        allowedWarnings: [String] = []
     ) async throws -> String {
         if !quiet {
             print("▶️  Запуск: \(command)")
@@ -49,7 +50,8 @@ public enum Shell {
             command: command,
             outputPipe: outputPipe,
             errorPipe: errorPipe,
-            failOnWarnings: failOnWarnings
+            failOnWarnings: failOnWarnings,
+            allowedWarnings: allowedWarnings
         )
     }
 
@@ -86,7 +88,8 @@ public enum Shell {
         command: String,
         outputPipe: Pipe,
         errorPipe: Pipe,
-        failOnWarnings: Bool
+        failOnWarnings: Bool,
+        allowedWarnings: [String] = []
     ) async throws -> String {
         // Читаем из пайпов в параллельных задачах, чтобы избежать дедлоков при переполнении буферов
         async let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
@@ -101,7 +104,7 @@ public enum Shell {
         let error = String(data: finalErrorData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
         if failOnWarnings {
-            try checkForWarnings(output: output, error: error, command: command)
+            try checkForWarnings(output: output, error: error, command: command, allowedWarnings: allowedWarnings)
         }
 
         if process.terminationStatus != 0 {
@@ -116,11 +119,40 @@ public enum Shell {
         return output
     }
 
-    private static func checkForWarnings(output: String, error: String, command: String) throws {
-        let combinedOutput = "\(output)\n\(error)".lowercased()
+    private static func checkForWarnings(output: String, error: String, command: String, allowedWarnings: [String]) throws {
+        let fullOutput = "\(output)\n\(error)"
+        let lowercasedOutput = fullOutput.lowercased()
         let warningKeywords = ["warning:", "ignoring --strip-bitcode"]
-        for keyword in warningKeywords where combinedOutput.contains(keyword.lowercased()) {
-            throw ShellError.warningsFound(command: command, output: output + "\n" + error)
+
+        // Сначала проверяем на наличие предупреждений
+        var hasWarning = false
+        for keyword in warningKeywords where lowercasedOutput.contains(keyword.lowercased()) {
+            hasWarning = true
+            break
+        }
+
+        guard hasWarning else { return }
+
+        // Список ключевых слов, которые мы считаем предупреждениями и которые нужно проверять в реестре
+        let warningStartKeywords = ["warning:", "ignoring --strip-bitcode"]
+
+        // Если нашли предупреждение, проверяем, не входит ли оно в список разрешенных
+        // Мы разбиваем вывод по строкам, чтобы точнее сопоставлять паттерны
+        let lines = fullOutput.components(separatedBy: .newlines)
+        for line in lines {
+            let lowercasedLine = line.lowercased()
+            let isWarningLine = warningStartKeywords.contains { lowercasedLine.contains($0.lowercased()) }
+
+            if isWarningLine {
+                let isAllowed = allowedWarnings.contains { pattern in
+                    line.contains(pattern) || lowercasedLine.contains(pattern.lowercased())
+                }
+
+                if !isAllowed {
+                    // Нашли предупреждение, которого нет в списке исключений
+                    throw ShellError.warningsFound(command: command, output: fullOutput)
+                }
+            }
         }
     }
 }
