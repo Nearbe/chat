@@ -49,6 +49,7 @@ included:
 excluded:
   - Chat.xcodeproj
   - Resources
+  - Design/Generated
 
 analyzer_rules:
   - unused_import

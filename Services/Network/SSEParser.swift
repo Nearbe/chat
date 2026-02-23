@@ -70,6 +70,7 @@ struct SSEParser {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
     /// Преобразование сырого события API в типизированное внутреннее событие ParsedEvent.
     private mutating func mapEvent(_ event: LMSEvent) -> ParsedEvent? {
         switch event.type {
@@ -131,6 +132,7 @@ struct SSEParser {
             return nil
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 
     /// Полный сброс состояния парсера (используется перед началом нового стрима).
     mutating func reset() {

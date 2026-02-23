@@ -34,7 +34,7 @@ final class NetworkServiceTests: XCTestCase {
         {
           "models": [
             {
-              "id": "model-1",
+              "key": "model-1",
               "object": "model",
               "owned_by": "organization",
               "permission": []

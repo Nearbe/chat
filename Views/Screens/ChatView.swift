@@ -306,7 +306,6 @@ struct ChatView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-
 }
 
 /// СТРУКТУРА ДЛЯ ПОКАЗА SHARE SHEET (EXPORT)

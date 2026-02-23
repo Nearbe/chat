@@ -5,6 +5,7 @@
 # В конце выполняется автоматический коммит и push.
 
 set -e
+set -o pipefail
 
 # Убедимся, что мы в корне проекта
 cd "$(dirname "$0")"
@@ -22,7 +23,7 @@ fi
 
 echo "🔍 Запуск SwiftLint..."
 if which swiftlint >/dev/null; then
-  swiftlint
+  swiftlint --strict
 else
   echo "⚠️ SwiftLint не установлен."
 fi
@@ -42,7 +43,7 @@ echo "🔨 Сборка проекта (Build Debug)..."
 xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Debug -destination "$DEVICE" build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
 
 echo "🧪 Запуск тестов (Test)..."
-xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -destination "$DEVICE" test CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | grep -E "Test Suite|passed|failed|skipped" || true
+xcodebuild -project Chat.xcodeproj -scheme Chat -destination "$DEVICE" test CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | grep -E "Test Suite|passed|failed|skipped"
 
 echo "✅ Техническая проверка завершена!"
 
