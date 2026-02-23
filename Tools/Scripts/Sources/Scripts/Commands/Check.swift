@@ -73,8 +73,8 @@ struct Check: AsyncParsableCommand {
                             ].joined(separator: " ")
 
                             try await Shell.run(testCommand)
-                            try await self.checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 40.0)
-                            print("✅  Все тесты пройдены и покрытие >= 40%.")
+                            try await self.checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 100.0)
+                            print("✅  Все тесты пройдены и покрытие 100%.")
                         }
                     }
 
