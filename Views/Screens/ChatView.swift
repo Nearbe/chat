@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
-import UIKit
 import PulseUI
+import UIKit
 
 // MARK: - Главный экран чата (Chat Screen)
 
@@ -204,7 +204,7 @@ struct ChatView: View {
                 HistoryView(
                     onSelectSession: { session in
                         // Загружаем выбранную сессию и закрываем лист
-                        viewModel.loadSession(session)
+                        viewModel.setSession(session)
                         showingHistory = false
                     },
                     onDeleteSession: { session in
@@ -218,19 +218,22 @@ struct ChatView: View {
             .sheet(isPresented: $showingModelPicker) {
                 ModelPicker(
                     models: viewModel.availableModels,
-                    selectedModel: $viewModel.config.selectedModel
+                    selectedModel: Binding(
+                        get: { viewModel.config.selectedModel },
+                        set: { viewModel.config.selectedModel = $0 }
+                    )
                 )
             }
             
             // Консоль Pulse для отладки
             .sheet(isPresented: $showingPulse) {
-                ConsoleView()
+                ConsoleView(store: .shared)
             }
             
             // Экспорт в Markdown
             .sheet(isPresented: $showingExport) {
                 ShareSheet(items: [exportText])
-                    .presentationDetents([.medium, .large])
+                    .presentationDetents([PresentationDetent.medium, PresentationDetent.large])
             }
             
             // MARK: - Наблюдение за изменениями (Observers)
@@ -304,6 +307,17 @@ struct ChatView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
+}
+
+/// СТРУКТУРА ДЛЯ ПОКАЗА SHARE SHEET (EXPORT)
+struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 // MARK: - Превью

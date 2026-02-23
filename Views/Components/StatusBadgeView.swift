@@ -6,16 +6,24 @@ struct StatusBadgeView: View {
     let isServerReachable: Bool
     let isModelSelected: Bool
 
+    private struct StatusInfo {
+        let icon: String
+        let color: Color
+        let title: String
+        let message: String
+        let isActive: Bool
+    }
+
     /// Текущая проблема (if any)
-    private var currentStatus: (icon: String, color: Color, title: String, message: String, isActive: Bool)? {
+    private var currentStatus: StatusInfo? {
         if !isConnected {
-            return ("wifi.slash", .red, "Wi-Fi", "Нет подключения", false)
+            return StatusInfo(icon: "wifi.slash", color: .red, title: "Wi-Fi", message: "Нет подключения", isActive: false)
         }
         if !isServerReachable {
-            return ("server.rack", .orange, "Сервер", "Не доступен", false)
+            return StatusInfo(icon: "server.rack", color: .orange, title: "Сервер", message: "Не доступен", isActive: false)
         }
         if !isModelSelected {
-            return ("cpu", .blue, "Модель", "Не выбрана", false)
+            return StatusInfo(icon: "cpu", color: .blue, title: "Модель", message: "Не выбрана", isActive: false)
         }
         return nil
     }

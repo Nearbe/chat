@@ -22,7 +22,7 @@ final class ChatViewModel: ObservableObject {
     
     // MARK: - Properties
     
-    let config = AppConfig.shared
+    var config = AppConfig.shared
     
     var currentSession: ChatSession? {
         get { _currentSession }
@@ -37,8 +37,11 @@ final class ChatViewModel: ObservableObject {
     private var streamingTask: Task<Void, Never>?
     private var generationStartTime: Date?
     
-    // MARK: - Setup
-    
+    /// Настройка зависимостей и наблюдение за статусом сети
+    /// - Parameters:
+    ///   - sessionManager: Менеджер сессий SwiftData
+    ///   - chatService: Сервис для общения с AI
+    ///   - networkMonitor: Монитор сетевого подключения
     func setup(
         sessionManager: ChatSessionManager,
         chatService: ChatService,
@@ -99,6 +102,10 @@ final class ChatViewModel: ObservableObject {
         messages = session.sortedMessages
         config.selectedModel = session.modelName
         isModelSelected = !config.selectedModel.isEmpty
+    }
+    
+    func setModelContext(_ context: ModelContext) {
+        self.sessionManager = ChatSessionManager(modelContext: context)
     }
     
     func deleteSession(_ session: ChatSession) {

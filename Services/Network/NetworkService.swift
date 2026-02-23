@@ -39,17 +39,22 @@ final class NetworkService {
     // MARK: - Инициализация (Initialization)
     
     /// Инициализация сетевого сервиса
-    /// - Parameter deviceName: Имя устройства (по умолчанию "Saint Celestine")
+    /// - Parameters:
+    ///   - deviceName: Имя устройства (по умолчанию "Saint Celestine")
+    ///   - httpClient: HTTP клиент (по умолчанию создается новый)
     /// Настраивает:
     /// - Ключ токена для устройства
     /// - HTTP клиент
     /// - Сервис стриминга
-    init(deviceName: String = "Saint Celestine") {
+    init(
+        deviceName: String = "Saint Celestine",
+        httpClient: HTTPClient = HTTPClient()
+    ) {
         // Определяем ключ токена для устройства
         // Используется для поиска токена в Keychain
         self.tokenKey = DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.tokenKey ?? ""
 
-        self.httpClient = HTTPClient()
+        self.httpClient = httpClient
         self.streamService = ChatStreamService(httpClient: httpClient)
     }
 

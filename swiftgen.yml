@@ -1,0 +1,10 @@
+input_dir: Resources/Assets.xcassets
+output_dir: Design/Generated
+xcassets:
+  inputs:
+    - .
+  outputs:
+    - templateName: swift5
+      params:
+        forceFileNameEnum: true
+      output: Assets.swift

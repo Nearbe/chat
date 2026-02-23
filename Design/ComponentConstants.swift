@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: - Design System: Component Constants
 
 /// Дизайн-система стилей компонентов (базовые константы)
+@MainActor
 enum AppComponentStyles {
 
     // MARK: - Button Styles

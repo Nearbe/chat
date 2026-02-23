@@ -3,28 +3,29 @@ import SwiftUI
 // MARK: - Design System: Colors
 
 /// Дизайн-система цветов приложения
+@MainActor
 enum AppColors {
     // MARK: - Primary Colors
     
     /// Основной оранжевый (Saint Celestine)
-    static let primaryOrange = Color(hex: "#FF9F0A") ?? .orange
+    static let primaryOrange = Asset.Assets.primaryOrange.swiftUIColor
     
     /// Основной синий (Leonie)
-    static let primaryBlue = Color(hex: "#007AFF") ?? .blue
+    static let primaryBlue = Asset.Assets.primaryBlue.swiftUIColor
     
     // MARK: - Semantic Colors
     
     /// Цвет успеха
-    static let success = Color(hex: "#34C759") ?? .green
+    static let success = Asset.Assets.success.swiftUIColor
     
     /// Цвет ошибки
-    static let error = Color(hex: "#FF3B30") ?? .red
+    static let error = Asset.Assets.error.swiftUIColor
     
     /// Цвет предупреждения
-    static let warning = Color(hex: "#FF9500") ?? .orange
+    static let warning = Asset.Assets.warning.swiftUIColor
     
     /// Цвет информационный
-    static let info = Color(hex: "#5AC8FA") ?? .cyan
+    static let info = Asset.Assets.info.swiftUIColor
     
     // MARK: - Neutral Colors
     

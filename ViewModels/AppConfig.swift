@@ -74,7 +74,7 @@ final class AppConfig: ObservableObject {
     
     /// Единственный экземпляр конфигурации
     /// Используйте AppConfig.shared для доступа к настройкам
-    static let shared = AppConfig()
+    @MainActor static let shared = AppConfig()
 
     /// Приватный конструктор
     /// Предотвращает создание нескольких экземпляров

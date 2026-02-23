@@ -26,6 +26,11 @@ final class DeviceAuthManager {
     /// Определяется для каждого устройства отдельно
     private let tokenKey: String
     
+    /// Цвет акцента для текущего устройства
+    var accentColor: String {
+        DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.accentColorHex ?? "#FF9F0A"
+    }
+    
     // MARK: - Инициализация (Initialization)
     
     /// Инициализация менеджера
@@ -46,7 +51,7 @@ final class DeviceAuthManager {
         guard !tokenKey.isEmpty else { return }
         
         // Сохраняем через KeychainHelper
-        KeychainHelper.save(key: tokenKey, value: token)
+        KeychainHelper.set(key: tokenKey, value: token)
     }
     
     /// Получить токен авторизации
@@ -56,7 +61,7 @@ final class DeviceAuthManager {
         guard !tokenKey.isEmpty else { return nil }
         
         // Получаем через KeychainHelper
-        return KeychainHelper.load(key: tokenKey)
+        return KeychainHelper.get(key: tokenKey)
     }
     
     /// Удалить токен авторизации

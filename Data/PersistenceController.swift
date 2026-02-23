@@ -14,7 +14,7 @@ final class PersistenceController {
     }
 
     /// Общий экземпляр контроллера (Singleton)
-    static let shared = PersistenceController()
+    @MainActor static let shared = PersistenceController()
 
     /// Инициализация хранилища
     /// - Parameter inMemory: Если true, данные будут храниться только в оперативной памяти (для тестов)

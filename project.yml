@@ -42,6 +42,9 @@ targets:
     dependencies:
       - package: Factory
       - package: Pulse
+        product: Pulse
+      - package: Pulse
+        product: PulseUI
     postBuildScripts:
       - name: SwiftLint
         script: |
@@ -103,6 +106,9 @@ targets:
       - path: ChatTests
     dependencies:
       - target: Chat
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
 
   ChatUITests:
     type: bundle.ui-testing
@@ -111,6 +117,9 @@ targets:
       - path: ChatUITests
     dependencies:
       - target: Chat
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
 
 schemes:
   Chat:

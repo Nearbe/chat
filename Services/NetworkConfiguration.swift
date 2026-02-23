@@ -22,18 +22,23 @@ struct NetworkConfiguration: Sendable {
     )
 
     /// Инициализация конфигурации
-    /// - Parameter timeout: Таймаут для запросов (по умолчанию 120 секунд)
-    init(timeout: TimeInterval = 120) {
+    /// - Parameters:
+    ///   - timeout: Таймаут для запросов (по умолчанию 120 секунд)
+    ///   - session: Пользовательская URLSession (опционально для тестов)
+    init(timeout: TimeInterval = 120, session: URLSession? = nil) {
         self.timeout = timeout
 
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = timeout
-        config.timeoutIntervalForResource = timeout * 2
-        
-        // Интеграция Pulse для логирования сетевых запросов
-        URLSessionProxyDelegate.enable()
+        if let session = session {
+            self.session = session
+        } else {
+            let config = URLSessionConfiguration.default
+            config.timeoutIntervalForRequest = timeout
+            config.timeoutIntervalForResource = timeout * 2
+            
+            // Интеграция Pulse для логирования сетевых запросов
+            self.session = URLSession(configuration: config, delegate: URLSessionProxyDelegate(), delegateQueue: nil)
+        }
 
-        self.session = URLSession(configuration: config, delegate: URLSessionProxyDelegate(), delegateQueue: nil)
         self.decoder = JSONDecoder()
         self.encoder = JSONEncoder()
     }
