@@ -28,7 +28,9 @@ struct Check: AsyncParsableCommand {
         }
 
         print("📝  Изменённые файлы: \(changedFiles.count)")
-        print("   Файлы: \(changedFiles.prefix(5).joined(separator: ", "))\(changedFiles.count > 5 ? "..." : "")")
+        for (index, file) in changedFiles.enumerated() {
+            print("   \(index + 1). \(file)")
+        }
 
         var allResults: [CheckStepResult] = []
 
