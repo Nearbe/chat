@@ -63,10 +63,10 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runTestsAndBuild(device: String) async -> [CheckStepResult] {
-        print("⏳  Запуск тестов и сборки Release...")
+        print("⏳  Запуск сборки Release и последующих тестов...")
 
-        // Запускаем сборку Release асинхронно, она не мешает тестам на данном этапе
-        async let buildResult = performStep("Build Release") {
+        // Сначала выполняем сборку Release
+        let buildResult = await performStep("Build Release") {
             print("📦  Начало этапа: Build Release")
             let releaseCommand = [
                 "xcodebuild",
@@ -82,7 +82,7 @@ struct Check: AsyncParsableCommand {
             print("✅  Этап завершен: Build Release")
         }
 
-        // Тесты запускаем последовательно после инфраструктуры, но в этой группе
+        // Тесты запускаем после завершения сборки
         let testsResult = await performStep("Tests") {
             print("🧪  Начало этапа: Tests")
             let resultPath = "TestResult.xcresult"
@@ -109,7 +109,7 @@ struct Check: AsyncParsableCommand {
             print("✅  Этап завершен: Tests")
         }
 
-        return await [testsResult, buildResult]
+        return [testsResult, buildResult]
     }
 
     private func performStep(_ name: String, action: @escaping () async throws -> Void) async -> CheckStepResult {

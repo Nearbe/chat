@@ -113,8 +113,8 @@
      - `swiftlint` (параллельно с `ProjectChecker`)
      - **`ProjectChecker`** (специальные проверки проекта)
      - `xcodegen` + `swiftgen` (подготовка проекта, выполняется параллельно)
-     - `xcodebuild ... test` (Unit + UI тесты с включенной параллелизацией `-parallel-testing-enabled YES`)
-     - `xcodebuild ... build` (Release сборка параллельно с тестами)
+     - `xcodebuild ... build` (Release сборка)
+     - `xcodebuild ... test` (Unit + UI тесты с включенной параллелизацией `-parallel-testing-enabled YES`, запускаются после сборки)
      - **Проверка покрытия кода (должна быть 100%)**
      - **Автоматический коммит и push**
 ## Метрики и статистика
