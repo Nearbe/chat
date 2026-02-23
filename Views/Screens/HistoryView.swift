@@ -11,6 +11,19 @@ struct HistoryView: View {
 
     @State private var sessionToDelete: ChatSession?
     @State private var showingDeleteAlert = false
+    @State private var searchText = ""
+
+    private var filteredSessions: [ChatSession] {
+        if searchText.isEmpty {
+            return sessions
+        } else {
+            return sessions.filter { session in
+                session.title.localizedCaseInsensitiveContains(searchText) ||
+                session.modelName.localizedCaseInsensitiveContains(searchText) ||
+                session.messages.contains { $0.content.localizedCaseInsensitiveContains(searchText) }
+            }
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -23,6 +36,7 @@ struct HistoryView: View {
             }
             .navigationTitle("История")
             .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchText, prompt: "Поиск чатов и сообщений")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Готово") {
@@ -63,7 +77,7 @@ struct HistoryView: View {
 
     private var sessionsListView: some View {
         List {
-            ForEach(sessions) { session in
+            ForEach(filteredSessions) { session in
                 SessionRowView(session: session) {
                     onSelectSession(session)
                 }

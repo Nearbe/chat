@@ -24,10 +24,15 @@ final class ChatViewModel: ObservableObject {
     
     let config = AppConfig.shared
     
+    var currentSession: ChatSession? {
+        get { _currentSession }
+        set { _currentSession = newValue }
+    }
+    private var _currentSession: ChatSession?
+    
     private var sessionManager: ChatSessionManager?
     private var chatService: ChatService?
     private var networkMonitor: NetworkMonitor?
-    private var currentSession: ChatSession?
     private var cancellables = Set<AnyCancellable>()
     private var streamingTask: Task<Void, Never>?
     private var generationStartTime: Date?

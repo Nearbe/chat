@@ -1,0 +1,18 @@
+{
+  "project_name": "Chat",
+  "architecture": "MVVM + SwiftData + Apple Keychain",
+  "key_entry_points": {
+    "app_lifecycle": "App/ChatApp.swift",
+    "main_view": "Views/Screens/ChatView.swift",
+    "main_logic": "ViewModels/ChatViewModel.swift",
+    "network_gateway": "Services/Network/NetworkService.swift",
+    "data_persistence": "Data/PersistenceController.swift"
+  },
+  "deployment": {
+    "setup": "setup.sh",
+    "deploy": "deploy.sh"
+  },
+  "design_system": "Design/",
+  "api_standard": "LM Studio v1 API",
+  "authentication": "Services/Auth/"
+}

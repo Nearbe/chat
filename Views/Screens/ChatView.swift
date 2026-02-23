@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import UIKit
+import PulseUI
 
 // MARK: - Главный экран чата (Chat Screen)
 
@@ -39,6 +40,13 @@ struct ChatView: View {
     /// Флаг отображения экрана выбора модели
     /// Управляется через sheet модификатор
     @State private var showingModelPicker = false
+
+    /// Флаг отображения консоли Pulse
+    @State private var showingPulse = false
+
+    /// Флаг отображения ShareSheet для экспорта
+    @State private var showingExport = false
+    @State private var exportText = ""
     
     /// Прокси-объект для программной прокрутки ScrollView
     /// Используется для автоматической прокрутки к новым сообщениям
@@ -117,11 +125,19 @@ struct ChatView: View {
                 }
             }
             // Настройка навигационной панели
-            .navigationTitle("Chat")
             .navigationBarTitleDisplayMode(.inline)  // Компактный заголовок
             
             // MARK: - Панель инструментов (Toolbar)
             .toolbar {
+                // Заголовок с секретным двойным тапом для открытия Pulse
+                ToolbarItem(placement: .principal) {
+                    Text("Chat")
+                        .font(.headline)
+                        .onTapGesture(count: 2) {
+                            showingPulse = true
+                        }
+                }
+                
                 // Кнопка истории чатов (слева)
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -158,13 +174,25 @@ struct ChatView: View {
 
                 // Кнопка включения/выключения MCP инструментов (справа)
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        // Переключаем состояние MCP инструментов
-                        viewModel.config.mcpToolsEnabled.toggle()
-                    } label: {
-                        Image(systemName: viewModel.config.mcpToolsEnabled ? "wrench.and.screwdriver.fill" : "wrench.and.screwdriver")
-                            // Акцентный цвет когда включено, серый когда выключено
-                            .foregroundStyle(viewModel.config.mcpToolsEnabled ? ThemeManager.shared.accentColor : .secondary)
+                    HStack {
+                        Button {
+                            if let session = viewModel.currentSession {
+                                exportText = session.toMarkdown()
+                                showingExport = true
+                            }
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                        .disabled(viewModel.currentSession == nil)
+
+                        Button {
+                            // Переключаем состояние MCP инструментов
+                            viewModel.config.mcpToolsEnabled.toggle()
+                        } label: {
+                            Image(systemName: viewModel.config.mcpToolsEnabled ? "wrench.and.screwdriver.fill" : "wrench.and.screwdriver")
+                                // Акцентный цвет когда включено, серый когда выключено
+                                .foregroundStyle(viewModel.config.mcpToolsEnabled ? ThemeManager.shared.accentColor : .secondary)
+                        }
                     }
                 }
             }
@@ -192,6 +220,17 @@ struct ChatView: View {
                     models: viewModel.availableModels,
                     selectedModel: $viewModel.config.selectedModel
                 )
+            }
+            
+            // Консоль Pulse для отладки
+            .sheet(isPresented: $showingPulse) {
+                ConsoleView()
+            }
+            
+            // Экспорт в Markdown
+            .sheet(isPresented: $showingExport) {
+                ShareSheet(items: [exportText])
+                    .presentationDetents([.medium, .large])
             }
             
             // MARK: - Наблюдение за изменениями (Observers)

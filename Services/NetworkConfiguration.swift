@@ -1,4 +1,5 @@
 import Foundation
+import Pulse
 
 /// Конфигурация сетевого сервиса (Network Configuration)
 /// Определяет параметры сессии, таймауты и инструменты кодирования/декодирования.
@@ -28,8 +29,11 @@ struct NetworkConfiguration: Sendable {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = timeout
         config.timeoutIntervalForResource = timeout * 2
+        
+        // Интеграция Pulse для логирования сетевых запросов
+        URLSessionProxyDelegate.enable()
 
-        self.session = URLSession(configuration: config)
+        self.session = URLSession(configuration: config, delegate: URLSessionProxyDelegate(), delegateQueue: nil)
         self.decoder = JSONDecoder()
         self.encoder = JSONEncoder()
     }

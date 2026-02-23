@@ -1,25 +1,16 @@
 import SwiftUI
 import SwiftData
+import Factory
 
 /// Главная точка входа в приложение
 @main
 struct ChatApp: App {
     let persistenceController = PersistenceController.shared
     
-    // Создаем сервисы
-    private let sessionManager: ChatSessionManager
-    private let chatService: ChatService
-    private let networkMonitor: NetworkMonitor
+    @Injected(\.sessionManager) private var sessionManager
+    @Injected(\.chatService) private var chatService
+    @Injected(\.networkMonitor) private var networkMonitor
     
-    init() {
-        let context = persistenceController.mainContext
-        self.sessionManager = ChatSessionManager(modelContext: context)
-        
-        let networkService = NetworkService(deviceName: DeviceIdentity.currentName)
-        self.chatService = ChatService(networkService: networkService)
-        self.networkMonitor = NetworkMonitor()
-    }
-
     var body: some Scene {
         WindowGroup {
             ChatView()

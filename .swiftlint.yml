@@ -1,0 +1,39 @@
+disabled_rules:
+  - trailing_whitespace
+  - function_body_length
+  - type_body_length
+  - file_length
+
+opt_in_rules:
+  - empty_count
+  - contains_over_first_not_nil
+  - convenience_type
+  - discouraged_object_literal
+  - empty_string
+  - enum_case_associated_values_count
+  - fatal_error_message
+  - first_where
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - last_where
+  - modifier_order
+  - redundant_nil_coalescing
+  - vertical_whitespace_closing_braces
+
+included:
+  - App
+  - Models
+  - Views
+  - ViewModels
+  - Services
+  - Data
+  - Core
+  - Design
+
+excluded:
+  - Chat.xcodeproj
+  - Resources
+
+analyzer_rules:
+  - unused_import
+  - unused_private_declaration
