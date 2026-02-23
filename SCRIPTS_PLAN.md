@@ -20,11 +20,11 @@
 - `Setup`: Аналог `setup.sh`. ✓
 - `SetupAssets`: Аналог `setup_assets.sh`. ✓
 - `DownloadDocs`: Аналог `download_all_docs.sh` и всех подскриптов из `scripts/docs/`. ✓
-- `Check`: Аналог `check.sh`. Реализовать асинхронный запуск: ✓
-    - Группа 1 (Параллельно): `xcodegen`, `swiftlint`, `swiftgen`. ✓
-    - Группа 2 (После Группы 1): `xcodebuild build` (Debug). ✓
-    - Группа 3 (Параллельно после Группы 2): `xcodebuild test` и `xcodebuild build` (Release). ✓
-    - Группа 4 (После успеха всех): `git commit` и `git push`. ✓
+- `Check`: Аналог `check.sh`. Реализовать максимально асинхронный запуск: ✓
+    - Параллельно всему: `swiftlint`. ✓
+    - Группа 1 (Подготовка): `xcodegen`, `swiftgen`. ✓
+    - Группа 2 (Параллельно после Группы 1): `xcodebuild test` (Unit + UI параллельно) и `xcodebuild build` (Release). ✓
+    - Группа 3 (После успеха всех): `git commit` и `git push`. ✓
 - `Ship`: Аналог `ship.sh` (с поддержкой sudo). ✓
 - `ConfigureSudo`: Аналог `scripts/configure_sudo.sh`. ✓
 
