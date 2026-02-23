@@ -25,25 +25,11 @@ line_length: 160
 
 file_name:
   excluded:
-    - CLI.swift
     - Colors.swift
     - Spacing.swift
     - Typography.swift
     - ComponentConstants.swift
     - PrimaryButtonStyle.swift
-    - Package.swift
-    - Shell.swift
-    - Metrics.swift
-    - ExceptionRegistry.swift
-    - Versions.swift
-    - ProjectChecker.swift
-    - DownloadDocs.swift
-    - UpdateDocsLinks.swift
-    - Check.swift
-    - Ship.swift
-    - ConfigureSudo.swift
-    - Setup.swift
-    - UITestModule.swift
 
 identifier_name:
   min_length: 2
@@ -55,14 +41,14 @@ custom_rules:
     name: "No direct color use"
     regex: 'Color\(\.[a-zA-Z]+\)'
     message: "Use AppColors or SwiftGen constants instead of direct Color extensions"
-    severity: warning
+    severity: error
 
   no_print_logger:
     name: "No print()"
     # Запрещаем print(), кроме строк содержащих разрешенные контексты (#Preview | Logger | metrics.csv)
     regex: '^(?!.*(#Preview|Logger|metrics\.csv)).*print\('
     message: "Use Logger (Pulse) instead of print(); allowed only in #Preview, Logger proxy calls, or metrics.csv writes"
-    severity: warning
+    severity: error
     excluded: "Tools/Scripts/.*"
 
   viewmodel_main_actor:
@@ -81,19 +67,19 @@ custom_rules:
     name: "Russian Docstring"
     regex: '^\s*///\s+(?![^а-яА-ЯёЁ\n]*[а-яА-ЯёЁ])(?!(?:\s*(?:NOTE:|JSON|http|https| - | -|---|```|`|\[|\{|\}|\(|\)|\]|"|:|\d+pt|- Parameters:|- Returns:|- Throws:))).+'
     message: "Documentation (Docstring) must be in Russian"
-    severity: warning
+    severity: error
 
   no_direct_padding:
     name: "No direct padding"
     regex: '\.padding\(\s*(\.[a-z]+\s*,\s*)?[0-9]+'
     message: "Use AppSpacing constants instead of magic numbers in .padding()"
-    severity: warning
+    severity: error
 
   no_direct_font:
     name: "No direct font"
     regex: '\.font\(\s*\.(system\(size:\s*\d+|largeTitle|title|title2|title3|headline|subheadline|body|callout|footnote|caption|caption2)\)'
     message: "Use AppTypography constants instead of direct .font() calls"
-    severity: warning
+    severity: error
 
 included:
   - App
