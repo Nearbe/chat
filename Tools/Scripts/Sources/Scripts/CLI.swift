@@ -3,6 +3,7 @@ import ArgumentParser
 import Foundation
 
 @main
+/// Точка входа в CLI-инструментарий проекта.
 struct Scripts: AsyncParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "Утилита для автоматизации разработки проекта Chat",
@@ -39,6 +40,7 @@ struct Scripts: AsyncParsableCommand {
         }
     }
 
+    /// Описание структуры папок и таргетов проекта.
     enum Project {
         static let root: URL = {
             // Пытаемся найти корень проекта, поднимаясь вверх от папки этого файла

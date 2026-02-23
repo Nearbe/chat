@@ -26,12 +26,14 @@ public class BaseElement {
         }
     }
 
+    /// Нажатие на элемент.
     public func tap(file: StaticString = #filePath, line: UInt = #line) {
         XCTContext.runActivity(named: "Тап по элементу: \(element.description)") { _ in
             element.tap()
         }
     }
 
+    /// Ввод текста в элемент.
     public func type(_ text: String, file: StaticString = #filePath, line: UInt = #line) {
         XCTContext.runActivity(named: "Ввод текста '\(text)' в: \(element.description)") { _ in
             element.tap()
@@ -39,6 +41,7 @@ public class BaseElement {
         }
     }
 
+    /// Проверка существования элемента.
     public func check(exists: Bool, timeout: TimeInterval = defaultTimeout, file: StaticString = #filePath, line: UInt = #line) {
         XCTContext.runActivity(named: "Проверка \(exists ? "наличия" : "отсутствия") элемента: \(element.description)") { _ in
             let result = exists ? element.waitForExistence(timeout: timeout) : !element.exists

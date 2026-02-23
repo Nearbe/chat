@@ -24,6 +24,7 @@ struct NetworkServiceTests {
     }
 
     @Test
+    /// Тест успешного получения моделей.
     func fetchModelsSuccess() async throws {
         // Given
         let modelsURL = AppConfig.shared.modelsURL!
@@ -53,6 +54,7 @@ struct NetworkServiceTests {
     }
 
     @Test
+    /// Тест успешной загрузки модели.
     func loadModelSuccess() async throws {
         // Given
         let baseURL = AppConfig.shared.baseURL
@@ -83,6 +85,7 @@ struct NetworkServiceTests {
     }
 
     @Test
+    /// Тест успешной выгрузки модели.
     func unloadModelSuccess() async throws {
         // Given
         let baseURL = AppConfig.shared.baseURL
@@ -111,6 +114,7 @@ struct NetworkServiceTests {
     }
 
     @Test
+    /// Тест успешного начала скачивания модели.
     func downloadModelSuccess() async throws {
         // Given
         let baseURL = AppConfig.shared.baseURL
@@ -139,6 +143,7 @@ struct NetworkServiceTests {
     }
 
     @Test
+    /// Тест получения статуса загрузки модели.
     func getDownloadStatusSuccess() async throws {
         // Given
         let baseURL = AppConfig.shared.baseURL

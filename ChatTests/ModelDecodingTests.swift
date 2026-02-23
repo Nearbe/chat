@@ -6,6 +6,7 @@ import Foundation
 struct ModelDecodingTests {
     
     @Test
+    /// Тест декодирования чанка стриминга LM Studio.
     func lmStreamChunkDecoding() throws {
         let json = """
         {
@@ -27,6 +28,7 @@ struct ModelDecodingTests {
     }
     
     @Test
+    /// Тест декодирования чанка с рассуждениями.
     func lmStreamChunkReasoningDecoding() throws {
         let json = """
         {
@@ -47,6 +49,7 @@ struct ModelDecodingTests {
     }
 
     @Test
+    /// Тест декодирования полного ответа чата.
     func chatCompletionResponseDecoding() throws {
         let json = """
         {
@@ -81,6 +84,7 @@ struct ModelDecodingTests {
     }
     
     @Test
+    /// Тест декодирования ошибки сервера.
     func lmErrorDecoding() throws {
         let json = """
         {

@@ -2,12 +2,14 @@
 import ArgumentParser
 import Foundation
 
+/// Команда для выполнения полной технической проверки проекта (Lint, Build, Test, Commit).
 struct Check: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Техническая проверка проекта (Lint + Build + Test + Commit)")
 
     @Argument(help: "Сообщение для коммита")
     var message: String?
 
+    /// Основная логика выполнения шагов проверки.
     func run() async throws {
         let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
         print("🚀  Начало технической проверки (Асинхронный режим со сбором предупреждений)...")
@@ -173,6 +175,7 @@ struct Check: AsyncParsableCommand {
 
 // MARK: - Вспомогательные структуры
 extension Check {
+    /// Информация об ошибке на конкретном шаге проверки.
     struct CheckStepFailureInfo {
         let step: String
         let command: String?
@@ -181,6 +184,7 @@ extension Check {
         let duration: TimeInterval
     }
 
+    /// Результат выполнения шага проверки (успех, предупреждение или ошибка).
     enum CheckStepResult {
         case success(step: String, duration: TimeInterval)
         case warning(step: String, command: String?, output: String, duration: TimeInterval)
@@ -200,6 +204,7 @@ extension Check {
         }
     }
 
+    /// Ошибки, специфичные для процесса проверки (например, низкое покрытие).
     enum CheckError: Error, LocalizedError {
         case coverageCheckFailed(String)
         case lowCoverage(target: String, actual: Double, expected: Double)

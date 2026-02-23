@@ -2,9 +2,11 @@
 import ArgumentParser
 import Foundation
 
+/// Команда для начальной настройки окружения и инфраструктуры проекта.
 struct Setup: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Подготовка проекта к работе (XcodeGen + SwiftGen)")
 
+    /// Основная логика настройки инструментов и генерации проекта.
     func run() async throws {
         print("🏗️  Подготовка проекта...")
 

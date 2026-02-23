@@ -29,6 +29,7 @@ struct ChatServiceTests {
     }
     
     @Test
+    /// Тест запроса списка моделей.
     func fetchModelsRequest() async throws {
         guard let url = AppConfig.shared.modelsURL else {
             Issue.record("Models URL is nil in AppConfig")
@@ -57,6 +58,7 @@ struct ChatServiceTests {
     }
     
     @Test
+    /// Тест обработки ошибки при получении моделей.
     func fetchModelsError() async {
         MockLMStudioServer.setup(response: .error(500))
         
@@ -69,6 +71,7 @@ struct ChatServiceTests {
     }
     
     @Test
+    /// Тест успешного получения моделей через Mock сервер.
     func fetchModelsSuccessWithMockServer() async throws {
         let expectedModels = ["gpt-4", "claude-3"]
         MockLMStudioServer.setup(response: .models(expectedModels))

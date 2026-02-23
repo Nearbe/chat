@@ -1,6 +1,7 @@
 // MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import Foundation
 
+/// Система сбора и записи метрик производительности шагов проверки.
 public enum Metrics {
     private static let fileName = "metrics.csv"
     private static let lock = NSLock()

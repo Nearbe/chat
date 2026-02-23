@@ -1,6 +1,7 @@
 // MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import Foundation
 
+/// Ошибки, возникающие при выполнении команд в оболочке.
 public enum ShellError: Error, LocalizedError {
     case commandFailed(command: String, exitCode: Int32, output: String, error: String)
     case warningsFound(command: String, output: String)
@@ -15,6 +16,7 @@ public enum ShellError: Error, LocalizedError {
     }
 }
 
+/// Обертка для выполнения команд в терминале.
 public enum Shell {
     @discardableResult
     public static func run(

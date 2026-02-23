@@ -2,9 +2,11 @@
 import ArgumentParser
 import Foundation
 
+/// Команда для настройки разрешений sudo, необходимых для некоторых операций в CI/CD.
 struct ConfigureSudo: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Настройка беспарольного запуска ship через sudo")
 
+    /// Основная логика настройки прав доступа.
     func run() async throws {
         let projectRoot = FileManager.default.currentDirectoryPath
         let scriptsPackagePath = "\(projectRoot)/Tools/Scripts"

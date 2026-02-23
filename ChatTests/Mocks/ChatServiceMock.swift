@@ -11,6 +11,7 @@ final class ChatServiceMock: ChatServiceProtocol {
     var fetchModelsCalled = false
     var streamChatCalled = false
 
+    /// Имитация получения списка моделей.
     func fetchModels() async throws -> [ModelInfo] {
         fetchModelsCalled = true
         switch fetchModelsResult {
@@ -21,6 +22,7 @@ final class ChatServiceMock: ChatServiceProtocol {
         }
     }
 
+    /// Имитация стриминга чата.
     func streamChat(
         messages: [ChatMessage],
         model: String,

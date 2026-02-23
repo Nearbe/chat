@@ -2,9 +2,11 @@
 import ArgumentParser
 import Foundation
 
+/// Команда для выполнения финальной проверки и подготовки проекта к отправке.
 struct Ship: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Доставка продукта (Release Build + Deploy)")
 
+    /// Основная логика подготовки к шиппингу.
     func run() async throws {
         print("🚢  Начало доставки продукта...")
 

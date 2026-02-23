@@ -1,6 +1,7 @@
 // MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import Foundation
 
+/// Основной инструмент проверки структуры и стандартов проекта.
 public struct ProjectChecker {
     private let exceptions: [String: [String]]
 
@@ -322,6 +323,7 @@ public struct ProjectChecker {
         return errors
     }
 
+    /// Ошибки, возникающие при проверке проекта.
     enum CheckerError: Error {
         case validationFailed
     }

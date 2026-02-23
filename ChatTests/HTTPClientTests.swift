@@ -23,6 +23,7 @@ struct HTTPClientTests {
     }
 
     @Test
+    /// Тест успешного GET запроса.
     func getRequestSuccess() async throws {
         // Given
         let url = URL(string: "https://api.example.com/test")!
@@ -39,6 +40,7 @@ struct HTTPClientTests {
     }
 
     @Test
+    /// Тест успешного POST запроса.
     func postRequestSuccess() async throws {
         // Given
         let url = URL(string: "https://api.example.com/post")!
@@ -63,6 +65,7 @@ struct HTTPClientTests {
         (401, NetworkError.unauthorized),
         (429, NetworkError.rateLimited(retryAfter: 60))
     ])
+    /// Вспомогательный метод для обработки ошибок HTTP.
     func handleErrors(statusCode: Int, expectedError: NetworkError) async {
         // Given
         let url = URL(string: "https://api.example.com/error")!

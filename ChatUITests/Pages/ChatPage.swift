@@ -31,24 +31,28 @@ final class ChatPage {
     // MARK: - Действия
     
     @discardableResult
+    /// Ввод сообщения в текстовое поле.
     func typeMessage(_ text: String) -> Self {
         messageInputField.type(text)
         return self
     }
     
     @discardableResult
+    /// Нажатие кнопки отправки.
     func tapSend() -> Self {
         sendButton.tap()
         return self
     }
     
     @discardableResult
+    /// Переход к экрану истории.
     func openHistory() -> Self {
         historyButton.tap()
         return self
     }
     
     @discardableResult
+    /// Открытие списка выбора моделей.
     func openModelPicker() -> Self {
         modelPickerButton.tap()
         return self
@@ -56,10 +60,12 @@ final class ChatPage {
     
     // MARK: - Проверки
     
+    /// Проверка наличия сообщения в списке.
     func checkHasMessage(_ text: String) {
         BaseElement(app.staticTexts[text]).check(exists: true)
     }
     
+    /// Проверка видимости пустого состояния экрана.
     func checkEmptyStateVisible() {
         emptyStateText.check(exists: true)
     }

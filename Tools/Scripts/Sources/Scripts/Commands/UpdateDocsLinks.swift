@@ -1,9 +1,11 @@
 import ArgumentParser
 import Foundation
 
+/// Команда для обновления меток связи с документацией во всех поддерживаемых файлах проекта.
 struct UpdateDocsLinks: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Обновление меток связи с документацией в файлах проекта")
 
+    /// Основная логика поиска и обновления файлов.
     func run() async throws {
         try await Metrics.measure(step: "Update Docs Links") {
             print("🔗  Обновление меток связи с документацией...")

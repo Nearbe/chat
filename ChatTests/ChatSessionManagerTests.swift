@@ -16,6 +16,7 @@ struct ChatSessionManagerTests {
     }
     
     @Test
+    /// Тест создания новой сессии.
     func createSession() {
         // Given/When
         let session = manager.createSession(modelName: "test-model", title: "Test Session")
@@ -26,6 +27,7 @@ struct ChatSessionManagerTests {
     }
     
     @Test
+    /// Тест добавления сообщения в сессию.
     func addMessage() {
         // Given
         let session = manager.createSession(modelName: "test-model")
@@ -41,6 +43,7 @@ struct ChatSessionManagerTests {
     }
     
     @Test
+    /// Тест удаления сессии.
     func deleteSession() {
         // Given
         let session = manager.createSession(modelName: "test-model")
@@ -57,6 +60,7 @@ struct ChatSessionManagerTests {
     }
     
     @Test
+    /// Тест удаления сообщений после определенного индекса.
     func deleteMessagesAfterIndex() {
         // Given
         let session = manager.createSession(modelName: "test-model")

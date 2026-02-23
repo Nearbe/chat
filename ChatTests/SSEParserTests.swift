@@ -4,6 +4,7 @@ import Testing
 
 struct SSEParserTests {
     @Test
+    /// Тест парсинга изменения сообщения.
     func parseMessageDelta() {
         var parser = SSEParser()
         let json = "{\"type\": \"message.delta\", \"content\": \"Hello\"}"
@@ -24,6 +25,7 @@ struct SSEParserTests {
     }
     
     @Test
+    /// Сброс состояния парсера.
     func reset() {
         var parser = SSEParser()
         let incompleteLine = "data: {\"type\": \"message.delta\""
