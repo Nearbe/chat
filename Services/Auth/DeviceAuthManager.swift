@@ -1,64 +1,74 @@
 import Foundation
+import Security
 
-/// Менеджер авторизации устройства
-@MainActor
+// MARK: - Менеджер авторизации устройства (Device Authorization Manager)
+
+/// Управляет сохранением и получением токена авторизации из Keychain.
+/// Использует уникальный ключ для каждого устройства.
+///
+/// Принцип работы:
+/// - Токен сохраняется в Keychain под уникальным ключом устройства
+/// - При запуске проверяется наличие токена
+/// - Токен передаётся в HTTP заголовках при каждом запросе
+///
+/// Безопасность:
+/// - Keychain обеспечивает шифрование данных
+/// - Токен не хранится в UserDefaults (небезопасно)
+/// - Каждое устройство имеет свой токен
+///
+/// - Важно: Уникальный ключ определяется через DeviceConfiguration
+/// - Примечание: Токены должны начинаться с "sk-lm" для LM Studio
 final class DeviceAuthManager {
-    /// Текущее имя устройства
-    var currentDeviceName: String {
-        DeviceIdentity.currentName
+    
+    // MARK: - Приватные свойства (Private Properties)
+    
+    /// Ключ для хранения в Keychain
+    /// Определяется для каждого устройства отдельно
+    private let tokenKey: String
+    
+    // MARK: - Инициализация (Initialization)
+    
+    /// Инициализация менеджера
+    /// Определяет ключ токена для текущего устройства
+    init() {
+        // Получаем ключ из конфигурации устройства
+        // Если устройство неизвестно - используем пустой ключ
+        self.tokenKey = DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.tokenKey ?? ""
     }
 
-    /// Конфигурация текущего устройства
-    private var deviceConfig: DeviceConfiguration? {
-        DeviceConfiguration.configuration(for: currentDeviceName)
+    // MARK: - Публичные методы (Public Methods)
+    
+    /// Сохранить токен авторизации
+    /// - Parameter token: API токен для сохранения
+    /// - Важно: Токен сохраняется в зашифрованном Keychain
+    func setToken(_ token: String) {
+        // Проверяем что ключ определён
+        guard !tokenKey.isEmpty else { return }
+        
+        // Сохраняем через KeychainHelper
+        KeychainHelper.save(key: tokenKey, value: token)
     }
-
-    /// Авторизовано ли текущее устройство
-    var isDeviceAuthorized: Bool {
-        DeviceIdentity.isAuthorized
-    }
-
-    /// Получить токен для текущего устройства
+    
+    /// Получить токен авторизации
+    /// - Returns: Сохранённый токен или nil если не найден
     func getToken() -> String? {
-        guard isDeviceAuthorized, let config = deviceConfig else { return nil }
-        return KeychainHelper.get(key: config.tokenKey)
+        // Проверяем что ключ определён
+        guard !tokenKey.isEmpty else { return nil }
+        
+        // Получаем через KeychainHelper
+        return KeychainHelper.load(key: tokenKey)
     }
-
-    /// Проверить авторизацию и вернуть результат
-    func authenticate() -> Result<String, AuthError> {
-        guard isDeviceAuthorized else {
-            return .failure(.deviceNotAuthorized)
-        }
-
-        guard let token = getToken() else {
-            return .failure(.tokenNotFound)
-        }
-
-        return .success(token)
+    
+    /// Удалить токен авторизации
+    /// Используется при выходе или смене аккаунта
+    func deleteToken() {
+        guard !tokenKey.isEmpty else { return }
+        KeychainHelper.delete(key: tokenKey)
     }
-
-    /// Установить токен для устройства
-    func setToken(_ token: String) -> Bool {
-        guard let config = deviceConfig else { return false }
-        return KeychainHelper.set(key: config.tokenKey, value: token)
-    }
-
-    /// Очистить токен (при 401/403)
-    func clearToken() {
-        guard let config = deviceConfig else { return }
-        KeychainHelper.delete(key: config.tokenKey)
-    }
-
-    /// Получить цвет акцента для пользователя
-    var accentColor: String {
-        deviceConfig?.accentColorHex ?? "#007AFF"
-    }
-
-    /// Замаскированный токен для UI
-    var maskedToken: String? {
-        guard let token = getToken() else { return nil }
-        let prefix = String(token.prefix(8))
-        let suffix = token.count > 8 ? String(token.suffix(4)) : ""
-        return "\(prefix):...\(suffix)"
+    
+    /// Проверить наличие токена
+    /// - Returns: true если токен сохранён
+    var hasToken: Bool {
+        getToken() != nil
     }
 }

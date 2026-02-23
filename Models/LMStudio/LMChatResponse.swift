@@ -1,10 +1,18 @@
 import Foundation
 
-/// Ответ чата (LM Studio v1 API)
+/// Объект ответа от чат-интерфейса LM Studio v1 API.
+/// Содержит сгенерированный контент, статистику и метаданные ответа.
 struct LMChatResponse: Codable {
+    /// Внутренний идентификатор экземпляра модели, обработавшей запрос
     let modelInstanceId: String
+    
+    /// Массив элементов вывода (сообщения, вызовы инструментов, рассуждения)
     let output: [LMOutputItem]
+    
+    /// Статистика генерации (токены, скорость, время)
     let stats: LMStats?
+    
+    /// Уникальный идентификатор данного ответа
     let responseId: String
 
     enum CodingKeys: String, CodingKey {
@@ -15,17 +23,26 @@ struct LMChatResponse: Codable {
     }
 }
 
-/// Элемент вывода
+/// Перечисление возможных типов элементов вывода в ответе LM Studio.
+/// Позволяет обрабатывать смешанный контент (текст + вызовы инструментов).
 enum LMOutputItem: Codable {
+    /// Обычное текстовое сообщение
     case message(LMMessageContent)
+    
+    /// Вызов внешнего инструмента (function calling)
     case toolCall(LMToolCall)
+    
+    /// Внутренние рассуждения модели (chain of thought)
     case reasoning(LMReasoningContent)
+    
+    /// Некорректный вызов инструмента (ошибка парсинга на стороне сервера)
     case invalidToolCall(LMInvalidToolCall)
 
     enum CodingKeys: String, CodingKey {
         case type
     }
 
+    /// Декодирование элемента вывода на основе поля "type".
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let msg = try? container.decode(LMMessageContent.self), msg.type == "message" {
@@ -41,6 +58,7 @@ enum LMOutputItem: Codable {
         }
     }
 
+    /// Кодирование элемента вывода.
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
@@ -55,6 +73,7 @@ enum LMOutputItem: Codable {
         }
     }
 
+    /// Извлечение текстового содержимого элемента (если применимо).
     var content: String {
         switch self {
         case .message(let msg):
@@ -68,6 +87,7 @@ enum LMOutputItem: Codable {
         }
     }
 
+    /// Вспомогательное свойство для получения вызова инструмента, если элемент является таковым.
     var toolCall: LMToolCall? {
         if case .toolCall(let call) = self {
             return call

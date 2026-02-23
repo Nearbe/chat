@@ -1,13 +1,21 @@
 import Foundation
 
 /// Универсальный тип для Codable объектов
+/// Позволяет кодировать и декодировать произвольные данные (Any),
+/// такие как JSON-словари или массивы, сохраняя их структуру.
 struct AnyCodable: Codable {
+    /// Хранимое значение произвольного типа
     let value: Any
 
+    /// Инициализация из Any значения
+    /// - Parameter value: Значение, которое нужно обернуть
     init(_ value: Any) {
         self.value = value
     }
 
+    /// Декодирование из JSON или другого формата
+    /// - Parameter decoder: Декодер
+    /// - Throws: DecodingError если тип данных не поддерживается
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
 
@@ -33,6 +41,9 @@ struct AnyCodable: Codable {
         }
     }
 
+    /// Кодирование в JSON или другой формат
+    /// - Parameter encoder: Энкодер
+    /// - Throws: EncodingError если значение невозможно закодировать
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
 

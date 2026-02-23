@@ -1,9 +1,14 @@
 import Foundation
 
-/// Tool call metadata
+/// Метаданные вызова инструмента (tool call), содержащие имя и аргументы.
 struct LMToolCallMetadata: Codable {
+    /// Тип метаданных (всегда "tool_call_metadata")
     let type: String
+    
+    /// Имя вызываемого инструмента
     let toolName: String
+    
+    /// Аргументы вызова
     let arguments: [String: AnyCodable]?
 
     enum CodingKeys: String, CodingKey {

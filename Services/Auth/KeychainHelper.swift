@@ -1,9 +1,12 @@
 import Foundation
 import Security
 
-/// Вспомогатель для работы с Keychain
+/// Вспомогательная утилита для безопасного хранения данных в Keychain (Keychain Helper).
+/// Позволяет сохранять, извлекать и удалять строковые значения (например, API-токены).
 enum KeychainHelper {
-    /// Получить значение по ключу
+    /// Получить строковое значение по ключу из Keychain.
+    /// - Parameter key: Уникальный ключ (аккаунт) для поиска.
+    /// - Returns: Сохраненная строка или nil, если данные не найдены или произошла ошибка.
     static func get(key: String) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -20,7 +23,12 @@ enum KeychainHelper {
         return String(data: data, encoding: .utf8)
     }
 
-    /// Установить значение по ключу
+    /// Сохранить или обновить строковое значение в Keychain по ключу.
+    /// Использует уровень доступа "доступно при разблокированном устройстве, только для этого устройства".
+    /// - Parameters:
+    ///   - key: Ключ (аккаунт) для сохранения.
+    ///   - value: Строка для сохранения.
+    /// - Returns: true при успешном сохранении, иначе false.
     static func set(key: String, value: String) -> Bool {
         guard let data = value.data(using: .utf8) else { return false }
 
@@ -31,13 +39,14 @@ enum KeychainHelper {
             kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         ]
 
-        // Удаляем существующий ключ перед добавлением
+        // Удаляем существующий элемент с этим ключом перед добавлением нового
         SecItemDelete(query as CFDictionary)
         let status = SecItemAdd(query as CFDictionary, nil)
         return status == errSecSuccess
     }
 
-    /// Удалить значение по ключу
+    /// Удалить значение из Keychain по указанному ключу.
+    /// - Parameter key: Ключ для удаления.
     static func delete(key: String) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,

@@ -1,17 +1,23 @@
 import SwiftData
 import Foundation
 
-/// КонтроллерPersistence для SwiftData
+/// Контроллер для работы с базой данных (SwiftData)
+/// Отвечает за инициализацию хранилища и управление контекстом данных.
 @MainActor
 final class PersistenceController {
+    /// Основной контейнер моделей данных
     let container: ModelContainer
 
+    /// Основной контекст для работы в UI-потоке
     var mainContext: ModelContext {
         container.mainContext
     }
 
+    /// Общий экземпляр контроллера (Singleton)
     static let shared = PersistenceController()
 
+    /// Инициализация хранилища
+    /// - Parameter inMemory: Если true, данные будут храниться только в оперативной памяти (для тестов)
     private init(inMemory: Bool = false) {
         let schema = Schema([ChatSession.self, Message.self])
         let config: ModelConfiguration
@@ -28,12 +34,13 @@ final class PersistenceController {
         }
     }
 
-    /// Сохранить контекст
+    /// Принудительное сохранение текущего контекста
     func save() {
         try? container.mainContext.save()
     }
 
-    /// Удалить все данные
+    /// Полная очистка всех данных приложения
+    /// Удаляет все сессии и связанные с ними сообщения
     func deleteAll() {
         try? container.mainContext.delete(model: ChatSession.self)
         try? container.mainContext.delete(model: Message.self)

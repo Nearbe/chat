@@ -1,8 +1,11 @@
 import Foundation
 
-/// Утилита для определения текущего устройства
+/// Утилита для идентификации текущего устройства (Device Identity)
+/// Позволяет получить нормализованное имя хоста и проверить статус авторизации.
 struct DeviceIdentity: Sendable {
-    /// Получить нормализованное имя устройства
+    /// Получить нормализованное имя устройства.
+    /// Преобразует системное имя хоста (например, "MacBook-Pro.local") в читаемый формат ("Macbook Pro").
+    /// Используется для сопоставления с DeviceConfiguration.
     static var currentName: String {
         let rawName = ProcessInfo.processInfo.hostName
         let normalized = rawName
@@ -15,7 +18,8 @@ struct DeviceIdentity: Sendable {
         return normalized
     }
 
-    /// Проверить, авторизовано ли текущее устройство
+    /// Проверить, является ли текущее устройство авторизованным в системе.
+    /// Возвращает true, если для хостнейма устройства найдена соответствующая конфигурация.
     static var isAuthorized: Bool {
         DeviceConfiguration.configuration(for: currentName) != nil
     }

@@ -1,14 +1,29 @@
 import Foundation
 
-/// Статус скачивания
+/// Текущий статус задачи скачивания модели в LM Studio.
 struct LMDownloadStatus: Codable {
+    /// Уникальный идентификатор задачи скачивания
     let jobId: String
+    
+    /// Текущее состояние (например, "downloading", "completed", "failed")
     let status: String
+    
+    /// Прогресс скачивания (от 0.0 до 1.0)
     let progress: Double?
+    
+    /// Общий размер скачиваемого файла в байтах
     let totalSizeBytes: Int64?
+    
+    /// Количество уже скачанных байт
     let downloadedSizeBytes: Int64?
+    
+    /// Время начала задачи
     let startedAt: String?
+    
+    /// Время завершения задачи
     let completedAt: String?
+    
+    /// Сообщение об ошибке (если статус "failed")
     let error: String?
 
     enum CodingKeys: String, CodingKey {

@@ -1,14 +1,30 @@
 import Foundation
 
-/// HTTP клиент для выполнения запросов
+/// HTTP клиент для выполнения сетевых запросов.
+/// Инкапсулирует логику работы с URLSession, обработку заголовков авторизации и ошибок.
 final class HTTPClient: @unchecked Sendable {
+    /// Конфигурация сети (сессия, энкодеры/декодеры)
     private let configuration: NetworkConfiguration
 
-    init(configuration: NetworkConfiguration = .default) {
+    /// Провайдер авторизации
+    private let authProvider: AuthorizationProvider?
+
+    /// Инициализация клиента
+    /// - Parameters:
+    ///   - configuration: Настройки сети (по умолчанию используются стандартные)
+    ///   - authProvider: Провайдер авторизации (опционально)
+    init(
+        configuration: NetworkConfiguration = .default,
+        authProvider: AuthorizationProvider? = DeviceAuthorizationProvider()
+    ) {
         self.configuration = configuration
+        self.authProvider = authProvider
     }
 
-    /// GET запрос
+    /// Выполнение GET запроса
+    /// - Parameter url: URL адрес запроса
+    /// - Returns: Кортеж из полученных данных и ответа сервера
+    /// - Throws: Ошибки сети или некорректные статус-коды
     func get(url: URL) async throws -> (Data, URLResponse) {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -19,7 +35,12 @@ final class HTTPClient: @unchecked Sendable {
         return (data, response)
     }
 
-    /// POST запрос с JSON телом
+    /// Выполнение POST запроса с JSON телом
+    /// - Parameters:
+    ///   - url: URL адрес запроса
+    ///   - body: Объект для кодирования в JSON
+    /// - Returns: Кортеж из полученных данных и ответа сервера
+    /// - Throws: Ошибки кодирования, сети или некорректные статус-коды
     func post<T: Encodable>(url: URL, body: T) async throws -> (Data, URLResponse) {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -32,7 +53,13 @@ final class HTTPClient: @unchecked Sendable {
         return (data, response)
     }
 
-    /// POST запрос с байтовым стримом
+    /// Выполнение POST запроса с поддержкой стриминга данных (SSE)
+    /// - Parameters:
+    ///   - url: URL адрес запроса
+    ///   - body: Объект для кодирования в JSON
+    ///   - accept: Тип принимаемого контента (по умолчанию text/event-stream)
+    /// - Returns: Кортеж из асинхронного потока байт и ответа сервера
+    /// - Throws: Ошибки сети или некорректные статус-коды
     func postStreaming<T: Encodable>(url: URL, body: T, accept: String = "text/event-stream") async throws -> (URLSession.AsyncBytes, URLResponse) {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -46,23 +73,29 @@ final class HTTPClient: @unchecked Sendable {
         return (bytes, response)
     }
 
-    /// Декодировать JSON
+    /// Декодирование JSON данных в модель
+    /// - Parameters:
+    ///   - type: Тип результирующей модели
+    ///   - data: Данные для декодирования
+    /// - Returns: Декодированный объект
+    /// - Throws: DecodingError если структура данных не совпадает
     func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
         try configuration.decoder.decode(type, from: data)
     }
 
-    // MARK: - Private
+    // MARK: - Private (Приватные методы)
 
+    /// Добавление заголовка Authorization (Bearer токен) к запросу
+    /// Токен берется из провайдера авторизации
     private func addAuthHeader(to request: inout URLRequest) {
-        // Читаем токен из Keychain по ключу устройства
-        guard let config = DeviceConfiguration.configuration(for: DeviceIdentity.currentName),
-              let token = KeychainHelper.get(key: config.tokenKey),
-              !token.isEmpty else {
-            return
+        if let authHeader = authProvider?.authorizationHeader() {
+            request.setValue(authHeader, forHTTPHeaderField: "Authorization")
         }
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
 
+    /// Валидация HTTP ответа по статус-коду
+    /// - Parameter response: Ответ сервера
+    /// - Throws: NetworkError при получении статус-кода ошибки
     private func handleResponse(_ response: URLResponse) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.unknown

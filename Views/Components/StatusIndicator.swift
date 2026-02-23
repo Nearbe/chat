@@ -1,28 +1,34 @@
 import SwiftUI
 
-/// Индикатор статуса
+/// Визуальный индикатор статуса сетевого подключения.
+/// Отображает цветной круг и текстовое описание состояния.
 struct StatusIndicator: View {
+    /// Возможные состояния подключения
     enum Status {
-        case connected
-        case disconnected
-        case connecting
-        case error
+        case connected    /// Успешно подключено
+        case disconnected /// Подключение отсутствует
+        case connecting   /// В процессе установки соединения
+        case error        /// Произошла ошибка при подключении
     }
 
+    /// Текущий статус для отображения
     let status: Status
 
     var body: some View {
         HStack(spacing: 6) {
+            // Маленький индикаторный круг
             Circle()
                 .fill(color)
                 .frame(width: 8, height: 8)
 
+            // Текстовое описание статуса
             Text(text)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
     }
 
+    /// Выбор цвета индикатора на основе статуса
     private var color: Color {
         switch status {
         case .connected:
@@ -36,6 +42,7 @@ struct StatusIndicator: View {
         }
     }
 
+    /// Выбор локализованного текста на основе статуса
     private var text: String {
         switch status {
         case .connected:

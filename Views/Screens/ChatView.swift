@@ -21,8 +21,11 @@ struct ChatView: View {
     
     // MARK: - Приватные свойства (Private Properties)
     
+    @EnvironmentObject private var sessionManager: ChatSessionManager
+    @EnvironmentObject private var chatService: ChatService
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
+    
     /// ViewModel содержит всю бизнес-логику чата
-    /// Использует @StateObject так как создаётся в данном View
     @StateObject private var viewModel = ChatViewModel()
     
     /// Контекст SwiftData для персистентности данных
@@ -101,6 +104,11 @@ struct ChatView: View {
             }
             // Выполняется при появлении View на экране
             .onAppear {
+                viewModel.setup(
+                    sessionManager: sessionManager,
+                    chatService: chatService,
+                    networkMonitor: networkMonitor
+                )
                 // Обновляем статус авторизации из Keychain
                 viewModel.refreshAuthentication()
                 // Асинхронно проверяем подключение к серверу

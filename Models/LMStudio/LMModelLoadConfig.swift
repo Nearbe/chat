@@ -1,11 +1,20 @@
 import Foundation
 
-/// Конфигурация загрузки модели
+/// Результирующая конфигурация, примененная при загрузке модели в LM Studio.
 struct LMModelLoadConfig: Codable {
+    /// Итоговая длина контекста
     let contextLength: Int?
+    
+    /// Итоговый размер батча
     let evalBatchSize: Int?
+    
+    /// Статус использования Flash Attention
     let flashAttention: Bool?
+    
+    /// Количество экспертов
     let numExperts: Int?
+    
+    /// Статус выгрузки KV-кэша на видеокарту
     let offloadKVCacheToGPU: Bool?
 
     enum CodingKeys: String, CodingKey {

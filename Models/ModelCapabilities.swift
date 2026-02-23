@@ -1,8 +1,11 @@
 import Foundation
 
-/// Возможности модели
+/// Информация о технических возможностях модели (Capabilities).
 struct ModelCapabilities: Codable, Hashable {
+    /// Поддержка компьютерного зрения (vision)
     let vision: Bool?
+    
+    /// Обучена ли модель для использования инструментов (function calling)
     let trainedForToolUse: Bool?
 
     enum CodingKeys: String, CodingKey {

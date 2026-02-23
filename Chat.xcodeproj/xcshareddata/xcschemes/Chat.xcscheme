@@ -42,7 +42,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -61,8 +61,10 @@
             ReferencedContainer = "container:Chat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-      </CommandLineArguments>
+      <LocationScenarioReference
+         identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
+         referenceType = "1">
+      </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

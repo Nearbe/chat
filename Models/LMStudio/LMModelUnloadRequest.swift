@@ -1,7 +1,8 @@
 import Foundation
 
-/// Запрос на выгрузку модели
+/// Запрос на выгрузку (освобождение памяти) модели из LM Studio.
 struct LMModelUnloadRequest: Codable {
+    /// Идентификатор экземпляра модели, который нужно выгрузить
     let instanceId: String
 
     enum CodingKeys: String, CodingKey {
@@ -9,8 +10,9 @@ struct LMModelUnloadRequest: Codable {
     }
 }
 
-/// Ответ выгрузки модели
+/// Ответ от сервера, подтверждающий выгрузку модели.
 struct LMModelUnloadResponse: Codable {
+    /// Идентификатор выгруженного экземпляра модели
     let instanceId: String
 
     enum CodingKeys: String, CodingKey {

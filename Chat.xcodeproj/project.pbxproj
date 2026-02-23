@@ -668,6 +668,7 @@
 				CODE_SIGN_ENTITLEMENTS = Resources/Chat.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QP3VV6YM6A;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
