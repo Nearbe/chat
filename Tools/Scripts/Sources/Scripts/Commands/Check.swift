@@ -11,7 +11,7 @@ struct Check: AsyncParsableCommand {
 
     /// Основная логика выполнения шагов проверки.
     func run() async throws {
-        let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
+        _ = "platform=iOS Simulator,name=iPhone 16 Pro Max"
         print("🚀  Начало технической проверки...")
 
         var allResults: [CheckStepResult] = []
