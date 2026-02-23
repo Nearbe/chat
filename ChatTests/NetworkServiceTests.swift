@@ -32,7 +32,7 @@ final class NetworkServiceTests: XCTestCase {
         let modelsURL = AppConfig.shared.modelsURL!
         let responseJSON = """
         {
-          "data": [
+          "models": [
             {
               "id": "model-1",
               "object": "model",
@@ -61,7 +61,10 @@ final class NetworkServiceTests: XCTestCase {
         let loadURL = URL(string: "\(baseURL)/api/v1/models/load")!
         let responseJSON = """
         {
+          "type": "model_load_response",
           "instance_id": "inst-123",
+          "load_time_seconds": 1.5,
+          "status": "loaded",
           "model": "test-model"
         }
         """
