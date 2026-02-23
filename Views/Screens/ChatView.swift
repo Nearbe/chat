@@ -2,21 +2,64 @@ import SwiftUI
 import SwiftData
 import UIKit
 
-/// Главный экран чата
+// MARK: - Главный экран чата (Chat Screen)
+
+/// Основной UI-компонент приложения.
+/// Отвечает за отображение интерфейса чата, включая:
+/// - Экран авторизации (3D щит для ввода токена)
+/// - Пустое состояние (при отсутствии сообщений)
+/// - Список сообщений с возможностью редактирования/удаления
+/// - Поле ввода сообщения с кнопкой отправки
+/// - Панель инструментов (история, выбор модели, статус подключения)
+///
+/// Использует MVVM паттерн через ChatViewModel.
+/// Подключается к SwiftData для персистентности сообщений и сессий.
+///
+/// - Важно: Все сетевые операции выполняются асинхронно через ViewModel
+/// - Примечание: Автоматическая прокрутка к последнему сообщению отключена временно
 struct ChatView: View {
+    
+    // MARK: - Приватные свойства (Private Properties)
+    
+    /// ViewModel содержит всю бизнес-логику чата
+    /// Использует @StateObject так как создаётся в данном View
     @StateObject private var viewModel = ChatViewModel()
+    
+    /// Контекст SwiftData для персистентности данных
+    /// Получается из SwiftUI environment автоматически
     @Environment(\.modelContext) private var modelContext
+    
+    /// Флаг отображения экрана истории чатов
+    /// Управляется через sheet модификатор
     @State private var showingHistory = false
+    
+    /// Флаг отображения экрана выбора модели
+    /// Управляется через sheet модификатор
     @State private var showingModelPicker = false
+    
+    /// Прокси-объект для программной прокрутки ScrollView
+    /// Используется для автоматической прокрутки к новым сообщениям
+    /// Примечание: В данный момент не используется (автоскролл отключён)
     @State private var scrollProxy: ScrollViewProxy?
 
+    // MARK: - Тело представления (Body)
+    
     var body: some View {
+        // NavigationStack обеспечивает навигационную структуру iOS
         NavigationStack {
+            // Основной контейнер - вертикальный стек без отступов между элементами
             VStack(spacing: 0) {
+                // Логика отображения контента на основе состояния авторизации:
+                
+                // 1. Если не авторизован - показываем экран ввода токена
                 if !viewModel.isAuthenticated {
                     tokenRequiredView
+                    
+                // 2. Если авторизован, но нет сообщений - показываем пустое состояние
                 } else if viewModel.messages.isEmpty {
                     emptyStateView
+                    
+                // 3. Если есть сообщения - показываем список сообщений
                 } else {
                     ChatMessagesView(
                         messages: viewModel.messages,
@@ -26,6 +69,7 @@ struct ChatView: View {
                         currentStats: viewModel.currentStats,
                         onDeleteMessage: { viewModel.deleteMessage($0) },
                         onEditMessage: { message, newContent in
+                            // Используем Task для вызова async функции в sync контексте
                             Task {
                                 await viewModel.editMessage(message, newContent: newContent)
                             }
@@ -33,6 +77,7 @@ struct ChatView: View {
                     )
                 }
 
+                // Область ввода сообщения - всегда отображается внизу
                 MessageInputView(
                     inputText: $viewModel.inputText,
                     isAuthenticated: viewModel.isAuthenticated,
@@ -43,23 +88,33 @@ struct ChatView: View {
                     onStop: { viewModel.stopGeneration() }
                 )
             }
+            // Делаем всю область тапляблой для закрытия клавиатуры
             .contentShape(Rectangle())
             .onTapGesture {
+                // При тапе на пустое пространство - закрываем клавиатуру
+                // Получаем доступное окно через UIApplication
                 UIApplication.shared.connectedScenes
-                    .compactMap { $0 as? UIWindowScene }
-                    .flatMap { $0.windows }
-                    .first(where: { $0.isKeyWindow })?
-                    .endEditing(true)
+                    .compactMap { $0 as? UIWindowScene }  // Фильтруем только WindowScene
+                    .flatMap { $0.windows }              // Получаем все окна сцены
+                    .first(where: { $0.isKeyWindow })?   // Находим активное окно
+                    .endEditing(true)                    // Завершаем редактирование
             }
+            // Выполняется при появлении View на экране
             .onAppear {
+                // Обновляем статус авторизации из Keychain
                 viewModel.refreshAuthentication()
+                // Асинхронно проверяем подключение к серверу
                 Task {
                     await viewModel.checkServerConnection()
                 }
             }
+            // Настройка навигационной панели
             .navigationTitle("Chat")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.inline)  // Компактный заголовок
+            
+            // MARK: - Панель инструментов (Toolbar)
             .toolbar {
+                // Кнопка истории чатов (слева)
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         showingHistory = true
@@ -69,11 +124,13 @@ struct ChatView: View {
                     .accessibilityLabel("История чатов")
                 }
 
+                // Кнопка выбора модели (по центру)
                 ToolbarItem(placement: .principal) {
                     Button {
                         showingModelPicker = true
                     } label: {
                         HStack(spacing: 4) {
+                            // Показываем название выбранной модели или плейсхолдер
                             Text(viewModel.config.selectedModel.isEmpty ? "Выбрать модель" : viewModel.config.selectedModel)
                                 .lineLimit(1)
                             Image(systemName: "chevron.down")
@@ -83,58 +140,88 @@ struct ChatView: View {
                     .accessibilityLabel("Выбор модели")
                 }
 
+                // Индикатор подключения к серверу (слева от центра)
                 ToolbarItem(placement: .navigationBarLeading) {
+                    // Зелёный - сервер доступен, красный - недоступен
                     Circle()
                         .fill(viewModel.isServerReachable ? Color.green : Color.red)
                         .frame(width: 10, height: 10)
                 }
 
+                // Кнопка включения/выключения MCP инструментов (справа)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
+                        // Переключаем состояние MCP инструментов
                         viewModel.config.mcpToolsEnabled.toggle()
                     } label: {
                         Image(systemName: viewModel.config.mcpToolsEnabled ? "wrench.and.screwdriver.fill" : "wrench.and.screwdriver")
+                            // Акцентный цвет когда включено, серый когда выключено
                             .foregroundStyle(viewModel.config.mcpToolsEnabled ? ThemeManager.shared.accentColor : .secondary)
                     }
                 }
-
             }
+            
+            // MARK: - Модальные окна (Sheets)
+            
+            // Экран истории чатов
             .sheet(isPresented: $showingHistory) {
                 HistoryView(
                     onSelectSession: { session in
+                        // Загружаем выбранную сессию и закрываем лист
                         viewModel.loadSession(session)
                         showingHistory = false
                     },
                     onDeleteSession: { session in
+                        // Удаляем сессию
                         viewModel.deleteSession(session)
                     }
                 )
             }
+            
+            // Экран выбора модели
             .sheet(isPresented: $showingModelPicker) {
                 ModelPicker(
                     models: viewModel.availableModels,
                     selectedModel: $viewModel.config.selectedModel
                 )
             }
+            
+            // MARK: - Наблюдение за изменениями (Observers)
+            
+            // Следим за ошибками от ViewModel
+            // Примечание: Алерты не показываются - ошибки обрабатываются внутри
             .onChange(of: viewModel.errorMessage) {
                 // Ошибки обрабатываются без показа алерта
                 // viewModel.errorMessage очищается автоматически
             }
+            
+            // Выполняем при появлении - загружаем контекст и модели
             .task {
+                // Устанавливаем контекст SwiftData в ViewModel
                 viewModel.setModelContext(modelContext)
+                // Загружаем список доступных моделей с сервера
                 await viewModel.loadModels()
             }
+            
+            // Следим за изменением настроек UserDefaults
+            // Это позволяет реагировать на изменения в системных настройках
             .onReceive(NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)) { _ in
+                // Обновляем статус авторизации при изменении настроек
                 viewModel.refreshAuthentication()
             }
         }
     }
 
-    // MARK: - Auth Required View
+    // MARK: - Приватные подпредставления (Private Subviews)
 
+    /// Экран требования авторизации
+    /// Показывает интерактивный 3D щит для ввода токена
+    /// - Примечание: Токен должен начинаться с префикса "sk-lm"
     private var tokenRequiredView: some View {
         VStack(spacing: 20) {
+            // Интерактивный 3D щит
             ShieldView { token in
+                // При получении токена сохраняем его через ViewModel
                 viewModel.saveToken(token)
             }
             .frame(width: 280, height: 280)
@@ -151,8 +238,9 @@ struct ChatView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    // MARK: - Empty State View
-
+    /// Экран пустого состояния
+    /// Показывается когда нет сообщений в чате
+    /// Призывает пользователя начать разговор
     private var emptyStateView: some View {
         VStack(spacing: 16) {
             Image(systemName: "bubble.left.and.bubble.right")
@@ -171,6 +259,11 @@ struct ChatView: View {
 
 }
 
+// MARK: - Превью
+
+/// Превью компонента для Xcode
+/// Позволяет видеть внешний вид в редакторе
+/// - Важно: Требует настроенного modelContainer для SwiftData
 #Preview {
     ChatView()
         .modelContainer(PersistenceController.shared.container)
