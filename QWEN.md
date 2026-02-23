@@ -14,26 +14,26 @@ iOS-приложение на SwiftUI с интеграцией LLM (совме�
 
 ## Ключевые точки входа
 
-| Назначение | Файл |
-|------------|------|
-| Точка входа приложения | `App/ChatApp.swift` |
-| Главный экран | `Features/Chat/Views/ChatView.swift` |
+| Назначение             | Файл                                           |
+|------------------------|------------------------------------------------|
+| Точка входа приложения | `App/ChatApp.swift`                            |
+| Главный экран          | `Features/Chat/Views/ChatView.swift`           |
 | Основная бизнес-логика | `Features/Chat/ViewModels/ChatViewModel.swift` |
-| Сетевой шлюз | `Services/Network/NetworkService.swift` |
-| Персистентность | `Data/PersistenceController.swift` |
+| Сетевой шлюз           | `Services/Network/NetworkService.swift`        |
+| Персистентность        | `Data/PersistenceController.swift`             |
 
 ## Ключевые технологии
 
-| Категория | Технология |
-|-----------|------------|
-| UI | SwiftUI |
-| Data | SwiftData |
-| DI | Factory |
-| Логирование | Pulse |
-| Тестирование | Swift Testing, XCTest, SnapshotTesting |
-| Генерация кода | XcodeGen, SwiftGen |
-| Линтинг | SwiftLint |
-| Целевая платформа | iOS 26.2 |
+| Категория         | Технология                             |
+|-------------------|----------------------------------------|
+| UI                | SwiftUI                                |
+| Data              | SwiftData                              |
+| DI                | Factory                                |
+| Логирование       | Pulse                                  |
+| Тестирование      | Swift Testing, XCTest, SnapshotTesting |
+| Генерация кода    | XcodeGen, SwiftGen                     |
+| Линтинг           | SwiftLint                              |
+| Целевая платформа | iOS 26.2                               |
 
 ## Структура проекта
 
@@ -68,24 +68,24 @@ Chat/
 
 Базовый URL по умолчанию: `http://192.168.1.91:64721`
 
-| Метод | Эндпоинт | Описание |
-|-------|----------|----------|
-| GET | `/api/v1/models` | Получить список доступных моделей |
-| POST | `/api/v1/models/load` | Загрузить модель в память |
-| POST | `/api/v1/models/unload` | Выгрузить модель из памяти |
-| POST | `/api/v1/models/download` | Скачать модель из репозитория |
-| GET | `/api/v1/models/download/{jobId}` | Получить статус скачивания |
-| POST | `/api/v1/chat` | Стриминг чат-комплишена (SSE) |
+| Метод | Эндпоинт                          | Описание                          |
+|-------|-----------------------------------|-----------------------------------|
+| GET   | `/api/v1/models`                  | Получить список доступных моделей |
+| POST  | `/api/v1/models/load`             | Загрузить модель в память         |
+| POST  | `/api/v1/models/unload`           | Выгрузить модель из памяти        |
+| POST  | `/api/v1/models/download`         | Скачать модель из репозитория     |
+| GET   | `/api/v1/models/download/{jobId}` | Получить статус скачивания        |
+| POST  | `/api/v1/chat`                    | Стриминг чат-комплишена (SSE)     |
 
 ## Экраны и навигация
 
 ### Основные роуты (NavigationStack)
 
-| Путь | Экран (View) | ViewModel | Описание |
-|------|--------------|-----------|----------|
-| `/` | `ChatView` | `ChatViewModel` | Главный экран чата |
-| `/history` | `HistoryView` | — | История чатов (модальный) |
-| `/model-picker` | `ModelPicker` | — | Выбор модели (модальный) |
+| Путь            | Экран (View)  | ViewModel       | Описание                  |
+|-----------------|---------------|-----------------|---------------------------|
+| `/`             | `ChatView`    | `ChatViewModel` | Главный экран чата        |
+| `/history`      | `HistoryView` | —               | История чатов (модальный) |
+| `/model-picker` | `ModelPicker` | —               | Выбор модели (модальный)  |
 
 ### Схема навигации
 
@@ -111,12 +111,13 @@ ChatView (root)
 
 ### Доменные модели (SwiftData)
 
-| Модель | Файл | Назначение | Связи |
-|--------|------|------------|-------|
-| `Message` | `Models/Message.swift` | Отдельное сообщение в чате | Принадлежит `ChatSession` (relationship), содержит `sessionId` |
-| `ChatSession` | `Models/ChatSession.swift` | Сессия чата (история) | Содержит массив `Message` (каскадное удаление) |
+| Модель        | Файл                       | Назначение                 | Связи                                                          |
+|---------------|----------------------------|----------------------------|----------------------------------------------------------------|
+| `Message`     | `Models/Message.swift`     | Отдельное сообщение в чате | Принадлежит `ChatSession` (relationship), содержит `sessionId` |
+| `ChatSession` | `Models/ChatSession.swift` | Сессия чата (история)      | Содержит массив `Message` (каскадное удаление)                 |
 
 **Связи между SwiftData моделями:**
+
 ```
 ChatSession (1) ──────< Message (N)
      │
@@ -130,47 +131,47 @@ ChatSession (1) ──────< Message (N)
 
 ### Модели API (LM Studio)
 
-| Модель | Файл | Назначение |
-|--------|------|------------|
-| `LMModelsResponse` | `Models/LMModelsResponse.swift` | Ответ API списка моделей |
-| `LMChatRequest` | `Models/LMStudio/LMChatRequest.swift` | Запрос чата (messages, model, temperature) |
-| `LMChatResponse` | `Models/LMStudio/LMChatResponse.swift` | Ответ чата (output, stats, responseId) |
-| `LMOutputItem` | `Models/LMStudio/LMChatResponse.swift` | Элемент вывода: message/toolCall/reasoning |
-| `LMMessageContent` | `Models/LMStudio/LMMessageContent.swift` | Текстовое сообщение |
-| `LMToolCall` | `Models/LMStudio/LMToolCall.swift` | Вызов инструмента |
-| `LMReasoningContent` | `Models/LMStudio/LMReasoningContent.swift` | Рассуждения модели (chain of thought) |
-| `LMStats` | `Models/LMStudio/LMStats.swift` | Статистика генерации |
-| `LMSEvent` | `Models/LMStudio/LMSEvent.swift` | SSE событие стрима |
-| `LMStreamChunk` | `Models/LMStudio/LMStreamChunk.swift` | Чанк стрим-данных |
-| `LMDoneEvent` | `Models/LMStudio/LMDoneEvent.swift` | Финальное SSE событие |
-| `LMError` | `Models/LMStudio/LMError.swift` | Ошибка от API |
-| `LMModelLoadRequest` | `Models/LMStudio/LMModelLoadRequest.swift` | Запрос загрузки модели |
-| `LMModelLoadResponse` | `Models/LMStudio/LMModelLoadResponse.swift` | Ответ загрузки модели |
-| `LMModelUnloadRequest` | `Models/LMStudio/LMModelUnloadRequest.swift` | Запрос выгрузки модели |
-| `LMDownloadRequest` | `Models/LMStudio/LMDownloadRequest.swift` | Запрос скачивания модели |
-| `LMDownloadResponse` | `Models/LMStudio/LMDownloadResponse.swift` | Ответ скачивания |
-| `LMDownloadStatus` | `Models/LMStudio/LMDownloadStatus.swift` | Статус скачивания |
-| `LMProviderInfo` | `Models/LMStudio/LMProviderInfo.swift` | Информация о провайдере |
-| `LMInput` | `Models/LMStudio/LMInput.swift` | Входящие данные |
-| `LMMessageContent` | `Models/LMStudio/LMMessageContent.swift` | Контент сообщения |
-| `LMModelLoadConfig` | `Models/LMStudio/LMModelLoadConfig.swift` | Конфиг загрузки модели |
-| `LMToolCallMetadata` | `Models/LMStudio/LMToolCallMetadata.swift` | Метаданные tool call |
-| `LMInvalidToolCall` | `Models/LMStudio/LMInvalidToolCall.swift` | Некорректный вызов инструмента |
+| Модель                 | Файл                                         | Назначение                                 |
+|------------------------|----------------------------------------------|--------------------------------------------|
+| `LMModelsResponse`     | `Models/LMModelsResponse.swift`              | Ответ API списка моделей                   |
+| `LMChatRequest`        | `Models/LMStudio/LMChatRequest.swift`        | Запрос чата (messages, model, temperature) |
+| `LMChatResponse`       | `Models/LMStudio/LMChatResponse.swift`       | Ответ чата (output, stats, responseId)     |
+| `LMOutputItem`         | `Models/LMStudio/LMChatResponse.swift`       | Элемент вывода: message/toolCall/reasoning |
+| `LMMessageContent`     | `Models/LMStudio/LMMessageContent.swift`     | Текстовое сообщение                        |
+| `LMToolCall`           | `Models/LMStudio/LMToolCall.swift`           | Вызов инструмента                          |
+| `LMReasoningContent`   | `Models/LMStudio/LMReasoningContent.swift`   | Рассуждения модели (chain of thought)      |
+| `LMStats`              | `Models/LMStudio/LMStats.swift`              | Статистика генерации                       |
+| `LMSEvent`             | `Models/LMStudio/LMSEvent.swift`             | SSE событие стрима                         |
+| `LMStreamChunk`        | `Models/LMStudio/LMStreamChunk.swift`        | Чанк стрим-данных                          |
+| `LMDoneEvent`          | `Models/LMStudio/LMDoneEvent.swift`          | Финальное SSE событие                      |
+| `LMError`              | `Models/LMStudio/LMError.swift`              | Ошибка от API                              |
+| `LMModelLoadRequest`   | `Models/LMStudio/LMModelLoadRequest.swift`   | Запрос загрузки модели                     |
+| `LMModelLoadResponse`  | `Models/LMStudio/LMModelLoadResponse.swift`  | Ответ загрузки модели                      |
+| `LMModelUnloadRequest` | `Models/LMStudio/LMModelUnloadRequest.swift` | Запрос выгрузки модели                     |
+| `LMDownloadRequest`    | `Models/LMStudio/LMDownloadRequest.swift`    | Запрос скачивания модели                   |
+| `LMDownloadResponse`   | `Models/LMStudio/LMDownloadResponse.swift`   | Ответ скачивания                           |
+| `LMDownloadStatus`     | `Models/LMStudio/LMDownloadStatus.swift`     | Статус скачивания                          |
+| `LMProviderInfo`       | `Models/LMStudio/LMProviderInfo.swift`       | Информация о провайдере                    |
+| `LMInput`              | `Models/LMStudio/LMInput.swift`              | Входящие данные                            |
+| `LMMessageContent`     | `Models/LMStudio/LMMessageContent.swift`     | Контент сообщения                          |
+| `LMModelLoadConfig`    | `Models/LMStudio/LMModelLoadConfig.swift`    | Конфиг загрузки модели                     |
+| `LMToolCallMetadata`   | `Models/LMStudio/LMToolCallMetadata.swift`   | Метаданные tool call                       |
+| `LMInvalidToolCall`    | `Models/LMStudio/LMInvalidToolCall.swift`    | Некорректный вызов инструмента             |
 
 ### Вспомогательные модели
 
-| Модель | Файл | Назначение |
-|--------|------|------------|
-| `ModelInfo` | `Models/ModelInfo.swift` | Информация о доступной модели |
-| `ModelCapabilities` | `Models/ModelCapabilities.swift` | Возможности модели (vision, toolUse) |
-| `ModelQuantization` | `Models/ModelQuantization.swift` | Уровень квантования модели |
-| `ToolCall` | `Models/ToolCall.swift` | Вызов инструмента (доменная) |
-| `ToolCallResult` | `Models/ToolCallResult.swift` | Результат выполнения инструмента |
-| `ToolDefinition` | `Models/ToolDefinition.swift` | Определение инструмента для API |
-| `ToolParameters` | `Models/ToolParameters.swift` | Параметры инструмента (JSON Schema) |
-| `ToolProperty` | `Models/ToolProperty.swift` | Свойство параметра инструмента |
-| `ToolCallsResponse` | `Models/ToolCallsResponse.swift` | Ответ с вызовами инструментов |
-| `GenerationStats` | `Models/GenerationStats.swift` | Статистика генерации (токены, скорость) |
+| Модель              | Файл                             | Назначение                              |
+|---------------------|----------------------------------|-----------------------------------------|
+| `ModelInfo`         | `Models/ModelInfo.swift`         | Информация о доступной модели           |
+| `ModelCapabilities` | `Models/ModelCapabilities.swift` | Возможности модели (vision, toolUse)    |
+| `ModelQuantization` | `Models/ModelQuantization.swift` | Уровень квантования модели              |
+| `ToolCall`          | `Models/ToolCall.swift`          | Вызов инструмента (доменная)            |
+| `ToolCallResult`    | `Models/ToolCallResult.swift`    | Результат выполнения инструмента        |
+| `ToolDefinition`    | `Models/ToolDefinition.swift`    | Определение инструмента для API         |
+| `ToolParameters`    | `Models/ToolParameters.swift`    | Параметры инструмента (JSON Schema)     |
+| `ToolProperty`      | `Models/ToolProperty.swift`      | Свойство параметра инструмента          |
+| `ToolCallsResponse` | `Models/ToolCallsResponse.swift` | Ответ с вызовами инструментов           |
+| `GenerationStats`   | `Models/GenerationStats.swift`   | Статистика генерации (токены, скорость) |
 
 ### Поток данных (Data Flow)
 
@@ -229,66 +230,67 @@ SwiftData                                   SSE Stream
 
 ### Экраны (Views)
 
-| Файл | Директория | Назначение |
-|------|------------|------------|
-| `ChatView.swift` | `Features/Chat/Views/` | Главный экран чата |
-| `ChatMessagesView.swift` | `Features/Chat/Views/` | Список сообщений |
-| `MessageInputView.swift` | `Features/Chat/Views/` | Поле ввода сообщения |
-| `MessageBubble.swift` | `Features/Chat/Components/` | Пузырь сообщения |
-| `ShieldView.swift` | `Features/Chat/Components/` | 3D щит для ввода токена |
-| `HistoryView.swift` | `Features/History/Views/` | Экран истории чатов |
-| `SessionRowView.swift` | `Features/History/Components/` | Строка сессии в истории |
-| `ModelPicker.swift` | `Features/Settings/Views/` | Экран выбора модели |
-| `ModelRowView.swift` | `Features/Settings/Components/` | Строка модели в пикере |
+| Файл                     | Директория                      | Назначение              |
+|--------------------------|---------------------------------|-------------------------|
+| `ChatView.swift`         | `Features/Chat/Views/`          | Главный экран чата      |
+| `ChatMessagesView.swift` | `Features/Chat/Views/`          | Список сообщений        |
+| `MessageInputView.swift` | `Features/Chat/Views/`          | Поле ввода сообщения    |
+| `MessageBubble.swift`    | `Features/Chat/Components/`     | Пузырь сообщения        |
+| `ShieldView.swift`       | `Features/Chat/Components/`     | 3D щит для ввода токена |
+| `HistoryView.swift`      | `Features/History/Views/`       | Экран истории чатов     |
+| `SessionRowView.swift`   | `Features/History/Components/`  | Строка сессии в истории |
+| `ModelPicker.swift`      | `Features/Settings/Views/`      | Экран выбора модели     |
+| `ModelRowView.swift`     | `Features/Settings/Components/` | Строка модели в пикере  |
 
 ### ViewModels
 
-| Файл | Директория | Назначение |
-|------|------------|------------|
-| `ChatViewModel.swift` | `Features/Chat/ViewModels/` | Управление чатом, сообщениями, генерацией |
-| `AppConfig.swift` | `Features/Settings/ViewModels/` | Конфигурация приложения (Singleton) |
+| Файл                  | Директория                      | Назначение                                |
+|-----------------------|---------------------------------|-------------------------------------------|
+| `ChatViewModel.swift` | `Features/Chat/ViewModels/`     | Управление чатом, сообщениями, генерацией |
+| `AppConfig.swift`     | `Features/Settings/ViewModels/` | Конфигурация приложения (Singleton)       |
 
 ### Сервисы (Services)
 
-| Файл | Директория | Назначение |
-|------|------------|------------|
-| `ChatService.swift` | `Services/Chat/` | Основной сервис для API чата |
-| `ChatSessionManager.swift` | `Services/Chat/` | Управление сессиями SwiftData |
-| `ChatStreamService.swift` | `Services/Chat/` | SSE стриминг ответов |
-| `NetworkService.swift` | `Services/Network/` | HTTP клиент для LM Studio API |
-| `HTTPClient.swift` | `Services/Network/` | Низкоуровневый HTTP клиент |
-| `SSEParser.swift` | `Services/Network/` | Парсинг SSE потока |
-| `NetworkMonitor.swift` | `Services/Network/` | Мониторинг сетевого подключения |
-| `AuthorizationProvider.swift` | `Services/Network/` | Провайдер авторизации |
-| `KeychainHelper.swift` | `Services/Auth/` | Работа с Keychain |
-| `DeviceIdentity.swift` | `Services/Auth/` | Идентификация устройства |
+| Файл                          | Директория          | Назначение                      |
+|-------------------------------|---------------------|---------------------------------|
+| `ChatService.swift`           | `Services/Chat/`    | Основной сервис для API чата    |
+| `ChatSessionManager.swift`    | `Services/Chat/`    | Управление сессиями SwiftData   |
+| `ChatStreamService.swift`     | `Services/Chat/`    | SSE стриминг ответов            |
+| `NetworkService.swift`        | `Services/Network/` | HTTP клиент для LM Studio API   |
+| `HTTPClient.swift`            | `Services/Network/` | Низкоуровневый HTTP клиент      |
+| `SSEParser.swift`             | `Services/Network/` | Парсинг SSE потока              |
+| `NetworkMonitor.swift`        | `Services/Network/` | Мониторинг сетевого подключения |
+| `AuthorizationProvider.swift` | `Services/Network/` | Провайдер авторизации           |
+| `KeychainHelper.swift`        | `Services/Auth/`    | Работа с Keychain               |
+| `DeviceIdentity.swift`        | `Services/Auth/`    | Идентификация устройства        |
 
 ### Модели (Models)
 
-| Файл | Назначение |
-|------|------------|
-| `Message.swift` | Модель сообщения (SwiftData) |
-| `ChatSession.swift` | Модель сессии чата (SwiftData) |
-| `ModelInfo.swift` | Информация о модели |
-| `LMModelsResponse.swift` | Ответ API списка моделей |
-| `ToolCall.swift` | Вызов инструмента |
-| `GenerationStats.swift` | Статистика генерации |
+| Файл                     | Назначение                     |
+|--------------------------|--------------------------------|
+| `Message.swift`          | Модель сообщения (SwiftData)   |
+| `ChatSession.swift`      | Модель сессии чата (SwiftData) |
+| `ModelInfo.swift`        | Информация о модели            |
+| `LMModelsResponse.swift` | Ответ API списка моделей       |
+| `ToolCall.swift`         | Вызов инструмента              |
+| `GenerationStats.swift`  | Статистика генерации           |
 
 ### Конфигурация
 
-| Файл | Назначение |
-|------|------------|
-| `project.yml` | Конфигурация XcodeGen |
-| `swiftgen.yml` | Конфигурация SwiftGen |
-| `.swiftlint.yml` | Правила SwiftLint |
-| `GUIDELINES.md` | Полное руководство по разработке |
-| `IMPROVEMENT_PLAN.md` | План улучшений |
-| `VERSIONING.md` | Управление версиями |
+| Файл                                                | Назначение                           |
+|-----------------------------------------------------|--------------------------------------|
+| `project.yml`                                       | Конфигурация XcodeGen                |
+| `swiftgen.yml`                                      | Конфигурация SwiftGen                |
+| `.swiftlint.yml`                                    | Правила SwiftLint                    |
+| `GUIDELINES.md`                                     | Полное руководство по разработке     |
+| `IMPROVEMENT_PLAN.md`                               | План улучшений                       |
+| `VERSIONING.md`                                     | Управление версиями                  |
 | `Tools/Scripts/Sources/Scripts/Core/Versions.swift` | Централизованное управление версиями |
 
 ## Сборка и запуск
 
 ### Требования
+
 - Xcode 15.0+
 - XcodeGen 2.44.1
 - SwiftGen 6.6.3
@@ -297,16 +299,17 @@ SwiftData                                   SSE Stream
 
 ### Команды (обязательно использовать `swift run scripts`)
 
-| Команда | Описание |
-|---------|----------|
-| `swift run scripts setup` | Генерация проекта Xcode (XcodeGen + SwiftGen) |
-| `swift run scripts check` | Линтинг, сборка, тесты, покрытие 100%, коммит + пуш |
-| `swift run scripts ship` | Release-сборка и деплой на устройство Saint Celestine |
-| `swift run scripts download-docs` | Обновление локальной документации API |
+| Команда                           | Описание                                              |
+|-----------------------------------|-------------------------------------------------------|
+| `swift run scripts setup`         | Генерация проекта Xcode (XcodeGen + SwiftGen)         |
+| `swift run scripts check`         | Линтинг, сборка, тесты, покрытие 100%, коммит + пуш   |
+| `swift run scripts ship`          | Release-сборка и деплой на устройство Saint Celestine |
+| `swift run scripts download-docs` | Обновление локальной документации API                 |
 
 ### Workflow
 
 **Check** (обязательно перед каждым push):
+
 - Генерирует проект (XcodeGen + SwiftGen)
 - Проверяет стиль кода (SwiftLint)
 - Собирает и запускает тесты (xcodebuild test)
@@ -314,6 +317,7 @@ SwiftData                                   SSE Stream
 - Коммитит и пушит автоматически
 
 **Ship** (для доставки на реальное устройство):
+
 - Предварительно: `swift run scripts check` должен пройти
 - Собирает в Release конфигурации с code signing
 - Устанавливает на устройство Saint Celestine
@@ -322,33 +326,39 @@ SwiftData                                   SSE Stream
 ## Конвенции разработки
 
 ### Стиль кода
+
 - **Язык**: Русский (комментарии, документация, сообщения коммитов)
 - **SwiftLint**: Ограничение 160 символов в строке, требует `@MainActor` на ViewModel
 - **Архитектура**: Организация по функциональным модулям с четким разделением ответственности
 
 ### Стандарты тестирования
+
 - **Unit-тесты**: Фреймворк Swift Testing с паттерном AAA
 - **UI-тесты**: Паттерн Page Object Model в `ChatUITests/Pages/`
 - **Снапшоты**: SnapshotTesting для визуальной регрессии
 - **Покрытие**: Цель — 100% покрытие кода
 
 ### Конвенции именования
+
 - ViewModels: `*ViewModel.swift` с `@MainActor`
 - Views: `*View.swift`
 - Services: `*Service.swift`, `*Manager.swift`
 - Models: PascalCase (например, `Message`, `ChatSession`)
 
 ### Использование дизайн-системы
+
 - **Colors**: Использовать константы `AppColors`, никогда не `Color.`
 - **Spacing**: Использовать константы `AppSpacing`, никогда не магические числа в `.padding()`
 - **Typography**: Использовать константы `AppTypography`
 - Файлы: `Design/Typography.swift`, `Design/Spacing.swift`, `Design/Colors.swift`
 
 ### Безопасность
+
 - Секреты хранятся только в Keychain
 - Отсутствуют захардкоженные учетные данные
 
 ### Документация
+
 - Все публичные API требуют Docstrings на русском языке
 - В исходных файлах обязательны ссылки на документацию: `// MARK: - Связь с документацией:`
 
@@ -364,6 +374,7 @@ SwiftData                                   SSE Stream
 ### Основные流程
 
 #### Обычная разработка
+
 ```
 1. Пользователь говорит, что нужно сделать
 2. Делаю работу согласно инструкциям
@@ -373,6 +384,7 @@ SwiftData                                   SSE Stream
 ```
 
 #### Разработка UI (визуальные элементы)
+
 ```
 1. То же что выше
 2. Запускаю swift run scripts ship
@@ -381,6 +393,7 @@ SwiftData                                   SSE Stream
 ```
 
 **После ship — короткая сводка:**
+
 - Что изменилось
 - Куда смотреть (экран, компонент)
 - Как тестировать (пошагово)
@@ -391,6 +404,7 @@ SwiftData                                   SSE Stream
 2. Если **совсем не получается** исправить — прошу разрешение игнорировать
 
 **Формат вопроса:**
+
 ```
 Можно я буду игнорировать ошибку: ТЕКСТ_ОШИБКИ?
 ```
@@ -423,14 +437,27 @@ SwiftData                                   SSE Stream
 ```swift
 @MainActor
 extension Container {
-    var sessionManager: Factory<ChatSessionManager> { ... }.singleton
-    var networkService: Factory<NetworkService> { ... }.singleton
-    var chatService: Factory<ChatService> { ... }.singleton
-    var networkMonitor: Factory<NetworkMonitor> { ... }.singleton
+    var sessionManager: Factory<ChatSessionManager> {
+        ...
+    }
+.singleton
+    var networkService: Factory<NetworkService> {
+        ...
+    }
+.singleton
+    var chatService: Factory<ChatService> {
+        ...
+    }
+.singleton
+    var networkMonitor: Factory<NetworkMonitor> {
+        ...
+    }
+.singleton
 }
 ```
 
 Использование в коде:
+
 ```swift
 @Injected(\.sessionManager) private var sessionManager
 @Injected(\.chatService) private var chatService
@@ -446,6 +473,7 @@ extension Container {
 ### Персистентность данных
 
 **SwiftData** через `PersistenceController` (`Data/PersistenceController.swift`):
+
 - Основной контекст: `container.mainContext`
 - Схема: `[ChatSession.self, Message.self]`
 - Поддержка in-memory режима для тестов
@@ -454,20 +482,22 @@ extension Container {
 ### Безопасное хранение
 
 **Keychain** через `KeychainHelper` (`Services/Auth/KeychainHelper.swift`):
+
 - Хранение API токенов
 - Уровень доступа: `kSecAttrAccessibleWhenUnlockedThisDeviceOnly`
 - Методы: `get(key:)`, `set(key:value:)`, `delete(key:)`
 
 ### Обработка ошибок
 
-| Тип | Файл | Описание |
-|-----|------|----------|
+| Тип            | Файл                                 | Описание                                                                                |
+|----------------|--------------------------------------|-----------------------------------------------------------------------------------------|
 | `NetworkError` | `Services/Errors/NetworkError.swift` | invalidURL, noData, decodingError, serverError, unauthorized, rateLimited, networkError |
-| `AuthError` | `Services/Errors/AuthError.swift` | Ошибки аутентификации |
+| `AuthError`    | `Services/Errors/AuthError.swift`    | Ошибки аутентификации                                                                   |
 
 ### Логирование и мониторинг
 
 **Pulse** (`Services/NetworkConfiguration.swift`):
+
 - Интеграция через `URLSessionProxyDelegate()`
 - Вызов консоли: двойной тап по заголовку "Chat" (ChatView.swift:162)
 - `import Pulse` в NetworkConfiguration
@@ -477,42 +507,43 @@ extension Container {
 
 ### Тестирование
 
-| Test Plan | Файл | Назначение |
-|-----------|------|------------|
-| UnitTests | `TestPlans/UnitTests.xctestplan` | Unit тесты (Swift Testing) |
-| UITests | `TestPlans/UITests.xctestplan` | UI тесты (XCTest + Page Object Model) |
-| AllTests | `TestPlans/AllTests.xctestplan` | Все тесты с параллелизацией |
+| Test Plan | Файл                             | Назначение                            |
+|-----------|----------------------------------|---------------------------------------|
+| UnitTests | `TestPlans/UnitTests.xctestplan` | Unit тесты (Swift Testing)            |
+| UITests   | `TestPlans/UITests.xctestplan`   | UI тесты (XCTest + Page Object Model) |
+| AllTests  | `TestPlans/AllTests.xctestplan`  | Все тесты с параллелизацией           |
 
 ### Автоматизация (Swift Scripts)
 
 Swift-based CLI в `Tools/Scripts/` (точка входа `Scripts.swift`):
 
-| Команда | Файл | Назначение |
-|---------|------|------------|
-| Setup | `Commands/Setup.swift` | XcodeGen + SwiftGen генерация |
-| Check | `Commands/Check.swift` | SwiftLint + тесты + сборка (default) |
-| Ship | `Commands/Ship.swift` | Release сборка + деплой |
-| DownloadDocs | `Commands/DownloadDocs.swift` | Обновление документации |
-| UpdateDocsLinks | `Commands/UpdateDocsLinks.swift` | Обновление ссылок на документацию |
-| ConfigureSudo | `Commands/ConfigureSudo.swift` | Настройка беспарольного sudo |
+| Команда         | Файл                             | Назначение                           |
+|-----------------|----------------------------------|--------------------------------------|
+| Setup           | `Commands/Setup.swift`           | XcodeGen + SwiftGen генерация        |
+| Check           | `Commands/Check.swift`           | SwiftLint + тесты + сборка (default) |
+| Ship            | `Commands/Ship.swift`            | Release сборка + деплой              |
+| DownloadDocs    | `Commands/DownloadDocs.swift`    | Обновление документации              |
+| UpdateDocsLinks | `Commands/UpdateDocsLinks.swift` | Обновление ссылок на документацию    |
+| ConfigureSudo   | `Commands/ConfigureSudo.swift`   | Настройка беспарольного sudo         |
 
 Запуск: `./scripts <command>`
 
 ### Версионирование
 
 Централизованное управление версиями в `Tools/Scripts/Sources/Scripts/Core/Versions.swift`:
+
 - XcodeGen, SwiftGen, SwiftLint
 - SPM зависимости: Factory, Pulse, SnapshotTesting
 - iOS Deployment Target, Swift version
 
 ### Внешние интеграции
 
-| Компонент | Интеграция | Назначение |
-|-----------|------------|------------|
-| LM Studio | REST API v1 | Локальный LLM сервер (основной) |
-| Apple Keychain | Security framework | Безопасное хранение токенов |
-| Pulse | URLSessionProxyDelegate | Сетевой мониторинг и логирование |
-| NWPathMonitor | Network framework | Мониторинг статуса сети |
+| Компонент      | Интеграция              | Назначение                       |
+|----------------|-------------------------|----------------------------------|
+| LM Studio      | REST API v1             | Локальный LLM сервер (основной)  |
+| Apple Keychain | Security framework      | Безопасное хранение токенов      |
+| Pulse          | URLSessionProxyDelegate | Сетевой мониторинг и логирование |
+| NWPathMonitor  | Network framework       | Мониторинг статуса сети          |
 
 Документация также скачивается для Ollama (_docs), но runtime-интеграции нет.
 
@@ -523,4 +554,6 @@ Swift-based CLI в `Tools/Scripts/` (точка входа `Scripts.swift`):
 - **Целевое устройство**: «Saint Celestine» (реальный iPhone)
 
 ## Qwen Added Memories
-- Check/ship/setup запускаются через xcodebuild -scheme "🔍 Check" build (только сборка), либо ручной запуск в Xcode (⌘R) для вывода на вкладку Run. MCP плагин IDEA не умеет запускать Xcode-схемы.
+
+- Для запуска скриптов (check, setup, ship) использовать mcp__idea__execute_terminal_command с командой xcodebuild
+  -scheme "🔍 Check" build && <path_to_scripts_binary> check
