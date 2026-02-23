@@ -37,6 +37,10 @@ final class ChatViewModel: ObservableObject {
     private var streamingTask: Task<Void, Never>?
     private var generationStartTime: Date?
     
+    init() {
+        refreshAuthentication()
+    }
+    
     /// Настройка зависимостей и наблюдение за статусом сети
     /// - Parameters:
     ///   - sessionManager: Менеджер сессий SwiftData
@@ -50,6 +54,8 @@ final class ChatViewModel: ObservableObject {
         self.sessionManager = sessionManager
         self.chatService = chatService
         self.networkMonitor = networkMonitor
+        
+        refreshAuthentication()
         
         networkMonitor.isConnectedPublisher
             .receive(on: RunLoop.main)

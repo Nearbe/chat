@@ -1,3 +1,4 @@
+# См. документацию: Docs/Codegen/XcodeGen/README.md
 name: Chat
 options:
   bundleIdPrefix: ru.nearbe

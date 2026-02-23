@@ -1,6 +1,7 @@
 import Factory
 import Foundation
 
+/// - Документация: [Docs/Factory/README.md](../Docs/Factory/README.md)
 @MainActor
 extension Container {
     /// Менеджер сессий SwiftData

@@ -1,3 +1,4 @@
+# См. документацию: Docs/Codegen/SwiftGen/README.md
 input_dir: Resources/Assets.xcassets
 output_dir: Design/Generated
 xcassets:

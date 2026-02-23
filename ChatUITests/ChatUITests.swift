@@ -26,8 +26,8 @@ final class ChatUITests: XCTestCase {
         XCTAssertTrue(emptyState.waitForExistence(timeout: 5))
         
         // 2. Отправка сообщения
-        let inputField = app.textViews["message_input_field"]
-        XCTAssertTrue(inputField.exists)
+        let inputField = app.descendants(matching: .any)["message_input_field"]
+        XCTAssertTrue(inputField.waitForExistence(timeout: 5))
         
         inputField.tap()
         inputField.typeText("Привет, AI!")

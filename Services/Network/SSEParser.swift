@@ -1,5 +1,6 @@
 import Foundation
 
+/// - Спецификация API: [Docs/LMStudio/developer/rest/streaming-events.md](../../Docs/LMStudio/developer/rest/streaming-events.md)
 /// Парсер событий Server-Sent Events (SSE) для обработки потоковой передачи от LM Studio.
 /// Накапливает байты, выделяет строки и декодирует их в структурированные события.
 struct SSEParser {

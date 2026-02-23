@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 import Factory
 
+/// - Документация: [Docs/Factory/README.md](../Docs/Factory/README.md)
 /// Главная точка входа в приложение
 @main
 struct ChatApp: App {
@@ -12,15 +13,15 @@ struct ChatApp: App {
     @Injected(\.networkMonitor) private var networkMonitor
     
     init() {
-        if ProcessInfo.processInfo.arguments.contains("-reset") {
+        let args = ProcessInfo.processInfo.arguments
+        let tokenKey = DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.tokenKey ?? "auth_token_test"
+        
+        if args.contains("-reset") {
             // Очищаем токен для тестирования экрана авторизации
-            if let config = DeviceConfiguration.configuration(for: DeviceIdentity.currentName) {
-                _ = KeychainHelper.delete(key: config.tokenKey)
-            }
-        } else if ProcessInfo.processInfo.arguments.contains("-auth") {
-            // Устанавливаем тестовый токен для прохождения UI тестов
-            if let config = DeviceConfiguration.configuration(for: DeviceIdentity.currentName) {
-                _ = KeychainHelper.set(key: config.tokenKey, value: "sk-lm-test-token")
+            KeychainHelper.delete(key: tokenKey)
+            // И очищаем базу данных
+            Task { @MainActor in
+                PersistenceController.shared.deleteAll()
             }
         }
     }

@@ -2,6 +2,7 @@ import SwiftUI
 
 // MARK: - Design System: Colors
 
+/// - Документация: [Docs/Codegen/SwiftGen/README.md](../Docs/Codegen/SwiftGen/README.md)
 /// Дизайн-система цветов приложения
 @MainActor
 enum AppColors {

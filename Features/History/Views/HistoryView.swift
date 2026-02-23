@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 
+/// - Документация: [Docs/Pulse/README.md](../../../Docs/Pulse/README.md) (инструкция по вызову консоли Pulse через жест)
 /// Экран истории чатов
 struct HistoryView: View {
     @Environment(\.dismiss) private var dismiss

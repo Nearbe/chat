@@ -2,6 +2,7 @@ import SwiftUI
 
 // MARK: - Primary Button Style
 
+/// - Документация: [Docs/Codegen/SwiftGen/README.md](../Docs/Codegen/SwiftGen/README.md)
 /// Кастомная кнопка с эффектом нажатия
 struct PrimaryButtonStyle: ButtonStyle {
     let isDestructive: Bool

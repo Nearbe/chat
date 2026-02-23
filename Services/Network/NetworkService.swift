@@ -2,6 +2,7 @@ import Foundation
 
 // MARK: - Сетевой сервис для LM Studio API
 
+/// - Спецификация API: [Docs/LMStudio/developer/rest/index.md](../../Docs/LMStudio/developer/rest/index.md)
 /// Основной сервис для взаимодействия с LM Studio REST API.
 /// Работает в основном потоке (@MainActor) для безопасного доступа к UI.
 ///

@@ -1,4 +1,5 @@
 #!/bin/bash
+# См. документацию: Docs/README.md
 # Скрипт подготовки проекта к работе (XcodeGen + SwiftGen)
 
 set -e

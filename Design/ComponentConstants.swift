@@ -2,6 +2,7 @@ import SwiftUI
 
 // MARK: - Design System: Component Constants
 
+/// - Документация: [Docs/Codegen/SwiftGen/README.md](../Docs/Codegen/SwiftGen/README.md)
 /// Дизайн-система стилей компонентов (базовые константы)
 @MainActor
 enum AppComponentStyles {

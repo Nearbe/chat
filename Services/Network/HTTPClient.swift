@@ -1,5 +1,6 @@
 import Foundation
 
+/// - Документация: [Docs/Pulse/README.md](../../Docs/Pulse/README.md)
 /// HTTP клиент для выполнения сетевых запросов.
 /// Инкапсулирует логику работы с URLSession, обработку заголовков авторизации и ошибок.
 final class HTTPClient: @unchecked Sendable {

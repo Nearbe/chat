@@ -2,6 +2,7 @@ import SwiftUI
 
 // MARK: - Design System: Typography
 
+/// - Документация: [Docs/Codegen/SwiftGen/README.md](../Docs/Codegen/SwiftGen/README.md)
 /// Дизайн-система типографики
 enum AppTypography {
     // MARK: - Headlines

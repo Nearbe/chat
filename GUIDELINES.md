@@ -28,6 +28,8 @@
 - `.junie/instructions.md`: Специальные инструкции для ИИ-помощников.
 - `.junie/context.json`: Архитектурная карта проекта для быстрого погружения.
 - `setup.sh`: Скрипт подготовки проекта (XcodeGen + SwiftGen).
+- `setup_assets.sh`: Вспомогательный скрипт для генерации цветовых ассетов.
+- `download_all_docs.sh`: Мастер-скрипт для обновления локальной документации инструментов (LM Studio, OpenAI, Ollama и др.).
 - `check.sh`: Техническая проверка (Lint + Build + Test + Commit). Выполняется локально на **симуляторах** без подписания кода для автоматизации.
 - `ship.sh`: Доставка продукта на **реальное устройство**. Выполняется с правами администратора (без пароля при условии настройки `sudoers`).
 
@@ -44,6 +46,16 @@
    echo "$(whoami) ALL=(ALL) NOPASSWD: $(pwd)/ship.sh" | sudo tee /etc/sudoers.d/chat-ship-script
    ```
 3. После этого команда `./ship.sh` будет автоматически запускаться от имени администратора без ввода пароля.
+
+## Документация и внешние ресурсы
+В папке `Docs/` собрана документация по используемым инструментам и API:
+- `Docs/LMStudio/`: Полная документация по REST API и CLI LM Studio.
+- `Docs/Ollama/`: Спецификация API Ollama.
+- `Docs/OpenAI/`: Спецификация OpenAI API (совместимость).
+- `Docs/Factory/` и `Docs/Pulse/`: Документация по ключевым библиотекам.
+- `Docs/Codegen/`: Инструкции по XcodeGen и SwiftGen.
+
+Для обновления этих данных используйте `./download_all_docs.sh`.
 
 ## Стандарты разработки
 - Комментарии и документация пишутся на **русском языке**.
@@ -79,6 +91,7 @@
 - XcodeGen
 - SwiftGen
 - Factory (Dependency Injection)
-- Pulse (Logging & Network Monitoring)
+- Pulse (Logging & Network Monitoring) — Консоль открывается **двойным тапом** по заголовку "Chat" на главном экране.
+- SnapshotTesting (Visual Regression Testing)
 - Apple Security framework (Keychain)
 - SwiftLint (Code Quality)

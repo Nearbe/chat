@@ -1,5 +1,6 @@
 import Foundation
 
+/// - Спецификация API: [Docs/LMStudio/developer/rest/streaming-events.md](../../Docs/LMStudio/developer/rest/streaming-events.md)
 /// Сервис для стриминга чата
 final class ChatStreamService: @unchecked Sendable {
     private let httpClient: HTTPClient

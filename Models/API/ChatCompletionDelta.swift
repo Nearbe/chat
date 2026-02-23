@@ -1,5 +1,7 @@
 import Foundation
 
+/// - Спецификация OpenAI: [Docs/OpenAI/](../../Docs/OpenAI/)
+/// - Совместимость LM Studio: [Docs/LMStudio/developer/openai-compat/](../../Docs/LMStudio/developer/openai-compat/)
 /// Delta для streaming ответа
 struct ChatCompletionDelta: Codable {
     let role: ChatRole?
