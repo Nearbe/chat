@@ -161,14 +161,39 @@ xcodebuild build -scheme Chat -destination 'platform=iOS Simulator,name=iPhone 1
 
 ---
 
-## Настройка в JetBrains IDE
+## Настройка в JetBrains IDE (ОБЯЗАТЕЛЬНО)
+
+Для работы AI Self-Review необходимо вручную указать путь к этому файлу в настройках IDE.
+
+### Инструкция
+
+1. **Settings** → **Tools** → **AI Assistant** → **Project Settings** (или AI Self-Review)
+2. В поле **Path to rules for AI Self-Review** указать полный путь:
+   ```
+   /Users/nearbe/repositories/Chat/AI-SELF-REVIEW.md
+   ```
+3. Включить **Enable AI Self-Review** (если есть)
+4. Нажать **Apply** → **OK**
+
+### Альтернативный способ
 
 1. **Settings** → **Tools** → **AI Assistant** → **AI Self-Review**
-2. Включить "Enable AI Self-Review"
-3. Нажать **+** рядом с "Custom instructions"
-4. Выбрать этот файл `AI-SELF-REVIEW.md`
+2. Нажать **+** рядом с "Custom instructions"
+3. Выбрать этот файл `AI-SELF-REVIEW.md`
 
-Или скопировать чеклист в поле "Custom instructions" напрямую.
+### Проверка работы
+
+После настройки:
+1. Откройте Commit tool window: **Alt + 0** (Windows/Linux) или **⌘ + 0** (macOS)
+2. Выберите файлы для коммита
+3. Нажмите **Self-Review with AI**
+4. Откроется вкладка **AI Self-Review** в Problems tool window
+
+### Важно
+
+- Эта настройка хранится локально в IDE и **не синхронизируется** через VCS
+- Каждый новый член команды должен настроить это вручную
+- Инструкция также есть в `SETUP.md`
 
 ---
 

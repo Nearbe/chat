@@ -114,6 +114,31 @@ xcrun simctl launch booted com.your-org.Chat
 
 ---
 
+## Запуск скриптов (check, setup, ship)
+
+### Через Run Configuration (рекомендуется)
+
+В IntelliJ IDEA / WebStorm настроены Run Configurations для запуска скриптов:
+
+1. **Run** → **Edit Configurations...**
+2. Выберите нужную конфигурацию:
+   - `scripts — check` — линтинг + сборка + тесты + пуш
+   - `scripts — setup` — генерация проекта
+   - `scripts — ship` — релиз-сборка + деплой на устройство
+3. Нажмите **Run** (или **Debug** для отладки)
+
+**Горячая клавиша:** Выберите конфигурацию в выпадающем списке сверху и нажмите **⌘ + R**
+
+### Через терминал
+
+```bash
+./scripts check
+./scripts setup
+./scripts ship
+```
+
+---
+
 ## Настройка LM Studio
 
 Приложение Chat подключается к LM Studio для LLM.
@@ -225,6 +250,27 @@ Chat/
 ├── swiftgen.yml         # Конфиг SwiftGen
 └── .swiftlint.yml       # Конфиг SwiftLint
 ```
+
+---
+
+## Настройка JetBrains AI Assistant
+
+### AI Self-Review (обязательно)
+
+Для использования AI-powered code review перед коммитом:
+
+1. **Settings** → **Tools** → **AI Assistant** → **Project Settings**
+2. В поле **Path to rules for AI Self-Review** указать:
+   ```
+   /Users/nearbe/repositories/Chat/AI-SELF-REVIEW.md
+   ```
+3. Нажать **Apply** → **OK**
+
+**Проверка:**
+- Откройте Commit tool window: **Alt + 0** (Windows/Linux) или **⌘ + 0** (macOS)
+- Выберите файлы → нажмите **Self-Review with AI**
+
+Подробности: `AI-SELF-REVIEW.md`
 
 ---
 
