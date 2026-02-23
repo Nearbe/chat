@@ -13,12 +13,22 @@ public enum ExceptionRegistry {
     /// Загружает исключения для ProjectChecker, сгруппированные по типам
     public static func loadProjectCheckerExceptions() throws -> [String: [String]] {
         let content = try loadContent()
-        let section = try extractSection(from: content, header: "## 🔍 Программные исключения (ProjectChecker)")
-        let rows = parseTableWithTypes(section)
         var result: [String: [String]] = [:]
-        for (type, pattern) in rows {
-            result[type, default: []].append(pattern)
+
+        // Парсим каждую таблицу отдельно для ProjectChecker
+        let sections = [
+            ("Папка", "### 📂 Исключенные папки"),
+            ("Символ", "### 🏷️ Игнорируемые символы"),
+            ("Ключевое слово", "### 🔑 Технические ключевые слова"),
+            ("Контекст", "### 📝 Разрешенные контексты print()"),
+            ("Текст", "### 📏 Порог коротких строк")
+        ]
+
+        for (type, header) in sections {
+            let sectionContent = try extractSection(from: content, header: header)
+            result[type] = parseTable(sectionContent, patternColumnIndex: 2)
         }
+
         return result
     }
 
@@ -49,7 +59,8 @@ public enum ExceptionRegistry {
         var sectionLines: [String] = []
         for index in (startIndex + 1)..<lines.count {
             let line = lines[index]
-            if line.hasPrefix("## ") { break }
+            // Секция заканчивается, если встретили заголовок такого же или высшего уровня
+            if line.hasPrefix("## ") || line.hasPrefix("### ") { break }
             sectionLines.append(line)
         }
         return sectionLines.joined(separator: "\n")
