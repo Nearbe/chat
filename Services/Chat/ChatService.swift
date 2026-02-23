@@ -3,7 +3,10 @@ import Foundation
 /// Протокол для сервиса чата
 @MainActor
 protocol ChatServiceProtocol: AnyObject {
+    /// Получить список доступных моделей
     func fetchModels() async throws -> [ModelInfo]
+    
+    /// Начать поток генерации ответа от AI
     func streamChat(
         messages: [ChatMessage],
         model: String,

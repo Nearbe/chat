@@ -50,7 +50,8 @@ final class ChatSessionManager: ObservableObject {
         do {
             try modelContext.save()
         } catch {
-            print("[ChatSessionManager] Save error: \(error.localizedDescription)")
+            // Ошибка сохранения SwiftData
+            // В реальном приложении здесь должен быть вызов логгера (например, OSLog или Pulse)
         }
     }
 }

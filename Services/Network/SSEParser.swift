@@ -66,7 +66,7 @@ struct SSEParser {
             let event = try decoder.decode(LMSEvent.self, from: data)
             return mapEvent(event)
         } catch {
-            print("[SSEParser] Decode error: \(error.localizedDescription)")
+            // Ошибка декодирования SSE события
             return nil
         }
     }

@@ -69,11 +69,14 @@ final class ChatViewModel: ObservableObject {
     
     // MARK: - Authentication
     
+    /// Обновить статус авторизации
     func refreshAuthentication() {
         isAuthenticated = DeviceIdentity.isAuthorized && 
                          DeviceAuthorizationProvider().authorizationHeader() != nil
     }
     
+    /// Сохранить токен доступа
+    /// - Parameter token: Строка токена
     func saveToken(_ token: String) {
         if let config = DeviceConfiguration.configuration(for: DeviceIdentity.currentName) {
             _ = KeychainHelper.set(key: config.tokenKey, value: token)
@@ -83,6 +86,7 @@ final class ChatViewModel: ObservableObject {
     
     // MARK: - Model Management
     
+    /// Загрузить список доступных моделей
     func loadModels() async {
         guard let chatService = chatService else { return }
         do {
@@ -101,12 +105,15 @@ final class ChatViewModel: ObservableObject {
         }
     }
     
+    /// Проверить соединение с сервером
     func checkServerConnection() async {
         await loadModels()
     }
     
     // MARK: - Session Management
     
+    /// Установить текущую активную сессию
+    /// - Parameter session: Сессия из SwiftData
     func setSession(_ session: ChatSession) {
         currentSession = session
         messages = session.sortedMessages
@@ -114,10 +121,14 @@ final class ChatViewModel: ObservableObject {
         isModelSelected = !config.selectedModel.isEmpty
     }
     
+    /// Установить контекст данных (SwiftData)
+    /// - Parameter context: Контекст модели
     func setModelContext(_ context: ModelContext) {
         self.sessionManager = ChatSessionManager(modelContext: context)
     }
     
+    /// Удалить сессию чата
+    /// - Parameter session: Сессия для удаления
     func deleteSession(_ session: ChatSession) {
         if currentSession?.id == session.id {
             currentSession = nil
@@ -126,6 +137,8 @@ final class ChatViewModel: ObservableObject {
         sessionManager?.deleteSession(session)
     }
     
+    /// Создать новую сессию в SwiftData
+    /// - Returns: Созданная сессия
     func createNewSession() -> ChatSession {
         stopGeneration()
         currentSession = nil
@@ -140,6 +153,7 @@ final class ChatViewModel: ObservableObject {
     
     // MARK: - Message Actions
     
+    /// Отправить сообщение пользователю
     func sendMessage() async {
         guard !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               let sessionManager = sessionManager,
@@ -166,6 +180,7 @@ final class ChatViewModel: ObservableObject {
         await generateResponse()
     }
     
+    /// Остановить генерацию ответа
     func stopGeneration() {
         streamingTask?.cancel()
         isGenerating = false
@@ -175,12 +190,18 @@ final class ChatViewModel: ObservableObject {
         }
     }
     
+    /// Удалить сообщение из текущей сессии
+    /// - Parameter message: Сообщение для удаления
     func deleteMessage(_ message: Message) {
         guard let session = currentSession else { return }
         sessionManager?.deleteMessage(message)
         messages = session.sortedMessages
     }
     
+    /// Отредактировать существующее сообщение
+    /// - Parameters:
+    ///   - message: Исходное сообщение
+    ///   - newContent: Новый текст
     func editMessage(_ message: Message, newContent: String) async {
         guard let session = currentSession, let sessionManager = sessionManager else { return }
         

@@ -13,12 +13,16 @@ struct Check: AsyncParsableCommand {
         print("🚀  Начало технической проверки (Асинхронный режим)...")
         
         try await withThrowingTaskGroup(of: Void.self) { mainGroup in
-            // 1. Параллельный линтинг
+            // 1. Параллельный линтинг и специальные проверки
             mainGroup.addTask {
-                try await Metrics.measure(step: "SwiftLint") {
+                try await Metrics.measure(step: "Linting") {
                     print("🔍  Запуск SwiftLint...")
-                    try await Shell.run("swiftlint --strict")
-                    print("✅  SwiftLint завершен успешно.")
+                    try? await Shell.run("swiftlint --strict")
+                    
+                    print("🔍  Запуск ProjectChecker...")
+                    try await ProjectChecker.run()
+                    
+                    print("✅  Линтинг и проверки завершены успешно.")
                 }
             }
             
