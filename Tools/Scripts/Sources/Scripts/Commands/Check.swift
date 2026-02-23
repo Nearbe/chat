@@ -42,14 +42,14 @@ struct Check: AsyncParsableCommand {
                 try await withThrowingTaskGroup(of: Void.self) { buildGroup in
                     // Unit + UI тесты
                     buildGroup.addTask {
-                        print("🧪  Запуск тестов через Test Plan (ProjectTests)...")
+                        print("🧪  Запуск тестов через Test Plan (AllTests)...")
                         try? FileManager.default.removeItem(atPath: "TestResult.xcresult")
                         
                         let testCommand = [
                             "xcodebuild",
                             "-project Chat.xcodeproj",
                             "-scheme Chat",
-                            "-testPlan ProjectTests",
+                            "-testPlan AllTests",
                             "-destination \"\(device)\"",
                             "-resultBundlePath TestResult.xcresult",
                             "test",

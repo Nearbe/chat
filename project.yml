@@ -44,7 +44,7 @@ targets:
       - path: Core
       - path: Design
       - path: Resources
-      - path: ProjectTests.xctestplan
+      - path: TestPlans
       - path: Resources/Settings.bundle
         buildPhase: resources
     dependencies:
@@ -143,7 +143,7 @@ schemes:
     test:
       config: Debug
       testPlans:
-        - path: ProjectTests.xctestplan
+        - path: TestPlans/AllTests.xctestplan
           defaultPlan: true
     archive:
       config: Release
