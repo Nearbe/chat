@@ -17,6 +17,8 @@ packages:
   SnapshotTesting:
     url: https://github.com/pointfreeco/swift-snapshot-testing.git
     from: 1.15.4
+  Scripts:
+    path: Tools/Scripts
 
 settings:
   base:
