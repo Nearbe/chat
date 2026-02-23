@@ -61,8 +61,8 @@ struct StatusIcon: View {
                     Text("\(title) - \(message)")
                         .font(.system(size: 13, weight: .medium))
                         .foregroundStyle(.clear)
-                        .padding(.leading, 8)
-                    
+                        .padding(.leading, AppSpacing.xs)
+
                     Image(systemName: icon)
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(.clear)
@@ -78,14 +78,14 @@ struct StatusIcon: View {
                 .scaleEffect(pulse ? 1.1 : 1.0)
                 .opacity(pulse ? 0 : 1)
             }
-            
+
             // Контент
             HStack(spacing: 0) {
                 // Popup - выезжает из иконки
                 Text("\(title) - \(message)")
                     .font(.system(size: 13, weight: .medium))
                     .foregroundStyle(color)
-                    .padding(.leading, 8)
+                    .padding(.leading, AppSpacing.xs)
                     .clipped()
                     .mask {
                         HStack(spacing: 0) {

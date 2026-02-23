@@ -5,6 +5,8 @@ import Foundation
 public struct ProjectChecker {
     private let exceptions: [String: [String]]
 
+    /// Запускает проверку проекта
+    /// - Parameter quiet: Режим тишины (минимум вывода в консоль)
     public static func run(quiet: Bool = true) async throws {
         if !quiet {
             print("🔍  Запуск специальных проверок проекта (ProjectChecker)...")
@@ -16,24 +18,14 @@ public struct ProjectChecker {
     }
 
     private func perform(quiet: Bool) async throws {
-        let filesToScan = collectFiles()
         var errors: [String] = []
         var logContent = "ProjectChecker Log\n"
         logContent += "Date: \(Date())\n\n"
 
-        for file in filesToScan {
-            let fileErrors = try checkFile(file)
-            errors.append(contentsOf: fileErrors)
-            if !fileErrors.isEmpty {
-                logContent += "File: \(file)\n"
-                fileErrors.forEach { logContent += "  - \($0)\n" }
-            }
-        }
-
         let toolErrors = await checkToolVersions()
         errors.append(contentsOf: toolErrors)
         if !toolErrors.isEmpty {
-            logContent += "\nTool Versions Errors:\n"
+            logContent += "Tool Versions Errors:\n"
             toolErrors.forEach { logContent += "  - \($0)\n" }
         }
 
@@ -56,36 +48,6 @@ public struct ProjectChecker {
                 print("✅  Все специальные проверки пройдены успешно.")
             }
         }
-    }
-
-    private func collectFiles() -> [String] {
-        let fileManager = FileManager.default
-        let enumerator = fileManager.enumerator(atPath: ".")
-
-        var filesToScan: [String] = []
-        let excludedPaths = exceptions["Путь"] ?? []
-
-        while let file = enumerator?.nextObject() as? String {
-            guard file.hasSuffix(".swift") else { continue }
-
-            if excludedPaths.contains(where: { file.contains($0) }) {
-                continue
-            }
-            filesToScan.append(file)
-        }
-        return filesToScan
-    }
-
-    private func checkFile(_ file: String) throws -> [String] {
-        var errors: [String] = []
-        let fileURL = URL(fileURLWithPath: file)
-        let content = try String(contentsOf: fileURL, encoding: .utf8)
-        let lines = content.components(separatedBy: .newlines)
-
-        // Проверка наличия документации и именования перенесена в SwiftLint (custom_rules)
-        // Если нужны дополнительные структурные проверки, добавлять сюда
-
-        return errors
     }
 
     private func checkToolVersions() async -> [String] {

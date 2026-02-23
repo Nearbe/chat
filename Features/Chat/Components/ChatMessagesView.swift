@@ -7,22 +7,22 @@ import SwiftUI
 struct ChatMessagesView: View {
     /// Список сообщений для отображения
     let messages: [Message]
-    
+
     /// Текущие активные или завершенные вызовы инструментов (function calling)
     let toolCalls: [ToolCall]
-    
+
     /// Флаг отображения статистики генерации (токены, скорость)
     let showStats: Bool
-    
+
     /// Флаг процесса генерации ответа в данный момент
     let isGenerating: Bool
-    
+
     /// Статистика последней или текущей генерации
     let currentStats: GenerationStats?
-    
+
     /// Колбэк для удаления сообщения из истории
     let onDeleteMessage: (Message) -> Void
-    
+
     /// Колбэк для редактирования текста сообщения
     let onEditMessage: (Message, String) -> Void
 
@@ -56,7 +56,7 @@ struct ChatMessagesView: View {
                     }
                 }
                 .padding(.horizontal)
-                .padding(.vertical, 8)
+                .padding(.vertical, AppSpacing.xs)
             }
             .background(AppColors.backgroundSecondary)
         }

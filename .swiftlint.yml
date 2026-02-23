@@ -18,8 +18,32 @@ opt_in_rules:
   - vertical_whitespace_closing_braces
   - line_length
   - cyclomatic_complexity
+  - missing_docs
+  - file_name
 
 line_length: 160
+
+file_name:
+  excluded:
+    - CLI.swift
+    - Colors.swift
+    - Spacing.swift
+    - Typography.swift
+    - ComponentConstants.swift
+    - PrimaryButtonStyle.swift
+    - Package.swift
+    - Shell.swift
+    - Metrics.swift
+    - ExceptionRegistry.swift
+    - Versions.swift
+    - ProjectChecker.swift
+    - DownloadDocs.swift
+    - UpdateDocsLinks.swift
+    - Check.swift
+    - Ship.swift
+    - ConfigureSudo.swift
+    - Setup.swift
+    - UITestModule.swift
 
 identifier_name:
   min_length: 2
@@ -59,8 +83,21 @@ custom_rules:
     message: "Documentation (Docstring) must be in Russian"
     severity: warning
 
+  no_direct_padding:
+    name: "No direct padding"
+    regex: '\.padding\(\s*(\.[a-z]+\s*,\s*)?[0-9]+'
+    message: "Use AppSpacing constants instead of magic numbers in .padding()"
+    severity: warning
+
+  no_direct_font:
+    name: "No direct font"
+    regex: '\.font\(\s*\.(system\(size:\s*\d+|largeTitle|title|title2|title3|headline|subheadline|body|callout|footnote|caption|caption2)\)'
+    message: "Use AppTypography constants instead of direct .font() calls"
+    severity: warning
+
 included:
   - App
+  - Features
   - Models
   - Views
   - ViewModels

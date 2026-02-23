@@ -21,7 +21,7 @@ struct MessageBubble: View {
 
             VStack(alignment: isUser ? .trailing : .leading, spacing: 4) {
                 Text(message.content)
-                    .font(.body)
+                    .font(AppTypography.body)
                     .foregroundStyle(.primary)
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
@@ -29,12 +29,12 @@ struct MessageBubble: View {
                 HStack(spacing: 4) {
                     if let modelName = message.modelName, !message.isUser {
                         Text(modelName)
-                            .font(.caption2)
+                            .font(AppTypography.caption2)
                             .foregroundStyle(.secondary)
                     }
 
                     Text(message.createdAt.formatted(date: .omitted, time: .shortened))
-                        .font(.caption2)
+                        .font(AppTypography.caption2)
                         .foregroundStyle(.secondary)
 
                     if message.isGenerating {
@@ -43,8 +43,8 @@ struct MessageBubble: View {
                     }
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.horizontal, AppSpacing.md)
+            .padding(.vertical, AppSpacing.messageVertical)
             .background(isUser ? ThemeManager.shared.accentColor : AppColors.systemGray5)
             .foregroundStyle(isUser ? .white : .primary)
             .clipShape(RoundedRectangle(cornerRadius: 18))

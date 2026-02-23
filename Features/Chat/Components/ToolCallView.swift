@@ -8,13 +8,13 @@ struct ToolCallView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: iconName)
-                .font(.caption)
+                .font(AppTypography.caption)
                 .foregroundStyle(iconColor)
                 .frame(width: 20)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text("Инструмент: \(toolCall.name)")
-                    .font(.caption)
+                    .font(AppTypography.caption)
                     .fontWeight(.medium)
 
                 if toolCall.isExecuting {
@@ -22,22 +22,22 @@ struct ToolCallView: View {
                         ProgressView()
                             .scaleEffect(0.5)
                         Text("Выполнение...")
-                            .font(.caption2)
+                            .font(AppTypography.caption2)
                             .foregroundStyle(.secondary)
                     }
                 } else if let result = toolCall.result {
                     Text(result)
-                        .font(.caption)
+                        .font(AppTypography.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(3)
                 } else if let error = toolCall.error {
                     Text(error)
-                        .font(.caption)
+                        .font(AppTypography.caption)
                         .foregroundStyle(.red)
                 }
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(.horizontal, AppSpacing.sm)
+            .padding(.vertical, AppSpacing.xs)
             .background(AppColors.backgroundTertiary)
             .clipShape(RoundedRectangle(cornerRadius: 8))
 

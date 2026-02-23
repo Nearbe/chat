@@ -11,12 +11,12 @@ struct SessionRowView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(session.title)
-                        .font(.headline)
+                        .font(AppTypography.headline)
                         .lineLimit(1)
 
                     HStack(spacing: 8) {
                         Text(session.formattedDate)
-                            .font(.caption)
+                            .font(AppTypography.caption)
                             .foregroundStyle(.secondary)
 
                         Text("•")
@@ -24,7 +24,7 @@ struct SessionRowView: View {
                             .accessibilityHidden(true)
 
                         Text("\(session.messageCount) сообщений")
-                            .font(.caption)
+                            .font(AppTypography.caption)
                             .foregroundStyle(.secondary)
 
                         if session.modelName != "default" {
@@ -33,7 +33,7 @@ struct SessionRowView: View {
                                 .accessibilityHidden(true)
 
                             Text(session.modelName)
-                                .font(.caption)
+                                .font(AppTypography.caption)
                                 .foregroundStyle(.secondary)
                                 .lineLimit(1)
                         }
@@ -43,7 +43,7 @@ struct SessionRowView: View {
                 Spacer()
 
                 Image(systemName: "chevron.right")
-                    .font(.caption)
+                    .font(AppTypography.caption)
                     .foregroundStyle(.tertiary)
                     .accessibilityHidden(true)
             }

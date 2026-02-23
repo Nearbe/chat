@@ -24,7 +24,7 @@ struct StatusIndicator: View {
 
             // Текстовое описание статуса
             Text(text)
-                .font(.caption)
+                .font(AppTypography.caption)
                 .foregroundStyle(.secondary)
         }
     }

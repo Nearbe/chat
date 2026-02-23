@@ -21,24 +21,24 @@ import UIKit
 /// - Важно: Все сетевые операции выполняются асинхронно через ViewModel
 /// - Примечание: Автоматическая прокрутка к последнему сообщению отключена временно
 struct ChatView: View {
-    
+
     // MARK: - Приватные свойства (Private Properties)
-    
+
     @EnvironmentObject private var sessionManager: ChatSessionManager
     @EnvironmentObject private var chatService: ChatService
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-    
+
     /// ViewModel содержит всю бизнес-логику чата
     @StateObject private var viewModel = ChatViewModel()
-    
+
     /// Контекст SwiftData для персистентности данных
     /// Получается из SwiftUI environment автоматически
     @Environment(\.modelContext) private var modelContext
-    
+
     /// Флаг отображения экрана истории чатов
     /// Управляется через sheet модификатор
     @State private var showingHistory = false
-    
+
     /// Флаг отображения экрана выбора модели
     /// Управляется через sheet модификатор
     @State private var showingModelPicker = false
@@ -49,29 +49,29 @@ struct ChatView: View {
     /// Флаг отображения ShareSheet для экспорта
     @State private var showingExport = false
     @State private var exportText = ""
-    
+
     /// Прокси-объект для программной прокрутки ScrollView
     /// Используется для автоматической прокрутки к новым сообщениям
     /// Примечание: В данный момент не используется (автоскролл отключён)
     @State private var scrollProxy: ScrollViewProxy?
 
     // MARK: - Тело представления (Body)
-    
+
     var body: some View {
         // NavigationStack обеспечивает навигационную структуру iOS
         NavigationStack {
             // Основной контейнер - вертикальный стек без отступов между элементами
             VStack(spacing: 0) {
                 // Логика отображения контента на основе состояния авторизации:
-                
+
                 // 1. Если не авторизован - показываем экран ввода токена
                 if !viewModel.isAuthenticated {
                     tokenRequiredView
-                    
+
                 // 2. Если авторизован, но нет сообщений - показываем пустое состояние
                 } else if viewModel.messages.isEmpty {
                     emptyStateView
-                    
+
                 // 3. Если есть сообщения - показываем список сообщений
                 } else {
                     ChatMessagesView(
@@ -128,18 +128,18 @@ struct ChatView: View {
             }
             // Настройка навигационной панели
             .navigationBarTitleDisplayMode(.inline)  // Компактный заголовок
-            
+
             // MARK: - Панель инструментов (Toolbar)
             .toolbar {
                 // Заголовок с секретным двойным тапом для открытия Pulse
                 ToolbarItem(placement: .principal) {
                     Text("Chat")
-                        .font(.headline)
+                        .font(AppTypography.headline)
                         .onTapGesture(count: 2) {
                             showingPulse = true
                         }
                 }
-                
+
                 // Кнопка истории чатов (слева)
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -160,7 +160,7 @@ struct ChatView: View {
                             Text(viewModel.config.selectedModel.isEmpty ? "Выбрать модель" : viewModel.config.selectedModel)
                                 .lineLimit(1)
                             Image(systemName: "chevron.down")
-                                .font(.caption)
+                                .font(AppTypography.caption)
                         }
                     }
                     .accessibilityLabel("Выбор модели")
@@ -198,9 +198,9 @@ struct ChatView: View {
                     }
                 }
             }
-            
+
             // MARK: - Модальные окна (Sheets)
-            
+
             // Экран истории чатов
             .sheet(isPresented: $showingHistory) {
                 HistoryView(
@@ -215,7 +215,7 @@ struct ChatView: View {
                     }
                 )
             }
-            
+
             // Экран выбора модели
             .sheet(isPresented: $showingModelPicker) {
                 ModelPicker(
@@ -226,27 +226,27 @@ struct ChatView: View {
                     )
                 )
             }
-            
+
             // Консоль Pulse для отладки
             .sheet(isPresented: $showingPulse) {
                 ConsoleView(store: .shared)
             }
-            
+
             // Экспорт в Markdown
             .sheet(isPresented: $showingExport) {
                 ShareSheet(items: [exportText])
                     .presentationDetents([PresentationDetent.medium, PresentationDetent.large])
             }
-            
+
             // MARK: - Наблюдение за изменениями (Observers)
-            
+
             // Следим за ошибками от ViewModel
             // Примечание: Алерты не показываются - ошибки обрабатываются внутри
             .onChange(of: viewModel.errorMessage) {
                 // Ошибки обрабатываются без показа алерта
                 // viewModel.errorMessage очищается автоматически
             }
-            
+
             // Выполняем при появлении - загружаем контекст и модели
             .task {
                 // Устанавливаем контекст SwiftData в ViewModel
@@ -254,7 +254,7 @@ struct ChatView: View {
                 // Загружаем список доступных моделей с сервера
                 await viewModel.loadModels()
             }
-            
+
             // Следим за изменением настроек UserDefaults
             // Это позволяет реагировать на изменения в системных настройках
             .onReceive(NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)) { _ in
@@ -280,11 +280,11 @@ struct ChatView: View {
             .accessibilityIdentifier("shield_view")
 
             Text("Требуется токен")
-                .font(.headline)
+                .font(AppTypography.headline)
                 .accessibilityAddTraits(.isHeader)
 
             Text("Скопируйте токен и нажмите на щит")
-                .font(.subheadline)
+                .font(AppTypography.callout)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
@@ -299,16 +299,16 @@ struct ChatView: View {
     private var emptyStateView: some View {
         VStack(spacing: 16) {
             Image(systemName: "bubble.left.and.bubble.right")
-                .font(.system(size: 60))
+                .font(AppTypography.iconLarge)
                 .foregroundStyle(.secondary)
 
             Text("Начните разговор")
-                .font(.headline)
+                .font(AppTypography.headline)
                 .accessibilityIdentifier("empty_state_text")
                 .accessibilityAddTraits(.isHeader)
 
             Text("Отправьте сообщение, чтобы получить ответ от AI")
-                .font(.subheadline)
+                .font(AppTypography.callout)
                 .foregroundStyle(.secondary)
                 .accessibilityLabel("Описание: Отправьте сообщение, чтобы получить ответ от искусственного интеллекта")
         }

@@ -92,6 +92,60 @@ final class ChatViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.currentSession)
         XCTAssertTrue(viewModel.messages.isEmpty)
     }
+    
+    func testDeleteMessage() async {
+        let session = sessionManager.createSession(modelName: "model-1")
+        let message = Message.user(content: "Test", sessionId: session.id, index: 0)
+        sessionManager.addMessage(message, to: session)
+        viewModel.setSession(session)
+        
+        XCTAssertEqual(viewModel.messages.count, 1)
+        
+        viewModel.deleteMessage(message)
+        
+        XCTAssertTrue(viewModel.messages.isEmpty)
+    }
+    
+    func testClearError() {
+        viewModel.errorMessage = "Some error"
+        viewModel.clearError()
+        XCTAssertNil(viewModel.errorMessage)
+    }
+    
+    func testRefreshAuthentication() {
+        viewModel.refreshAuthentication()
+        XCTAssertFalse(viewModel.isAuthenticated) // По умолчанию на симуляторе без токена
+    }
+    
+    func testEditMessage() async {
+        let session = sessionManager.createSession(modelName: "model-1")
+        let message = Message.user(content: "Original", sessionId: session.id, index: 0)
+        sessionManager.addMessage(message, to: session)
+        viewModel.setSession(session)
+        
+        // Mock stream for re-generation
+        let (stream, continuation) = AsyncThrowingStream<ChatCompletionStreamPart, Error>.makeStream()
+        chatServiceMock.streamChatResult = stream
+        continuation.finish()
+        
+        await viewModel.editMessage(message, newContent: "Edited")
+        
+        XCTAssertEqual(message.content, "Edited")
+        XCTAssertEqual(viewModel.messages.count, 2) // Edited user message + new assistant response
+    }
+    
+    func testCreateNewSession() async {
+        let session = viewModel.createNewSession()
+        XCTAssertNotNil(viewModel.currentSession)
+        XCTAssertEqual(viewModel.currentSession?.id, session.id)
+        XCTAssertTrue(viewModel.messages.isEmpty)
+    }
+    
+    func testCheckServerConnection() async {
+        chatServiceMock.fetchModelsResult = .success([])
+        await viewModel.checkServerConnection()
+        XCTAssertTrue(viewModel.isServerReachable)
+    }
 }
 
 // Helper for AsyncThrowingStream

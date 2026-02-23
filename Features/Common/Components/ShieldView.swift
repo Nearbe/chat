@@ -5,7 +5,7 @@ import UIKit
 /// Интерактивный 3D щит с пульсацией и наклоном
 struct ShieldView: View {
     let onTokenReceived: (String) -> Void
-    
+
     @State private var shieldScale: CGFloat = 1.0
     @State private var shieldRotationX: Double = 0
     @State private var shieldRotationY: Double = 0
@@ -13,18 +13,18 @@ struct ShieldView: View {
     @State private var fingerOnShield = false
     @State private var pulseKey: Int = 0
     @State private var idleRotation: Double = 0
-    
+
     private let shieldSize: CGFloat = 280
     private let shieldW: CGFloat = 125
     private let shieldH: CGFloat = 150
-    
+
     var body: some View {
         GeometryReader { geometry in
             let size = min(geometry.size.width, geometry.size.height)
             let halfSize = size / 2
             let halfShieldW = shieldW / 2
             let halfShieldH = shieldH / 2
-            
+
             ZStack {
                 // Невидимый слой для жестов
                 Color.clear
@@ -40,14 +40,14 @@ struct ShieldView: View {
                                                       location.x <= halfSize + halfShieldW &&
                                                       location.y >= halfSize - halfShieldH &&
                                                       location.y <= halfSize + halfShieldH
-                                
+
                                 if isInsideShield {
                                     fingerOnShield = true
-                                    
+
                                     if isPulsing {
                                         isPulsing = false
                                     }
-                                    
+
                                     // Наклон щита
                                     let normalizedX = (location.x - halfSize) / halfShieldW
                                     let normalizedY = (location.y - halfSize) / halfShieldH
@@ -78,14 +78,14 @@ struct ShieldView: View {
                                 let wasOnShield = fingerOnShield
                                 fingerOnShield = false
                                 isPulsing = true
-                                
+
                                 withAnimation(.spring(response: 0.4, dampingFraction: 0.5, blendDuration: 0.3)) {
                                     shieldRotationX = 0
                                     shieldRotationY = 0
                                 }
-                                
+
                                 pulseKey += 1
-                                
+
                                 // Обработка тапа - проверка токена
                                 if wasOnShield {
                                     if let pasteboardString = UIPasteboard.general.string,
@@ -103,7 +103,7 @@ struct ShieldView: View {
                                 }
                             }
                     )
-                
+
                 // Щит с 3D эффектом
                 ZStack {
                     // Основной щит
@@ -172,8 +172,8 @@ extension Notification.Name {
 }
 
 #Preview {
-    ShieldView(onTokenReceived: { token in
-        print("Token received: \(token)")
+    ShieldView(onTokenReceived: { _ in
+        // Токен получен
     })
     .frame(width: 400, height: 400)
     .background(Color.black)

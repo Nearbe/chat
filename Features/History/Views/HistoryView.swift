@@ -65,16 +65,16 @@ struct HistoryView: View {
     private var emptyStateView: some View {
         VStack(spacing: 16) {
             Image(systemName: "tray")
-                .font(.system(size: 60))
+                .font(AppTypography.iconLarge)
                 .foregroundStyle(.secondary)
                 .accessibilityHidden(true)
 
             Text("Нет истории")
-                .font(.headline)
+                .font(AppTypography.headline)
                 .accessibilityAddTraits(.isHeader)
 
             Text("Ваши чаты появятся здесь")
-                .font(.subheadline)
+                .font(AppTypography.callout)
                 .foregroundStyle(.secondary)
         }
     }

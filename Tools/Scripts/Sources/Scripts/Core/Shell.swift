@@ -18,6 +18,17 @@ public enum ShellError: Error, LocalizedError {
 
 /// Обертка для выполнения команд в терминале.
 public enum Shell {
+    /// Выполняет команду в терминале и возвращает вывод
+    /// - Parameters:
+    ///   - command: Строка команды
+    ///   - workingDirectory: Рабочая директория (опционально)
+    ///   - environment: Переменные окружения (опционально)
+    ///   - quiet: Режим тишины
+    ///   - isInteractive: Интерактивный режим (вывод напрямую в консоль)
+    ///   - failOnWarnings: Считать ли предупреждения ошибкой
+    ///   - allowedWarnings: Список разрешенных паттернов предупреждений
+    ///   - logName: Имя лог-файла (опционально)
+    /// - Returns: Стандартный вывод (stdout)
     @discardableResult
     public static func run(
         _ command: String,
@@ -165,6 +176,10 @@ public enum Shell {
         }
     }
 
+    /// Записывает содержимое в файл лога
+    /// - Parameters:
+    ///   - name: Имя лога (будет использовано в названии файла)
+    ///   - content: Текстовое содержимое
     public static func logToFile(name: String, content: String) {
         let logDir = URL(fileURLWithPath: "Logs/Check")
         try? FileManager.default.createDirectory(at: logDir, withIntermediateDirectories: true)

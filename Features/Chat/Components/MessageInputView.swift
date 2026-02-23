@@ -22,10 +22,10 @@ struct MessageInputView: View {
                         isServerReachable: isServerReachable,
                         isModelSelected: !selectedModel.isEmpty
                     )
-                    .padding(.bottom, 16)
+                    .padding(.bottom, AppSpacing.md)
                 }
                 .frame(height: 52)
-                .padding(.trailing, 16)
+                .padding(.trailing, AppSpacing.md)
                 .background(AppColors.backgroundPrimary)
             }
 
@@ -41,8 +41,8 @@ struct MessageInputView: View {
             TextField("Сообщение...", text: $inputText, axis: .vertical)
                 .textFieldStyle(.plain)
                 .lineLimit(1...10)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
+                .padding(.horizontal, AppSpacing.sm)
+                .padding(.vertical, AppSpacing.xs)
                 .background(Color.clear)
                 .cornerRadius(18)
                 .overlay(
@@ -55,8 +55,8 @@ struct MessageInputView: View {
 
             sendButton
         }
-        .padding(.horizontal)
-        .padding(.bottom, 8)
+        .padding(.horizontal, AppSpacing.md)
+        .padding(.bottom, AppSpacing.xs)
     }
 
     private var sendButton: some View {
@@ -70,12 +70,12 @@ struct MessageInputView: View {
             }
         } label: {
             Image(systemName: isGenerating ? "stop.fill" : "arrow.up.circle.fill")
-                .font(.system(size: 32))
+                .font(AppTypography.iconMedium)
                 .foregroundStyle(isGenerating ? .red : ThemeManager.shared.accentColor)
         }
-        .disabled(!isGenerating && (inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty 
+        .disabled(!isGenerating && (inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                                     || !isServerReachable || selectedModel.isEmpty))
-        .opacity(isGenerating || (!inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty 
+        .opacity(isGenerating || (!inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                                   && isServerReachable && !selectedModel.isEmpty) ? 1.0 : 0.5)
         .accessibilityLabel(isGenerating ? "Остановить генерацию" : "Отправить сообщение")
         .accessibilityIdentifier("send_button")

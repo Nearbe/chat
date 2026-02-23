@@ -14,7 +14,7 @@ struct ContextBar: View {
                     ProgressView()
                         .scaleEffect(0.6)
                     Text("Генерация...")
-                        .font(.caption)
+                        .font(AppTypography.caption)
                         .foregroundStyle(.secondary)
                 }
             }
@@ -23,9 +23,9 @@ struct ContextBar: View {
 
             HStack(spacing: 4) {
                 Image(systemName: "bubble.left.and.bubble.right")
-                    .font(.caption2)
+                    .font(AppTypography.caption2)
                 Text("\(messageCount)")
-                    .font(.caption)
+                    .font(AppTypography.caption)
             }
             .foregroundStyle(.secondary)
 
@@ -34,12 +34,12 @@ struct ContextBar: View {
                     .foregroundStyle(.tertiary)
 
                 Text(model)
-                    .font(.caption)
+                    .font(AppTypography.caption)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
             }
         }
-        .font(.caption)
+        .font(AppTypography.caption)
     }
 }
 

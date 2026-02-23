@@ -17,7 +17,7 @@ struct CopyButton: View {
             }
         } label: {
             Image(systemName: showCopied ? "checkmark" : "doc.on.doc")
-                .font(.caption)
+                .font(AppTypography.caption)
                 .foregroundStyle(showCopied ? .green : .secondary)
         }
         .accessibilityLabel("Копировать")

@@ -32,14 +32,14 @@ struct ModelPicker: View {
     private var emptyStateView: some View {
         VStack(spacing: 16) {
             Image(systemName: "cpu")
-                .font(.system(size: 60))
+                .font(AppTypography.iconLarge)
                 .foregroundStyle(.secondary)
 
             Text("Модели не найдены")
-                .font(.headline)
+                .font(AppTypography.headline)
 
             Text("Убедитесь, что LM Studio запущен")
-                .font(.subheadline)
+                .font(AppTypography.callout)
                 .foregroundStyle(.secondary)
         }
     }

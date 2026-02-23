@@ -30,6 +30,7 @@ public enum ExceptionRegistry {
         return result
     }
 
+    /// Загружает исключения для SwiftLint, используя логику ProjectChecker
     public static func loadSwiftLintExceptions() throws -> [String: [String]] {
         return try loadProjectCheckerExceptions()
     }

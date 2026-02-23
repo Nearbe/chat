@@ -20,6 +20,15 @@ enum AppTypography {
     /// title3 - для малых заголовков
     static let title3 = Font.title3
 
+    /// headline - для акцентных заголовков
+    static let headline = Font.headline.bold()
+
+    /// Конфигурация для больших иконок (60pt)
+    static let iconLarge = Font.system(size: 60)
+
+    /// Конфигурация для кнопок управления (32pt)
+    static let iconMedium = Font.system(size: 32)
+
     // MARK: - Body
 
     /// body - основной текст

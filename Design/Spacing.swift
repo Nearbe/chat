@@ -70,14 +70,14 @@ enum AppSpacing {
     /// Маленькая иконка
     static let iconSmall: CGFloat = 16
 
-    /// Средняя иконка
-    static let iconMedium: CGFloat = 24
+    /// Средняя иконка (для кнопок управления)
+    static let iconMedium: CGFloat = 32
 
-    /// Большая иконка
-    static let iconLarge: CGFloat = 32
+    /// Большая иконка (для пустых состояний)
+    static let iconLarge: CGFloat = 60
 
     /// Очень большая иконка
-    static let iconXLarge: CGFloat = 48
+    static let iconXLarge: CGFloat = 80
 
     /// Иконка статуса (индикатор)
     static let statusIcon: CGFloat = 10

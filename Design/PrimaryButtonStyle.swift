@@ -14,11 +14,11 @@ struct PrimaryButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.callout.bold())
+            .font(AppTypography.callout.bold())
             .foregroundStyle(.white)
             .frame(minWidth: 80)
             .frame(height: 44)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, AppSpacing.md)
             .background(isDestructive ? AppColors.error : Color.accent)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .opacity(configuration.isPressed ? 0.8 : 1.0)

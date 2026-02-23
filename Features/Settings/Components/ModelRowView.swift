@@ -12,12 +12,12 @@ struct ModelRowView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(model.name)
-                        .font(.headline)
+                        .font(AppTypography.headline)
                         .foregroundStyle(.primary)
 
                     if let publisher = model.publisher {
                         Text(publisher)
-                            .font(.caption)
+                            .font(AppTypography.caption)
                             .foregroundStyle(.secondary)
                     }
                 }

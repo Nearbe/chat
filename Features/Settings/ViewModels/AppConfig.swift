@@ -16,9 +16,9 @@ import SwiftUI
 /// - Примечание: Изменения в одном месте приложения отражаются везде
 @MainActor
 final class AppConfig: ObservableObject {
-    
+
     // MARK: - Свойства подключения (Connection Properties)
-    
+
     /// API Token для авторизации в LM Studio
     /// Сохраняется в Keychain через DeviceAuthManager, а не здесь
     /// Примечание: Это резервное хранилище, основной токен - в Keychain
@@ -35,7 +35,7 @@ final class AppConfig: ObservableObject {
     @AppStorage("lm_timeout") var timeout: Double = 30.0
 
     // MARK: - Свойства модели (Model Properties)
-    
+
     /// Текущая выбранная модель для генерации
     /// ID модели из списка доступных от LM Studio
     /// Пустая строка означает "модель не выбрана"
@@ -47,7 +47,7 @@ final class AppConfig: ObservableObject {
     @AppStorage("mcp_tools_enabled") var mcpToolsEnabled: Bool = false
 
     // MARK: - Свойства генерации (Generation Properties)
-    
+
     /// Температура генерации (креативность ответа)
     /// Диапазон: 0.0 - 2.0
     /// - 0.0-0.3: Детерминированные, точные ответы
@@ -61,7 +61,7 @@ final class AppConfig: ObservableObject {
     @AppStorage("max_tokens") var maxTokens: Int = 4096
 
     // MARK: - UI Свойства (UI Properties)
-    
+
     /// Показывать ли статистику генерации
     /// Отображает: количество токенов, скорость, время
     @AppStorage("show_stats") var showStats: Bool = true
@@ -72,7 +72,7 @@ final class AppConfig: ObservableObject {
     @AppStorage("auto_scroll") var autoScroll: Bool = true
 
     // MARK: - Синглтон (Singleton)
-    
+
     /// Единственный экземпляр конфигурации
     /// Используйте AppConfig.shared для доступа к настройкам
     @MainActor static let shared = AppConfig()
@@ -82,7 +82,7 @@ final class AppConfig: ObservableObject {
     private init() {}
 
     // MARK: - Вычисляемые свойства (Computed Properties)
-    
+
     /// Полный URL для чата (LM Studio v1 API)
     /// Используется для отправки сообщений
     /// - Returns: URL для эндпоинта /api/v1/chat
@@ -98,7 +98,7 @@ final class AppConfig: ObservableObject {
     }
 
     // MARK: - Публичные методы (Public Methods)
-    
+
     /// Сбросить все настройки к значениям по умолчанию
     /// Используется для сброса конфигурации при проблемах
     /// Примечание: Не сбрашивает выбранную модель и токен

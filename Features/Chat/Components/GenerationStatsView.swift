@@ -40,10 +40,10 @@ struct GenerationStatsView: View {
                 label: "Статус"
             )
         }
-        .font(.caption)
+        .font(AppTypography.caption)
         .foregroundStyle(.secondary)
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
+        .padding(.horizontal, AppSpacing.sm)
+        .padding(.vertical, AppSpacing.xs)
         .background(AppColors.backgroundTertiary)
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
@@ -52,13 +52,13 @@ struct GenerationStatsView: View {
         VStack(spacing: 2) {
             HStack(spacing: 4) {
                 Image(systemName: icon)
-                    .font(.caption2)
+                    .font(AppTypography.caption2)
                 Text(value)
-                    .font(.caption)
+                    .font(AppTypography.caption)
                     .fontWeight(.medium)
             }
             Text(label)
-                .font(.caption2)
+                .font(AppTypography.caption2)
         }
     }
 }
