@@ -63,12 +63,12 @@ public struct ProjectChecker {
         let enumerator = fileManager.enumerator(atPath: ".")
 
         var filesToScan: [String] = []
-        let excludedFolders = exceptions["Папка"] ?? []
+        let excludedPaths = exceptions["Путь"] ?? []
 
         while let file = enumerator?.nextObject() as? String {
             guard file.hasSuffix(".swift") else { continue }
 
-            if excludedFolders.contains(where: { file.contains($0) }) {
+            if excludedPaths.contains(where: { file.contains($0) }) {
                 continue
             }
             filesToScan.append(file)
@@ -82,75 +82,8 @@ public struct ProjectChecker {
         let content = try String(contentsOf: fileURL, encoding: .utf8)
         let lines = content.components(separatedBy: .newlines)
 
-        // 1. Проверка наличия документации (Docstrings)
-        errors.append(contentsOf: checkDocumentation(lines: lines, filePath: file))
-
-        // 2. Проверка именования SwiftUI вьюх (должны заканчиваться на View или Page)
-        if file.contains("Views/") || file.contains("Pages/") {
-            errors.append(contentsOf: checkViewNaming(lines: lines, filePath: file))
-        }
-
-        return errors
-    }
-
-    private func checkDocumentation(lines: [String], filePath: String) -> [String] {
-        var errors: [String] = []
-
-        // Регулярка для поиска деклараций (class, struct, enum, protocol, func)
-        // Игнорируем private/fileprivate и декларации внутри методов (упрощенно)
-        // Игнорируем extension, так как они часто не требуют отдельной доки
-        // Игнорируем CodingKeys, так как это стандарт Swift
-        let declarationPattern = #"^(?!\s*//)(?!\s*/\*)\s*(public |internal |open )?(class|struct|enum|protocol|func)\s+\w+"#
-        // swiftlint:disable:next force_try
-        let regex = try! NSRegularExpression(pattern: declarationPattern)
-
-        let ignoredNames = exceptions["Символ"] ?? []
-
-        for (index, line) in lines.enumerated() {
-            let trimmedLine = line.trimmingCharacters(in: .whitespaces)
-
-            // Проверка на игнорируемые имена
-            var isIgnored = false
-            for name in ignoredNames where trimmedLine.contains(name) {
-                isIgnored = true
-                break
-            }
-            if isIgnored { continue }
-
-            let range = NSRange(line.startIndex..<line.endIndex, in: line)
-            if regex.firstMatch(in: line, options: [], range: range) != nil {
-                // Если это декларация, проверяем строку выше (или несколько строк выше) на наличие "///"
-                var hasDoc = false
-
-                // Проверяем до 3 строк выше (на случай атрибутов)
-                for offset in 1...3 where index - offset >= 0 {
-                    let prevLine = lines[index - offset].trimmingCharacters(in: .whitespaces)
-                    if prevLine.hasPrefix("///") || prevLine.hasSuffix("*/") {
-                        hasDoc = true
-                        break
-                    }
-                    // Если встретили пустую строку или другую декларацию, значит доки нет
-                    if prevLine.isEmpty { break }
-                }
-
-                if !hasDoc {
-                    errors.append("\(filePath):\(index + 1): Отсутствует документация (Docstring) для '\(trimmedLine)'")
-                }
-            }
-        }
-
-        return errors
-    }
-
-    private func checkViewNaming(lines: [String], filePath: String) -> [String] {
-        let errors: [String] = []
-        let fileName = (filePath as NSString).lastPathComponent
-
-        // Упрощенно: если файл в Views, он должен иметь View в названии (или Page в Pages или Component)
-        if (filePath.contains("Views/") || filePath.contains("Pages/")) &&
-           !fileName.contains("View") && !fileName.contains("Page") && !fileName.contains("Component") {
-            // errors.append("\(filePath): Имя файла должно содержать 'View', 'Page' или 'Component'")
-        }
+        // Проверка наличия документации и именования перенесена в SwiftLint (custom_rules)
+        // Если нужны дополнительные структурные проверки, добавлять сюда
 
         return errors
     }
@@ -230,15 +163,31 @@ public struct ProjectChecker {
 
     private func checkSwiftLintConfig() throws -> [String] {
         var errors: [String] = []
-        let registryExceptions = (try? ExceptionRegistry.loadSwiftLintExceptions()) ?? []
+        let exceptions = (try? ExceptionRegistry.loadSwiftLintExceptions()) ?? [:]
         let ymlPath = ".swiftlint.yml"
         guard FileManager.default.fileExists(atPath: ymlPath) else {
             return [".swiftlint.yml не найден"]
         }
         let content = try String(contentsOfFile: ymlPath, encoding: .utf8)
-        for exception in registryExceptions where !content.contains(exception) {
-            errors.append(".swiftlint.yml: отсутствует исключение '\(exception)', указанное в IGNORED_WARNINGS.md")
+
+        // 1. Проверка исключенных путей (excluded)
+        let excludedPaths = exceptions["Путь"] ?? []
+        for path in excludedPaths where !content.contains(path) {
+            errors.append(".swiftlint.yml: отсутствует исключение пути '\(path)', указанное в IGNORED_WARNINGS.md")
         }
+
+        // 2. Проверка ключевых слов (russian_docstring)
+        let keywords = exceptions["Ключевое слово"] ?? []
+        for keyword in keywords where !content.contains(keyword) {
+            errors.append(".swiftlint.yml: отсутствует ключевое слово '\(keyword)' в правиле russian_docstring")
+        }
+
+        // 3. Проверка контекстов (no_print_logger)
+        let contexts = exceptions["Контекст"] ?? []
+        for context in contexts where !content.contains(context) {
+            errors.append(".swiftlint.yml: отсутствует разрешенный контекст '\(context)' в правиле no_print_logger")
+        }
+
         return errors
     }
 

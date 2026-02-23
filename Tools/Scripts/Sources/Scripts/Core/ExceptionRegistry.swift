@@ -15,13 +15,11 @@ public enum ExceptionRegistry {
         let content = try loadContent()
         var result: [String: [String]] = [:]
 
-        // Парсим каждую таблицу отдельно для ProjectChecker
+        // Парсим каждую таблицу отдельно для ProjectChecker и SwiftLint
         let sections = [
-            ("Папка", "### 📂 Исключенные папки"),
-            ("Символ", "### 🏷️ Игнорируемые символы"),
+            ("Путь", "### 📂 Исключенные пути"),
             ("Ключевое слово", "### 🔑 Технические ключевые слова"),
-            ("Контекст", "### 📝 Разрешенные контексты print()"),
-            ("Текст", "### 📏 Порог коротких строк")
+            ("Контекст", "### 📝 Разрешенные контексты print()")
         ]
 
         for (type, header) in sections {
@@ -32,10 +30,8 @@ public enum ExceptionRegistry {
         return result
     }
 
-    public static func loadSwiftLintExceptions() throws -> [String] {
-        let content = try loadContent()
-        let section = try extractSection(from: content, header: "## 🧹 Исключения SwiftLint (.swiftlint.yml)")
-        return parseTable(section, patternColumnIndex: 3) // Колонки: №(1), Тип(2), Паттерн(3), Причина(4), Обоснование(5)
+    public static func loadSwiftLintExceptions() throws -> [String: [String]] {
+        return try loadProjectCheckerExceptions()
     }
 
     /// Загружает список исключений XcodeGen

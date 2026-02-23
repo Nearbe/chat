@@ -35,8 +35,9 @@ custom_rules:
 
   no_print_logger:
     name: "No print()"
-    regex: 'print\('
-    message: "Use Logger (Pulse) instead of print()"
+    # Запрещаем print(), кроме строк содержащих разрешенные контексты (#Preview | Logger | metrics.csv)
+    regex: '^(?!.*(#Preview|Logger|metrics\.csv)).*print\('
+    message: "Use Logger (Pulse) instead of print(); allowed only in #Preview, Logger proxy calls, or metrics.csv writes"
     severity: warning
     excluded: "Tools/Scripts/.*"
 
@@ -75,6 +76,8 @@ excluded:
   - Design/Generated
   - Tools/Scripts/.build
   - .build
+  - build/
+  - chatbuild/
 
 analyzer_rules:
   - unused_import
