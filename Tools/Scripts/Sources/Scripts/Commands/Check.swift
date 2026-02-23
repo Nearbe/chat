@@ -296,7 +296,9 @@ extension Check {
     /// Получает список изменённых файлов относительно последнего коммита
     func getChangedFiles() async throws -> [String] {
         let output = try await Shell.run("git diff --name-only HEAD", quiet: true)
-        return output.components(separatedBy: .newlines).filter { !$0.isEmpty }
+        let ignoredFiles = ["metrics.csv"]
+        return output.components(separatedBy: .newlines)
+            .filter { !$0.isEmpty && !ignoredFiles.contains($0) }
     }
 
     /// Проверяет, есть ли изменения в Swift-файлах (для SwiftLint)
