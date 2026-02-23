@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: Pulse (Версия: 4.0.0). Статус: Синхронизировано.
 import SwiftUI
 import SwiftData
 import PulseUI

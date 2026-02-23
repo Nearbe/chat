@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: LM Studio (Версия: main). Статус: Синхронизировано.
 import Foundation
 
 /// Обобщенное событие Server-Sent Events (SSE) в протоколе LM Studio.

@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: SwiftGen (Версия: 6.6.3). Статус: Синхронизировано.
 import SwiftUI
 
 // MARK: - Design System: Colors

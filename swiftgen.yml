@@ -1,3 +1,4 @@
+# MARK: - Связь с документацией: SwiftGen (Версия: 6.6.3). Статус: Синхронизировано.
 # См. документацию: Docs/Codegen/SwiftGen/README.md
 input_dir: Resources/Assets.xcassets
 output_dir: Design/Generated

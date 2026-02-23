@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: LM Studio (Версия: main). Статус: Синхронизировано.
 import Foundation
 
 /// Объект входных данных для LM Studio API.

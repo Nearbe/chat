@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import Foundation
 
 struct ProjectChecker {
@@ -53,9 +54,13 @@ struct ProjectChecker {
                 let mainActorErrors = checkMainActor(lines: lines, filePath: file)
                 errors.append(contentsOf: mainActorErrors)
             }
+            
+            // 6. Проверка метки связи с документацией
+            let docLinkErrors = checkDocLink(lines: lines, filePath: file)
+            errors.append(contentsOf: docLinkErrors)
         }
         
-        // 6. Проверка версий инструментов
+        // 7. Проверка версий инструментов
         let versionErrors = await checkToolVersions()
         errors.append(contentsOf: versionErrors)
         
@@ -198,9 +203,19 @@ struct ProjectChecker {
         }
         return errors
     }
+
+    private static func checkDocLink(lines: [String], filePath: String) -> [String] {
+        var errors: [String] = []
+        let content = lines.joined(separator: "\n")
+        
+        if !content.contains("MARK: - Связь с документацией:") {
+            errors.append("\(filePath): Отсутствует метка связи с документацией. Запустите './scripts update-docs-links'")
+        }
+        return errors
+    }
     
     private static func checkViewNaming(lines: [String], filePath: String) -> [String] {
-        var errors: [String] = []
+        let errors: [String] = []
         let fileName = (filePath as NSString).lastPathComponent
         
         // Упрощенно: если файл в Views, он должен иметь View в названии (или Page в Pages или Component)

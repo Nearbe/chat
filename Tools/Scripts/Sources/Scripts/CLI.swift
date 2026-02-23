@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import ArgumentParser
 import Foundation
 
@@ -10,6 +11,7 @@ struct Scripts: AsyncParsableCommand {
             Check.self,
             Ship.self,
             DownloadDocs.self,
+            UpdateDocsLinks.self,
             ConfigureSudo.self
         ],
         defaultSubcommand: Check.self

@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import Foundation
 
 /// - Спецификация API: [Docs/LMStudio/developer/rest/streaming-events.md](../../Docs/LMStudio/developer/rest/streaming-events.md)

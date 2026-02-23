@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: LM Studio (Версия: main). Статус: Синхронизировано.
 import Foundation
 
 /// - Спецификация API: [Docs/LMStudio/developer/rest/streaming-events.md](../../Docs/LMStudio/developer/rest/streaming-events.md)

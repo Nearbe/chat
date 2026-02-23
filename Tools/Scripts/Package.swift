@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 // swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 

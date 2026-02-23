@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: Factory (Версия: 2.3.0). Статус: Синхронизировано.
 import Factory
 import Foundation
 

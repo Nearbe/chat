@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: SnapshotTesting (Версия: 1.15.4). Статус: Синхронизировано.
 import Foundation
 import SwiftData
 @testable import Chat

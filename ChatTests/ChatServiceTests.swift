@@ -1,3 +1,4 @@
+// MARK: - Связь с документацией: Тесты (Версия: 6.0). Статус: Синхронизировано.
 import Testing
 import Combine
 import Foundation
