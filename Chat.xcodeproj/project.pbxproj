@@ -18,6 +18,7 @@
 		14346A2FAB73E7B5721534E3 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56EEA2DFAC8920B6A53D326 /* NetworkConfiguration.swift */; };
 		1699434503B1D84846EA059E /* ToolParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95E1522986E748B2B956F1 /* ToolParameters.swift */; };
 		1972CB199F25B16F09DB262D /* ChatCompletionDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E9CEA459AFB9E56D16A25 /* ChatCompletionDelta.swift */; };
+		1F56FA7D870AB42C5CF1866F /* SessionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29ECAB744A1A8F4A5DFE321 /* SessionRowView.swift */; };
 		2403FF1964F38CC683C7E8F4 /* LMReasoningContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6C7C44BEB07017535DBC04 /* LMReasoningContent.swift */; };
 		271BBC675C645363768F0089 /* ToolCallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226BC99B869B2235F4054ABE /* ToolCallView.swift */; };
 		29FBDBF63B6115044CCD8D7C /* ToolProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B5303D93A4715ED71865D2 /* ToolProperty.swift */; };
@@ -67,6 +68,7 @@
 		AD25EF75AEA1B0D638EF6B91 /* ChatMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065C621B75F7F288049D3967 /* ChatMessagesView.swift */; };
 		AF41F727FD7D6185E0F971BF /* LMModelLoadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA3F188CFF594B4EB4C3AF /* LMModelLoadRequest.swift */; };
 		B31D87E2C2AEAF9ADA0C3627 /* ChatStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E9D289FEB0F83FBEDE49A /* ChatStreamService.swift */; };
+		B8602B019BC36E70FF9921C5 /* ModelRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CE458B4EBD268392345D9D /* ModelRowView.swift */; };
 		C157A2D61C900738606EBEEA /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B566E331430D5A5290ED0 /* ChatMessage.swift */; };
 		C8972A3C011F21B2B2442C7E /* LMDownloadStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC4CF4C0884264B301BD4A3 /* LMDownloadStatus.swift */; };
 		C9409A41559101C4C6AB3282 /* LMModelLoadConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF64BF44CF376D4971CFB1F5 /* LMModelLoadConfig.swift */; };
@@ -153,6 +155,7 @@
 		8BDA2B470D7DA54866163AE7 /* DeviceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceConfiguration.swift; sourceTree = "<group>"; };
 		8E174223161237D0E35B59F7 /* LMMessageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMMessageContent.swift; sourceTree = "<group>"; };
 		9029051657E0156F4FDF13DF /* LMDownloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMDownloadRequest.swift; sourceTree = "<group>"; };
+		90CE458B4EBD268392345D9D /* ModelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRowView.swift; sourceTree = "<group>"; };
 		9246AFCD400E75665967FB72 /* Chat.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF63648BA8E90B20D110330 /* LMModelsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMModelsResponse.swift; sourceTree = "<group>"; };
 		9FCD235A352C08AC83003019 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 		E9F4ED6BA20499351B2789C0 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		EA5D05A95C0929F19C277F6D /* SSEParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSEParser.swift; sourceTree = "<group>"; };
 		F24BACB5F447463953DD4C6E /* DeviceAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAuthManager.swift; sourceTree = "<group>"; };
+		F29ECAB744A1A8F4A5DFE321 /* SessionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRowView.swift; sourceTree = "<group>"; };
 		F842FF6EA2C720A14BE32CDF /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		FA682CC713186E406298CE26 /* LMChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMChatResponse.swift; sourceTree = "<group>"; };
 		FADA78F967C5571E352F6C39 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
@@ -382,6 +386,8 @@
 				55985AED92709D9A64B77BA6 /* GenerationStatsView.swift */,
 				8721807DD83D0BBB7FFC6C87 /* MessageBubble.swift */,
 				7D242813836DC3359783638B /* MessageInputView.swift */,
+				90CE458B4EBD268392345D9D /* ModelRowView.swift */,
+				F29ECAB744A1A8F4A5DFE321 /* SessionRowView.swift */,
 				14AF07475E78E88E07CD216B /* ShieldView.swift */,
 				04661FB1B71B38A211C19B5B /* StatusBadgeView.swift */,
 				D5DCB1A91A58A0A0FEF0E15A /* StatusIndicator.swift */,
@@ -522,12 +528,14 @@
 				D55BBA238F38C614FD4756A7 /* ModelInfo.swift in Sources */,
 				2D449B9EA45A7DFB15FCCA83 /* ModelPicker.swift in Sources */,
 				3DC2DAB897CAAF893B1EAE3D /* ModelQuantization.swift in Sources */,
+				B8602B019BC36E70FF9921C5 /* ModelRowView.swift in Sources */,
 				14346A2FAB73E7B5721534E3 /* NetworkConfiguration.swift in Sources */,
 				EAB209E5D219CB9755758323 /* NetworkError.swift in Sources */,
 				5B4F1B4493E7FB551888841F /* NetworkService.swift in Sources */,
 				CB9915319003DC8C221B0AA9 /* PersistenceController.swift in Sources */,
 				EE59DE73BA9136888BCED09B /* PrimaryButtonStyle.swift in Sources */,
 				E71C9DAB684C816713EA6951 /* SSEParser.swift in Sources */,
+				1F56FA7D870AB42C5CF1866F /* SessionRowView.swift in Sources */,
 				9DE7ADDBEEAA7DC0F591353F /* ShieldView.swift in Sources */,
 				63C2C786DBFE38AA14147427 /* Spacing.swift in Sources */,
 				4BC6CB1513ACBD7AFD6E61B3 /* StatusBadgeView.swift in Sources */,

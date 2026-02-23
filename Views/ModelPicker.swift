@@ -45,33 +45,13 @@ struct ModelPicker: View {
 
     private var modelsListView: some View {
         List(models, id: \.id) { model in
-            Button {
+            ModelRowView(
+                model: model,
+                isSelected: model.id == selectedModel
+            ) {
                 selectedModel = model.id
                 dismiss()
-            } label: {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(model.name)
-                            .font(.headline)
-                            .foregroundStyle(.primary)
-
-                        if let publisher = model.publisher {
-                            Text(publisher)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-
-                    Spacer()
-
-                    if model.id == selectedModel {
-                        Image(systemName: "checkmark")
-                            .foregroundStyle(ThemeManager.shared.accentColor)
-                    }
-                }
-                .contentShape(Rectangle())
             }
-            .buttonStyle(.plain)
         }
         .listStyle(.insetGrouped)
     }

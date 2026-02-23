@@ -64,48 +64,9 @@ struct HistoryView: View {
     private var sessionsListView: some View {
         List {
             ForEach(sessions) { session in
-                Button {
+                SessionRowView(session: session) {
                     onSelectSession(session)
-                } label: {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(session.title)
-                                .font(.headline)
-                                .lineLimit(1)
-
-                            HStack(spacing: 8) {
-                                Text(session.formattedDate)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-
-                                Text("•")
-                                    .foregroundStyle(.secondary)
-
-                                Text("\(session.messageCount) сообщений")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-
-                                if session.modelName != "default" {
-                                    Text("•")
-                                        .foregroundStyle(.secondary)
-
-                                    Text(session.modelName)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                        .lineLimit(1)
-                                }
-                            }
-                        }
-
-                        Spacer()
-
-                        Image(systemName: "chevron.right")
-                            .font(.caption)
-                            .foregroundStyle(.tertiary)
-                    }
-                    .contentShape(Rectangle())
                 }
-                .buttonStyle(.plain)
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                     Button(role: .destructive) {
                         sessionToDelete = session
