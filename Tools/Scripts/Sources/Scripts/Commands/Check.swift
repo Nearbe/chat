@@ -40,8 +40,9 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runLintAndProjectChecks() async -> [CheckStepResult] {
+        print("🔍  Запуск проверки стиля и структуры...")
         async let lintResult = performStep("SwiftLint") {
-            try await Shell.run("swiftlint --strict", quiet: true, logName: "SwiftLint")
+            try await Shell.run("swiftlint --strict", quiet: true, streamingPrefix: "[Lint]", logName: "SwiftLint")
         }
 
         async let checkerResult = performStep("ProjectChecker") {
@@ -51,8 +52,9 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runInfrastructure() async -> (xcodegen: CheckStepResult, swiftgen: CheckStepResult) {
+        print("🛠️  Генерация инфраструктуры...")
         async let xcodegen = performStep("XcodeGen") {
-            try await Shell.run("xcodegen generate", quiet: true, logName: "XcodeGen")
+            try await Shell.run("xcodegen generate", quiet: true, streamingPrefix: "[XcodeGen]", logName: "XcodeGen")
         }
         async let swiftgen = performStep("SwiftGen") {
             try await runSwiftGen()
@@ -61,9 +63,10 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runTestsAndBuild(device: String) async -> [CheckStepResult] {
-        print("⏳  Запуск тестов и сборки Release в параллельном режиме...")
+        print("⏳  Запуск тестов и сборки Release...")
 
         async let testsResult = performStep("Tests") {
+            print("🧪  Начало этапа: Tests")
             let resultPath = "TestResult.xcresult"
             try? FileManager.default.removeItem(atPath: resultPath)
 
@@ -82,12 +85,14 @@ struct Check: AsyncParsableCommand {
             ].joined(separator: " ")
 
             let allowedWarnings = (try? ExceptionRegistry.loadSystemWarnings()) ?? []
-            try await Shell.run(testCommand, quiet: true, failOnWarnings: true, allowedWarnings: allowedWarnings, logName: "Tests")
+            try await Shell.run(testCommand, quiet: true, streamingPrefix: "[Tests]", failOnWarnings: true, allowedWarnings: allowedWarnings, logName: "Tests")
             // Временно ожидаем 50% покрытия, согласно плану (~50%)
             try await checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 50.0)
+            print("✅  Этап завершен: Tests")
         }
 
         async let buildResult = performStep("Build Release") {
+            print("📦  Начало этапа: Build Release")
             let releaseCommand = [
                 "xcodebuild",
                 "-quiet",
@@ -98,7 +103,8 @@ struct Check: AsyncParsableCommand {
                 "SYMROOT=\"$(pwd)/build\"",
                 "build"
             ].joined(separator: " ")
-            try await Shell.run(releaseCommand, quiet: true, logName: "Build Release")
+            try await Shell.run(releaseCommand, quiet: true, streamingPrefix: "[Build]", logName: "Build Release")
+            print("✅  Этап завершен: Build Release")
         }
 
         return await [testsResult, buildResult]
@@ -236,7 +242,7 @@ extension Check {
     }
 
     private func runSwiftGen() async throws {
-        try await Shell.run("swiftgen", quiet: true, logName: "SwiftGen")
+        try await Shell.run("swiftgen", quiet: true, streamingPrefix: "[SwiftGen]", logName: "SwiftGen")
         let assetsFile = URL(fileURLWithPath: "Design/Generated/Assets.swift")
         if FileManager.default.fileExists(atPath: assetsFile.path) {
             var content = try String(contentsOf: assetsFile, encoding: .utf8)

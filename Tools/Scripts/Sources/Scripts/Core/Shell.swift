@@ -25,6 +25,7 @@ public enum Shell {
     ///   - environment: Переменные окружения (опционально)
     ///   - quiet: Режим тишины
     ///   - isInteractive: Интерактивный режим (вывод напрямую в консоль)
+    ///   - streamingPrefix: Префикс для потокового вывода (если задан, вывод будет печататься в реальном времени)
     ///   - failOnWarnings: Считать ли предупреждения ошибкой
     ///   - allowedWarnings: Список разрешенных паттернов предупреждений
     ///   - logName: Имя лог-файла (опционально)
@@ -36,6 +37,7 @@ public enum Shell {
         environment: [String: String]? = nil,
         quiet: Bool = false,
         isInteractive: Bool = false,
+        streamingPrefix: String? = nil,
         failOnWarnings: Bool = true,
         allowedWarnings: [String] = [],
         logName: String? = nil
@@ -64,6 +66,7 @@ public enum Shell {
             command: command,
             outputPipe: outputPipe,
             errorPipe: errorPipe,
+            streamingPrefix: streamingPrefix,
             failOnWarnings: failOnWarnings,
             allowedWarnings: allowedWarnings,
             logName: logName
@@ -103,21 +106,51 @@ public enum Shell {
         command: String,
         outputPipe: Pipe,
         errorPipe: Pipe,
+        streamingPrefix: String? = nil,
         failOnWarnings: Bool,
         allowedWarnings: [String] = [],
         logName: String? = nil
     ) async throws -> String {
-        // Читаем из пайпов в параллельных задачах, чтобы избежать дедлоков при переполнении буферов
-        async let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-        async let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+        final class SafeData: @unchecked Sendable {
+            var data = Data()
+            private let lock = NSLock()
+            func append(_ newData: Data) {
+                lock.lock()
+                data.append(newData)
+                lock.unlock()
+            }
+        }
 
-        let finalOutputData = await outputData
-        let finalErrorData = await errorData
+        let fullOutput = SafeData()
+        let fullError = SafeData()
+
+        // Настраиваем обработчики для чтения в реальном времени
+        outputPipe.fileHandleForReading.readabilityHandler = { handle in
+            let data = handle.availableData
+            guard !data.isEmpty else { return }
+            fullOutput.append(data)
+            if let prefix = streamingPrefix, let line = String(data: data, encoding: .utf8) {
+                print("\(prefix) \(line.trimmingCharacters(in: .newlines))")
+            }
+        }
+
+        errorPipe.fileHandleForReading.readabilityHandler = { handle in
+            let data = handle.availableData
+            guard !data.isEmpty else { return }
+            fullError.append(data)
+            if let prefix = streamingPrefix, let line = String(data: data, encoding: .utf8) {
+                print("\(prefix) [ERROR] \(line.trimmingCharacters(in: .newlines))")
+            }
+        }
 
         process.waitUntilExit()
 
-        let output = String(data: finalOutputData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let error = String(data: finalErrorData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        // Очищаем обработчики
+        outputPipe.fileHandleForReading.readabilityHandler = nil
+        errorPipe.fileHandleForReading.readabilityHandler = nil
+
+        let output = String(data: fullOutput.data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let error = String(data: fullError.data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
         if let logName = logName {
             logCommandOutput(name: logName, command: command, output: output, error: error)
