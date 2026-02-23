@@ -10,7 +10,8 @@
   },
   "deployment": {
     "setup": "setup.sh",
-    "deploy": "deploy.sh"
+    "check": "check.sh",
+    "ship": "ship.sh"
   },
   "design_system": "Design/",
   "api_standard": "LM Studio v1 API",

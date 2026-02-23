@@ -21,9 +21,7 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 // MARK: - Asset Catalogs
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
-@MainActor
 internal enum Asset {
-  @MainActor
   internal enum Assets {
     internal static let error = ColorAsset(name: "Error")
     internal static let info = ColorAsset(name: "Info")
@@ -37,7 +35,7 @@ internal enum Asset {
 
 // MARK: - Implementation Details
 
-internal final class ColorAsset {
+internal final class ColorAsset: @unchecked Sendable {
   internal fileprivate(set) var name: String
 
   #if os(macOS)
