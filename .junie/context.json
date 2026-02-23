@@ -8,6 +8,11 @@
     "network_gateway": "Services/Network/NetworkService.swift",
     "data_persistence": "Data/PersistenceController.swift"
   },
+  "documentation": {
+    "guidelines": "GUIDELINES.md",
+    "instructions": ".junie/instructions.md",
+    "testing_plan": "TESTING_PLAN.md"
+  },
   "deployment": {
     "setup": "setup.sh",
     "check": "check.sh",
