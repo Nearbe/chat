@@ -155,9 +155,8 @@ schemes:
     test:
       config: Debug
       testPlans:
-        - path: TestPlans/AllTests.xctestplan
-          defaultPlan: true
         - path: TestPlans/UnitTests.xctestplan
+          defaultPlan: true
         - path: TestPlans/UITests.xctestplan
     archive:
       config: Release

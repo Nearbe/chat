@@ -18,9 +18,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlans/AllTests.xctestplan" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/metrics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/metrics.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.yml" beforeDir="false" afterPath="$PROJECT_DIR$/project.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +39,7 @@
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="10106" />
+    <option name="cachedIndexableFilesCount" value="9387" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="macos_macos_arm64" />
@@ -112,6 +113,7 @@
     &quot;Swift Package Run.Scripts.executor&quot;: &quot;Run&quot;,
     &quot;Swift Package Run.🔍 Check.executor&quot;: &quot;Run&quot;,
     &quot;Xcode Application.🔍 Check.executor&quot;: &quot;Run&quot;,
+    &quot;Xcode Application.🔐 Configure Sudo.executor&quot;: &quot;Run&quot;,
     &quot;Xcode Application.🚢 Ship.executor&quot;: &quot;Run&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
@@ -138,7 +140,7 @@
   <component name="RecapUselessUpdatesCounter">
     <option name="suspendCountdown" value="0" />
   </component>
-  <component name="RunManager" selected="Xcode Application.🔍 Check">
+  <component name="RunManager" selected="Xcode Application.🚢 Ship">
     <configuration name="Scripts" type="SwiftPackageManagerRunConfiguration" factoryName="Swift Package Run" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Chat" TARGET_NAME="Scripts" CONFIG_NAME="Scripts" RUN_TARGET_PROJECT_NAME="Chat" RUN_TARGET_NAME="Scripts">
       <method v="2">
         <option name="SPM.BUILD_TASK_PROVIDER" enabled="true" />
@@ -146,13 +148,13 @@
     </configuration>
     <list>
       <item itemvalue="Swift Package Run.Scripts" />
+      <item itemvalue="Xcode Application.🔍 Check" />
       <item itemvalue="Xcode Application.Chat" />
       <item itemvalue="Xcode Application.📚 Download Docs" />
       <item itemvalue="Xcode Application.🔐 Configure Sudo" />
       <item itemvalue="Xcode Application.🔗 Update Docs Links" />
       <item itemvalue="Xcode Application.🚢 Ship" />
       <item itemvalue="Xcode Application.🛠️ Setup" />
-      <item itemvalue="Xcode Application.🔍 Check" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -180,6 +182,9 @@
       <workItem from="1771859742990" duration="4530000" />
       <workItem from="1771864934545" duration="392000" />
       <workItem from="1771865345225" duration="165000" />
+      <workItem from="1771865540133" duration="345000" />
+      <workItem from="1771865921136" duration="281000" />
+      <workItem from="1771866387291" duration="12000" />
     </task>
     <servers />
   </component>
@@ -208,12 +213,15 @@
   <component name="XcodeBuildConfigurationMetadata">
     <buildConfigurationMetadataMap>
       <entry key="Xcode Application. Check">
+        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" wasRun="true" />
+      </entry>
+      <entry key="Xcode Application. Configure Sudo">
+        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" wasRun="true" />
+      </entry>
+      <entry key="Xcode Application. Ship">
         <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" />
       </entry>
       <entry key="Xcode Application. Ship">
-        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" wasRun="true" />
-      </entry>
-      <entry key="Xcode Application. Check">
         <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" />
       </entry>
     </buildConfigurationMetadataMap>
