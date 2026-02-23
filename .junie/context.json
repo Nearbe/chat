@@ -14,9 +14,9 @@
     "testing_plan": "TESTING_PLAN.md"
   },
   "deployment": {
-    "setup": "setup.sh",
-    "check": "check.sh",
-    "ship": "ship.sh"
+    "setup": "swift run scripts setup",
+    "check": "swift run scripts check",
+    "ship": "swift run scripts ship"
   },
   "design_system": "Design/",
   "api_standard": "LM Studio v1 API",
