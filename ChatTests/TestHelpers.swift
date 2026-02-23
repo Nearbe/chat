@@ -88,15 +88,15 @@ extension ViewImageConfig {
 }
 
 extension UITraitCollection {
-    public static let iphone16ProMax = UITraitCollection(traitsFrom: [
-        .init(forceTouchCapability: .unavailable),
-        .init(layoutDirection: .leftToRight),
-        .init(preferredContentSizeCategory: .medium),
-        .init(userInterfaceIdiom: .phone),
-        .init(horizontalSizeClass: .compact),
-        .init(verticalSizeClass: .regular),
-        .init(displayScale: 3),
-        .init(displayGamut: .P3),
-        .init(userInterfaceStyle: .light)
-    ])
+    public static let iphone16ProMax = UITraitCollection(mutations: { traits in
+        traits.forceTouchCapability = .unavailable
+        traits.layoutDirection = .leftToRight
+        traits.preferredContentSizeCategory = .medium
+        traits.userInterfaceIdiom = .phone
+        traits.horizontalSizeClass = .compact
+        traits.verticalSizeClass = .regular
+        traits.displayScale = 3
+        traits.displayGamut = .P3
+        traits.userInterfaceStyle = .light
+    })
 }

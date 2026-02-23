@@ -12,7 +12,7 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
+      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:Chat.xcodeproj",
         "identifier" : "ChatTests",

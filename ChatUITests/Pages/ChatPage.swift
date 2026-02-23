@@ -2,6 +2,7 @@
 import XCTest
 
 /// Объект страницы для экрана чата
+@MainActor
 final class ChatPage {
     let app: XCUIApplication
     

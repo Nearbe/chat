@@ -7,12 +7,12 @@ import SnapshotTesting
 @MainActor
 final class ChatSnapshotTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
+        try await super.setUp()
         // isRecording = true // Раскомментируйте, чтобы обновить снапшоты
     }
     
-    func testChatViewDefault() {
+    func testChatViewDefault() async {
         let container = TestHelpers.createInMemoryContainer()
         let sessionManager = ChatSessionManager(modelContext: container.mainContext)
         let networkService = NetworkService()
@@ -25,10 +25,10 @@ final class ChatSnapshotTests: XCTestCase {
         
         let vc = UIHostingController(rootView: view)
         
-        assertSnapshot(matching: vc, as: .image(on: .iPhone16ProMax))
+        assertSnapshot(of: vc, as: .image(on: .iPhone16ProMax))
     }
     
-    func testChatViewDarkMode() {
+    func testChatViewDarkMode() async {
         let container = TestHelpers.createInMemoryContainer()
         let sessionManager = ChatSessionManager(modelContext: container.mainContext)
         let networkService = NetworkService()
@@ -42,10 +42,10 @@ final class ChatSnapshotTests: XCTestCase {
         
         let vc = UIHostingController(rootView: view)
         
-        assertSnapshot(matching: vc, as: .image(on: .iPhone16ProMax))
+        assertSnapshot(of: vc, as: .image(on: .iPhone16ProMax))
     }
     
-    func testChatViewWithDynamicType() {
+    func testChatViewWithDynamicType() async {
         let container = TestHelpers.createInMemoryContainer()
         let sessionManager = ChatSessionManager(modelContext: container.mainContext)
         let networkService = NetworkService()
@@ -59,6 +59,6 @@ final class ChatSnapshotTests: XCTestCase {
         
         let vc = UIHostingController(rootView: view)
         
-        assertSnapshot(matching: vc, as: .image(on: .iPhone16ProMax))
+        assertSnapshot(of: vc, as: .image(on: .iPhone16ProMax))
     }
 }

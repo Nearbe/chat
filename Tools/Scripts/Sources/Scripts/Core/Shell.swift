@@ -50,9 +50,9 @@ public enum Shell {
         }
 
         try process.run()
-        process.waitUntilExit()
 
         if isInteractive {
+            process.waitUntilExit()
             if process.terminationStatus != 0 {
                 throw ShellError.commandFailed(
                     command: command,
@@ -64,11 +64,17 @@ public enum Shell {
             return ""
         }
 
-        let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+        // Читаем из пайпов в параллельных задачах, чтобы избежать дедлоков при переполнении буферов
+        async let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+        async let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+        
+        let finalOutputData = await outputData
+        let finalErrorData = await errorData
+        
+        process.waitUntilExit()
 
-        let output = String(data: outputData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let error = String(data: errorData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let output = String(data: finalOutputData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let error = String(data: finalErrorData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
         if process.terminationStatus != 0 {
             throw ShellError.commandFailed(

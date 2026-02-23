@@ -1,22 +1,24 @@
 // MARK: - Связь с документацией: Тесты (Версия: 6.0). Статус: Синхронизировано.
 import XCTest
 
+@MainActor
 final class ChatUITests: XCTestCase {
     var app: XCUIApplication!
 
-    override func setUpWithError() throws {
+    override func setUp() async throws {
+        try await super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
         app.launchArguments = ["-reset"]
         app.launch()
     }
 
-    func testLaunch() throws {
+    func testLaunch() async throws {
         // Базовая проверка, что главный экран загрузился
         XCTAssertTrue(app.exists)
     }
 
-    func testAuthenticationAndMessaging() throws {
+    func testAuthenticationAndMessaging() async throws {
         // Запускаем с авторизацией для теста сообщений
         app.terminate()
         app.launchArguments = ["-auth"]
@@ -39,7 +41,7 @@ final class ChatUITests: XCTestCase {
         }
     }
 
-    func testNavigation() throws {
+    func testNavigation() async throws {
         let chatPage = ChatPage(app: app)
         
         // 1. Проверка открытия боковой панели истории

@@ -52,11 +52,12 @@ struct Check: AsyncParsableCommand {
                 // Как только генерация завершена, запускаем сборку и тесты параллельно
                 print("🧪  Этап 2: Сборка и тестирование (Параллельно)...")
                 try await withThrowingTaskGroup(of: Void.self) { buildGroup in
-                    // Unit + UI тесты
+                    // Тесты (Unit + UI)
                     buildGroup.addTask {
-                        try await Metrics.measure(step: "Tests (AllTests)") {
+                        try await Metrics.measure(step: "Tests") {
                             print("🧪  Запуск тестов через Test Plan (AllTests)...")
-                            try? FileManager.default.removeItem(atPath: "TestResult.xcresult")
+                            let resultPath = "TestResult.xcresult"
+                            try? FileManager.default.removeItem(atPath: resultPath)
 
                             let testCommand = [
                                 "xcodebuild",
@@ -64,7 +65,7 @@ struct Check: AsyncParsableCommand {
                                 "-scheme Chat",
                                 "-testPlan AllTests",
                                 "-destination \"\(device)\"",
-                                "-resultBundlePath TestResult.xcresult",
+                                "-resultBundlePath \(resultPath)",
                                 "test",
                                 "CODE_SIGNING_ALLOWED=NO",
                                 "CODE_SIGNING_REQUIRED=NO",
@@ -72,7 +73,8 @@ struct Check: AsyncParsableCommand {
                             ].joined(separator: " ")
 
                             try await Shell.run(testCommand)
-                            print("✅  Все тесты пройдены успешно.")
+                            try await self.checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 40.0)
+                            print("✅  Все тесты пройдены и покрытие >= 40%.")
                         }
                     }
 
@@ -137,6 +139,50 @@ struct Check: AsyncParsableCommand {
             print("🚀  Код закоммичен и отправлен!")
         } else {
             print("ℹ️  Изменений не обнаружено, коммит не требуется.")
+        }
+    }
+
+    private func checkCoverage(resultBundlePath: String, targetName: String, expected: Double) async throws {
+        print("📊  Проверка покрытия кода для \(targetName) в \(resultBundlePath)...")
+        let command = "xcrun xccov view --report --json \(resultBundlePath)"
+        let jsonString = try await Shell.run(command, quiet: true)
+
+        guard let data = jsonString.data(using: .utf8) else {
+            throw CheckError.coverageCheckFailed("Не удалось распарсить JSON отчета о покрытии")
+        }
+
+        // Упрощенный парсинг JSON для поиска покрытия таргета
+        // Структура xccov JSON: { "targets": [ { "name": "Chat.app", "lineCoverage": 0.85, ... } ] }
+        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+           let targets = json["targets"] as? [[String: Any]] {
+            for target in targets {
+                if let name = target["name"] as? String, name.contains(targetName) {
+                    if let lineCoverage = target["lineCoverage"] as? Double {
+                        let percentage = lineCoverage * 100.0
+                        print("📈  Текущее покрытие для \(name): \(String(format: "%.2f", percentage))%")
+                        if percentage < expected {
+                            throw CheckError.lowCoverage(target: name, actual: percentage, expected: expected)
+                        }
+                        return
+                    }
+                }
+            }
+        }
+
+        throw CheckError.coverageCheckFailed("Таргет \(targetName) не найден в отчете о покрытии")
+    }
+
+    enum CheckError: Error, LocalizedError {
+        case coverageCheckFailed(String)
+        case lowCoverage(target: String, actual: Double, expected: Double)
+
+        var errorDescription: String? {
+            switch self {
+            case .coverageCheckFailed(let message):
+                return "Ошибка проверки покрытия: \(message)"
+            case .lowCoverage(let target, let actual, let expected):
+                return "Низкое покрытие кода для \(target): \(String(format: "%.2f", actual))% (ожидается \(String(format: "%.2f", expected))%)"
+            }
         }
     }
 }

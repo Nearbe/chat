@@ -12,8 +12,8 @@ final class ChatViewModelTests: XCTestCase {
     var networkMonitorMock: NetworkMonitorMock!
     var sessionManager: ChatSessionManager!
     
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
+        try await super.setUp()
         container = TestHelpers.createInMemoryContainer()
         sessionManager = ChatSessionManager(modelContext: container.mainContext)
         chatServiceMock = ChatServiceMock()
@@ -71,7 +71,7 @@ final class ChatViewModelTests: XCTestCase {
         XCTAssertFalse(viewModel.isGenerating)
     }
     
-    func testSetSession() {
+    func testSetSession() async {
         let session = sessionManager.createSession(modelName: "model-1")
         let message = Message.user(content: "Test", sessionId: session.id, index: 0)
         sessionManager.addMessage(message, to: session)
@@ -83,7 +83,7 @@ final class ChatViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.messages[0].content, "Test")
     }
     
-    func testDeleteSession() {
+    func testDeleteSession() async {
         let session = sessionManager.createSession(modelName: "model-1")
         viewModel.setSession(session)
         
