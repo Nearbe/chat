@@ -63,7 +63,7 @@ struct SSEParser {
         do {
             let decoder = JSONDecoder()
             let event = try decoder.decode(LMSEvent.self, from: data)
-            return mapEvent(type: event.type, content: event.content, tool: event.tool, arguments: event.arguments, providerInfo: event.providerInfo, error: event.error)
+            return mapEvent(event)
         } catch {
             print("[SSEParser] Decode error: \(error.localizedDescription)")
             return nil
@@ -71,8 +71,8 @@ struct SSEParser {
     }
 
     /// Преобразование сырого события API в типизированное внутреннее событие ParsedEvent.
-    private mutating func mapEvent(type: String, content: String?, tool: String?, arguments: [String: AnyCodable]?, providerInfo: LMProviderInfo?, error: LMError?) -> ParsedEvent? {
-        switch type {
+    private mutating func mapEvent(_ event: LMSEvent) -> ParsedEvent? {
+        switch event.type {
         case "chat.start":
             messageContent = ""
             reasoningContent = ""
@@ -83,7 +83,7 @@ struct SSEParser {
             return .messageStart
 
         case "message.delta":
-            if let content = content {
+            if let content = event.content {
                 messageContent += content
                 return .messageDelta(content)
             }
@@ -97,7 +97,7 @@ struct SSEParser {
             return .reasoningStart
 
         case "reasoning.delta":
-            if let content = content {
+            if let content = event.content {
                 reasoningContent += content
                 return .reasoningDelta(content)
             }
@@ -107,10 +107,10 @@ struct SSEParser {
             return .reasoningEnd
 
         case "tool_call.start":
-            return .toolCallStart(tool: tool, providerInfo: providerInfo)
+            return .toolCallStart(tool: event.tool, providerInfo: event.providerInfo)
 
         case "tool_call.arguments":
-            return .toolCallArguments(arguments)
+            return .toolCallArguments(event.arguments)
 
         case "tool_call.success":
             return .toolCallSuccess
@@ -122,7 +122,7 @@ struct SSEParser {
             return .chatEnd
 
         case "error":
-            if let errorMsg = error?.message {
+            if let errorMsg = event.error?.message {
                 return .error(errorMsg)
             }
             return nil

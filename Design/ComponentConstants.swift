@@ -33,7 +33,7 @@ enum AppComponentStyles {
     // MARK: - Input Styles
 
     /// Цвет границы текстового поля
-    static let textFieldBorder = Color(uiColor: .systemGray4)
+    static let textFieldBorder = AppColors.systemGray4
 
     // MARK: - Status
 

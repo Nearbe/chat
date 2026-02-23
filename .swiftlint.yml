@@ -19,6 +19,22 @@ opt_in_rules:
   - modifier_order
   - redundant_nil_coalescing
   - vertical_whitespace_closing_braces
+  - line_length
+  - cyclomatic_complexity
+
+line_length: 160
+
+identifier_name:
+  min_length: 2
+  excluded:
+    - id
+
+custom_rules:
+  no_direct_color_use:
+    name: "No direct color use"
+    regex: 'Color\(\.[a-zA-Z]+\)'
+    message: "Use AppColors or SwiftGen constants instead of direct Color extensions"
+    severity: warning
 
 included:
   - App

@@ -26,7 +26,7 @@ struct ChatMessagesView: View {
     let onEditMessage: (Message, String) -> Void
 
     var body: some View {
-        ScrollViewReader { proxy in
+        ScrollViewReader { _ in
             ScrollView {
                 // Используем LazyVStack для оптимизации рендеринга больших списков
                 LazyVStack(spacing: 8) {
@@ -57,7 +57,7 @@ struct ChatMessagesView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 8)
             }
-            .background(Color(uiColor: .systemGroupedBackground))
+            .background(AppColors.backgroundSecondary)
         }
     }
 }

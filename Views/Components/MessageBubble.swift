@@ -44,7 +44,7 @@ struct MessageBubble: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-            .background(isUser ? ThemeManager.shared.accentColor : Color(uiColor: .systemGray5))
+            .background(isUser ? ThemeManager.shared.accentColor : AppColors.systemGray5)
             .foregroundStyle(isUser ? .white : .primary)
             .clipShape(RoundedRectangle(cornerRadius: 18))
             .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)

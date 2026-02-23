@@ -60,7 +60,11 @@ final class HTTPClient: @unchecked Sendable {
     ///   - accept: Тип принимаемого контента (по умолчанию text/event-stream)
     /// - Returns: Кортеж из асинхронного потока байт и ответа сервера
     /// - Throws: Ошибки сети или некорректные статус-коды
-    func postStreaming<T: Encodable>(url: URL, body: T, accept: String = "text/event-stream") async throws -> (URLSession.AsyncBytes, URLResponse) {
+    func postStreaming<T: Encodable>(
+        url: URL,
+        body: T,
+        accept: String = "text/event-stream"
+    ) async throws -> (URLSession.AsyncBytes, URLResponse) {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

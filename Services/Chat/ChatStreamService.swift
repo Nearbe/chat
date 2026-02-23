@@ -9,7 +9,13 @@ final class ChatStreamService: @unchecked Sendable {
     }
 
     /// Streaming chat completion
-    nonisolated func streamChat(url: URL, messages: [ChatMessage], model: String, temperature: Double?, maxTokens: Int?) -> AsyncThrowingStream<ChatCompletionStreamPart, Error> {
+    nonisolated func streamChat(
+        url: URL,
+        messages: [ChatMessage],
+        model: String,
+        temperature: Double?,
+        maxTokens: Int?
+    ) -> AsyncThrowingStream<ChatCompletionStreamPart, Error> {
         AsyncThrowingStream { continuation in
             let httpClient = self.httpClient
 
@@ -59,7 +65,7 @@ final class ChatStreamService: @unchecked Sendable {
         }
     }
 
-    private static nonisolated func convertToStreamPart(event: SSEParser.ParsedEvent) -> ChatCompletionStreamPart? {
+    nonisolated private static func convertToStreamPart(event: SSEParser.ParsedEvent) -> ChatCompletionStreamPart? {
         switch event {
         case .messageDelta(let content):
             return createPart(content: content, reasoning: nil)
@@ -83,7 +89,7 @@ final class ChatStreamService: @unchecked Sendable {
         }
     }
 
-    private static nonisolated func createPart(content: String?, reasoning: String?) -> ChatCompletionStreamPart {
+    nonisolated private static func createPart(content: String?, reasoning: String?) -> ChatCompletionStreamPart {
         ChatCompletionStreamPart(
             choices: [
                 StreamChoice(

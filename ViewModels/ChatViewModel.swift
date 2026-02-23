@@ -122,7 +122,8 @@ final class ChatViewModel: ObservableObject {
         messages = []
         toolCalls = []
         
-        let session = sessionManager?.createSession(modelName: config.selectedModel) ?? ChatSession(modelName: config.selectedModel)
+        let session = sessionManager?.createSession(modelName: config.selectedModel) 
+            ?? ChatSession(modelName: config.selectedModel)
         currentSession = session
         return session
     }
@@ -247,7 +248,6 @@ final class ChatViewModel: ObservableObject {
                 assistantMsg.isGenerating = false
                 assistantMsg.tokensUsed = tokenCount
                 sessionManager.save()
-                
             } catch {
                 if !Task.isCancelled {
                     errorMessage = error.localizedDescription

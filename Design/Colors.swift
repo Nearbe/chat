@@ -63,6 +63,17 @@ enum AppColors {
     
     /// Ожидание подключения
     static let connecting = Color.orange
+    
+    // MARK: - System Colors
+    
+    /// Стандартный серый 4
+    static let systemGray4 = Color(uiColor: .systemGray4)
+    
+    /// Стандартный серый 5
+    static let systemGray5 = Color(uiColor: .systemGray5)
+    
+    /// Стандартный серый 6
+    static let systemGray6 = Color(uiColor: .systemGray6)
 }
 
 // MARK: - Accent Color Helper

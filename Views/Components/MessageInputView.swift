@@ -25,7 +25,7 @@ struct MessageInputView: View {
                 }
                 .frame(height: 52)
                 .padding(.trailing, 16)
-                .background(Color(uiColor: .systemBackground))
+                .background(AppColors.backgroundPrimary)
             }
 
             // Поле ввода
@@ -46,7 +46,7 @@ struct MessageInputView: View {
                 .cornerRadius(18)
                 .overlay(
                     RoundedRectangle(cornerRadius: 18)
-                        .stroke(Color(uiColor: .systemGray4), lineWidth: 1)
+                        .stroke(AppColors.systemGray4, lineWidth: 1)
                 )
                 .accessibilityLabel("Ввод сообщения")
                 .accessibilityHint("Введите текст сообщения")
@@ -71,8 +71,10 @@ struct MessageInputView: View {
                 .font(.system(size: 32))
                 .foregroundStyle(isGenerating ? .red : ThemeManager.shared.accentColor)
         }
-        .disabled(!isGenerating && (inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !isServerReachable || selectedModel.isEmpty))
-        .opacity(isGenerating || (!inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && isServerReachable && !selectedModel.isEmpty) ? 1.0 : 0.5)
+        .disabled(!isGenerating && (inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty 
+                                    || !isServerReachable || selectedModel.isEmpty))
+        .opacity(isGenerating || (!inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty 
+                                  && isServerReachable && !selectedModel.isEmpty) ? 1.0 : 0.5)
         .accessibilityLabel(isGenerating ? "Остановить генерацию" : "Отправить сообщение")
     }
 }

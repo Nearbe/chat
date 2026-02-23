@@ -25,6 +25,7 @@ final class Message {
     /// Уникальный идентификатор сообщения
     /// Генерируется автоматически при создании
     /// Используется для ForEach в SwiftUI
+    @Attribute(.unique)
     var id: UUID
 
     // MARK: - Содержимое (Content)

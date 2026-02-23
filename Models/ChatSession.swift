@@ -26,6 +26,7 @@ final class ChatSession {
     /// Уникальный идентификатор сессии
     /// UUID генерируется автоматически при создании
     /// Используется как primary key в SwiftData
+    @Attribute(.unique)
     var id: UUID
 
     // MARK: - Метаданные (Metadata)

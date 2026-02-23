@@ -37,7 +37,7 @@ struct ToolCallView: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(Color(uiColor: .systemGray6))
+            .background(AppColors.backgroundTertiary)
             .clipShape(RoundedRectangle(cornerRadius: 8))
 
             Spacer()
