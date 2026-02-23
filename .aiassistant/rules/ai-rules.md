@@ -8,6 +8,76 @@ apply: by model decision
 
 ---
 
+## Model Decision — Инструкции для AI
+
+When analyzing changes and deciding what checks to run, follow these rules:
+
+### 1. Determine what was changed
+
+Check file extensions and paths:
+- **Swift files** → `.swift`
+- **Design system** → `Design/`, `Resources/`
+- **Configuration** → `project.yml`, `swiftgen.yml`, `.swiftlint.yml`
+- **Scripts** → `Tools/Scripts/`
+- **Tests** → `ChatTests/`, `ChatUITests/`
+- **Features** → `Features/`
+- **Services** → `Services/`
+- **Models** → `Models/`
+
+### 2. Decide which checks to apply
+
+| If changed files include... | Run these checks... |
+|-----------------------------|---------------------|
+| `.swift` files | SwiftLint, compile check |
+| `project.yml` or `Tools/` | XcodeGen regeneration |
+| `Design/` or `Resources/` | SwiftGen regeneration |
+| `Chat/`, `Features/`, `Services/`, `Models/`, `Core/`, `Data/` | Unit tests + UI tests |
+| `ChatUITests/` | UI tests only |
+| Only documentation (`.md`, `.txt`) | Skip all tests |
+| Only config files | Skip tests, run lint only |
+
+### 3. Smart skip rules
+
+**Skip SwiftLint** if:
+- Only `.md`, `.json`, `.yml`, `.yaml` files changed
+- Only comments or documentation changed
+
+**Skip tests** if:
+- No Swift code was modified
+- Only documentation changed
+- Only config/YAML files changed
+
+**Skip XcodeGen** if:
+- No changes to `project.yml`
+- No changes to `Tools/` directory
+
+**Skip SwiftGen** if:
+- No changes to `Design/` directory
+- No changes to `Resources/` directory
+
+### 4. Always run (mandatory)
+
+Regardless of changes, always:
+- Check for hardcoded secrets (API keys, passwords, tokens)
+- Verify no sensitive data in logs
+- Confirm Keychain is used for secrets
+
+### 5. Test execution commands
+
+If tests are needed, use:
+```bash
+# Unit tests
+xcodebuild test -scheme Chat -destination 'platform=iOS Simulator,name=iPhone 16' -only-testing:ChatTests
+
+# UI tests
+xcodebuild test -scheme Chat -destination 'platform=iOS Simulator,name=iPhone 16' -only-testing:ChatUITests
+
+# Full check (if unsure)
+./scripts check
+```
+
+---
+
 ## Swift Style
 
 - Максимум **160 символов** в строке
