@@ -1,113 +1,89 @@
-# AI-Self Review — Инструкции для самостоятельной проверки кода
+# AI Self-Review — Чеклист перед коммитом
 
 ## Назначение
 
-Этот файл содержит чеклист и инструкции, которым AI-агент должен следовать **перед каждым коммитом**. Цель — обеспечить качество кода без необходимости ручной проверки человеком.
+Этот файл оптимизирован для JetBrains AI Assistant → AI Self-Review. Используй как инструкции при каждом коммите.
 
 ---
 
-## Чеклист перед коммитом
+## Чеклист (выполни ВСЕ пункты)
 
-### 1. Компиляция
-
+### Компиляция
 - [ ] Код компилируется без ошибок: `xcodebuild build`
-- [ ] Нет предупреждений компилятора (warnings)
+- [ ] Нет warnings компилятора
 
-### 2. Линтинг
-
+### Линтинг
 - [ ] SwiftLint проходит без ошибок
-- [ ] Соблюдены правила:
-  - Максимум 160 символов в строке
-  - Все ViewModels имеют `@MainActor`
-  - Русские Docstrings для публичных API
-  - Используется дизайн-система (`AppColors`, `AppSpacing`, `AppTypography`)
+- [ ] Максимум 160 символов в строке
+- [ ] Все ViewModels имеют `@MainActor`
+- [ ] Используется дизайн-система (`AppColors`, `AppSpacing`, `AppTypography`)
 
-### 3. Тесты
+### Тесты
+- [ ] Unit-тесты проходят
+- [ ] UI-тесты проходят
+- [ ] Покрытие соответствует цели
 
-- [ ] Unit-тесты проходят: `xcodebuild test -only-testing:ChatTests`
-- [ ] UI-тесты проходят: `xcodebuild test -only-testing:ChatUITests`
-- [ ] Покрытие соответствует цели проекта
-
-### 4. Безопасность
-
-- [ ] Нет захардкоженных ключей, токенов, паролей
-- [ ] Секреты хранятся в Keychain
+### Безопасность
+- [ ] Нет hardcoded secrets (API keys, токены, пароли)
+- [ ] Секреты в Keychain
 - [ ] Нет утечек данных в логах
 
-### 5. Архитектура
-
-- [ ] MVVM: ViewModels отделены от Views
-- [ ] SwiftData: модели имеют корректные связи
+### Архитектура
+- [ ] MVVM: логика в ViewModels, не в Views
+- [ ] SwiftData: корректные связи с cascade delete
 - [ ] DI: используется `@Injected` из Factory
-- [ ] Services: узкая ответственность (Single Responsibility)
 
 ---
 
-## Критерии качества кода
-
-### Swift
+## Swift-стандарты
 
 | Правило | Описание |
 |---------|----------|
-| `@MainActor` | Все ViewModels обязательно с этим атрибутом |
-| Типы | Использовать Value Types где возможно (`struct` вместо `class`) |
-| Optionals | Избегать force unwrap (`!`), использовать `guard` и `if let` |
-| concurrency | Использовать `async/await`, избегать `@escaping` closures |
-| Error handling | Использовать `throws` вместо опциональных возвращаемых типов |
+| `@MainActor` | Обязательно для ViewModels |
+| Value Types | Предпочитать `struct` вместо `class` |
+| Optionals | Избегать force unwrap (`!`), использовать `guard` |
+| Concurrency | `async/await`, не `@escaping` closures |
+| Error handling | `throws` вместо optional returns |
 
-### SwiftUI
+---
+
+## SwiftUI-стандарты
 
 | Правило | Описание |
 |---------|----------|
-| State | Использовать `@State`, `@Binding`, `@StateObject`, `@ObservedObject` |
+| State | `@State`, `@Binding`, `@StateObject`, `@ObservedObject` |
 | Design System | Только `AppColors.`, `AppSpacing.`, `AppTypography.` |
 | Modifiers | Порядок: frame → padding → background → foreground → cornerRadius |
-| Lists | Использовать `List` или `LazyVStack` для производительности |
 
-### SwiftData
+---
+
+## SwiftData-стандарты
 
 | Правило | Описание |
 |---------|----------|
 | Models | Все модели — `@Model` class |
-| Relationships | Использовать `@Relationship` с cascade delete |
-| Context | mainContext для UI, новый контекст для фоновых операций |
+| Relationships | `@Relationship` с cascade delete |
+| Context | mainContext для UI |
 
 ---
 
-## Типичные ошибки и как их избежать
+## Типичные ошибки
 
 ### 1. Memory Leaks
-
-**Проблема**: Retain cycles в closures.
-
-**Как проверять**:
 ```swift
 // ❌ Плохо
-class MyViewModel: ObservableObject {
-    var onComplete: (() -> Void)?
-}
+var onComplete: (() -> Void)?
 
-// ✅ Хорошо (использовать capture list)
-class MyViewModel: ObservableObject {
-    var onComplete: (() -> Void)?
-    func doWork() {
-        DispatchQueue.main.async { [weak self] in
-            self?.onComplete?()
-        }
-    }
+// ✅ Хорошо
+DispatchQueue.main.async { [weak self] in
+    self?.onComplete?()
 }
 ```
 
 ### 2. Thread Safety
-
-**Проблема**: Обновление UI не на main thread.
-
-**Как проверять**:
 ```swift
-// ❌ Плохо
-func updateMessages(_ messages: [Message]) {
-    self.messages = messages // UI update on background thread
-}
+// ❌ Плохо — UI на background thread
+self.messages = messages
 
 // ✅ Хорошо
 @MainActor
@@ -117,10 +93,6 @@ func updateMessages(_ messages: [Message]) {
 ```
 
 ### 3. Force Unwrapping
-
-**Проблема**: Crash при nil.
-
-**Как проверять**:
 ```swift
 // ❌ Плохо
 let name = user.name!
@@ -130,10 +102,6 @@ guard let name = user.name else { return }
 ```
 
 ### 4. Magic Numbers
-
-**Проблема**: Хардкод значений в коде.
-
-**Как проверять**:
 ```swift
 // ❌ Плохо
 .padding(16)
@@ -144,81 +112,27 @@ guard let name = user.name else { return }
 
 ---
 
-## Паттерны для проверки
+## Git-процесс (обязательно)
 
-### ViewModels
-
-```swift
-// Обязательные элементы
-@MainActor
-class ChatViewModel: ObservableObject {
-    @Published var messages: [Message] = []
-    @Injected(\.chatService) private var chatService
-
-    func sendMessage(_ text: String) async { ... }
-}
-```
-
-### Services
-
-```swift
-// Сервисы должны быть протоколами
-protocol ChatServiceProtocol {
-    func sendMessage(_ message: Message) async throws -> Message
-}
-
-@MainActor
-final class ChatService: ChatServiceProtocol {
-    // Реализация
-}
-```
-
-### Models (SwiftData)
-
-```swift
-@Model
-final class Message {
-    var id: UUID
-    var content: String
-    var role: String
-    var session: ChatSession?
-
-    init(content: String, role: String) {
-        self.id = UUID()
-        self.content = content
-        self.role = role
-    }
-}
-```
-
----
-
-## Git-процесс (обязательно к выполнению)
-
-1. **Создать ветку** по ключу задачи: `FTD-12345`
-2. **Внести изменения**
-3. **Запустить** `./scripts check`
-4. **Если check прошёл** → автоматический коммит и пуш
-5. **Если check не прошёл**:
-   - Исправить ошибки
-   - Повторить check
-   - Использовать `git commit --amend` для объединения с предыдущим коммитом
-   - Force push: `git push --force-with-lease`
+1. Создать ветку: `feature/FTD-12345-description`
+2. Внести изменения
+3. Запустить `./scripts check`
+4. Если check прошёл → автоматический коммит
+5. Если нет → исправить и повторить
 
 ---
 
 ## Когда НЕ коммитить
 
-- [ ] Есть编译 errors
+- [ ] Есть errors компиляции
 - [ ] Есть SwiftLint warnings
 - [ ] Тесты падают
-- [ ] Добавлены захардкоженные secrets
-- [ ] Нарушена архитектура (логика в View)
-- [ ] Не работает на симуляторе
+- [ ] Добавлены hardcoded secrets
+- [ ] Нарушена архитектура
 
 ---
 
-## Команды для быстрой проверки
+## Команды проверки
 
 ```bash
 # Линтинг
@@ -227,18 +141,43 @@ swiftlint lint
 # Компиляция
 xcodebuild build -scheme Chat -destination 'platform=iOS Simulator,name=iPhone 16'
 
-# Тесты
-xcodebuild test -scheme Chat -destination 'platform=iOS Simulator,name=iPhone 16'
-
 # Полный check
 ./scripts check
 ```
 
 ---
 
-## Контакты и контекст
+## Контекст проекта
 
-- **Проект**: Chat (iOS)
-- **Архитектура**: MVVM + SwiftData
-- **Основная IDE**: JetBrains IntelliJ IDEA
-- **Документация**: `QWEN.md`, `AGENTS.md`, `GUIDELINES.md`
+| Параметр | Значение |
+|----------|----------|
+| Платформа | iOS |
+| Язык | Swift 6.0 |
+| UI | SwiftUI |
+| Данные | SwiftData |
+| Архитектура | MVVM |
+| DI | Factory |
+| Целевая iOS | 26.2 |
+
+---
+
+## Настройка в JetBrains IDE
+
+1. **Settings** → **Tools** → **AI Assistant** → **AI Self-Review**
+2. Включить "Enable AI Self-Review"
+3. Нажать **+** рядом с "Custom instructions"
+4. Выбрать этот файл `AI-SELF-REVIEW.md`
+
+Или скопировать чеклист в поле "Custom instructions" напрямую.
+
+---
+
+## Документация
+
+- `QWEN.md` — полный контекст
+- `AGENTS.md` — руководство для агентов
+- `GUIDELINES.md` — руководство разработчика
+- `SETUP.md` — настройка окружения
+- `TESTING.md` — тестирование
+- `ARCHITECTURE.md` — архитектура
+- `SECURITY.md` — безопасность
