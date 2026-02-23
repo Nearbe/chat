@@ -21,6 +21,34 @@
                ReferencedContainer = "container:Chat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "29A5754732A963CB16195C61"
+               BuildableName = "ChatTests.xctest"
+               BlueprintName = "ChatTests"
+               ReferencedContainer = "container:Chat.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E11EB2F408D55CC726CB3CC3"
+               BuildableName = "ChatUITests.xctest"
+               BlueprintName = "ChatUITests"
+               ReferencedContainer = "container:Chat.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -39,10 +67,34 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "29A5754732A963CB16195C61"
+               BuildableName = "ChatTests.xctest"
+               BlueprintName = "ChatTests"
+               ReferencedContainer = "container:Chat.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E11EB2F408D55CC726CB3CC3"
+               BuildableName = "ChatUITests.xctest"
+               BlueprintName = "ChatUITests"
+               ReferencedContainer = "container:Chat.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -61,10 +113,8 @@
             ReferencedContainer = "container:Chat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <LocationScenarioReference
-         identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
-         referenceType = "1">
-      </LocationScenarioReference>
+      <CommandLineArguments>
+      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

@@ -8,8 +8,12 @@ set -e
 cd "$(dirname "$0")"
 
 # Переменные конфигурации
-DEVICE="Saint Celestine" # Имя устройства
+DEVICE="iPhone 16 Pro Max" # Имя устройства
 APP_PATH=~/Library/Developer/Xcode/DerivedData/Chat-*/Build/Products/Release-iphoneos/Chat.app # Путь к собранному приложению
+
+# Генерация проекта Xcode с помощью XcodeGen
+echo "🏗️ Генерация Xcode проекта..."
+xcodegen generate
 
 # Сборка проекта через xcodebuild
 echo "🔨 Сборка проекта (Build)..."

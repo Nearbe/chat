@@ -42,7 +42,6 @@ targets:
     dependencies:
       - package: Factory
       - package: Pulse
-      - product: PulseUI
     postBuildScripts:
       - name: SwiftLint
         script: |
