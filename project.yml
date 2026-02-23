@@ -29,9 +29,8 @@ targets:
     platform: iOS
     sources:
       - path: App
+      - path: Features
       - path: Models
-      - path: Views
-      - path: ViewModels
       - path: Services
       - path: Data
       - path: Core

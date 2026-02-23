@@ -1,0 +1,336 @@
+App
+Chat.xcodeproj
+ChatTests
+ChatUITests
+Core
+Data
+Design
+Docs
+Features
+GUIDELINES.md
+IMPROVEMENT_PLAN.md
+Launch_Chat_2026-02-22_03.20.03_2B1301C4.trace
+Models
+QWEN.md
+Resources
+Services
+TestResult.xcresult
+ViewModels
+Views
+build
+check.sh
+download_all_docs.sh
+project.yml
+scripts
+setup.sh
+setup_assets.sh
+ship.sh
+swiftgen.yml
+/Users/nearbe/repositories/Chat/App:
+ChatApp.swift
+/Users/nearbe/repositories/Chat/Chat.xcodeproj:
+project.pbxproj         xcshareddata
+project.xcworkspace     xcuserdata
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/project.xcworkspace:
+contents.xcworkspacedata        xcuserdata
+xcshareddata
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/project.xcworkspace/xcshareddata:
+swiftpm
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/project.xcworkspace/xcshareddata/swiftpm:
+Package.resolved        configuration
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/configuration:
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/project.xcworkspace/xcuserdata:
+nearbe.xcuserdatad
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/project.xcworkspace/xcuserdata/nearbe.xcuserdatad:
+UserInterfaceState.xcuserstate  xcschemes
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/project.xcworkspace/xcuserdata/nearbe.xcuserdatad/xcschemes:
+xcschememanagement.plist
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/xcshareddata:
+xcschemes
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/xcshareddata/xcschemes:
+Chat.xcscheme
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/xcuserdata:
+nearbe.xcuserdatad
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/xcuserdata/nearbe.xcuserdatad:
+xcschemes
+/Users/nearbe/repositories/Chat/Chat.xcodeproj/xcuserdata/nearbe.xcuserdatad/xcschemes:
+xcschememanagement.plist
+/Users/nearbe/repositories/Chat/ChatTests:
+HTTPClientTests.swift           NetworkServiceTests.swift
+Mocks                           SSEParserTests.swift
+/Users/nearbe/repositories/Chat/ChatTests/Mocks:
+URLProtocolMock.swift
+/Users/nearbe/repositories/Chat/ChatUITests:
+ChatUITests.swift
+/Users/nearbe/repositories/Chat/Core:
+AnyCodable.swift                Extensions
+Container+Registrations.swift
+/Users/nearbe/repositories/Chat/Core/Extensions:
+ChatSession+Export.swift        String+Markdown.swift
+Color+Hex.swift
+/Users/nearbe/repositories/Chat/Data:
+PersistenceController.swift
+/Users/nearbe/repositories/Chat/Design:
+Colors.swift                    PrimaryButtonStyle.swift
+ComponentConstants.swift        Spacing.swift
+Generated                       Typography.swift
+/Users/nearbe/repositories/Chat/Design/Generated:
+Assets.swift
+/Users/nearbe/repositories/Chat/Docs:
+Codegen         LMStudio        OpenAI
+Factory         Ollama          Pulse
+/Users/nearbe/repositories/Chat/Docs/Codegen:
+SwiftGen        XcodeGen
+/Users/nearbe/repositories/Chat/Docs/Codegen/SwiftGen:
+README.md
+/Users/nearbe/repositories/Chat/Docs/Codegen/XcodeGen:
+ProjectSpec.md  README.md
+/Users/nearbe/repositories/Chat/Docs/Factory:
+README.md
+/Users/nearbe/repositories/Chat/Docs/LMStudio:
+README.md       app             cli             developer       index.md
+/Users/nearbe/repositories/Chat/Docs/LMStudio/app:
+index.md
+/Users/nearbe/repositories/Chat/Docs/LMStudio/cli:
+index.md
+/Users/nearbe/repositories/Chat/Docs/LMStudio/developer:
+api-changelog.md        openai-compat
+index.md                rest
+/Users/nearbe/repositories/Chat/Docs/LMStudio/developer/openai-compat:
+chat-completions.md     models.md               tools.md
+index.md                structured-output.md
+/Users/nearbe/repositories/Chat/Docs/LMStudio/developer/rest:
+chat.md                 index.md                streaming-events.md
+download-status.md      list.md                 unload.md
+download.md             load.md
+endpoints.md            quickstart.md
+/Users/nearbe/repositories/Chat/Docs/Ollama:
+api.md
+/Users/nearbe/repositories/Chat/Docs/OpenAI:
+cookbook_readme.md      openapi.yaml
+/Users/nearbe/repositories/Chat/Docs/Pulse:
+README.md
+/Users/nearbe/repositories/Chat/Features:
+Chat            Common          History         Settings
+/Users/nearbe/repositories/Chat/Features/Chat:
+Components      ViewModels      Views
+/Users/nearbe/repositories/Chat/Features/Chat/Components:
+/Users/nearbe/repositories/Chat/Features/Chat/ViewModels:
+/Users/nearbe/repositories/Chat/Features/Chat/Views:
+/Users/nearbe/repositories/Chat/Features/Common:
+Components
+/Users/nearbe/repositories/Chat/Features/Common/Components:
+/Users/nearbe/repositories/Chat/Features/History:
+Components      Views
+/Users/nearbe/repositories/Chat/Features/History/Components:
+/Users/nearbe/repositories/Chat/Features/History/Views:
+/Users/nearbe/repositories/Chat/Features/Settings:
+Components      ViewModels      Views
+/Users/nearbe/repositories/Chat/Features/Settings/Components:
+/Users/nearbe/repositories/Chat/Features/Settings/ViewModels:
+/Users/nearbe/repositories/Chat/Features/Settings/Views:
+/Users/nearbe/repositories/Chat/Launch_Chat_2026-02-22_03.20.03_2B1301C4.trace:
+/Users/nearbe/repositories/Chat/Models:
+API                     Message.swift           ToolCallResult.swift
+ChatSession.swift       ModelCapabilities.swift ToolCallsResponse.swift
+GenerationStats.swift   ModelInfo.swift         ToolDefinition.swift
+LMModelsResponse.swift  ModelQuantization.swift ToolParameters.swift
+LMStudio                ToolCall.swift          ToolProperty.swift
+/Users/nearbe/repositories/Chat/Models/API:
+ChatCompletionDelta.swift       ChatRole.swift
+ChatCompletionRequest.swift     StreamChoice.swift
+ChatCompletionResponse.swift    StreamingFunction.swift
+ChatCompletionStreamPart.swift  StreamingToolCall.swift
+ChatMessage.swift
+/Users/nearbe/repositories/Chat/Models/LMStudio:
+LMChatRequest.swift             LMModelLoadRequest.swift
+LMChatResponse.swift            LMModelLoadResponse.swift
+LMDoneEvent.swift               LMModelUnloadRequest.swift
+LMDownloadRequest.swift         LMProviderInfo.swift
+LMDownloadResponse.swift        LMReasoningContent.swift
+LMDownloadStatus.swift          LMSEvent.swift
+LMError.swift                   LMStats.swift
+LMInput.swift                   LMStreamChunk.swift
+LMInvalidToolCall.swift         LMToolCall.swift
+LMMessageContent.swift          LMToolCallMetadata.swift
+LMModelLoadConfig.swift
+/Users/nearbe/repositories/Chat/Resources:
+Assets.xcassets         Info.plist              Settings.bundle
+Chat.entitlements       LaunchScreen.storyboard
+/Users/nearbe/repositories/Chat/Resources/Assets.xcassets:
+AppIcon.appiconset      Info.colorset           Success.colorset
+Contents.json           PrimaryBlue.colorset    Warning.colorset
+Error.colorset          PrimaryOrange.colorset
+/Users/nearbe/repositories/Chat/Resources/Assets.xcassets/AppIcon.appiconset:
+Contents.json
+/Users/nearbe/repositories/Chat/Resources/Assets.xcassets/Error.colorset:
+Contents.json
+/Users/nearbe/repositories/Chat/Resources/Assets.xcassets/Info.colorset:
+Contents.json
+/Users/nearbe/repositories/Chat/Resources/Assets.xcassets/PrimaryBlue.colorset:
+Contents.json
+/Users/nearbe/repositories/Chat/Resources/Assets.xcassets/PrimaryOrange.colorset:
+Contents.json
+/Users/nearbe/repositories/Chat/Resources/Assets.xcassets/Success.colorset:
+Contents.json
+/Users/nearbe/repositories/Chat/Resources/Assets.xcassets/Warning.colorset:
+Contents.json
+/Users/nearbe/repositories/Chat/Resources/Settings.bundle:
+Root.plist      ru.lproj
+/Users/nearbe/repositories/Chat/Resources/Settings.bundle/ru.lproj:
+Root.strings
+/Users/nearbe/repositories/Chat/Services:
+Auth                            Network
+Chat                            NetworkConfiguration.swift
+Errors                          ThemeManager.swift
+/Users/nearbe/repositories/Chat/Services/Auth:
+DeviceAuthManager.swift         DeviceIdentity.swift
+DeviceConfiguration.swift       KeychainHelper.swift
+/Users/nearbe/repositories/Chat/Services/Chat:
+ChatService.swift               ChatStreamService.swift
+ChatSessionManager.swift
+/Users/nearbe/repositories/Chat/Services/Errors:
+AuthError.swift         NetworkError.swift
+/Users/nearbe/repositories/Chat/Services/Network:
+AuthorizationProvider.swift     NetworkService.swift
+HTTPClient.swift                SSEParser.swift
+NetworkMonitor.swift
+/Users/nearbe/repositories/Chat/TestResult.xcresult:
+Data            Info.plist
+/Users/nearbe/repositories/Chat/TestResult.xcresult/Data:
+data.0~1PHFFTk8S-aF7OWPwmfOaJaHM9kSZKmvKSixttt8TOdQ54MaWWr8QAPqhtWd4YQz70XHNjFyDMkG3hQjSys4NQ==
+data.0~1nP96H5F9ZYYMOhL1jOuYW5-tpmouSj_Wg_eIFiQ_Yjp4Zug7uXBYuBy90J7rBtLDYbGjXoIdt5y-pZUEtWJNA==
+data.0~4VqMqsI5lOfxRppnud6-VDWcNsU8J7VgFCJfW2dXPwOcAkvU-I8Um5yp9n0Zv6nr3VmcxYggaVMDFfR0U_vjKw==
+data.0~5OAtx_T7rCmCmzcKsd5bR5LashufnSw8faCfjWcleVjJuqOnpaiCQfToZFmpl-ax8lOAh8YDosC3kZc3Ql5OOw==
+data.0~5mXZGanx4uPKEsPluOUera3SZQANfq5ElWAV_xkbpZATxdOR5Zs6_xwYL1-KxXfQj2zsnGpGMztyz3Xo2FiqzQ==
+data.0~AWVrPSyswyZf8yeNnsgOLTbxFD1IV9SgXIV6jPGLAMbic2OGcPy4fA7N6goiXT8Pu4bprXTX5a4kain1Br9kxQ==
+data.0~H46mN04KlCoKDA5USSWMl4YuMIyaMj8rhTHin7gpNgNqxIn7zN02tf3-kH3sJqpD4UOawBoJf94xoDuoJ5VpNA==
+data.0~HH6CeBPvFKtpotAy5wMvpjyQrRQTBkuSE-TJbaJ-KaSSR_7vpb8RCOST9L_3ChMETt4qFRVtEA0tYZrmr4chbA==
+data.0~HIjH6-eD4vUUA3TLQo3_YHtSNcrTxPon1qKbqOr6ymiRE7AgkRlGtiDjUcrgKrsO7xUnwCq8DVAYh44Y2kgbOA==
+data.0~IAmdMWw3YMMVjJlTEEu4IZkRLVdJ4wcQ7KfbNYjmisWjP9qulwsEvq8lPsV_oJJm_k_yvoNdhZPKUFjv2kHCIQ==
+data.0~SPxbrFrbdOJ1CKKH9IhP72MCdZBaaDV8fSQs3FGWScLoCpw2vUZBW3KCelp9EBYLmylSvyrQq5hMK_1D1DYePQ==
+data.0~VERNEsjkYTzzVYPb4q2OR6-cKQUzMnS4Vy8RYx0cOm3eWii-LU-fOqx83qPJ3GhPiOecugUU9qUFA-af5JC7Jg==
+data.0~XqOrm-kOiovZmCTyGR7oxKuOH96AyrEhlQZW6YK38UjUlTshHIZZr0snRQSMi89Zyn9OQcBMbgFUYgLU6S0bfQ==
+data.0~ZgNx_BK1T6k84GRAQ0W8Mid7R9rlwY-hUnEz5LD4MNzdRVR9FkDG4sOAsLqEQwIWQrVm7yT2a5nGlxBrCwploQ==
+data.0~_51UWTj72LznXlruNXrvD90INVM8QJVkz8SADiCUfmCqsNLXvzqVy5ap2rXYplDU_DvVvxOeRigRSJcG94a1Gg==
+data.0~bHQI90gFJ-NKXpkJEshpvmKDQ78PiyLiRnmOU12V1XcfQiwQ8-IM4PdfT8luBBB1Ws8sRCsx4y8asque9StveQ==
+data.0~cZbDbDYibuOA-KDsLHrze2jF8cRnTkL-4FwMotpqHBg_C0TWnG54_DYQzrT-k1xKgcstqh7ucml7-sco6O7dFA==
+data.0~cf_bEUFNFjUZaGfgs2O8pfqfW09aGFaziiY1vH-2FeGlBfSG7r3lbl1Xeeg0hf53adcdKB7kZEXvmjn-0dy-3w==
+data.0~dX1jn8aFXCD7NRY3WsGHo09kckfpGaSTF66FxNH6v7gwHJt5pFTl0FHYNl6WvMPF6jYQq44ZTIquiT5HHSm_6g==
+data.0~mZ6MnmLxy0QgkYPPwIJ9F__X-3Sdf0LEHM0BT52chxjvT9EiUTrnGfWSnHmT1qxZq2eCygkhk6HTAJjkUVHdvA==
+data.0~oKxkfmh1rFoSRqcjpRTDM3ofiRZ53xrmtFdh88QaRviS4txVJODZMwQdqgntWBDBzV0vkocfKj_K8Q7_X4n8ew==
+data.0~owlz99o5X4etW_NlR8FWkgGMMati5pW2Uk8gzslAWtw6wvWXoS8z0HFNDceV2ecRHpp8A1xxo9tAp30rHxf2zA==
+data.0~qybFOZl5gQIV6MJm-SskGDTVy2hQJWDxanvoD5D2DB-0m88_QPPF4oZGrVJigIdHGb81s2817ypv6eUj5l0TuA==
+data.0~sFz8xj5zEFWBzcOA3ZknjdVCYOyHmzqQPSxY3qgdNCE149ehvGjqs1DyD1dVdvpOx4XsOkysY5xNWJD4df8nJQ==
+data.0~shJcEwfeNd39FHPARy1wJMTm5C6YoNKEE9kk8SSQHeB3guSG0vvV2Iv6D9F5vkGdzzr65USBV5VvEiXTexTTTg==
+data.0~un106pNo_ZEMQWRabZzANfVxdggvVXYY_bEri2Dc1havatdZT_BcENu4PzzF-XdEZ4-rIXZEs7lOEuk_VvN2lQ==
+data.0~wDne9pujcjqBSaDmplHWCSQ7xJcMuM8QaKRj44tyIAAISiiRNVZkUzoJEAVHpJFvulDaaCj1I4nXa5adRxk2vw==
+data.0~wO8AqfmC9CiG_99yu4-UUg3jbGf-_eHLIYdoAQaIGU0i3ntEP7WWgcPfE7mI90TXToffYLofpZDzy-aqAYzSxw==
+data.0~yrHYdqUZIe6lFljSwzBGB_Uc9-hQ3ixIQX78isxwIhfB9jsqQDRhzw2nVh-BaLE7vIvhZm9x7tzuetFTI83ukA==
+refs.0~1PHFFTk8S-aF7OWPwmfOaJaHM9kSZKmvKSixttt8TOdQ54MaWWr8QAPqhtWd4YQz70XHNjFyDMkG3hQjSys4NQ==
+refs.0~1nP96H5F9ZYYMOhL1jOuYW5-tpmouSj_Wg_eIFiQ_Yjp4Zug7uXBYuBy90J7rBtLDYbGjXoIdt5y-pZUEtWJNA==
+refs.0~4VqMqsI5lOfxRppnud6-VDWcNsU8J7VgFCJfW2dXPwOcAkvU-I8Um5yp9n0Zv6nr3VmcxYggaVMDFfR0U_vjKw==
+refs.0~5OAtx_T7rCmCmzcKsd5bR5LashufnSw8faCfjWcleVjJuqOnpaiCQfToZFmpl-ax8lOAh8YDosC3kZc3Ql5OOw==
+refs.0~5mXZGanx4uPKEsPluOUera3SZQANfq5ElWAV_xkbpZATxdOR5Zs6_xwYL1-KxXfQj2zsnGpGMztyz3Xo2FiqzQ==
+refs.0~AWVrPSyswyZf8yeNnsgOLTbxFD1IV9SgXIV6jPGLAMbic2OGcPy4fA7N6goiXT8Pu4bprXTX5a4kain1Br9kxQ==
+refs.0~H46mN04KlCoKDA5USSWMl4YuMIyaMj8rhTHin7gpNgNqxIn7zN02tf3-kH3sJqpD4UOawBoJf94xoDuoJ5VpNA==
+refs.0~HH6CeBPvFKtpotAy5wMvpjyQrRQTBkuSE-TJbaJ-KaSSR_7vpb8RCOST9L_3ChMETt4qFRVtEA0tYZrmr4chbA==
+refs.0~HIjH6-eD4vUUA3TLQo3_YHtSNcrTxPon1qKbqOr6ymiRE7AgkRlGtiDjUcrgKrsO7xUnwCq8DVAYh44Y2kgbOA==
+refs.0~IAmdMWw3YMMVjJlTEEu4IZkRLVdJ4wcQ7KfbNYjmisWjP9qulwsEvq8lPsV_oJJm_k_yvoNdhZPKUFjv2kHCIQ==
+refs.0~SPxbrFrbdOJ1CKKH9IhP72MCdZBaaDV8fSQs3FGWScLoCpw2vUZBW3KCelp9EBYLmylSvyrQq5hMK_1D1DYePQ==
+refs.0~VERNEsjkYTzzVYPb4q2OR6-cKQUzMnS4Vy8RYx0cOm3eWii-LU-fOqx83qPJ3GhPiOecugUU9qUFA-af5JC7Jg==
+refs.0~XqOrm-kOiovZmCTyGR7oxKuOH96AyrEhlQZW6YK38UjUlTshHIZZr0snRQSMi89Zyn9OQcBMbgFUYgLU6S0bfQ==
+refs.0~ZgNx_BK1T6k84GRAQ0W8Mid7R9rlwY-hUnEz5LD4MNzdRVR9FkDG4sOAsLqEQwIWQrVm7yT2a5nGlxBrCwploQ==
+refs.0~_51UWTj72LznXlruNXrvD90INVM8QJVkz8SADiCUfmCqsNLXvzqVy5ap2rXYplDU_DvVvxOeRigRSJcG94a1Gg==
+refs.0~bHQI90gFJ-NKXpkJEshpvmKDQ78PiyLiRnmOU12V1XcfQiwQ8-IM4PdfT8luBBB1Ws8sRCsx4y8asque9StveQ==
+refs.0~cZbDbDYibuOA-KDsLHrze2jF8cRnTkL-4FwMotpqHBg_C0TWnG54_DYQzrT-k1xKgcstqh7ucml7-sco6O7dFA==
+refs.0~cf_bEUFNFjUZaGfgs2O8pfqfW09aGFaziiY1vH-2FeGlBfSG7r3lbl1Xeeg0hf53adcdKB7kZEXvmjn-0dy-3w==
+refs.0~dX1jn8aFXCD7NRY3WsGHo09kckfpGaSTF66FxNH6v7gwHJt5pFTl0FHYNl6WvMPF6jYQq44ZTIquiT5HHSm_6g==
+refs.0~mZ6MnmLxy0QgkYPPwIJ9F__X-3Sdf0LEHM0BT52chxjvT9EiUTrnGfWSnHmT1qxZq2eCygkhk6HTAJjkUVHdvA==
+refs.0~oKxkfmh1rFoSRqcjpRTDM3ofiRZ53xrmtFdh88QaRviS4txVJODZMwQdqgntWBDBzV0vkocfKj_K8Q7_X4n8ew==
+refs.0~owlz99o5X4etW_NlR8FWkgGMMati5pW2Uk8gzslAWtw6wvWXoS8z0HFNDceV2ecRHpp8A1xxo9tAp30rHxf2zA==
+refs.0~qybFOZl5gQIV6MJm-SskGDTVy2hQJWDxanvoD5D2DB-0m88_QPPF4oZGrVJigIdHGb81s2817ypv6eUj5l0TuA==
+refs.0~sFz8xj5zEFWBzcOA3ZknjdVCYOyHmzqQPSxY3qgdNCE149ehvGjqs1DyD1dVdvpOx4XsOkysY5xNWJD4df8nJQ==
+refs.0~shJcEwfeNd39FHPARy1wJMTm5C6YoNKEE9kk8SSQHeB3guSG0vvV2Iv6D9F5vkGdzzr65USBV5VvEiXTexTTTg==
+refs.0~un106pNo_ZEMQWRabZzANfVxdggvVXYY_bEri2Dc1havatdZT_BcENu4PzzF-XdEZ4-rIXZEs7lOEuk_VvN2lQ==
+refs.0~wDne9pujcjqBSaDmplHWCSQ7xJcMuM8QaKRj44tyIAAISiiRNVZkUzoJEAVHpJFvulDaaCj1I4nXa5adRxk2vw==
+refs.0~wO8AqfmC9CiG_99yu4-UUg3jbGf-_eHLIYdoAQaIGU0i3ntEP7WWgcPfE7mI90TXToffYLofpZDzy-aqAYzSxw==
+refs.0~yrHYdqUZIe6lFljSwzBGB_Uc9-hQ3ixIQX78isxwIhfB9jsqQDRhzw2nVh-BaLE7vIvhZm9x7tzuetFTI83ukA==
+/Users/nearbe/repositories/Chat/ViewModels:
+AppConfig.swift         ChatViewModel.swift
+/Users/nearbe/repositories/Chat/Views:
+Components      Screens
+/Users/nearbe/repositories/Chat/Views/Components:
+ChatMessagesView.swift          SessionRowView.swift
+ContextBar.swift                ShieldView.swift
+CopyButton.swift                StatusBadgeView.swift
+GenerationStatsView.swift       StatusIndicator.swift
+MessageBubble.swift             ThinkingBlock.swift
+MessageInputView.swift          ToolCallView.swift
+ModelRowView.swift              ToolsStatusView.swift
+/Users/nearbe/repositories/Chat/Views/Screens:
+ChatView.swift          HistoryView.swift       ModelPicker.swift
+/Users/nearbe/repositories/Chat/build:
+Release-iphoneos
+/Users/nearbe/repositories/Chat/build/Release-iphoneos:
+Chat.app                Factory.swiftmodule     Pulse.swiftmodule
+Chat.app.dSYM           Factory_Factory.bundle  PulseUI.o
+Chat.swiftmodule        PackageFrameworks       PulseUI.swiftmodule
+Factory.o               Pulse.o
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app:
+Assets.car                      PkgInfo
+Chat                            Settings.bundle
+Factory_Factory.bundle          _CodeSignature
+Info.plist                      embedded.mobileprovision
+LaunchScreen.storyboardc
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app/Factory_Factory.bundle:
+Info.plist              PrivacyInfo.xcprivacy
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app/LaunchScreen.storyboardc:
+01J-lp-oVM-view-Ze5-6b-2t3.nib  UIViewController-01J-lp-oVM.nib
+Info.plist
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app/Settings.bundle:
+Root.plist      ru.lproj
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app/Settings.bundle/ru.lproj:
+Root.strings
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app/_CodeSignature:
+CodeResources
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app.dSYM:
+Contents
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app.dSYM/Contents:
+Info.plist      Resources
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app.dSYM/Contents/Resources:
+DWARF           Relocations
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app.dSYM/Contents/Resources/DWARF:
+Chat
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app.dSYM/Contents/Resources/Relocations:
+aarch64
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.app.dSYM/Contents/Resources/Relocations/aarch64:
+Chat.yml
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.swiftmodule:
+Project                         arm64-apple-ios.swiftdoc
+arm64-apple-ios.abi.json        arm64-apple-ios.swiftmodule
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Chat.swiftmodule/Project:
+arm64-apple-ios.swiftsourceinfo
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Factory.swiftmodule:
+Project                         arm64-apple-ios.swiftdoc
+arm64-apple-ios.abi.json        arm64-apple-ios.swiftmodule
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Factory.swiftmodule/Project:
+arm64-apple-ios.swiftsourceinfo
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Factory_Factory.bundle:
+Info.plist              PrivacyInfo.xcprivacy
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/PackageFrameworks:
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Pulse.swiftmodule:
+Project                         arm64-apple-ios.swiftdoc
+arm64-apple-ios.abi.json        arm64-apple-ios.swiftmodule
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/Pulse.swiftmodule/Project:
+arm64-apple-ios.swiftsourceinfo
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/PulseUI.swiftmodule:
+Project                         arm64-apple-ios.swiftdoc
+arm64-apple-ios.abi.json        arm64-apple-ios.swiftmodule
+/Users/nearbe/repositories/Chat/build/Release-iphoneos/PulseUI.swiftmodule/Project:
+arm64-apple-ios.swiftsourceinfo
+/Users/nearbe/repositories/Chat/scripts:
+configure_sudo.sh       docs
+/Users/nearbe/repositories/Chat/scripts/docs:
+download_codegen.sh     download_lmstudio.sh    download_openai.sh
+download_factory.sh     download_ollama.sh      download_pulse.sh
