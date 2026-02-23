@@ -8,12 +8,12 @@ struct DownloadDocs: AsyncParsableCommand {
         print("🌍  Начало обновления документации...")
         
         try await withThrowingTaskGroup(of: Void.self) { group in
-            group.addTask { try await downloadLMStudio() }
-            group.addTask { try await downloadOpenAI() }
-            group.addTask { try await downloadFactory() }
-            group.addTask { try await downloadPulse() }
-            group.addTask { try await downloadOllama() }
-            group.addTask { try await downloadCodegen() }
+            group.addTask { try await Metrics.measure(step: "Docs: LM Studio") { try await downloadLMStudio() } }
+            group.addTask { try await Metrics.measure(step: "Docs: OpenAI") { try await downloadOpenAI() } }
+            group.addTask { try await Metrics.measure(step: "Docs: Factory") { try await downloadFactory() } }
+            group.addTask { try await Metrics.measure(step: "Docs: Pulse") { try await downloadPulse() } }
+            group.addTask { try await Metrics.measure(step: "Docs: Ollama") { try await downloadOllama() } }
+            group.addTask { try await Metrics.measure(step: "Docs: Codegen") { try await downloadCodegen() } }
             
             try await group.waitForAll()
         }

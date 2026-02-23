@@ -15,9 +15,11 @@ struct Check: AsyncParsableCommand {
         try await withThrowingTaskGroup(of: Void.self) { mainGroup in
             // 1. Параллельный линтинг
             mainGroup.addTask {
-                print("🔍  Запуск SwiftLint...")
-                try await Shell.run("swiftlint --strict")
-                print("✅  SwiftLint завершен успешно.")
+                try await Metrics.measure(step: "SwiftLint") {
+                    print("🔍  Запуск SwiftLint...")
+                    try await Shell.run("swiftlint --strict")
+                    print("✅  SwiftLint завершен успешно.")
+                }
             }
             
             // 2. Группа генерации и последующей сборки/тестирования
@@ -26,12 +28,16 @@ struct Check: AsyncParsableCommand {
                 print("🏗️  Этап 1: Подготовка инфраструктуры...")
                 try await withThrowingTaskGroup(of: Void.self) { genGroup in
                     genGroup.addTask { 
-                        print("📦  Генерация проекта (XcodeGen)...")
-                        try await Shell.run("xcodegen generate") 
+                        try await Metrics.measure(step: "XcodeGen") {
+                            print("📦  Генерация проекта (XcodeGen)...")
+                            try await Shell.run("xcodegen generate") 
+                        }
                     }
                     genGroup.addTask { 
-                        print("🎨  Генерация ресурсов (SwiftGen)...")
-                        try await runSwiftGen() 
+                        try await Metrics.measure(step: "SwiftGen") {
+                            print("🎨  Генерация ресурсов (SwiftGen)...")
+                            try await runSwiftGen() 
+                        }
                     }
                     
                     try await genGroup.waitForAll()
@@ -42,42 +48,46 @@ struct Check: AsyncParsableCommand {
                 try await withThrowingTaskGroup(of: Void.self) { buildGroup in
                     // Unit + UI тесты
                     buildGroup.addTask {
-                        print("🧪  Запуск тестов через Test Plan (AllTests)...")
-                        try? FileManager.default.removeItem(atPath: "TestResult.xcresult")
-                        
-                        let testCommand = [
-                            "xcodebuild",
-                            "-project Chat.xcodeproj",
-                            "-scheme Chat",
-                            "-testPlan AllTests",
-                            "-destination \"\(device)\"",
-                            "-resultBundlePath TestResult.xcresult",
-                            "test",
-                            "CODE_SIGNING_ALLOWED=NO",
-                            "CODE_SIGNING_REQUIRED=NO",
-                            "| grep -E \"Test Suite|passed|failed|skipped\""
-                        ].joined(separator: " ")
-                        
-                        try await Shell.run(testCommand)
-                        print("✅  Все тесты пройдены успешно.")
+                        try await Metrics.measure(step: "Tests (AllTests)") {
+                            print("🧪  Запуск тестов через Test Plan (AllTests)...")
+                            try? FileManager.default.removeItem(atPath: "TestResult.xcresult")
+                            
+                            let testCommand = [
+                                "xcodebuild",
+                                "-project Chat.xcodeproj",
+                                "-scheme Chat",
+                                "-testPlan AllTests",
+                                "-destination \"\(device)\"",
+                                "-resultBundlePath TestResult.xcresult",
+                                "test",
+                                "CODE_SIGNING_ALLOWED=NO",
+                                "CODE_SIGNING_REQUIRED=NO",
+                                "| grep -E \"Test Suite|passed|failed|skipped\""
+                            ].joined(separator: " ")
+                            
+                            try await Shell.run(testCommand)
+                            print("✅  Все тесты пройдены успешно.")
+                        }
                     }
                     
                     // Релизная сборка
                     buildGroup.addTask {
-                        print("📦  Сборка Release версии...")
-                        let releaseCommand = [
-                            "xcodebuild",
-                            "-quiet",
-                            "-project Chat.xcodeproj",
-                            "-scheme Chat",
-                            "-configuration Release",
-                            "-destination \"generic/platform=iOS\"",
-                            "SYMROOT=\"$(pwd)/build\"",
-                            "build"
-                        ].joined(separator: " ")
-                        
-                        try await Shell.run(releaseCommand)
-                        print("✅  Release сборка завершена.")
+                        try await Metrics.measure(step: "Build Release") {
+                            print("📦  Сборка Release версии...")
+                            let releaseCommand = [
+                                "xcodebuild",
+                                "-quiet",
+                                "-project Chat.xcodeproj",
+                                "-scheme Chat",
+                                "-configuration Release",
+                                "-destination \"generic/platform=iOS\"",
+                                "SYMROOT=\"$(pwd)/build\"",
+                                "build"
+                            ].joined(separator: " ")
+                            
+                            try await Shell.run(releaseCommand)
+                            print("✅  Release сборка завершена.")
+                        }
                     }
                     
                     try await buildGroup.waitForAll()
@@ -90,7 +100,9 @@ struct Check: AsyncParsableCommand {
         print("✅  Техническая проверка успешно завершена!")
         
         // Группа 4: Git
-        try await handleGitCommit()
+        try await Metrics.measure(step: "Git Commit & Push") {
+            try await handleGitCommit()
+        }
     }
     
     private func runSwiftGen() async throws {

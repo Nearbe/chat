@@ -7,9 +7,15 @@ struct Setup: AsyncParsableCommand {
     func run() async throws {
         print("🏗️  Подготовка проекта...")
         
-        try await setupAssets()
-        try await runXcodeGen()
-        try await runSwiftGen()
+        try await Metrics.measure(step: "Setup Assets") {
+            try await setupAssets()
+        }
+        try await Metrics.measure(step: "XcodeGen") {
+            try await runXcodeGen()
+        }
+        try await Metrics.measure(step: "SwiftGen") {
+            try await runSwiftGen()
+        }
         
         print("✅ Проект готов к работе!")
     }

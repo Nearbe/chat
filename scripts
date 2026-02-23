@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Передаем все аргументы в swift run для пакета в Tools/Scripts
+swift run --package-path Tools/Scripts scripts "$@"

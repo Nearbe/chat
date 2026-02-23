@@ -13,7 +13,7 @@ public enum ShellError: Error, LocalizedError {
 
 public struct Shell {
     @discardableResult
-    public static func run(_ command: String, workingDirectory: URL? = nil, environment: [String: String]? = nil, quiet: Bool = false) async throws -> String {
+    public static func run(_ command: String, workingDirectory: URL? = nil, environment: [String: String]? = nil, quiet: Bool = false, isInteractive: Bool = false) async throws -> String {
         if !quiet {
             print("▶️  Запуск: \(command)")
         }
@@ -32,11 +32,30 @@ public struct Shell {
         
         let outputPipe = Pipe()
         let errorPipe = Pipe()
-        process.standardOutput = outputPipe
-        process.standardError = errorPipe
+        
+        if isInteractive {
+            // Если мы хотим интерактивности, лучше не переопределять стандартные потоки,
+            // чтобы процесс наследовал их напрямую от родителя.
+            // Это наиболее надежный способ для работы sudo внутри swift run.
+        } else {
+            process.standardOutput = outputPipe
+            process.standardError = errorPipe
+        }
         
         try process.run()
         process.waitUntilExit()
+        
+        if isInteractive {
+            if process.terminationStatus != 0 {
+                throw ShellError.commandFailed(
+                    command: command,
+                    exitCode: process.terminationStatus,
+                    output: "",
+                    error: "Команда завершилась с ошибкой в интерактивном режиме"
+                )
+            }
+            return ""
+        }
         
         let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
         let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
