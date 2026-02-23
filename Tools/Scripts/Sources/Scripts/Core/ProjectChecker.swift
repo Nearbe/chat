@@ -5,6 +5,26 @@ public enum ProjectChecker {
     static func run() async throws {
         print("🔍  Запуск специальных проверок проекта (ProjectChecker)...")
 
+        let filesToScan = collectFiles()
+        var errors: [String] = []
+
+        for file in filesToScan {
+            errors.append(contentsOf: try checkFile(file))
+        }
+
+        errors.append(contentsOf: await checkToolVersions())
+        errors.append(contentsOf: try checkProjectYml())
+
+        if !errors.isEmpty {
+            print("❌  Обнаружены ошибки при проверке проекта:")
+            errors.forEach { print("    - \($0)") }
+            throw CheckerError.validationFailed
+        } else {
+            print("✅  Все специальные проверки пройдены успешно.")
+        }
+    }
+
+    private static func collectFiles() -> [String] {
         let fileManager = FileManager.default
         let enumerator = fileManager.enumerator(atPath: ".")
 
@@ -18,63 +38,46 @@ public enum ProjectChecker {
                file.contains("Design/Generated") ||
                file.contains("Tools/Scripts") ||
                file.contains("ChatTests") ||
-               file.contains("ChatUITests") {
+               file.contains("ChatUITests") ||
+               file.contains("build/") ||
+               file.contains("chatbuild/") ||
+               file.hasPrefix(".build/") {
                 continue
             }
             filesToScan.append(file)
         }
+        return filesToScan
+    }
 
+    private static func checkFile(_ file: String) throws -> [String] {
         var errors: [String] = []
+        let fileURL = URL(fileURLWithPath: file)
+        let content = try String(contentsOf: fileURL, encoding: .utf8)
+        let lines = content.components(separatedBy: .newlines)
 
-        for file in filesToScan {
-            let fileURL = URL(fileURLWithPath: file)
-            let content = try String(contentsOf: fileURL, encoding: .utf8)
-            let lines = content.components(separatedBy: .newlines)
+        // 1. Проверка наличия документации (Docstrings)
+        errors.append(contentsOf: checkDocumentation(lines: lines, filePath: file))
 
-            // 1. Проверка наличия документации (Docstrings)
-            let documentationErrors = checkDocumentation(lines: lines, filePath: file)
-            errors.append(contentsOf: documentationErrors)
+        // 2. Проверка языка документации (Русский)
+        errors.append(contentsOf: checkDocumentationLanguage(lines: lines, filePath: file))
 
-            // 2. Проверка языка документации (Русский)
-            let languageErrors = checkDocumentationLanguage(lines: lines, filePath: file)
-            errors.append(contentsOf: languageErrors)
+        // 3. Проверка на использование print() вместо логгера
+        errors.append(contentsOf: checkNoPrint(lines: lines, filePath: file))
 
-            // 3. Проверка на использование print() вместо логгера
-            let printErrors = checkNoPrint(lines: lines, filePath: file)
-            errors.append(contentsOf: printErrors)
-
-            // 4. Проверка именования SwiftUI вьюх (должны заканчиваться на View или Page)
-            if file.contains("Views/") || file.contains("Pages/") {
-                let namingErrors = checkViewNaming(lines: lines, filePath: file)
-                errors.append(contentsOf: namingErrors)
-            }
-
-            // 5. Проверка на MainActor для ViewModel
-            if file.contains("ViewModel") {
-                let mainActorErrors = checkMainActor(lines: lines, filePath: file)
-                errors.append(contentsOf: mainActorErrors)
-            }
-
-            // 6. Проверка метки связи с документацией
-            let docLinkErrors = checkDocLink(lines: lines, filePath: file)
-            errors.append(contentsOf: docLinkErrors)
+        // 4. Проверка именования SwiftUI вьюх (должны заканчиваться на View или Page)
+        if file.contains("Views/") || file.contains("Pages/") {
+            errors.append(contentsOf: checkViewNaming(lines: lines, filePath: file))
         }
 
-        // 7. Проверка версий инструментов
-        let versionErrors = await checkToolVersions()
-        errors.append(contentsOf: versionErrors)
-
-        // 7. Проверка project.yml
-        let projectErrors = try checkProjectYml()
-        errors.append(contentsOf: projectErrors)
-
-        if !errors.isEmpty {
-            print("❌  Обнаружены ошибки при проверке проекта:")
-            errors.forEach { print("    - \($0)") }
-            throw CheckerError.validationFailed
-        } else {
-            print("✅  Все специальные проверки пройдены успешно.")
+        // 5. Проверка на MainActor для ViewModel
+        if file.contains("ViewModel") {
+            errors.append(contentsOf: checkMainActor(lines: lines, filePath: file))
         }
+
+        // 6. Проверка метки связи с документацией
+        errors.append(contentsOf: checkDocLink(lines: lines, filePath: file))
+
+        return errors
     }
 
     private static func checkMainActor(lines: [String], filePath: String) -> [String] {
