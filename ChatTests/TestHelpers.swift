@@ -19,3 +19,83 @@ enum TestHelpers {
         }
     }
 }
+
+// MARK: - Фабрики тестовых данных
+
+extension ModelInfo {
+    /// Создает экземпляр ModelInfo для тестов
+    static func make(
+        id: String = "test-model",
+        displayName: String = "Test Model"
+    ) -> ModelInfo {
+        ModelInfo(id: id, displayName: displayName)
+    }
+}
+
+extension Message {
+    /// Создает экземпляр Message для тестов
+    static func make(
+        id: UUID = UUID(),
+        role: String = "user",
+        content: String = "Test content",
+        sessionId: UUID = UUID(),
+        index: Int = 0,
+        createdAt: Date = Date()
+    ) -> Message {
+        Message(
+            id: id,
+            content: content,
+            role: role,
+            createdAt: createdAt,
+            index: index,
+            sessionId: sessionId
+        )
+    }
+}
+
+extension ChatSession {
+    /// Создает экземпляр ChatSession для тестов
+    static func make(
+        id: UUID = UUID(),
+        title: String = "Test Session",
+        modelName: String = "test-model",
+        createdAt: Date = Date(),
+        updatedAt: Date = Date()
+    ) -> ChatSession {
+        ChatSession(
+            id: id,
+            title: title,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            modelName: modelName
+        )
+    }
+}
+
+import SnapshotTesting
+import UIKit
+
+extension ViewImageConfig {
+    /// Конфигурация для iPhone 16 Pro Max для SnapshotTesting
+    public static let iPhone16ProMax = ViewImageConfig.iphone16ProMax
+
+    public static let iphone16ProMax = ViewImageConfig(
+        safeArea: UIEdgeInsets(top: 59, left: 0, bottom: 34, right: 0),
+        size: CGSize(width: 440, height: 956),
+        traits: .iphone16ProMax
+    )
+}
+
+extension UITraitCollection {
+    public static let iphone16ProMax = UITraitCollection(traitsFrom: [
+        .init(forceTouchCapability: .unavailable),
+        .init(layoutDirection: .leftToRight),
+        .init(preferredContentSizeCategory: .medium),
+        .init(userInterfaceIdiom: .phone),
+        .init(horizontalSizeClass: .compact),
+        .init(verticalSizeClass: .regular),
+        .init(displayScale: 3),
+        .init(displayGamut: .P3),
+        .init(userInterfaceStyle: .light)
+    ])
+}

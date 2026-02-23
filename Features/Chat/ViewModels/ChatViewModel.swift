@@ -41,6 +41,10 @@ final class ChatViewModel: ObservableObject {
         refreshAuthentication()
     }
     
+    deinit {
+        streamingTask?.cancel()
+    }
+    
     /// Настройка зависимостей и наблюдение за статусом сети
     /// - Parameters:
     ///   - sessionManager: Менеджер сессий SwiftData
@@ -210,7 +214,8 @@ final class ChatViewModel: ObservableObject {
         
         let apiMessages = session.sortedMessages.map { ChatMessage(from: $0) }
         
-        streamingTask = Task {
+        streamingTask = Task { [weak self] in
+            guard let self = self else { return }
             do {
                 let stream = chatService.streamChat(
                     messages: apiMessages,
@@ -251,15 +256,17 @@ final class ChatViewModel: ObservableObject {
                     }
                 }
                 
-                assistantMsg.isGenerating = false
-                assistantMsg.tokensUsed = tokenCount
-                sessionManager.save()
+                if !Task.isCancelled {
+                    assistantMsg.isGenerating = false
+                    assistantMsg.tokensUsed = tokenCount
+                    sessionManager.save()
+                }
             } catch {
                 if !Task.isCancelled {
                     errorMessage = error.localizedDescription
+                    assistantMsg.isGenerating = false
+                    sessionManager.save()
                 }
-                assistantMsg.isGenerating = false
-                sessionManager.save()
             }
             
             isGenerating = false

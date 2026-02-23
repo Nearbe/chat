@@ -24,7 +24,7 @@ final class ChatSnapshotTests: XCTestCase {
         
         let vc = UIHostingController(rootView: view)
         
-        assertSnapshot(matching: vc, as: .image(on: .iPhone13ProMax))
+        assertSnapshot(matching: vc, as: .image(on: .iPhone16ProMax))
     }
     
     func testChatViewDarkMode() {
@@ -41,7 +41,7 @@ final class ChatSnapshotTests: XCTestCase {
         
         let vc = UIHostingController(rootView: view)
         
-        assertSnapshot(matching: vc, as: .image(on: .iPhone13ProMax))
+        assertSnapshot(matching: vc, as: .image(on: .iPhone16ProMax))
     }
     
     func testChatViewWithDynamicType() {
@@ -58,6 +58,6 @@ final class ChatSnapshotTests: XCTestCase {
         
         let vc = UIHostingController(rootView: view)
         
-        assertSnapshot(matching: vc, as: .image(on: .iPhone13ProMax))
+        assertSnapshot(matching: vc, as: .image(on: .iPhone16ProMax))
     }
 }

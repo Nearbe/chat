@@ -1,9 +1,11 @@
-import XCTest
+import Testing
+import Foundation
 @testable import Chat
 
-final class ModelDecodingTests: XCTestCase {
+struct ModelDecodingTests {
     
-    func testLMStreamChunkDecoding() throws {
+    @Test
+    func lmStreamChunkDecoding() throws {
         let json = """
         {
             "type": "message",
@@ -17,13 +19,14 @@ final class ModelDecodingTests: XCTestCase {
         
         let chunk = try JSONDecoder().decode(LMStreamChunk.self, from: json)
         
-        XCTAssertEqual(chunk.type, "message")
-        XCTAssertEqual(chunk.content, "Hello")
-        XCTAssertTrue(chunk.isMessage)
-        XCTAssertFalse(chunk.isDone)
+        #expect(chunk.type == "message")
+        #expect(chunk.content == "Hello")
+        #expect(chunk.isMessage)
+        #expect(!chunk.isDone)
     }
     
-    func testLMStreamChunkReasoningDecoding() throws {
+    @Test
+    func lmStreamChunkReasoningDecoding() throws {
         let json = """
         {
             "type": "reasoning",
@@ -37,12 +40,13 @@ final class ModelDecodingTests: XCTestCase {
         
         let chunk = try JSONDecoder().decode(LMStreamChunk.self, from: json)
         
-        XCTAssertEqual(chunk.type, "reasoning")
-        XCTAssertEqual(chunk.content, "Thinking...")
-        XCTAssertTrue(chunk.isReasoning)
+        #expect(chunk.type == "reasoning")
+        #expect(chunk.content == "Thinking...")
+        #expect(chunk.isReasoning)
     }
 
-    func testChatCompletionResponseDecoding() throws {
+    @Test
+    func chatCompletionResponseDecoding() throws {
         let json = """
         {
             "id": "chat-123",
@@ -69,13 +73,14 @@ final class ModelDecodingTests: XCTestCase {
         
         let response = try JSONDecoder().decode(ChatCompletionResponse.self, from: json)
         
-        XCTAssertEqual(response.id, "chat-123")
-        XCTAssertEqual(response.choices.count, 1)
-        XCTAssertEqual(response.choices[0].message.content, "Hello there!")
-        XCTAssertEqual(response.usage?.totalTokens, 21)
+        #expect(response.id == "chat-123")
+        #expect(response.choices.count == 1)
+        #expect(response.choices[0].message.content == "Hello there!")
+        #expect(response.usage?.totalTokens == 21)
     }
     
-    func testLMErrorDecoding() throws {
+    @Test
+    func lmErrorDecoding() throws {
         let json = """
         {
             "error": {
@@ -88,7 +93,7 @@ final class ModelDecodingTests: XCTestCase {
         """.data(using: .utf8)!
         
         let errorResponse = try JSONDecoder().decode(LMErrorResponse.self, from: json)
-        XCTAssertEqual(errorResponse.error.message, "Model not found")
-        XCTAssertEqual(errorResponse.error.code, "model_not_found")
+        #expect(errorResponse.error.message == "Model not found")
+        #expect(errorResponse.error.code == "model_not_found")
     }
 }

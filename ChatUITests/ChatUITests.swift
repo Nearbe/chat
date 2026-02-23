@@ -21,35 +21,29 @@ final class ChatUITests: XCTestCase {
         app.launchArguments = ["-auth"]
         app.launch()
         
+        let chatPage = ChatPage(app: app)
+        
         // 1. Ожидаем появления интерфейса чата (пустого состояния)
-        let emptyState = app.staticTexts["empty_state_text"]
-        XCTAssertTrue(emptyState.waitForExistence(timeout: 5))
+        XCTAssertTrue(chatPage.isEmptyStateVisible())
         
         // 2. Отправка сообщения
-        let inputField = app.descendants(matching: .any)["message_input_field"]
-        XCTAssertTrue(inputField.waitForExistence(timeout: 5))
-        
-        inputField.tap()
-        inputField.typeText("Привет, AI!")
-        
-        let sendButton = app.buttons["send_button"]
-        XCTAssertTrue(sendButton.exists)
+        chatPage.typeMessage("Привет, AI!")
         
         // Если кнопка активна (выбрана модель и сервер доступен), нажимаем
-        if sendButton.isEnabled {
-            sendButton.tap()
+        if chatPage.sendButton.isEnabled {
+            chatPage.tapSend()
             
             // Проверяем появление "баббла" сообщения (по тексту)
-            let messageBubble = app.staticTexts["Привет, AI!"]
-            XCTAssertTrue(messageBubble.waitForExistence(timeout: 3))
+            XCTAssertTrue(chatPage.hasMessage("Привет, AI!"))
         }
     }
 
     func testNavigation() throws {
+        let chatPage = ChatPage(app: app)
+        
         // 1. Проверка открытия боковой панели истории
-        let historyButton = app.buttons["История чатов"]
-        if historyButton.exists {
-            historyButton.tap()
+        if chatPage.historyButton.exists {
+            chatPage.openHistory()
             // Проверяем, что панель открылась (например, по заголовку "История")
             XCTAssertTrue(app.staticTexts["История"].waitForExistence(timeout: 2))
             // Закрываем панель
@@ -57,9 +51,8 @@ final class ChatUITests: XCTestCase {
         }
         
         // 2. Проверка выбора модели
-        let modelPickerButton = app.buttons["Выбор модели"]
-        if modelPickerButton.exists {
-            modelPickerButton.tap()
+        if chatPage.modelPickerButton.exists {
+            chatPage.openModelPicker()
             // Проверяем наличие списка моделей
             XCTAssertTrue(app.staticTexts["Доступные модели"].waitForExistence(timeout: 2))
         }

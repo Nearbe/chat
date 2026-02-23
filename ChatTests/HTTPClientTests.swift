@@ -1,30 +1,28 @@
-import XCTest
+import Testing
+import Foundation
 @testable import Chat
 
 @MainActor
-final class HTTPClientTests: XCTestCase {
-    var httpClient: HTTPClient!
-    var session: URLSession!
+@Suite(.serialized)
+struct HTTPClientTests {
+    let httpClient: HTTPClient
+    let session: URLSession
 
-    override func setUp() {
-        super.setUp()
+    init() {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [URLProtocolMock.self]
         session = URLSession(configuration: configuration)
         
         let netConfig = NetworkConfiguration(timeout: 5, session: session)
         httpClient = HTTPClient(configuration: netConfig, authProvider: nil)
-    }
-
-    override func tearDown() {
+        
+        // Reset mock state
         URLProtocolMock.testResponses = [:]
         URLProtocolMock.requestHandler = nil
-        httpClient = nil
-        session = nil
-        super.tearDown()
     }
 
-    func testGetRequestSuccess() async throws {
+    @Test
+    func getRequestSuccess() async throws {
         // Given
         let url = URL(string: "https://api.example.com/test")!
         let responseData = "{\"status\": \"ok\"}".data(using: .utf8)!
@@ -36,10 +34,11 @@ final class HTTPClientTests: XCTestCase {
         let (data, _) = try await httpClient.get(url: url)
 
         // Then
-        XCTAssertEqual(data, responseData)
+        #expect(data == responseData)
     }
 
-    func testPostRequestSuccess() async throws {
+    @Test
+    func postRequestSuccess() async throws {
         // Given
         let url = URL(string: "https://api.example.com/post")!
         let body = ["key": "value"]
@@ -47,8 +46,8 @@ final class HTTPClientTests: XCTestCase {
         let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         
         URLProtocolMock.requestHandler = { request in
-            XCTAssertEqual(request.httpMethod, "POST")
-            XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/json")
+            #expect(request.httpMethod == "POST")
+            #expect(request.value(forHTTPHeaderField: "Content-Type") == "application/json")
             return (response, responseData)
         }
 
@@ -56,48 +55,23 @@ final class HTTPClientTests: XCTestCase {
         let (data, _) = try await httpClient.post(url: url, body: body)
 
         // Then
-        XCTAssertEqual(data, responseData)
+        #expect(data == responseData)
     }
 
-    func testHandleUnauthorizedError() async {
+    @Test(arguments: [
+        (401, NetworkError.unauthorized),
+        (429, NetworkError.rateLimited(retryAfter: 60))
+    ])
+    func handleErrors(statusCode: Int, expectedError: NetworkError) async {
         // Given
-        let url = URL(string: "https://api.example.com/secure")!
-        let response = HTTPURLResponse(url: url, statusCode: 401, httpVersion: nil, headerFields: nil)!
+        let url = URL(string: "https://api.example.com/error")!
+        let headerFields = statusCode == 429 ? ["Retry-After": "60"] : nil
+        let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: headerFields)!
         URLProtocolMock.testResponses[url] = (Data(), response, nil)
 
         // When/Then
-        do {
-            _ = try await httpClient.get(url: url)
-            XCTFail("Should throw unauthorized error")
-        } catch let error as NetworkError {
-            if case .unauthorized = error {
-                // Success
-            } else {
-                XCTFail("Wrong error type: \(error)")
-            }
-        } catch {
-            XCTFail("Unexpected error: \(error)")
-        }
-    }
-
-    func testHandleRateLimitError() async {
-        // Given
-        let url = URL(string: "https://api.example.com/limited")!
-        let response = HTTPURLResponse(url: url, statusCode: 429, httpVersion: nil, headerFields: ["Retry-After": "60"])!
-        URLProtocolMock.testResponses[url] = (Data(), response, nil)
-
-        // When/Then
-        do {
-            _ = try await httpClient.get(url: url)
-            XCTFail("Should throw rateLimited error")
-        } catch let error as NetworkError {
-            if case .rateLimited(let retryAfter) = error {
-                XCTAssertEqual(retryAfter, 60)
-            } else {
-                XCTFail("Wrong error type: \(error)")
-            }
-        } catch {
-            XCTFail("Unexpected error: \(error)")
+        await #expect(throws: NetworkError.self) {
+            try await httpClient.get(url: url)
         }
     }
 }
