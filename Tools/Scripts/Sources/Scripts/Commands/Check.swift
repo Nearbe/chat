@@ -65,7 +65,25 @@ struct Check: AsyncParsableCommand {
     private func runTestsAndBuild(device: String) async -> [CheckStepResult] {
         print("⏳  Запуск тестов и сборки Release...")
 
-        async let testsResult = performStep("Tests") {
+        // Запускаем сборку Release асинхронно, она не мешает тестам на данном этапе
+        async let buildResult = performStep("Build Release") {
+            print("📦  Начало этапа: Build Release")
+            let releaseCommand = [
+                "xcodebuild",
+                "-quiet",
+                "-project Chat.xcodeproj",
+                "-scheme Chat",
+                "-configuration Release",
+                "-destination \"generic/platform=iOS\"",
+                "SYMROOT=\"$(pwd)/build\"",
+                "build"
+            ].joined(separator: " ")
+            try await Shell.run(releaseCommand, quiet: true, streamingPrefix: "[Build]", logName: "Build Release")
+            print("✅  Этап завершен: Build Release")
+        }
+
+        // Тесты запускаем последовательно после инфраструктуры, но в этой группе
+        let testsResult = await performStep("Tests") {
             print("🧪  Начало этапа: Tests")
             let resultPath = "TestResult.xcresult"
             try? FileManager.default.removeItem(atPath: resultPath)
@@ -89,22 +107,6 @@ struct Check: AsyncParsableCommand {
             // Временно ожидаем 50% покрытия, согласно плану (~50%)
             try await checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 50.0)
             print("✅  Этап завершен: Tests")
-        }
-
-        async let buildResult = performStep("Build Release") {
-            print("📦  Начало этапа: Build Release")
-            let releaseCommand = [
-                "xcodebuild",
-                "-quiet",
-                "-project Chat.xcodeproj",
-                "-scheme Chat",
-                "-configuration Release",
-                "-destination \"generic/platform=iOS\"",
-                "SYMROOT=\"$(pwd)/build\"",
-                "build"
-            ].joined(separator: " ")
-            try await Shell.run(releaseCommand, quiet: true, streamingPrefix: "[Build]", logName: "Build Release")
-            print("✅  Этап завершен: Build Release")
         }
 
         return await [testsResult, buildResult]
