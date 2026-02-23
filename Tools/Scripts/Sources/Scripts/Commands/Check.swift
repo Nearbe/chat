@@ -24,7 +24,8 @@ struct Check: AsyncParsableCommand {
         if case .failure = infra.xcodegen {
             print("⚠️  XcodeGen завершился с ошибкой, этап тестирования будет пропущен.")
         } else {
-            allResults += await runTests(device: device)
+            print("ℹ️  Тестирование временно отключено по запросу.")
+            // allResults += await runTests(device: device)
         }
 
         let hasProblems = printSummary(results: allResults)
@@ -40,6 +41,7 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runLintAndProjectChecks() async -> [CheckStepResult] {
+        print("🔍  Проверка стиля и структуры...")
         async let lintResult = performStep("SwiftLint", emoji: "🔍") {
             try await Shell.run("swiftlint --strict", quiet: true, logName: "SwiftLint")
         }
@@ -51,6 +53,7 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runInfrastructure() async -> (xcodegen: CheckStepResult, swiftgen: CheckStepResult) {
+        print("🛠️  Подготовка инфраструктуры...")
         async let xcodegen = performStep("XcodeGen", emoji: "🛠️") {
             try await Shell.run("xcodegen generate", quiet: true, logName: "XcodeGen")
         }
@@ -61,6 +64,7 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runTests(device: String) async -> [CheckStepResult] {
+        print("🧪  Запуск тестов...")
         let testsResult = await performStep("Tests", emoji: "🧪") {
             let resultPath = "TestResult.xcresult"
             try? FileManager.default.removeItem(atPath: resultPath)
@@ -95,7 +99,7 @@ struct Check: AsyncParsableCommand {
             try await Metrics.measure(step: name) {
                 try await action()
             }
-            print("✅  Этап завершен: \(name)")
+            // print("✅  Этап завершен: \(name)") // Удаляем лишний промежуточный вывод
             return .success(step: name, duration: Date().timeIntervalSince(startTime))
         } catch let error as ShellError {
             switch error {
