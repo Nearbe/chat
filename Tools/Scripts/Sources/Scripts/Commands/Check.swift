@@ -40,31 +40,30 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runLintAndProjectChecks() async -> [CheckStepResult] {
-        var results: [CheckStepResult] = []
-        results.append(await performStep("SwiftLint") {
+        async let lintResult = performStep("SwiftLint") {
             try await Shell.run("swiftlint --strict", quiet: true, logName: "SwiftLint")
-        })
+        }
 
-        results.append(await performStep("ProjectChecker") {
+        async let checkerResult = performStep("ProjectChecker") {
             try await ProjectChecker.run()
-        })
-        return results
+        }
+        return await [lintResult, checkerResult]
     }
 
     private func runInfrastructure() async -> (xcodegen: CheckStepResult, swiftgen: CheckStepResult) {
-        let xcodegen = await performStep("XcodeGen") {
+        async let xcodegen = performStep("XcodeGen") {
             try await Shell.run("xcodegen generate", quiet: true, logName: "XcodeGen")
         }
-        let swiftgen = await performStep("SwiftGen") {
+        async let swiftgen = performStep("SwiftGen") {
             try await runSwiftGen()
         }
-        return (xcodegen, swiftgen)
+        return await (xcodegen, swiftgen)
     }
 
     private func runTestsAndBuild(device: String) async -> [CheckStepResult] {
-        var results: [CheckStepResult] = []
+        print("⏳  Запуск тестов и сборки Release в параллельном режиме...")
 
-        results.append(await performStep("Tests") {
+        async let testsResult = performStep("Tests") {
             let resultPath = "TestResult.xcresult"
             try? FileManager.default.removeItem(atPath: resultPath)
 
@@ -75,6 +74,7 @@ struct Check: AsyncParsableCommand {
                 "-testPlan AllTests",
                 "-destination \"\(device)\"",
                 "-resultBundlePath \(resultPath)",
+                "-parallel-testing-enabled YES",
                 "test",
                 "CODE_SIGNING_ALLOWED=NO",
                 "CODE_SIGNING_REQUIRED=NO",
@@ -85,9 +85,9 @@ struct Check: AsyncParsableCommand {
             try await Shell.run(testCommand, quiet: true, failOnWarnings: true, allowedWarnings: allowedWarnings, logName: "Tests")
             // Временно ожидаем 50% покрытия, согласно плану (~50%)
             try await checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 50.0)
-        })
+        }
 
-        results.append(await performStep("Build Release") {
+        async let buildResult = performStep("Build Release") {
             let releaseCommand = [
                 "xcodebuild",
                 "-quiet",
@@ -99,9 +99,9 @@ struct Check: AsyncParsableCommand {
                 "build"
             ].joined(separator: " ")
             try await Shell.run(releaseCommand, quiet: true, logName: "Build Release")
-        })
+        }
 
-        return results
+        return await [testsResult, buildResult]
     }
 
     private func performStep(_ name: String, action: @escaping () async throws -> Void) async -> CheckStepResult {
