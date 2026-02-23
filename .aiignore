@@ -1,0 +1,90 @@
+# AI Ignore — Файлы для игнорирования AI-агентами
+
+Этот файл аналогичен `.gitignore`, но предназначен для AI-агентов. AI не должен изменять или анализировать эти файлы.
+
+---
+
+## Сгенерированные файлы
+
+Эти файлы генерируются автоматически, не редактируйте их вручную.
+
+```
+# XcodeGen
+Chat.xcodeproj/
+*.xcodeproj/
+
+# SwiftGen
+Design/Generated/
+Resources/Generated/
+
+# Build
+build/
+DerivedData/
+*.xcbuild/
+
+## Зависимости
+
+Внешние зависимости не должны изменяться AI.
+# Swift Package Manager
+Package.resolved
+.swiftpm/
+
+# CocoaPods (если используется)
+Pods/
+Podfile.lock
+
+# Carthage (если используется)
+Carthage/Build/
+Carthage/Checkouts/
+
+## IDE и инструменты
+
+Файлы конфигурации IDE и инструментов.
+# Xcode
+*.xcuserstate
+*.xcuserdatad
+*.xcworkspace/xcuserdata/
+UserInterfaceState.xcuserstate
+
+# IntelliJ IDEA
+
+# VS Code
+.vscode/
+
+# Снапшоты
+__Snapshots__/
+
+## Ресурсы
+
+Ассеты и ресурсы.
+# Images
+Resources/Assets.xcassets/
+
+# Fonts
+Resources/Fonts/
+
+## Временные файлы
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Linux
+
+# Temporary
+*.tmp
+*.temp
+
+## Исключения (можно редактировать)
+
+Эти файлы AI может редактировать при необходимости.
+# Конфигурация
+project.yml
+swiftgen.yml
+.swiftlint.yml
+
+## Важно
+
+- **Не удаляйте** файлы из этого списка без согласования
+- **Не добавляйте** новые зависимости без approval
+- **Не изменяйте** сгенерированные файлы вручную
