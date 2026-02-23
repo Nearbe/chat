@@ -13,6 +13,7 @@ struct ChatApp: App {
     @Injected(\.networkMonitor) private var networkMonitor
     
     init() {
+        let unusedWarning = "I should be a warning"
         let args = ProcessInfo.processInfo.arguments
         let tokenKey = DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.tokenKey ?? "auth_token_test"
         
