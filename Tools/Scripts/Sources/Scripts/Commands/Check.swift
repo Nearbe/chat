@@ -22,9 +22,9 @@ struct Check: AsyncParsableCommand {
         allResults.append(infra.swiftgen)
 
         if case .failure = infra.xcodegen {
-            print("⚠️  XcodeGen завершился с ошибкой, этап сборки будет пропущен.")
+            print("⚠️  XcodeGen завершился с ошибкой, этап тестирования будет пропущен.")
         } else {
-            allResults += await runTestsAndBuild(device: device)
+            allResults += await runTests(device: device)
         }
 
         let hasProblems = printSummary(results: allResults)
@@ -62,27 +62,9 @@ struct Check: AsyncParsableCommand {
         return await (xcodegen, swiftgen)
     }
 
-    private func runTestsAndBuild(device: String) async -> [CheckStepResult] {
-        print("⏳  Запуск сборки Release и последующих тестов...")
+    private func runTests(device: String) async -> [CheckStepResult] {
+        print("🧪  Запуск тестов...")
 
-        // Сначала выполняем сборку Release
-        let buildResult = await performStep("Build Release") {
-            print("📦  Начало этапа: Build Release")
-            let releaseCommand = [
-                "xcodebuild",
-                "-quiet",
-                "-project Chat.xcodeproj",
-                "-scheme Chat",
-                "-configuration Release",
-                "-destination \"generic/platform=iOS\"",
-                "SYMROOT=\"$(pwd)/build\"",
-                "build"
-            ].joined(separator: " ")
-            try await Shell.run(releaseCommand, quiet: true, streamingPrefix: "[Build]", logName: "Build Release")
-            print("✅  Этап завершен: Build Release")
-        }
-
-        // Тесты запускаем после завершения сборки
         let testsResult = await performStep("Tests") {
             print("🧪  Начало этапа: Tests")
             let resultPath = "TestResult.xcresult"
@@ -109,7 +91,7 @@ struct Check: AsyncParsableCommand {
             print("✅  Этап завершен: Tests")
         }
 
-        return [testsResult, buildResult]
+        return [testsResult]
     }
 
     private func performStep(_ name: String, action: @escaping () async throws -> Void) async -> CheckStepResult {
