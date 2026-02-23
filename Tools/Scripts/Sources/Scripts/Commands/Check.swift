@@ -42,18 +42,16 @@ struct Check: AsyncParsableCommand {
                 try await withThrowingTaskGroup(of: Void.self) { buildGroup in
                     // Unit + UI тесты
                     buildGroup.addTask {
-                        print("🧪  Запуск тестов (Unit + UI) с распараллеливанием...")
+                        print("🧪  Запуск тестов через Test Plan (ProjectTests)...")
                         try? FileManager.default.removeItem(atPath: "TestResult.xcresult")
                         
-                        // -parallel-testing-enabled YES позволяет xcodebuild запускать тесты в несколько потоков
                         let testCommand = [
                             "xcodebuild",
                             "-project Chat.xcodeproj",
                             "-scheme Chat",
+                            "-testPlan ProjectTests",
                             "-destination \"\(device)\"",
-                            "-enableCodeCoverage YES",
                             "-resultBundlePath TestResult.xcresult",
-                            "-parallel-testing-enabled YES",
                             "test",
                             "CODE_SIGNING_ALLOWED=NO",
                             "CODE_SIGNING_REQUIRED=NO",

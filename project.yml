@@ -44,6 +44,7 @@ targets:
       - path: Core
       - path: Design
       - path: Resources
+      - path: ProjectTests.xctestplan
       - path: Resources/Settings.bundle
         buildPhase: resources
     dependencies:
@@ -141,8 +142,8 @@ schemes:
       config: Debug
     test:
       config: Debug
-      targets:
-        - ChatTests
-        - ChatUITests
+      testPlans:
+        - path: ProjectTests.xctestplan
+          defaultPlan: true
     archive:
       config: Release
