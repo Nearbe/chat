@@ -39,15 +39,9 @@ Launch_Chat_*.trace
 Thumbs.db
 
 # IDEs
-.idea/runConfigurations/
-.idea/renderers/
-.idea/sqlDataSources.xml
-.idea/dataSources/
-.idea/inventory.xml
-.idea/inspectionProfiles/
-*.iml
 .vscode/
 .history/
+*.iml
 .xcresult/
 /TestResult.xcresult/
 .output.txt

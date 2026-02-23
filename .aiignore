@@ -47,6 +47,7 @@ Carthage/Checkouts/
 UserInterfaceState.xcuserstate
 
 # IntelliJ IDEA
+!.idea/
 
 # VS Code
 .vscode/
