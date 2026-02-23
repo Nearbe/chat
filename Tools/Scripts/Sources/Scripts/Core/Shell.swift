@@ -56,3 +56,11 @@ public struct Shell {
         return output
     }
 }
+
+extension ThrowingTaskGroup {
+    /// Ожидает завершения всех задач и пробрасывает ошибки, если они возникли.
+    /// Помогает избежать предупреждений компилятора о неиспользуемом 'try' при пустом теле группы.
+    public mutating func waitForAll() async throws {
+        while let _ = try await next() {}
+    }
+}

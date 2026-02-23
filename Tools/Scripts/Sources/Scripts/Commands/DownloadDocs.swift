@@ -14,6 +14,8 @@ struct DownloadDocs: AsyncParsableCommand {
             group.addTask { try await downloadPulse() }
             group.addTask { try await downloadOllama() }
             group.addTask { try await downloadCodegen() }
+            
+            try await group.waitForAll()
         }
         
         print("✅  Вся документация успешно обновлена!")
@@ -113,6 +115,8 @@ struct DownloadDocs: AsyncParsableCommand {
                     try await Shell.run("curl -s -f \"\(fullURL)\" -o \"\(destPath)\"", quiet: true)
                 }
             }
+            
+            try await group.waitForAll()
         }
     }
 }
