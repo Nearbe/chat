@@ -4,50 +4,51 @@ import Foundation
 
 struct Check: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Техническая проверка проекта (Lint + Build + Test + Commit)")
-    
+
     @Argument(help: "Сообщение для коммита")
     var message: String?
-    
+
+    // swiftlint:disable:next function_body_length
     func run() async throws {
         let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
-        
+
         print("🚀  Начало технической проверки (Асинхронный режим)...")
-        
+
         try await withThrowingTaskGroup(of: Void.self) { mainGroup in
             // 1. Параллельный линтинг и специальные проверки
             mainGroup.addTask {
                 try await Metrics.measure(step: "Linting") {
                     print("🔍  Запуск SwiftLint...")
                     _ = try? await Shell.run("swiftlint --strict")
-                    
+
                     print("🔍  Запуск ProjectChecker...")
                     try await ProjectChecker.run()
-                    
+
                     print("✅  Линтинг и проверки завершены успешно.")
                 }
             }
-            
+
             // 2. Группа генерации и последующей сборки/тестирования
             mainGroup.addTask {
                 // Сначала инфраструктура (XcodeGen + SwiftGen)
                 print("🏗️  Этап 1: Подготовка инфраструктуры...")
                 try await withThrowingTaskGroup(of: Void.self) { genGroup in
-                    genGroup.addTask { 
+                    genGroup.addTask {
                         try await Metrics.measure(step: "XcodeGen") {
                             print("📦  Генерация проекта (XcodeGen)...")
-                            try await Shell.run("xcodegen generate") 
+                            try await Shell.run("xcodegen generate")
                         }
                     }
-                    genGroup.addTask { 
+                    genGroup.addTask {
                         try await Metrics.measure(step: "SwiftGen") {
                             print("🎨  Генерация ресурсов (SwiftGen)...")
-                            try await runSwiftGen() 
+                            try await runSwiftGen()
                         }
                     }
-                    
+
                     try await genGroup.waitForAll()
                 }
-                
+
                 // Как только генерация завершена, запускаем сборку и тесты параллельно
                 print("🧪  Этап 2: Сборка и тестирование (Параллельно)...")
                 try await withThrowingTaskGroup(of: Void.self) { buildGroup in
@@ -56,7 +57,7 @@ struct Check: AsyncParsableCommand {
                         try await Metrics.measure(step: "Tests (AllTests)") {
                             print("🧪  Запуск тестов через Test Plan (AllTests)...")
                             try? FileManager.default.removeItem(atPath: "TestResult.xcresult")
-                            
+
                             let testCommand = [
                                 "xcodebuild",
                                 "-project Chat.xcodeproj",
@@ -69,12 +70,12 @@ struct Check: AsyncParsableCommand {
                                 "CODE_SIGNING_REQUIRED=NO",
                                 "| grep -E \"Test Suite|passed|failed|skipped\""
                             ].joined(separator: " ")
-                            
+
                             try await Shell.run(testCommand)
                             print("✅  Все тесты пройдены успешно.")
                         }
                     }
-                    
+
                     // Релизная сборка
                     buildGroup.addTask {
                         try await Metrics.measure(step: "Build Release") {
@@ -89,27 +90,27 @@ struct Check: AsyncParsableCommand {
                                 "SYMROOT=\"$(pwd)/build\"",
                                 "build"
                             ].joined(separator: " ")
-                            
+
                             try await Shell.run(releaseCommand)
                             print("✅  Release сборка завершена.")
                         }
                     }
-                    
+
                     try await buildGroup.waitForAll()
                 }
             }
-            
+
             try await mainGroup.waitForAll()
         }
-        
+
         print("✅  Техническая проверка успешно завершена!")
-        
+
         // Группа 4: Git
         try await Metrics.measure(step: "Git Commit & Push") {
             try await handleGitCommit()
         }
     }
-    
+
     private func runSwiftGen() async throws {
         try await Shell.run("swiftgen")
         let assetsFile = URL(fileURLWithPath: "Design/Generated/Assets.swift")
@@ -122,7 +123,7 @@ struct Check: AsyncParsableCommand {
             try content.write(to: assetsFile, atomically: true, encoding: .utf8)
         }
     }
-    
+
     private func handleGitCommit() async throws {
         let status = try await Shell.run("git status --porcelain", quiet: true)
         if !status.isEmpty {
@@ -139,4 +140,3 @@ struct Check: AsyncParsableCommand {
         }
     }
 }
-

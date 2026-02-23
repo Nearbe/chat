@@ -4,10 +4,10 @@ import Foundation
 
 struct DownloadDocs: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Обновление локальной документации инструментов")
-    
+
     func run() async throws {
         print("🌍  Начало обновления документации...")
-        
+
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask { try await Metrics.measure(step: "Docs: LM Studio") { try await downloadLMStudio() } }
             group.addTask { try await Metrics.measure(step: "Docs: OpenAI") { try await downloadOpenAI() } }
@@ -15,13 +15,13 @@ struct DownloadDocs: AsyncParsableCommand {
             group.addTask { try await Metrics.measure(step: "Docs: Pulse") { try await downloadPulse() } }
             group.addTask { try await Metrics.measure(step: "Docs: Ollama") { try await downloadOllama() } }
             group.addTask { try await Metrics.measure(step: "Docs: Codegen") { try await downloadCodegen() } }
-            
+
             try await group.waitForAll()
         }
-        
+
         print("✅  Вся документация успешно обновлена!")
     }
-    
+
     private func downloadLMStudio() async throws {
         print("📦  Обновление документации LM Studio (ревизия: \(Versions.lmStudioDocs))...")
         let baseURL = "https://raw.githubusercontent.com/lmstudio-ai/docs/\(Versions.lmStudioDocs)"
@@ -47,7 +47,7 @@ struct DownloadDocs: AsyncParsableCommand {
             "1_developer/3_openai-compat/structured-output.md": "developer/openai-compat/structured-output.md",
             "3_cli/index.md": "cli/index.md"
         ]
-        
+
         try await downloadFiles(baseURL: baseURL, files: files, destinationDir: docsDir)
     }
 
@@ -86,14 +86,14 @@ struct DownloadDocs: AsyncParsableCommand {
     private func downloadCodegen() async throws {
         print("📦  Обновление документации Codegen (XcodeGen: \(Versions.xcodegen), SwiftGen: \(Versions.swiftgen))...")
         let docsDir = "Docs/Codegen"
-        
+
         // XcodeGen
         try await downloadFiles(
             baseURL: "https://raw.githubusercontent.com/yonaskolb/XcodeGen/\(Versions.xcodegen)",
             files: ["README.md": "XcodeGen/README.md"],
             destinationDir: docsDir
         )
-        
+
         // SwiftGen
         try await downloadFiles(
             baseURL: "https://raw.githubusercontent.com/SwiftGen/SwiftGen/\(Versions.swiftgen)",
@@ -109,14 +109,14 @@ struct DownloadDocs: AsyncParsableCommand {
                     let fullURL = "\(baseURL)/\(src)"
                     let destPath = "\(destinationDir)/\(dest)"
                     let destURL = URL(fileURLWithPath: destPath)
-                    
+
                     try FileManager.default.createDirectory(at: destURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-                    
+
                     print("📥  Downloading: \(dest)")
                     try await Shell.run("curl -s -f \"\(fullURL)\" -o \"\(destPath)\"", quiet: true)
                 }
             }
-            
+
             try await group.waitForAll()
         }
     }

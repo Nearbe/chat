@@ -5,7 +5,7 @@ import Foundation
 struct ModelQuantization: Codable, Hashable {
     /// Название метода квантования (например, "Q4_K_M")
     let name: String?
-    
+
     /// Количество бит на один вес (например, 4)
     let bitsPerWeight: Int?
 

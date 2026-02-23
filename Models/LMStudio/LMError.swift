@@ -5,13 +5,13 @@ import Foundation
 struct LMError: Codable {
     /// Тип ошибки (например, "internal_server_error" или "invalid_request")
     let type: String?
-    
+
     /// Текстовое описание ошибки
     let message: String?
-    
+
     /// Код ошибки (если есть)
     let code: String?
-    
+
     /// Параметр, вызвавший ошибку (например, имя аргумента)
     let param: String?
 }

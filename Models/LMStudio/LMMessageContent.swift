@@ -5,7 +5,7 @@ import Foundation
 struct LMMessageContent: Codable {
     /// Тип контента (всегда "message")
     let type: String
-    
+
     /// Текст сообщения
     let content: String
 }

@@ -7,37 +7,37 @@ struct UpdateDocsLinks: AsyncParsableCommand {
     func run() async throws {
         try await Metrics.measure(step: "Update Docs Links") {
             print("🔗  Обновление меток связи с документацией...")
-            
+
             let fileManager = FileManager.default
             let enumerator = fileManager.enumerator(atPath: ".")
-            
+
             var filesToProcess: [String] = []
-            
+
             while let file = enumerator?.nextObject() as? String {
                 // Помечаем Swift файлы и YAML конфиги
                 guard file.hasSuffix(".swift") || file.hasSuffix(".yml") else { continue }
-                
+
                 // Пропускаем исключенные папки
-                if file.contains("Chat.xcodeproj") || 
-                   file.contains("Resources") || 
-                   file.contains("Design/Generated") || 
+                if file.contains("Chat.xcodeproj") ||
+                   file.contains("Resources") ||
+                   file.contains("Design/Generated") ||
                    file.contains(".build") ||
                    file.contains("Tools/Scripts") {
                     continue
                 }
-                
+
                 filesToProcess.append(file)
             }
-            
+
             var filesUpdated = 0
-            
+
             for file in filesToProcess {
                 let fileURL = URL(fileURLWithPath: file)
                 let content = try String(contentsOf: fileURL, encoding: .utf8)
-                
+
                 let docInfo = determineDocInfo(for: file, content: content)
                 let docComment = formatDocComment(for: file, info: docInfo)
-                
+
                 if !content.contains("MARK: - Связь с документацией:") {
                     // Добавляем в начало файла
                     let newContent = docComment + "\n" + content
@@ -52,7 +52,7 @@ struct UpdateDocsLinks: AsyncParsableCommand {
                         }
                         return line
                     }
-                    
+
                     let newContent = updatedLines.joined(separator: "\n")
                     if newContent != content {
                         try newContent.write(to: fileURL, atomically: true, encoding: .utf8)
@@ -60,11 +60,11 @@ struct UpdateDocsLinks: AsyncParsableCommand {
                     }
                 }
             }
-            
+
             print("✅  Обновление завершено. Обновлено файлов: \(filesUpdated)")
         }
     }
-    
+
     private func formatDocComment(for filePath: String, info: (name: String, version: String)) -> String {
         let message = "MARK: - Связь с документацией: \(info.name) (Версия: \(info.version)). Статус: Синхронизировано."
         if filePath.hasSuffix(".yml") || filePath.hasSuffix(".yaml") {
@@ -73,7 +73,7 @@ struct UpdateDocsLinks: AsyncParsableCommand {
             return "// \(message)"
         }
     }
-    
+
     private func determineDocInfo(for filePath: String, content: String) -> (name: String, version: String) {
         if filePath.contains("Models/LMStudio") || filePath.contains("Services/Chat") {
             return ("LM Studio", Versions.lmStudioDocs)

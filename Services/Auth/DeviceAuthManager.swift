@@ -20,20 +20,20 @@ import Security
 /// - Важно: Уникальный ключ определяется через DeviceConfiguration
 /// - Примечание: Токены должны начинаться с "sk-lm" для LM Studio
 final class DeviceAuthManager {
-    
+
     // MARK: - Приватные свойства (Private Properties)
-    
+
     /// Ключ для хранения в Keychain
     /// Определяется для каждого устройства отдельно
     private let tokenKey: String
-    
+
     /// Цвет акцента для текущего устройства
     var accentColor: String {
         DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.accentColorHex ?? "#FF9F0A"
     }
-    
+
     // MARK: - Инициализация (Initialization)
-    
+
     /// Инициализация менеджера
     /// Определяет ключ токена для текущего устройства
     init() {
@@ -43,35 +43,35 @@ final class DeviceAuthManager {
     }
 
     // MARK: - Публичные методы (Public Methods)
-    
+
     /// Сохранить токен авторизации
     /// - Parameter token: API токен для сохранения
     /// - Важно: Токен сохраняется в зашифрованном Keychain
     func setToken(_ token: String) {
         // Проверяем что ключ определён
         guard !tokenKey.isEmpty else { return }
-        
+
         // Сохраняем через KeychainHelper
         _ = KeychainHelper.set(key: tokenKey, value: token)
     }
-    
+
     /// Получить токен авторизации
     /// - Returns: Сохранённый токен или nil если не найден
     func getToken() -> String? {
         // Проверяем что ключ определён
         guard !tokenKey.isEmpty else { return nil }
-        
+
         // Получаем через KeychainHelper
         return KeychainHelper.get(key: tokenKey)
     }
-    
+
     /// Удалить токен авторизации
     /// Используется при выходе или смене аккаунта
     func deleteToken() {
         guard !tokenKey.isEmpty else { return }
         KeychainHelper.delete(key: tokenKey)
     }
-    
+
     /// Проверить наличие токена
     /// - Returns: true если токен сохранён
     var hasToken: Bool {

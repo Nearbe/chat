@@ -7,11 +7,11 @@ import SwiftUI
 /// Кастомная кнопка с эффектом нажатия
 struct PrimaryButtonStyle: ButtonStyle {
     let isDestructive: Bool
-    
+
     init(isDestructive: Bool = false) {
         self.isDestructive = isDestructive
     }
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.callout.bold())

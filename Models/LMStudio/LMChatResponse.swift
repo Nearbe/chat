@@ -6,13 +6,13 @@ import Foundation
 struct LMChatResponse: Codable {
     /// Внутренний идентификатор экземпляра модели, обработавшей запрос
     let modelInstanceId: String
-    
+
     /// Массив элементов вывода (сообщения, вызовы инструментов, рассуждения)
     let output: [LMOutputItem]
-    
+
     /// Статистика генерации (токены, скорость, время)
     let stats: LMStats?
-    
+
     /// Уникальный идентификатор данного ответа
     let responseId: String
 
@@ -29,13 +29,13 @@ struct LMChatResponse: Codable {
 enum LMOutputItem: Codable {
     /// Обычное текстовое сообщение
     case message(LMMessageContent)
-    
+
     /// Вызов внешнего инструмента (function calling)
     case toolCall(LMToolCall)
-    
+
     /// Внутренние рассуждения модели (chain of thought)
     case reasoning(LMReasoningContent)
-    
+
     /// Некорректный вызов инструмента (ошибка парсинга на стороне сервера)
     case invalidToolCall(LMInvalidToolCall)
 

@@ -22,24 +22,24 @@ import Foundation
 /// - Примечание: Использует LM Studio v1 API формат
 @MainActor
 final class NetworkService {
-    
+
     // MARK: - Приватные свойства (Private Properties)
-    
+
     /// HTTP клиент для выполнения запросов
     /// Переиспользуется для всех операций
     private let httpClient: HTTPClient
-    
+
     /// Сервис для стриминга чата
     /// Использует SSEParser для обработки потока
     private let streamService: ChatStreamService
-    
+
     /// Ключ токена для текущего устройства
     /// Определяется через DeviceConfiguration
     /// Используется для авторизации в Keychain
     private let tokenKey: String
 
     // MARK: - Инициализация (Initialization)
-    
+
     /// Инициализация сетевого сервиса
     /// - Parameters:
     ///   - deviceName: Имя устройства (по умолчанию "Saint Celestine")
@@ -74,7 +74,7 @@ final class NetworkService {
 
         // Выполняем GET запрос
         let (data, _) = try await httpClient.get(url: url)
-        
+
         // Декодируем ответ
         let modelsResponse = try httpClient.decode(LMModelsResponse.self, from: data)
         return modelsResponse.models

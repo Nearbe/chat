@@ -15,22 +15,22 @@ protocol NetworkMonitoring: AnyObject {
 final class NetworkMonitor: ObservableObject, NetworkMonitoring {
     @Published private(set) var isConnected: Bool = true
     @Published private(set) var isWifiOrEthernet: Bool = true
-    
+
     var isConnectedPublisher: AnyPublisher<Bool, Never> {
         $isConnected.eraseToAnyPublisher()
     }
-    
+
     private let pathMonitor = NWPathMonitor()
     private let monitorQueue = DispatchQueue(label: "NetworkMonitor")
-    
+
     init() {
         startMonitoring()
     }
-    
+
     deinit {
         pathMonitor.cancel()
     }
-    
+
     private func startMonitoring() {
         pathMonitor.pathUpdateHandler = { [weak self] path in
             DispatchQueue.main.async {

@@ -12,58 +12,58 @@ import Foundation
 /// - Важно: id используется как ключ для API запросов
 /// - Примечание: displayName приоритетнее для отображения в UI
 struct ModelInfo: Codable, Identifiable, Hashable {
-    
+
     // MARK: - Основные свойства (Main Properties)
-    
+
     /// Уникальный идентификатор модели
     /// Используется для API запросов (поле "key" в API)
     let id: String
-    
+
     /// Тип модели (например, "language_model")
     let type: String?
-    
+
     /// Издатель/автор модели
     /// Например: "Meta", "Google", "Anthropic"
     let publisher: String?
-    
+
     /// Отображаемое имя модели
     /// Приоритетнее чем id для показа в UI
     let displayName: String?
-    
+
     /// Архитектура модели
     /// Например: "Llama", "Mistral", "Gemma"
     let architecture: String?
-    
+
     /// Уровень квантования
     /// Определяет размер и качество модели
     let quantization: ModelQuantization?
-    
+
     /// Размер модели в байтах
     /// Используется для оценки места на диске
     let sizeBytes: Int64?
-    
+
     /// Строковое представление параметров
     /// Например: "7B", "70B", "405B"
     let paramsString: String?
-    
+
     /// Максимальная длина контекста (в токенах)
     /// Определяет сколько текста модель может обработать
     let maxContextLength: Int?
-    
+
     /// Формат модели
     /// Например: "gguf", "onnx", "pytorch"
     let format: String?
-    
+
     /// Возможности модели
     /// Включает поддержку function calling, tools и т.д.
     let capabilities: ModelCapabilities?
-    
+
     /// Описание модели
     /// Текстовое описание от издателя
     let description: String?
 
     // MARK: - Coding Keys (API маппинг)
-    
+
     /// Маппинг JSON ключей к свойствам
     /// LM Studio использует "key" вместо "id"
     enum CodingKeys: String, CodingKey {
@@ -82,7 +82,7 @@ struct ModelInfo: Codable, Identifiable, Hashable {
     }
 
     // MARK: - Конструкторы (Initializers)
-    
+
     /// Удобный конструктор для превью и тестов
     /// - Parameters:
     ///   - id: ID модели
@@ -103,7 +103,7 @@ struct ModelInfo: Codable, Identifiable, Hashable {
     }
 
     // MARK: - Вычисляемые свойства (Computed Properties)
-    
+
     /// ID модели для API запросов
     /// Алиас для id - используется для совместимости
     var modelId: String {

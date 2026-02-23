@@ -8,15 +8,15 @@ import Factory
 @main
 struct ChatApp: App {
     let persistenceController = PersistenceController.shared
-    
+
     @Injected(\.sessionManager) private var sessionManager
     @Injected(\.chatService) private var chatService
     @Injected(\.networkMonitor) private var networkMonitor
-    
+
     init() {
         let args = ProcessInfo.processInfo.arguments
         let tokenKey = DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.tokenKey ?? "auth_token_test"
-        
+
         if args.contains("-reset") {
             // Очищаем токен для тестирования экрана авторизации
             KeychainHelper.delete(key: tokenKey)
@@ -26,7 +26,7 @@ struct ChatApp: App {
             }
         }
     }
-    
+
     var body: some Scene {
         WindowGroup {
             ChatView()

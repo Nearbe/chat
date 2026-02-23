@@ -6,46 +6,46 @@ import Foundation
 struct LMChatRequest: Codable {
     /// Идентификатор модели для использования (например, "qwen2.5-7b-instruct")
     let model: String
-    
+
     /// Список сообщений для истории чата
     let input: LMInput
-    
+
     /// Системная инструкция, определяющая поведение модели
     let systemPrompt: String?
-    
+
     /// Флаг использования потоковой передачи ответа (Server-Sent Events)
     let stream: Bool
-    
+
     /// Параметр "креативности" модели (от 0.0 до 2.0)
     let temperature: Double?
-    
+
     /// Параметр Top-P фильтрации (nucleus sampling)
     let topP: Double?
-    
+
     /// Параметр Top-K фильтрации (ограничение выборки k-токенами)
     let topK: Int?
-    
+
     /// Параметр Min-P фильтрации (минимальная вероятность токена относительно самого вероятного)
     let minP: Double?
-    
+
     /// Штраф за повторение токенов
     let repeatPenalty: Double?
-    
+
     /// Максимальное количество генерируемых токенов
     let maxOutputTokens: Int?
-    
+
     /// Настройки логики рассуждения (для моделей с поддержкой reasoning)
     let reasoning: String?
-    
+
     /// Ограничение контекстного окна для текущего запроса
     let contextLength: Int?
-    
+
     /// Флаг сохранения запроса на стороне сервера
     let store: Bool?
-    
+
     /// ID предыдущего ответа для связывания контекста
     let previousResponseId: String?
-    
+
     /// Список активных интеграций (например, MCP инструменты)
     let integrations: [LMIntegration]?
 
@@ -115,19 +115,19 @@ struct LMChatRequest: Codable {
 struct LMIntegration: Codable {
     /// Тип интеграции (например, "mcp")
     let type: String
-    
+
     /// Уникальный идентификатор интеграции
     let id: String?
-    
+
     /// Отображаемое имя сервера интеграции
     let serverLabel: String?
-    
+
     /// URL адрес сервера интеграции
     let serverUrl: String?
-    
+
     /// Список разрешённых для использования функций/инструментов
     let allowedTools: [String]?
-    
+
     /// Дополнительные HTTP-заголовки для запросов к интеграции
     let headers: [String: String]?
 

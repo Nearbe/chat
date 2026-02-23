@@ -6,19 +6,19 @@ import Foundation
 struct LMStats: Codable {
     /// Количество токенов во входном запросе
     let inputTokens: Int
-    
+
     /// Общее количество сгенерированных токенов (включая рассуждения)
     let totalOutputTokens: Int
-    
+
     /// Количество токенов, затраченных на рассуждения (reasoning)
     let reasoningOutputTokens: Int?
-    
+
     /// Скорость генерации в токенах в секунду
     let tokensPerSecond: Double?
-    
+
     /// Время до генерации первого токена в секундах
     let timeToFirstTokenSeconds: Double?
-    
+
     /// Время, затраченное на загрузку модели в секундах
     let modelLoadTimeSeconds: Double?
 

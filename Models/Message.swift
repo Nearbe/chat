@@ -20,9 +20,9 @@ import SwiftData
 /// - Примечание: isGenerating блокирует повторную отправку во время генерации
 @Model
 final class Message {
-    
+
     // MARK: - Идентификация (Identification)
-    
+
     /// Уникальный идентификатор сообщения
     /// Генерируется автоматически при создании
     /// Используется для ForEach в SwiftUI
@@ -30,7 +30,7 @@ final class Message {
     var id: UUID
 
     // MARK: - Содержимое (Content)
-    
+
     /// Текстовое содержимое сообщения
     /// Может быть пустым во время стриминга (постепенно заполняется)
     var content: String
@@ -43,7 +43,7 @@ final class Message {
     var role: String
 
     // MARK: - Метаданные (Metadata)
-    
+
     /// Timestamp создания сообщения
     /// Устанавливается при создании, используется для сортировки
     var createdAt: Date
@@ -79,7 +79,7 @@ final class Message {
     var reasoning: String?
 
     // MARK: - Связи (Relationships)
-    
+
     /// Ссылка на родительскую сессию чата
     /// Устанавливается автоматически при добавлении в сессию
     /// Используется SwiftData для каскадного удаления
@@ -87,7 +87,7 @@ final class Message {
     var session: ChatSession?
 
     // MARK: - Инициализация (Initialization)
-    
+
     /// Основной конструктор сообщения
     /// - Parameters:
     ///   - id: Уникальный ID (по умолчанию новый UUID)
@@ -126,7 +126,7 @@ final class Message {
 
 /// Расширение для удобного создания сообщений разных типов
 extension Message {
-    
+
     /// Создать сообщение пользователя
     /// - Parameters:
     ///   - content: Текст сообщения

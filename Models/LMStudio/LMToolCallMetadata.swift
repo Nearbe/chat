@@ -5,10 +5,10 @@ import Foundation
 struct LMToolCallMetadata: Codable {
     /// Тип метаданных (всегда "tool_call_metadata")
     let type: String
-    
+
     /// Имя вызываемого инструмента
     let toolName: String
-    
+
     /// Аргументы вызова
     let arguments: [String: AnyCodable]?
 

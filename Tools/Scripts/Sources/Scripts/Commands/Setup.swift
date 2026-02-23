@@ -4,10 +4,10 @@ import Foundation
 
 struct Setup: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Подготовка проекта к работе (XcodeGen + SwiftGen)")
-    
+
     func run() async throws {
         print("🏗️  Подготовка проекта...")
-        
+
         try await Metrics.measure(step: "Setup Assets") {
             try await setupAssets()
         }
@@ -17,19 +17,19 @@ struct Setup: AsyncParsableCommand {
         try await Metrics.measure(step: "SwiftGen") {
             try await runSwiftGen()
         }
-        
+
         print("✅ Проект готов к работе!")
     }
-    
+
     private func runXcodeGen() async throws {
         print("🏗️  Генерация Xcode проекта (XcodeGen)...")
         try await Shell.run("xcodegen generate")
     }
-    
+
     private func runSwiftGen() async throws {
         print("🎨 Генерация ресурсов (SwiftGen)...")
         try await Shell.run("swiftgen")
-        
+
         // Fix for Swift 6 concurrency in generated code
         let assetsFile = URL(fileURLWithPath: "Design/Generated/Assets.swift")
         if FileManager.default.fileExists(atPath: assetsFile.path) {
@@ -41,7 +41,7 @@ struct Setup: AsyncParsableCommand {
             try content.write(to: assetsFile, atomically: true, encoding: .utf8)
         }
     }
-    
+
     private func setupAssets() async throws {
         print("🎨 Создание цветовых ассетов...")
         let colors = [
@@ -52,16 +52,16 @@ struct Setup: AsyncParsableCommand {
             ("Warning", "0xFF", "0x95", "0x00"),
             ("Info", "0x5A", "0xC8", "0xFA")
         ]
-        
-        for (name, r, g, b) in colors {
-            try createColor(name: name, red: r, green: g, blue: b)
+
+        for (name, red, green, blue) in colors {
+            try createColor(name: name, red: red, green: green, blue: blue)
         }
     }
-    
+
     private func createColor(name: String, red: String, green: String, blue: String) throws {
         let dir = URL(fileURLWithPath: "Resources/Assets.xcassets/\(name).colorset")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        
+
         let json = """
         {
           "colors" : [
@@ -84,7 +84,7 @@ struct Setup: AsyncParsableCommand {
           }
         }
         """
-        
+
         try json.write(to: dir.appendingPathComponent("Contents.json"), atomically: true, encoding: .utf8)
     }
 }

@@ -7,28 +7,28 @@ import Security
 enum NetworkError: LocalizedError {
     /// Ошибка формирования URL
     case invalidURL
-    
+
     /// Ответ от сервера не содержит данных
     case noData
-    
+
     /// Ошибка преобразования JSON данных в Swift модели
     case decodingError(Error)
-    
+
     /// Ошибка на стороне сервера с HTTP статус-кодом и сообщением
     case serverError(Int, String?)
-    
+
     /// Ошибка авторизации (401 Unauthorized)
     case unauthorized
-    
+
     /// Ошибка доступа (403 Forbidden)
     case forbidden
-    
+
     /// Превышен лимит запросов (429 Rate Limited). Содержит время ожидания в секундах, если указано.
     case rateLimited(retryAfter: Int?)
-    
+
     /// Общая ошибка сетевого соединения
     case networkError(Error)
-    
+
     /// Непредвиденная или неизвестная ошибка
     case unknown
 

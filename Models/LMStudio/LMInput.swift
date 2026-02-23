@@ -6,7 +6,7 @@ import Foundation
 enum LMInput: Codable {
     /// Ввод в виде одной строки текста
     case string(String)
-    
+
     /// Ввод в виде массива элементов (сообщений)
     case array([LMInputItem])
 
@@ -44,7 +44,7 @@ enum LMInput: Codable {
 struct LMInputItem: Codable {
     /// Тип элемента (например, "text")
     let type: String
-    
+
     /// Содержимое элемента
     let content: String
 

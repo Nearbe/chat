@@ -33,7 +33,7 @@ struct Scripts: AsyncParsableCommand {
         }
     }
 
-    struct Project {
+    enum Project {
         static let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
     }
 }

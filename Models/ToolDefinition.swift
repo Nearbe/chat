@@ -24,13 +24,13 @@ import Foundation
 /// - Важно: type всегда "function"
 /// - Примечание: id вычисляется из имени функции
 struct ToolDefinition: Codable, Identifiable, Hashable {
-    
+
     // MARK: - Свойства (Properties)
-    
+
     /// Тип инструмента
     /// Всегда "function" для function calling
     let type: String
-    
+
     /// Определение функции
     /// Содержит имя, описание и параметры
     let function: FunctionDefinition
@@ -43,18 +43,18 @@ struct ToolDefinition: Codable, Identifiable, Hashable {
 /// Определение функции внутри инструмента
 /// Содержит полную информацию о доступной функции
 struct FunctionDefinition: Codable, Hashable {
-    
+
     // MARK: - Свойства (Properties)
-    
+
     /// Уникальное имя функции
     /// Используется для идентификации при вызове
     let name: String
-    
+
     /// Описание функции
     /// Показывается модели для понимания назначения
     /// Влияет на решение модели когда вызывать функцию
     let description: String
-    
+
     /// Схема параметров функции
     /// Формат JSON Schema
     /// Определяет какие аргументы функция принимает

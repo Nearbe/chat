@@ -34,16 +34,16 @@ final class ThemeManager: ObservableObject {
 
     /// Основной оранжевый (для совместимости)
     static let primaryOrange = AppColors.primaryOrange
-    
+
     /// Основной синий (для совместимости)
     static let primaryBlue = AppColors.primaryBlue
-    
+
     /// Успех (для совместимости)
     static let successGreen = AppColors.success
-    
+
     /// Ошибка (для совместимости)
     static let errorRed = AppColors.error
-    
+
     /// Предупреждение (для совместимости)
     static let warningOrange = AppColors.warning
 }

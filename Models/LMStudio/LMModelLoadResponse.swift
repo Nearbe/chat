@@ -5,16 +5,16 @@ import Foundation
 struct LMModelLoadResponse: Codable {
     /// Тип ответа (всегда "model_load_response")
     let type: String
-    
+
     /// Идентификатор созданного экземпляра модели
     let instanceId: String
-    
+
     /// Время, затраченное на загрузку в секундах
     let loadTimeSeconds: Double
-    
+
     /// Текущий статус (например, "loaded" или "failed")
     let status: String
-    
+
     /// Примененная конфигурация загрузки (возвращается, если echoLoadConfig = true)
     let loadConfig: LMModelLoadConfig?
 

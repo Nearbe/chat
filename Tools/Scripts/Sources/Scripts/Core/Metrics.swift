@@ -1,10 +1,10 @@
 // MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import Foundation
 
-public struct Metrics {
+public enum Metrics {
     private static let fileName = "metrics.csv"
     private static let lock = NSLock()
-    private static nonisolated(unsafe) var startTime = CFAbsoluteTimeGetCurrent()
+    nonisolated(unsafe) private static var startTime = CFAbsoluteTimeGetCurrent()
 
     public static func start() {
         startTime = CFAbsoluteTimeGetCurrent()

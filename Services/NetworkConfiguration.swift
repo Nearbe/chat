@@ -7,13 +7,13 @@ import Pulse
 struct NetworkConfiguration: Sendable {
     /// URLSession для выполнения запросов
     let session: URLSession
-    
+
     /// Декодер для преобразования JSON в Swift модели
     let decoder: JSONDecoder
-    
+
     /// Энкодер для преобразования Swift моделей в JSON
     let encoder: JSONEncoder
-    
+
     /// Таймаут запроса в секундах
     let timeout: TimeInterval
 
@@ -35,7 +35,7 @@ struct NetworkConfiguration: Sendable {
             let config = URLSessionConfiguration.default
             config.timeoutIntervalForRequest = timeout
             config.timeoutIntervalForResource = timeout * 2
-            
+
             // Интеграция Pulse для логирования сетевых запросов
             self.session = URLSession(configuration: config, delegate: URLSessionProxyDelegate(), delegateQueue: nil)
         }

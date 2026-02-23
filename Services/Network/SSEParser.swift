@@ -7,13 +7,13 @@ import Foundation
 struct SSEParser {
     /// Внутренний буфер для накопления текущей строки данных
     private var buffer = ""
-    
+
     /// Тип текущего события (поле "event:" в SSE)
     private var currentEventType = ""
-    
+
     /// Накопленный контент сообщения
     private var messageContent = ""
-    
+
     /// Накопленный контент рассуждений
     private var reasoningContent = ""
 

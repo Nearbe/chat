@@ -5,7 +5,7 @@ import Foundation
 struct LMDownloadRequest: Codable {
     /// Путь к модели (например, "lmstudio-community/qwen2.5-7b-instruct-gguf")
     let model: String
-    
+
     /// Опциональный уровень квантования (если не указан, скачивается версия по умолчанию)
     let quantization: String?
 

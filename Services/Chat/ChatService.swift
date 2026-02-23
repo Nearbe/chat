@@ -6,7 +6,7 @@ import Foundation
 protocol ChatServiceProtocol: AnyObject {
     /// Получить список доступных моделей
     func fetchModels() async throws -> [ModelInfo]
-    
+
     /// Начать поток генерации ответа от AI
     func streamChat(
         messages: [ChatMessage],
@@ -20,18 +20,18 @@ protocol ChatServiceProtocol: AnyObject {
 @MainActor
 final class ChatService: ObservableObject, ChatServiceProtocol {
     private let networkService: NetworkService
-    
+
     init(networkService: NetworkService) {
         self.networkService = networkService
     }
-    
+
     /// Загрузить список доступных моделей от сервера
     /// - Returns: Список объектов `ModelInfo`
     /// - Throws: `NetworkError` при проблемах с сетью
     func fetchModels() async throws -> [ModelInfo] {
         try await networkService.fetchModels()
     }
-    
+
     /// Начать поток генерации ответа от AI
     /// - Parameters:
     ///   - messages: История сообщений в формате API

@@ -5,10 +5,10 @@ import Foundation
 struct LMProviderInfo: Codable {
     /// Тип провайдера (например, "mcp" или "plugin")
     let type: String
-    
+
     /// Идентификатор плагина (если применимо)
     let pluginId: String?
-    
+
     /// Отображаемое имя (лейбл) сервера
     let serverLabel: String?
 

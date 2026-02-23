@@ -5,7 +5,7 @@ import Foundation
 struct LMReasoningContent: Codable {
     /// Тип контента (всегда "reasoning")
     let type: String
-    
+
     /// Текст рассуждений
     let content: String
 }

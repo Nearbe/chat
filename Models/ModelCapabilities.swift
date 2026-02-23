@@ -5,7 +5,7 @@ import Foundation
 struct ModelCapabilities: Codable, Hashable {
     /// Поддержка компьютерного зрения (vision)
     let vision: Bool?
-    
+
     /// Обучена ли модель для использования инструментов (function calling)
     let trainedForToolUse: Bool?
 
