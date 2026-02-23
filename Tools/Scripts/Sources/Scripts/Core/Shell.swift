@@ -8,8 +8,8 @@ public enum ShellError: Error, LocalizedError {
 
     public var errorDescription: String? {
         switch self {
-        case .commandFailed(let command, let exitCode, _, let error):
-            return "Команда '\(command)' завершилась с кодом \(exitCode). Ошибка: \(error)"
+        case .commandFailed(let command, let exitCode, _, _):
+            return "Команда '\(command)' завершилась с кодом \(exitCode)."
         case .warningsFound(let command, _):
             return "Команда '\(command)' завершена с предупреждениями (warnings)."
         }
@@ -26,7 +26,8 @@ public enum Shell {
         quiet: Bool = false,
         isInteractive: Bool = false,
         failOnWarnings: Bool = true,
-        allowedWarnings: [String] = []
+        allowedWarnings: [String] = [],
+        logName: String? = nil
     ) async throws -> String {
         if !quiet {
             print("▶️  Запуск: \(command)")
@@ -53,7 +54,8 @@ public enum Shell {
             outputPipe: outputPipe,
             errorPipe: errorPipe,
             failOnWarnings: failOnWarnings,
-            allowedWarnings: allowedWarnings
+            allowedWarnings: allowedWarnings,
+            logName: logName
         )
     }
 
@@ -91,7 +93,8 @@ public enum Shell {
         outputPipe: Pipe,
         errorPipe: Pipe,
         failOnWarnings: Bool,
-        allowedWarnings: [String] = []
+        allowedWarnings: [String] = [],
+        logName: String? = nil
     ) async throws -> String {
         // Читаем из пайпов в параллельных задачах, чтобы избежать дедлоков при переполнении буферов
         async let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
@@ -104,6 +107,10 @@ public enum Shell {
 
         let output = String(data: finalOutputData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let error = String(data: finalErrorData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
+        if let logName = logName {
+            logCommandOutput(name: logName, command: command, output: output, error: error)
+        }
 
         if failOnWarnings {
             try checkForWarnings(output: output, error: error, command: command, allowedWarnings: allowedWarnings)
@@ -156,6 +163,27 @@ public enum Shell {
                 }
             }
         }
+    }
+
+    public static func logToFile(name: String, content: String) {
+        let logDir = URL(fileURLWithPath: "Logs/Check")
+        try? FileManager.default.createDirectory(at: logDir, withIntermediateDirectories: true)
+        let fileURL = logDir.appendingPathComponent("\(name.replacingOccurrences(of: " ", with: "_")).log")
+        try? content.write(to: fileURL, atomically: true, encoding: .utf8)
+    }
+
+    private static func logCommandOutput(name: String, command: String, output: String, error: String) {
+        let logContent = """
+        DATE: \(Date())
+        COMMAND: \(command)
+
+        OUTPUT:
+        \(output)
+
+        ERROR:
+        \(error)
+        """
+        logToFile(name: name, content: logContent)
     }
 }
 

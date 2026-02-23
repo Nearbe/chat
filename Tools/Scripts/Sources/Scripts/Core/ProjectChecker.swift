@@ -5,34 +5,56 @@ import Foundation
 public struct ProjectChecker {
     private let exceptions: [String: [String]]
 
-    public static func run() async throws {
-        print("🔍  Запуск специальных проверок проекта (ProjectChecker)...")
+    public static func run(quiet: Bool = true) async throws {
+        if !quiet {
+            print("🔍  Запуск специальных проверок проекта (ProjectChecker)...")
+        }
         let exceptions = (try? ExceptionRegistry.loadProjectCheckerExceptions()) ?? [:]
-        let count = exceptions.values.flatMap { $0 }.count
-        print("ℹ️  Загружено программных исключений из реестра: \(count)")
 
         let checker = ProjectChecker(exceptions: exceptions)
-        try await checker.perform()
+        try await checker.perform(quiet: quiet)
     }
 
-    private func perform() async throws {
+    private func perform(quiet: Bool) async throws {
         let filesToScan = collectFiles()
         var errors: [String] = []
+        var logContent = "ProjectChecker Log\n"
+        logContent += "Date: \(Date())\n\n"
 
         for file in filesToScan {
-            errors.append(contentsOf: try checkFile(file))
+            let fileErrors = try checkFile(file)
+            errors.append(contentsOf: fileErrors)
+            if !fileErrors.isEmpty {
+                logContent += "File: \(file)\n"
+                fileErrors.forEach { logContent += "  - \($0)\n" }
+            }
         }
 
-        errors.append(contentsOf: await checkToolVersions())
-        errors.append(contentsOf: try checkProjectYml())
-        errors.append(contentsOf: try checkSwiftLintConfig())
+        let toolErrors = await checkToolVersions()
+        errors.append(contentsOf: toolErrors)
+        if !toolErrors.isEmpty {
+            logContent += "\nTool Versions Errors:\n"
+            toolErrors.forEach { logContent += "  - \($0)\n" }
+        }
+
+        let projectYmlErrors = try checkProjectYml()
+        errors.append(contentsOf: projectYmlErrors)
+
+        let swiftLintErrors = try checkSwiftLintConfig()
+        errors.append(contentsOf: swiftLintErrors)
+
+        Shell.logToFile(name: "ProjectChecker", content: logContent)
 
         if !errors.isEmpty {
-            print("❌  Обнаружены ошибки при проверке проекта:")
-            errors.forEach { print("    - \($0)") }
+            if !quiet {
+                print("❌  Обнаружены ошибки при проверке проекта:")
+                errors.forEach { print("    - \($0)") }
+            }
             throw CheckerError.validationFailed
         } else {
-            print("✅  Все специальные проверки пройдены успешно.")
+            if !quiet {
+                print("✅  Все специальные проверки пройдены успешно.")
+            }
         }
     }
 
@@ -63,35 +85,11 @@ public struct ProjectChecker {
         // 1. Проверка наличия документации (Docstrings)
         errors.append(contentsOf: checkDocumentation(lines: lines, filePath: file))
 
-        // 2. Проверка языка документации (Русский)
-        errors.append(contentsOf: checkDocumentationLanguage(lines: lines, filePath: file))
-
-        // 3. Проверка на использование print() вместо логгера
-        errors.append(contentsOf: checkNoPrint(lines: lines, filePath: file))
-
-        // 4. Проверка именования SwiftUI вьюх (должны заканчиваться на View или Page)
+        // 2. Проверка именования SwiftUI вьюх (должны заканчиваться на View или Page)
         if file.contains("Views/") || file.contains("Pages/") {
             errors.append(contentsOf: checkViewNaming(lines: lines, filePath: file))
         }
 
-        // 5. Проверка на MainActor для ViewModel
-        if file.contains("ViewModel") {
-            errors.append(contentsOf: checkMainActor(lines: lines, filePath: file))
-        }
-
-        // 6. Проверка метки связи с документацией
-        errors.append(contentsOf: checkDocLink(lines: lines, filePath: file))
-
-        return errors
-    }
-
-    private func checkMainActor(lines: [String], filePath: String) -> [String] {
-        var errors: [String] = []
-        // Если это файл ViewModel, он должен содержать @MainActor на уровне класса
-        let content = lines.joined(separator: "\n")
-        if !content.contains("@MainActor") {
-            errors.append("\(filePath): Класс ViewModel должен быть помечен @MainActor")
-        }
         return errors
     }
 
@@ -141,85 +139,6 @@ public struct ProjectChecker {
             }
         }
 
-        return errors
-    }
-
-    private func checkDocumentationLanguage(lines: [String], filePath: String) -> [String] {
-        var errors: [String] = []
-
-        let swiftKeywords = exceptions["Ключевое слово"] ?? []
-
-        for (index, line) in lines.enumerated() {
-            let trimmed = line.trimmingCharacters(in: .whitespaces)
-            if trimmed.hasPrefix("///") {
-                // Если это пустая дока, игнорируем
-                if trimmed == "///" { continue }
-
-                // Проверка на наличие кириллицы
-                let hasCyrillic = line.range(of: #"[а-яА-ЯёЁ]"#, options: .regularExpression) != nil
-
-                // Игнорируем технические строки
-                var isTechnical = false
-                for keyword in swiftKeywords where trimmed.contains(keyword) {
-                    isTechnical = true
-                    break
-                }
-
-                // Игнорируем короткие строки (например, <15) из реестра
-                if let limitPattern = exceptions["Текст"]?.first(where: { $0.hasPrefix("<") }),
-                   let limit = Int(String(limitPattern.dropFirst())) {
-                    if trimmed.count < limit && !hasCyrillic {
-                        isTechnical = true
-                    }
-                }
-
-                if !hasCyrillic && !isTechnical {
-                     errors.append("\(filePath):\(index + 1): Документация (Docstring) должна быть на русском языке: '\(trimmed)'")
-                }
-            }
-        }
-
-        return errors
-    }
-
-    private func checkNoPrint(lines: [String], filePath: String) -> [String] {
-        var errors: [String] = []
-        var inPreview = false
-        let contexts = exceptions["Контекст"] ?? []
-
-        for (index, line) in lines.enumerated() {
-            let trimmed = line.trimmingCharacters(in: .whitespaces)
-
-            if trimmed.hasPrefix("#Preview") {
-                inPreview = true
-            }
-
-            // Если закончился блок превью (упрощенно по закрывающей скобке в начале строки)
-            if inPreview && (trimmed == "}" || trimmed == "})") {
-                // inPreview = false // Временно закомментировано для надежности
-            }
-
-            // Разрешаем print в некоторых случаях на основе контекста из реестра
-            if line.contains("print(") && !line.contains("//") {
-                let isAllowedByPath = contexts.contains { filePath.contains($0) }
-                let isAllowedByContent = contexts.contains { line.contains($0) }
-                let isAllowedByPreview = inPreview && contexts.contains("#Preview")
-
-                if !isAllowedByPath && !isAllowedByContent && !isAllowedByPreview {
-                     errors.append("\(filePath):\(index + 1): Используйте логгер (Pulse) вместо print()")
-                }
-            }
-        }
-        return errors
-    }
-
-    private func checkDocLink(lines: [String], filePath: String) -> [String] {
-        var errors: [String] = []
-        let content = lines.joined(separator: "\n")
-
-        if !content.contains("MARK: - Связь с документацией:") {
-            errors.append("\(filePath): Отсутствует метка связи с документацией. Запустите './scripts update-docs-links'")
-        }
         return errors
     }
 

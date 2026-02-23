@@ -33,6 +33,31 @@ custom_rules:
     message: "Use AppColors or SwiftGen constants instead of direct Color extensions"
     severity: warning
 
+  no_print_logger:
+    name: "No print()"
+    regex: 'print\('
+    message: "Use Logger (Pulse) instead of print()"
+    severity: warning
+    excluded: "Tools/Scripts/.*"
+
+  viewmodel_main_actor:
+    name: "ViewModel MainActor"
+    regex: '(?m)\A(?![\s\S]*@MainActor)[\s\S]*class\s+\w+ViewModel'
+    message: "ViewModel classes must be marked with @MainActor"
+    severity: error
+
+  doc_link_required:
+    name: "Missing Doc Link"
+    regex: '(?m)\A(?![\s\S]*MARK: - Связь с документацией:)'
+    message: "Missing Documentation Link. Run './scripts update-docs-links'"
+    severity: error
+
+  russian_docstring:
+    name: "Russian Docstring"
+    regex: '^\s*///\s+(?![^а-яА-ЯёЁ\n]*[а-яА-ЯёЁ])(?!(?:\s*(?:NOTE:|JSON|http|https| - | -|---|```|`|\[|\{|\}|\(|\)|\]|"|:|\d+pt|- Parameters:|- Returns:|- Throws:))).+'
+    message: "Documentation (Docstring) must be in Russian"
+    severity: warning
+
 included:
   - App
   - Models

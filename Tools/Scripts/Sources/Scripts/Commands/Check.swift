@@ -12,7 +12,7 @@ struct Check: AsyncParsableCommand {
     /// Основная логика выполнения шагов проверки.
     func run() async throws {
         let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
-        print("🚀  Начало технической проверки (Асинхронный режим со сбором предупреждений)...")
+        print("🚀  Начало технической проверки...")
 
         var allResults: [CheckStepResult] = []
         allResults += await runLintAndProjectChecks()
@@ -41,12 +41,10 @@ struct Check: AsyncParsableCommand {
 
     private func runLintAndProjectChecks() async -> [CheckStepResult] {
         var results: [CheckStepResult] = []
-        print("🔍  Запуск SwiftLint...")
         results.append(await performStep("SwiftLint") {
-            try await Shell.run("swiftlint --strict")
+            try await Shell.run("swiftlint --strict", quiet: true, logName: "SwiftLint")
         })
 
-        print("🔍  Запуск ProjectChecker...")
         results.append(await performStep("ProjectChecker") {
             try await ProjectChecker.run()
         })
@@ -54,9 +52,8 @@ struct Check: AsyncParsableCommand {
     }
 
     private func runInfrastructure() async -> (xcodegen: CheckStepResult, swiftgen: CheckStepResult) {
-        print("🏗️  Этап 1: Подготовка инфраструктуры...")
         let xcodegen = await performStep("XcodeGen") {
-            try await Shell.run("xcodegen generate")
+            try await Shell.run("xcodegen generate", quiet: true, logName: "XcodeGen")
         }
         let swiftgen = await performStep("SwiftGen") {
             try await runSwiftGen()
@@ -66,10 +63,8 @@ struct Check: AsyncParsableCommand {
 
     private func runTestsAndBuild(device: String) async -> [CheckStepResult] {
         var results: [CheckStepResult] = []
-        print("🧪  Этап 2: Сборка и тестирование...")
 
         results.append(await performStep("Tests") {
-            print("🧪  Запуск тестов через Test Plan (AllTests)...")
             let resultPath = "TestResult.xcresult"
             try? FileManager.default.removeItem(atPath: resultPath)
 
@@ -87,15 +82,12 @@ struct Check: AsyncParsableCommand {
             ].joined(separator: " ")
 
             let allowedWarnings = (try? ExceptionRegistry.loadSystemWarnings()) ?? []
-            print("ℹ️  Разрешено системных предупреждений: \(allowedWarnings.count)")
-
-            try await Shell.run(testCommand, failOnWarnings: true, allowedWarnings: allowedWarnings)
+            try await Shell.run(testCommand, quiet: true, failOnWarnings: true, allowedWarnings: allowedWarnings, logName: "Tests")
             // Временно ожидаем 50% покрытия, согласно плану (~50%)
             try await checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 50.0)
         })
 
         results.append(await performStep("Build Release") {
-            print("📦  Сборка Release версии...")
             let releaseCommand = [
                 "xcodebuild",
                 "-quiet",
@@ -106,7 +98,7 @@ struct Check: AsyncParsableCommand {
                 "SYMROOT=\"$(pwd)/build\"",
                 "build"
             ].joined(separator: " ")
-            try await Shell.run(releaseCommand)
+            try await Shell.run(releaseCommand, quiet: true, logName: "Build Release")
         })
 
         return results
@@ -223,34 +215,28 @@ extension Check {
 // MARK: - Детализированный вывод и вспомогательные функции
 extension Check {
     private func printWarningsDetails(_ warnings: [CheckStepResult]) {
-        print("\n" + String(repeating: "-", count: 60))
-        print("⚠️  ДЕТАЛИ ПРЕДУПРЕЖДЕНИЙ:")
-        for (index, warning) in warnings.enumerated() {
-            if case .warning(let step, let command, let output, _) = warning {
-                print("\n[\(index + 1)] Шаг: \(step)")
-                if let command = command { print("Команда: \(command)") }
-                print("Вывод:\n\(output)")
+        print("\n⚠️  ДЕТАЛИ ПРЕДУПРЕЖДЕНИЙ:")
+        for warning in warnings {
+            if case .warning(let step, _, _, _) = warning {
+                let logFile = "Logs/Check/\(step.replacingOccurrences(of: " ", with: "_")).log"
+                print("  - \(step): Найдены предупреждения. Подробности: \(logFile)")
             }
         }
     }
 
     private func printFailuresDetails(_ failures: [CheckStepResult]) {
-        print("\n" + String(repeating: "-", count: 60))
-        print("❌  ДЕТАЛИ ОШИБОК:")
-        for (index, failure) in failures.enumerated() {
+        print("\n❌  ДЕТАЛИ ОШИБОК:")
+        for failure in failures {
             if case .failure(let info) = failure {
-                print("\n[\(index + 1)] Шаг: \(info.step)")
-                if let command = info.command { print("Команда: \(command)") }
-                print("Ошибка: \(info.error.localizedDescription)")
-                if let output = info.output, !output.isEmpty {
-                    print("Вывод:\n\(output)")
-                }
+                let logFile = "Logs/Check/\(info.step.replacingOccurrences(of: " ", with: "_")).log"
+                print("  - \(info.step): Ошибка: \(info.error.localizedDescription)")
+                print("    Подробный вывод: \(logFile)")
             }
         }
     }
 
     private func runSwiftGen() async throws {
-        try await Shell.run("swiftgen")
+        try await Shell.run("swiftgen", quiet: true, logName: "SwiftGen")
         let assetsFile = URL(fileURLWithPath: "Design/Generated/Assets.swift")
         if FileManager.default.fileExists(atPath: assetsFile.path) {
             var content = try String(contentsOf: assetsFile, encoding: .utf8)
@@ -266,12 +252,9 @@ extension Check {
         let status = try await Shell.run("git status --porcelain", quiet: true)
         if !status.isEmpty {
             let commitMessage = message ?? "Automatic commit after successful verification"
-            print("📦  Добавление изменений в индекс...")
-            try await Shell.run("git add .")
-            print("💾  Коммит изменений: '\(commitMessage)'...")
-            try await Shell.run("git commit -m \"\(commitMessage)\"")
-            print("📤  Отправка в удаленный репозиторий (push)...")
-            try await Shell.run("git push")
+            try await Shell.run("git add .", quiet: true, logName: "Git Add")
+            try await Shell.run("git commit -m \"\(commitMessage)\"", quiet: true, logName: "Git Commit")
+            try await Shell.run("git push", quiet: true, logName: "Git Push")
             print("🚀  Код закоммичен и отправлен!")
         } else {
             print("ℹ️  Изменений не обнаружено, коммит не требуется.")
@@ -279,7 +262,6 @@ extension Check {
     }
 
     private func checkCoverage(resultBundlePath: String, targetName: String, expected: Double) async throws {
-        print("📊  Проверка покрытия кода для \(targetName) в \(resultBundlePath)...")
         let command = "xcrun xccov view --report --json \(resultBundlePath)"
         let jsonString = try await Shell.run(command, quiet: true)
 
@@ -293,7 +275,6 @@ extension Check {
                 if let name = target["name"] as? String, name.contains(targetName) {
                     if let lineCoverage = target["lineCoverage"] as? Double {
                         let percentage = lineCoverage * 100.0
-                        print("📈  Текущее покрытие для \(name): \(String(format: "%.2f", percentage))%")
                         if percentage < expected {
                             throw CheckError.lowCoverage(target: name, actual: percentage, expected: expected)
                         }

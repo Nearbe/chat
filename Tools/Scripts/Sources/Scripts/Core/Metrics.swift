@@ -23,9 +23,8 @@ public enum Metrics {
         let escapedStep = step.contains(",") ? "\"\(step)\"" : step
         let line = "\(date),\(escapedStep),\(String(format: "%.3f", duration)),\(status)\n"
 
-        // Вывод в консоль
-        let icon = status == "Success" ? "⏱️" : "❌"
-        print("\(icon)  Метрика: \(step) — \(String(format: "%.3f", duration)) сек. [\(status)]")
+        // Вывод в консоль удален для чистоты Human Readable вывода. 
+        // Если нужно, можно добавить флаг verbose.
 
         let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: fileURL.path) {

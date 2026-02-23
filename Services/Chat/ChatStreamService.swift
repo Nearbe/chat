@@ -10,7 +10,7 @@ final class ChatStreamService: @unchecked Sendable {
         self.httpClient = httpClient
     }
 
-    /// Streaming chat completion
+    /// Потоковая передача завершения чата (Streaming chat completion)
     nonisolated func streamChat(
         url: URL,
         messages: [ChatMessage],

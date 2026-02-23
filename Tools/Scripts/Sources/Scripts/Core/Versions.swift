@@ -27,13 +27,13 @@ enum Versions {
 
     // MARK: - Зависимости (SPM)
 
-    /// Factory (Dependency Injection)
+    /// Factory (Внедрение зависимостей / Dependency Injection)
     static let factory = "2.3.0"
 
-    /// Pulse (Logging & Network Monitoring)
+    /// Pulse (Логирование и мониторинг сети / Logging & Network Monitoring)
     static let pulse = "4.0.0"
 
-    /// SnapshotTesting (Visual Regression Testing)
+    /// SnapshotTesting (Визуальное регрессионное тестирование / Visual Regression Testing)
     static let snapshotTesting = "1.15.4"
 
     // MARK: - Внешние API и Документация
