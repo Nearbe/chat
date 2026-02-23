@@ -166,39 +166,39 @@ schemes:
     build:
       targets:
         Scripts: all
-    runnable:
-      target: Scripts
-      arguments: setup
-      type: tool
+    run:
+      config: Debug
+      commandLineArguments:
+        setup: true
   "🔍 Check":
     build:
       targets:
         Scripts: all
-    runnable:
-      target: Scripts
-      arguments: check
-      type: tool
+    run:
+      config: Debug
+      commandLineArguments:
+        check: true
   "🚢 Ship":
     build:
       targets:
         Scripts: all
-    runnable:
-      target: Scripts
-      arguments: ship
-      type: tool
+    run:
+      config: Debug
+      commandLineArguments:
+        ship: true
   "📚 Download Docs":
     build:
       targets:
         Scripts: all
-    runnable:
-      target: Scripts
-      arguments: download-docs
-      type: tool
+    run:
+      config: Debug
+      commandLineArguments:
+        download-docs: true
   "🔐 Configure Sudo":
     build:
       targets:
         Scripts: all
-    runnable:
-      target: Scripts
-      arguments: configure-sudo
-      type: tool
+    run:
+      config: Debug
+      commandLineArguments:
+        configure-sudo: true
