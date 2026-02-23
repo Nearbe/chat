@@ -72,7 +72,8 @@ public final class LogOutput: @unchecked Sendable {
     ///   - text: Текст для записи
     ///   - toConsole: Также выводить в консоль
     public func write(_ text: String, toConsole: Bool = true) {
-        guard let data = text.data(using: .utf8) else { return }
+        let filtered = Self.filterSwiftRunNoise(text)
+        guard let data = filtered.data(using: .utf8) else { return }
 
         lock.lock()
         defer { lock.unlock() }
@@ -81,9 +82,31 @@ public final class LogOutput: @unchecked Sendable {
         try? fileHandle?.write(contentsOf: data)
 
         // Также в консоль
-        if toConsole {
-            print(text, terminator: "")
+        if toConsole && !filtered.isEmpty {
+            print(filtered, terminator: "")
         }
+    }
+
+    /// Фильтрует мусор от swift run и JetBrains
+    private static func filterSwiftRunNoise(_ text: String) -> String {
+        let lines = text.components(separatedBy: .newlines)
+        let filtered = lines.filter { line in
+            // Пропускаем служебные строки swift run
+            if line.contains("DYLD_LIBRARY_PATH") { return false }
+            if line.contains("DYLD_FRAMEWORK_PATH") { return false }
+            if line.contains("DerivedData") { return false }
+            if line.contains("Build/Products") { return false }
+            // Пропускаем прогресс swift [0/1] [2/5] и т.д.
+            if line.range(of: #"^\[\d+/\d+\]"#, options: .regularExpression) != nil { return false }
+            // Пропускаем строки с путями в JetBrains Cache
+            if line.contains("JetBrains") && line.contains("Cache") { return false }
+            // Пропускаем "Building for debugging..."
+            if line == "Building for debugging..." { return false }
+            // Пропускаем пустые строки в начале
+            if line.trimmingCharacters(in: .whitespaces).isEmpty { return false }
+            return true
+        }
+        return filtered.joined(separator: "\n")
     }
 
     /// Записывает строку с переносом строки
