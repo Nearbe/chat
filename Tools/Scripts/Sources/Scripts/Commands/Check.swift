@@ -18,7 +18,7 @@ struct Check: AsyncParsableCommand {
             mainGroup.addTask {
                 try await Metrics.measure(step: "Linting") {
                     print("🔍  Запуск SwiftLint...")
-                    try? await Shell.run("swiftlint --strict")
+                    _ = try? await Shell.run("swiftlint --strict")
                     
                     print("🔍  Запуск ProjectChecker...")
                     try await ProjectChecker.run()

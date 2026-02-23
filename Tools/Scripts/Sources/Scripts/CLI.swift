@@ -17,6 +17,22 @@ struct Scripts: AsyncParsableCommand {
         defaultSubcommand: Check.self
     )
 
+    static func main() async {
+        Metrics.start()
+        do {
+            var command = try Scripts.parseAsRoot()
+            if var asyncCommand = command as? AsyncParsableCommand {
+                try await asyncCommand.run()
+            } else {
+                try command.run()
+            }
+            Metrics.logTotalTime()
+        } catch {
+            Metrics.logTotalTime()
+            Scripts.exit(withError: error)
+        }
+    }
+
     struct Project {
         static let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
     }

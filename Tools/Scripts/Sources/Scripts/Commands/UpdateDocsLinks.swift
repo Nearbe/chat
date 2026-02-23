@@ -5,62 +5,64 @@ struct UpdateDocsLinks: AsyncParsableCommand {
     static let configuration = CommandConfiguration(abstract: "Обновление меток связи с документацией в файлах проекта")
 
     func run() async throws {
-        print("🔗  Обновление меток связи с документацией...")
-        
-        let fileManager = FileManager.default
-        let enumerator = fileManager.enumerator(atPath: ".")
-        
-        var filesToProcess: [String] = []
-        
-        while let file = enumerator?.nextObject() as? String {
-            // Помечаем Swift файлы и YAML конфиги
-            guard file.hasSuffix(".swift") || file.hasSuffix(".yml") else { continue }
+        try await Metrics.measure(step: "Update Docs Links") {
+            print("🔗  Обновление меток связи с документацией...")
             
-            // Пропускаем исключенные папки
-            if file.contains("Chat.xcodeproj") || 
-               file.contains("Resources") || 
-               file.contains("Design/Generated") || 
-               file.contains(".build") ||
-               file.contains("Tools/Scripts/.build") {
-                continue
-            }
+            let fileManager = FileManager.default
+            let enumerator = fileManager.enumerator(atPath: ".")
             
-            filesToProcess.append(file)
-        }
-        
-        var filesUpdated = 0
-        
-        for file in filesToProcess {
-            let fileURL = URL(fileURLWithPath: file)
-            let content = try String(contentsOf: fileURL, encoding: .utf8)
+            var filesToProcess: [String] = []
             
-            let docInfo = determineDocInfo(for: file, content: content)
-            let docComment = formatDocComment(for: file, info: docInfo)
-            
-            if !content.contains("MARK: - Связь с документацией:") {
-                // Добавляем в начало файла
-                let newContent = docComment + "\n" + content
-                try newContent.write(to: fileURL, atomically: true, encoding: .utf8)
-                filesUpdated += 1
-            } else if !content.contains(docComment) {
-                // Обновляем существующую метку
-                let lines = content.components(separatedBy: .newlines)
-                let updatedLines = lines.map { line -> String in
-                    if line.contains("MARK: - Связь с документацией:") {
-                        return docComment
-                    }
-                    return line
+            while let file = enumerator?.nextObject() as? String {
+                // Помечаем Swift файлы и YAML конфиги
+                guard file.hasSuffix(".swift") || file.hasSuffix(".yml") else { continue }
+                
+                // Пропускаем исключенные папки
+                if file.contains("Chat.xcodeproj") || 
+                   file.contains("Resources") || 
+                   file.contains("Design/Generated") || 
+                   file.contains(".build") ||
+                   file.contains("Tools/Scripts") {
+                    continue
                 }
                 
-                let newContent = updatedLines.joined(separator: "\n")
-                if newContent != content {
+                filesToProcess.append(file)
+            }
+            
+            var filesUpdated = 0
+            
+            for file in filesToProcess {
+                let fileURL = URL(fileURLWithPath: file)
+                let content = try String(contentsOf: fileURL, encoding: .utf8)
+                
+                let docInfo = determineDocInfo(for: file, content: content)
+                let docComment = formatDocComment(for: file, info: docInfo)
+                
+                if !content.contains("MARK: - Связь с документацией:") {
+                    // Добавляем в начало файла
+                    let newContent = docComment + "\n" + content
                     try newContent.write(to: fileURL, atomically: true, encoding: .utf8)
                     filesUpdated += 1
+                } else if !content.contains(docComment) {
+                    // Обновляем существующую метку
+                    let lines = content.components(separatedBy: .newlines)
+                    let updatedLines = lines.map { line -> String in
+                        if line.contains("MARK: - Связь с документацией:") {
+                            return docComment
+                        }
+                        return line
+                    }
+                    
+                    let newContent = updatedLines.joined(separator: "\n")
+                    if newContent != content {
+                        try newContent.write(to: fileURL, atomically: true, encoding: .utf8)
+                        filesUpdated += 1
+                    }
                 }
             }
+            
+            print("✅  Обновление завершено. Обновлено файлов: \(filesUpdated)")
         }
-        
-        print("✅  Обновление завершено. Обновлено файлов: \(filesUpdated)")
     }
     
     private func formatDocComment(for filePath: String, info: (name: String, version: String)) -> String {
