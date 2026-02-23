@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <plugin id="Docker" />
+    <plugin id="Jetbrains TeamCity Plugin" />
+    <plugin id="com.android.tools.design" />
+    <plugin id="com.intellij.mcpServer" />
+    <plugin id="detekt" />
+    <plugin id="mobi.hsz.idea.gitignore" />
+    <plugin id="org.jetbrains.android" />
+    <plugin id="org.jraf.intellijplugin.nyantray" />
+    <plugin id="ru.adelf.idea.dotenv" />
+    <plugin id="some.awesome" />
+  </component>
+</project>
