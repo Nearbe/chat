@@ -9,7 +9,8 @@ set -e
 # Убедимся, что мы в корне проекта
 cd "$(dirname "$0")"
 
-DEVICE="Saint Celestine"
+# Для технической проверки используем симулятор, чтобы избежать запросов пароля для Keychain
+DEVICE="platform=iOS Simulator,name=iPhone 16 Pro"
 
 echo "🏗️ Генерация проекта (XcodeGen)..."
 if which xcodegen >/dev/null; then
@@ -38,10 +39,10 @@ else
 fi
 
 echo "🔨 Сборка проекта (Build Debug)..."
-xcodebuild -project Chat.xcodeproj -scheme Chat -configuration Debug -destination "platform=iOS,name=$DEVICE" build
+xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Debug -destination "$DEVICE" build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
 
 echo "🧪 Запуск тестов (Test)..."
-xcodebuild -project Chat.xcodeproj -scheme Chat -destination "platform=iOS,name=$DEVICE" test | grep -E "Test Suite|passed|failed|skipped" || true
+xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -destination "$DEVICE" test CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | grep -E "Test Suite|passed|failed|skipped" || true
 
 echo "✅ Техническая проверка завершена!"
 
