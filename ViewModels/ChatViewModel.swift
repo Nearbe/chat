@@ -133,7 +133,7 @@ final class ChatViewModel: ObservableObject {
     func sendMessage() async {
         guard !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               let sessionManager = sessionManager,
-              let chatService = chatService else { return }
+              chatService != nil else { return }
         
         let content = inputText
         inputText = ""

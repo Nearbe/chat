@@ -51,7 +51,7 @@ final class DeviceAuthManager {
         guard !tokenKey.isEmpty else { return }
         
         // Сохраняем через KeychainHelper
-        KeychainHelper.set(key: tokenKey, value: token)
+        _ = KeychainHelper.set(key: tokenKey, value: token)
     }
     
     /// Получить токен авторизации
