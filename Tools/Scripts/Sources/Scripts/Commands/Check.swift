@@ -33,6 +33,8 @@ struct Check: AsyncParsableCommand {
                         print("🎨  Генерация ресурсов (SwiftGen)...")
                         try await runSwiftGen() 
                     }
+                    
+                    try await genGroup.waitForAll()
                 }
                 
                 // Как только генерация завершена, запускаем сборку и тесты параллельно
@@ -79,8 +81,12 @@ struct Check: AsyncParsableCommand {
                         try await Shell.run(releaseCommand)
                         print("✅  Release сборка завершена.")
                     }
+                    
+                    try await buildGroup.waitForAll()
                 }
             }
+            
+            try await mainGroup.waitForAll()
         }
         
         print("✅  Техническая проверка успешно завершена!")
@@ -116,5 +122,13 @@ struct Check: AsyncParsableCommand {
         } else {
             print("ℹ️  Изменений не обнаружено, коммит не требуется.")
         }
+    }
+}
+
+extension ThrowingTaskGroup {
+    /// Ожидает завершения всех задач и пробрасывает ошибки, если они возникли.
+    /// Помогает избежать предупреждений компилятора о неиспользуемом 'try' при пустом теле группы.
+    mutating func waitForAll() async throws {
+        while let _ = try await next() {}
     }
 }
