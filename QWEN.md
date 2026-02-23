@@ -124,3 +124,7 @@ xcodebuild -project Chat.xcodeproj -scheme Chat -configuration Debug -destinatio
 - `ViewModels/AppConfig.swift` - User preferences
 - `Services/NetworkService.swift` - API communication
 - `Services/DeviceAuthManager.swift` - Device authentication
+
+## Qwen Added Memories
+- Для новых фичей создавать НОВЫЙ коммит (не amend), так как после merge в master ветка должна иметь отдельные коммиты для каждой фичи
+- Репозиторий локальный, пушить некуда (remote не настроен)
