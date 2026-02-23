@@ -84,10 +84,8 @@ struct Check: AsyncParsableCommand {
                 "2>&1 | grep -E \"Test Suite|passed|failed|skipped|warning:\""
             ].joined(separator: " ")
 
-            let allowedWarnings = [
-                "Metadata extraction skipped. No AppIntents.framework dependency found.",
-                "Ignoring --strip-bitcode because --sign was not passed"
-            ]
+            let allowedWarnings = (try? ExceptionRegistry.loadSystemWarnings()) ?? []
+            print("ℹ️  Разрешено системных предупреждений: \(allowedWarnings.count)")
 
             try await Shell.run(testCommand, failOnWarnings: true, allowedWarnings: allowedWarnings)
             // Временно ожидаем 50% покрытия, согласно плану (~50%)
