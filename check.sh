@@ -11,8 +11,13 @@ set -o pipefail
 # Убедимся, что мы в корне проекта
 cd "$(dirname "$0")"
 
-# Для технической проверки используем симулятор, чтобы избежать запросов пароля для Keychain
-DEVICE="platform=iOS Simulator,name=iPhone 16 Pro"
+# Для технической проверки используем симулятор. 
+# ВНИМАНИЕ: Если iPhone 16 Pro недоступен, используется Junie-iPhone (специальный симулятор для ИИ-помощника)
+if xcrun simctl list devices | grep -q "iPhone 16 Pro"; then
+  DEVICE="platform=iOS Simulator,name=iPhone 16 Pro"
+else
+  DEVICE="platform=iOS Simulator,name=Junie-iPhone"
+fi
 
 echo "🏗️ Генерация проекта (XcodeGen)..."
 if which xcodegen >/dev/null; then
@@ -44,7 +49,37 @@ echo "🔨 Сборка проекта (Build Debug)..."
 xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Debug -destination "$DEVICE" build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
 
 echo "🧪 Запуск тестов (Test)..."
-xcodebuild -project Chat.xcodeproj -scheme Chat -destination "$DEVICE" test CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | grep -E "Test Suite|passed|failed|skipped"
+rm -rf TestResult.xcresult
+xcodebuild -project Chat.xcodeproj -scheme Chat -destination "$DEVICE" -enableCodeCoverage YES -resultBundlePath TestResult.xcresult test CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | grep -E "Test Suite|passed|failed|skipped"
+
+echo "📊 Проверка покрытия кода (Code Coverage)..."
+# Получаем отчет о покрытии
+# Если xcrun xccov не находит данные, скрипт должен упасть (set -e это обеспечит)
+COVERAGE_JSON=$(xcrun xccov view --report --json TestResult.xcresult)
+
+# Извлекаем процент покрытия для основного таргета (Chat.app)
+# Используем python3 для парсинга JSON
+COVERAGE=$(echo "$COVERAGE_JSON" | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+# Ищем основной таргет приложения
+target = next((t for t in data.get('targets', []) if t.get('name') == 'Chat.app'), None)
+if target:
+    print(int(target.get('lineCoverage', 0) * 100))
+else:
+    # Если таргет не найден, пробуем взять общее покрытие
+    print(int(data.get('lineCoverage', 0) * 100))
+")
+
+echo "Текущее покрытие: $COVERAGE%"
+
+if [ "$COVERAGE" -lt 100 ]; then
+  echo "❌ Ошибка: Покрытие кода составляет $COVERAGE%, а требуется 100%!"
+  echo "Пожалуйста, добавьте тесты для всех непокрытых участков кода перед коммитом."
+  exit 1
+fi
+
+echo "✅ Проверка покрытия пройдена (100%)!"
 
 echo "📦 Сборка релизной версии (Release Build)..."
 xcodebuild -quiet -project Chat.xcodeproj -scheme Chat -configuration Release \
