@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08B34046B1E7F20B831E604A /* LMDownloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9029051657E0156F4FDF13DF /* LMDownloadRequest.swift */; };
+		096F82EC94C863C59516F321 /* MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D242813836DC3359783638B /* MessageInputView.swift */; };
 		09DF394E171647CF15BFADA4 /* LMModelsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF63648BA8E90B20D110330 /* LMModelsResponse.swift */; };
 		0C803198615F7B4A0F858562 /* LMModelUnloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0881CA08A7EAFF4BE0064D59 /* LMModelUnloadRequest.swift */; };
 		100CEA4A6E9EEB6DEBED3160 /* GenerationStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55985AED92709D9A64B77BA6 /* GenerationStatsView.swift */; };
@@ -63,6 +64,7 @@
 		AA7BA85CCBB1F8A4E7CFBA5B /* ToolCallsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3612626BEB52870CDC5FEE /* ToolCallsResponse.swift */; };
 		ABA115A2A72E60CDF948533F /* LMToolCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF8E75D87AA10826CC872A7 /* LMToolCall.swift */; };
 		ABE87C0DA71A48293666F435 /* ChatRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5CFBEF3ACCA0E3341A5D36 /* ChatRole.swift */; };
+		AD25EF75AEA1B0D638EF6B91 /* ChatMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065C621B75F7F288049D3967 /* ChatMessagesView.swift */; };
 		AF41F727FD7D6185E0F971BF /* LMModelLoadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA3F188CFF594B4EB4C3AF /* LMModelLoadRequest.swift */; };
 		B31D87E2C2AEAF9ADA0C3627 /* ChatStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37E9D289FEB0F83FBEDE49A /* ChatStreamService.swift */; };
 		C157A2D61C900738606EBEEA /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257B566E331430D5A5290ED0 /* ChatMessage.swift */; };
@@ -95,6 +97,7 @@
 /* Begin PBXFileReference section */
 		01B5303D93A4715ED71865D2 /* ToolProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolProperty.swift; sourceTree = "<group>"; };
 		04661FB1B71B38A211C19B5B /* StatusBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBadgeView.swift; sourceTree = "<group>"; };
+		065C621B75F7F288049D3967 /* ChatMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesView.swift; sourceTree = "<group>"; };
 		0881CA08A7EAFF4BE0064D59 /* LMModelUnloadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMModelUnloadRequest.swift; sourceTree = "<group>"; };
 		0D18F967F63AA908D5625285 /* AnyCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCodable.swift; sourceTree = "<group>"; };
 		11B4F298F6366B5E12EA54CE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -140,6 +143,7 @@
 		6BE2C92D5BA341F413AB6CF7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		6BF8E75D87AA10826CC872A7 /* LMToolCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMToolCall.swift; sourceTree = "<group>"; };
 		6F5EBE4FA1F0DD8B76AF9820 /* ModelCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCapabilities.swift; sourceTree = "<group>"; };
+		7D242813836DC3359783638B /* MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputView.swift; sourceTree = "<group>"; };
 		7D4C430AA3D520F69C3E92A4 /* ChatCompletionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCompletionRequest.swift; sourceTree = "<group>"; };
 		7D5EC59AA0F7038E3A8F3088 /* LMStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMStats.swift; sourceTree = "<group>"; };
 		7ED1D7B81F0B6BB30874BE44 /* ToolCallResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolCallResult.swift; sourceTree = "<group>"; };
@@ -372,10 +376,12 @@
 		F405B6A38B7B78CFE8C72EF7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				065C621B75F7F288049D3967 /* ChatMessagesView.swift */,
 				2E0823322364CE523636D670 /* ContextBar.swift */,
 				CAC39884BFB6D3276838C50E /* CopyButton.swift */,
 				55985AED92709D9A64B77BA6 /* GenerationStatsView.swift */,
 				8721807DD83D0BBB7FFC6C87 /* MessageBubble.swift */,
+				7D242813836DC3359783638B /* MessageInputView.swift */,
 				14AF07475E78E88E07CD216B /* ShieldView.swift */,
 				04661FB1B71B38A211C19B5B /* StatusBadgeView.swift */,
 				D5DCB1A91A58A0A0FEF0E15A /* StatusIndicator.swift */,
@@ -468,6 +474,7 @@
 				A394D7E48C14303F478A850C /* ChatCompletionResponse.swift in Sources */,
 				7D70CF88D04AD64FAA3785DE /* ChatCompletionStreamPart.swift in Sources */,
 				C157A2D61C900738606EBEEA /* ChatMessage.swift in Sources */,
+				AD25EF75AEA1B0D638EF6B91 /* ChatMessagesView.swift in Sources */,
 				ABE87C0DA71A48293666F435 /* ChatRole.swift in Sources */,
 				5351D380B9B66146B0172F91 /* ChatSession.swift in Sources */,
 				B31D87E2C2AEAF9ADA0C3627 /* ChatStreamService.swift in Sources */,
@@ -510,6 +517,7 @@
 				A25ED276CDC4FA54A521DCF7 /* LMToolCallMetadata.swift in Sources */,
 				8E1759141659B24BD0E9F7CC /* Message.swift in Sources */,
 				F851899A20BDDDF6423DBF85 /* MessageBubble.swift in Sources */,
+				096F82EC94C863C59516F321 /* MessageInputView.swift in Sources */,
 				3466BE57EFB3B2B00EB1BAAF /* ModelCapabilities.swift in Sources */,
 				D55BBA238F38C614FD4756A7 /* ModelInfo.swift in Sources */,
 				2D449B9EA45A7DFB15FCCA83 /* ModelPicker.swift in Sources */,

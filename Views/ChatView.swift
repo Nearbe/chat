@@ -18,10 +18,30 @@ struct ChatView: View {
                 } else if viewModel.messages.isEmpty {
                     emptyStateView
                 } else {
-                    chatMessagesView
+                    ChatMessagesView(
+                        messages: viewModel.messages,
+                        toolCalls: viewModel.toolCalls,
+                        showStats: viewModel.config.showStats,
+                        isGenerating: viewModel.isGenerating,
+                        currentStats: viewModel.currentStats,
+                        onDeleteMessage: { viewModel.deleteMessage($0) },
+                        onEditMessage: { message, newContent in
+                            Task {
+                                await viewModel.editMessage(message, newContent: newContent)
+                            }
+                        }
+                    )
                 }
 
-                inputAreaView
+                MessageInputView(
+                    inputText: $viewModel.inputText,
+                    isAuthenticated: viewModel.isAuthenticated,
+                    isGenerating: viewModel.isGenerating,
+                    isServerReachable: viewModel.isServerReachable,
+                    selectedModel: viewModel.config.selectedModel,
+                    onSend: { await viewModel.sendMessage() },
+                    onStop: { viewModel.stopGeneration() }
+                )
             }
             .contentShape(Rectangle())
             .onTapGesture {
@@ -107,11 +127,6 @@ struct ChatView: View {
             .onReceive(NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)) { _ in
                 viewModel.refreshAuthentication()
             }
-            .onChange(of: viewModel.messages.count) {
-                if viewModel.config.autoScroll {
-                    scrollToBottom()
-                }
-            }
         }
     }
 
@@ -154,117 +169,6 @@ struct ChatView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    // MARK: - Chat Messages View
-
-    private var chatMessagesView: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(viewModel.messages, id: \.id) { message in
-                        MessageBubble(
-                            message: message,
-                            onDelete: { viewModel.deleteMessage(message) },
-                            onEdit: { newContent in
-                                Task {
-                                    await viewModel.editMessage(message, newContent: newContent)
-                                }
-                            }
-                        )
-                        .id(message.id)
-                    }
-
-                    if !viewModel.toolCalls.isEmpty {
-                        ForEach(viewModel.toolCalls) { call in
-                            ToolCallView(toolCall: call)
-                        }
-                    }
-
-                    if viewModel.config.showStats && !viewModel.isGenerating {
-                        GenerationStatsView(stats: viewModel.currentStats)
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
-            }
-            .onAppear {
-                scrollProxy = proxy
-            }
-        }
-        .background(Color(uiColor: .systemGroupedBackground))
-    }
-
-    // MARK: - Input Area View
-
-    private var inputAreaView: some View {
-        VStack(spacing: 0) {
-            // Иконки статуса над всей областью ввода (только для авторизованных)
-            if viewModel.isAuthenticated {
-                HStack(alignment: .bottom) {
-                    Spacer()
-                    StatusBadgeView(
-                        isConnected: viewModel.isConnected,
-                        isServerReachable: viewModel.isServerReachable,
-                        isModelSelected: !viewModel.config.selectedModel.isEmpty
-                    )
-                    .padding(.bottom, 16)
-                }
-                .frame(height: 52)
-                .padding(.trailing, 16)
-                .background(Color(uiColor: .systemBackground))
-            }
-
-            if viewModel.isAuthenticated {
-                HStack(alignment: .bottom, spacing: 8) {
-                    TextField("Сообщение...", text: $viewModel.inputText, axis: .vertical)
-                        .textFieldStyle(.plain)
-                        .lineLimit(1...10)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(Color.clear)
-                        .cornerRadius(18)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 18)
-                                .stroke(Color(uiColor: .systemGray4), lineWidth: 1)
-                        )
-                        .accessibilityLabel("Ввод сообщения")
-                        .accessibilityHint("Введите текст сообщения")
-
-                    if viewModel.isAuthenticated {
-                        Button {
-                            if viewModel.isGenerating {
-                                viewModel.stopGeneration()
-                            } else {
-                                Task {
-                                    await viewModel.sendMessage()
-                                }
-                            }
-                        } label: {
-                            Image(systemName: viewModel.isGenerating ? "stop.fill" : "arrow.up.circle.fill")
-                                .font(.system(size: 32))
-                                .foregroundStyle(viewModel.isGenerating ? .red : ThemeManager.shared.accentColor)
-                        }
-                        .disabled(!viewModel.isGenerating && (viewModel.inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !viewModel.isServerReachable || viewModel.config.selectedModel.isEmpty))
-                        .opacity((viewModel.isGenerating || (!viewModel.inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && viewModel.isServerReachable && !viewModel.config.selectedModel.isEmpty)) ? 1.0 : 0.5)
-                        .accessibilityLabel(viewModel.isGenerating ? "Остановить генерацию" : "Отправить сообщение")
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 8)
-            }
-        }
-    }
-
-    // MARK: - Helpers
-
-    private func scrollToBottom() {
-        guard let lastMessage = viewModel.messages.last else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation {
-                scrollProxy?.scrollTo(lastMessage.id, anchor: .bottom)
-            }
-        }
-    }
-    
 }
 
 #Preview {
