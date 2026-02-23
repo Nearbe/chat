@@ -45,5 +45,4 @@ Thumbs.db
 .history/
 .xcresult/
 /TestResult.xcresult/
-metrics.csv
 .output.txt

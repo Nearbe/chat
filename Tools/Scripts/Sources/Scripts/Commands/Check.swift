@@ -12,7 +12,10 @@ struct Check: AsyncParsableCommand {
     /// Основная логика выполнения шагов проверки.
     func run() async throws {
         let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
-        print("🚀  Начало технической проверки...")
+
+        // Запускаем логирование вывода
+        let logger = try Log.start(logFileName: "CheckRun")
+        Log.writeln("🚀  Начало технической проверки...")
 
         // Получаем список изменённых файлов
         let changedFiles = try await getChangedFiles()
@@ -58,15 +61,29 @@ struct Check: AsyncParsableCommand {
         }
 
         let hasProblems = printSummary(results: allResults)
+
+        // Выводим путь к логам
+        if let logPath = logger.currentLogFilePath {
+            print("\n📄  Полный вывод сохранён в: \(logPath)")
+            Log.writeln("\n📄  Полный вывод сохранён в: \(logPath)")
+        }
+
         if hasProblems {
             print("\n❌  Техническая проверка не пройдена из-за наличия предупреждений или ошибок.")
+            Log.writeln("❌  Техническая проверка не пройдена из-за наличия предупреждений или ошибок.")
+            Log.stop()
             throw ExitCode(1)
         }
 
         print("\n✅  Техническая проверка успешно завершена!")
+        Log.writeln("✅  Техническая проверка успешно завершена!")
+
         try await Metrics.measure(step: "Git Commit & Push") {
             try await handleGitCommit()
         }
+
+        // Останавливаем логирование
+        Log.stop()
     }
 
     private func runLintAndProjectChecks() async -> [CheckStepResult] {
