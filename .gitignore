@@ -19,6 +19,9 @@ xcuserdata/
 *.xcodeproj/
 *.xcworkspace/
 
+# JetBrains Run Configurations
+.idea/runConfigurations/
+
 # Swift Package Manager
 #
 # Add this line if you want to avoid tracking the test connectivity and performance.
