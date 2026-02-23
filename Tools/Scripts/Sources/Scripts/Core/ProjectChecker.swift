@@ -55,6 +55,14 @@ struct ProjectChecker {
             }
         }
         
+        // 6. Проверка версий инструментов
+        let versionErrors = await checkToolVersions()
+        errors.append(contentsOf: versionErrors)
+        
+        // 7. Проверка project.yml
+        let projectErrors = try checkProjectYml()
+        errors.append(contentsOf: projectErrors)
+        
         if !errors.isEmpty {
             print("❌  Обнаружены ошибки при проверке проекта:")
             errors.forEach { print("    - \($0)") }
@@ -199,6 +207,69 @@ struct ProjectChecker {
         if (filePath.contains("Views/") || filePath.contains("Pages/")) && 
            !fileName.contains("View") && !fileName.contains("Page") && !fileName.contains("Component") {
             // errors.append("\(filePath): Имя файла должно содержать 'View', 'Page' или 'Component'")
+        }
+        
+        return errors
+    }
+
+    private static func checkToolVersions() async -> [String] {
+        var errors: [String] = []
+        
+        // XcodeGen
+        do {
+            let output = try await Shell.run("xcodegen --version", quiet: true)
+            if !output.contains(Versions.xcodegen) {
+                errors.append("XcodeGen: установлена версия \(output), ожидается \(Versions.xcodegen)")
+            }
+        } catch {
+            errors.append("XcodeGen: инструмент не найден или не удалось определить версию")
+        }
+        
+        // SwiftGen
+        do {
+            let output = try await Shell.run("swiftgen --version", quiet: true)
+            if !output.contains(Versions.swiftgen) {
+                errors.append("SwiftGen: установлена версия \(output), ожидается \(Versions.swiftgen)")
+            }
+        } catch {
+            errors.append("SwiftGen: инструмент не найден или не удалось определить версию")
+        }
+        
+        // SwiftLint
+        do {
+            let output = try await Shell.run("swiftlint --version", quiet: true)
+            if !output.contains(Versions.swiftlint) {
+                errors.append("SwiftLint: установлена версия \(output), ожидается \(Versions.swiftlint)")
+            }
+        } catch {
+            errors.append("SwiftLint: инструмент не найден или не удалось определить версию")
+        }
+        
+        return errors
+    }
+    
+    private static func checkProjectYml() throws -> [String] {
+        var errors: [String] = []
+        let projectYmlPath = "project.yml"
+        
+        guard FileManager.default.fileExists(atPath: projectYmlPath) else {
+            return ["project.yml не найден"]
+        }
+        
+        let content = try String(contentsOfFile: projectYmlPath, encoding: .utf8)
+        
+        let checks = [
+            ("Factory", Versions.factory),
+            ("Pulse", Versions.pulse),
+            ("SnapshotTesting", Versions.snapshotTesting),
+            ("iOS: \"\(Versions.iOS)\"", Versions.iOS),
+            ("SWIFT_VERSION: \"\(Versions.swift)\"", Versions.swift)
+        ]
+        
+        for (label, version) in checks {
+            if !content.contains(version) {
+                errors.append("project.yml: не найдена или неверная версия для \(label) (ожидается \(version))")
+            }
         }
         
         return errors

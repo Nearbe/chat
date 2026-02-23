@@ -22,8 +22,8 @@ struct DownloadDocs: AsyncParsableCommand {
     }
     
     private func downloadLMStudio() async throws {
-        print("📦  Обновление документации LM Studio...")
-        let baseURL = "https://raw.githubusercontent.com/lmstudio-ai/docs/main"
+        print("📦  Обновление документации LM Studio (ревизия: \(Versions.lmStudioDocs))...")
+        let baseURL = "https://raw.githubusercontent.com/lmstudio-ai/docs/\(Versions.lmStudioDocs)"
         let docsDir = "Docs/LMStudio"
         let files = [
             "0_app/0_root/index.md": "index.md",
@@ -51,51 +51,51 @@ struct DownloadDocs: AsyncParsableCommand {
     }
 
     private func downloadOpenAI() async throws {
-        print("📦  Обновление документации OpenAI...")
-        let baseURL = "https://raw.githubusercontent.com/openai/openai-openapi/master"
+        print("📦  Обновление документации OpenAI (ревизия: \(Versions.openAIDocs))...")
+        let baseURL = "https://raw.githubusercontent.com/openai/openai-openapi/\(Versions.openAIDocs)"
         let docsDir = "Docs/OpenAI"
         let files = ["openapi.yaml": "openapi.yaml"]
         try await downloadFiles(baseURL: baseURL, files: files, destinationDir: docsDir)
     }
 
     private func downloadFactory() async throws {
-        print("📦  Обновление документации Factory...")
-        let baseURL = "https://raw.githubusercontent.com/hmlongco/Factory/main"
+        print("📦  Обновление документации Factory (версия: \(Versions.factory))...")
+        let baseURL = "https://raw.githubusercontent.com/hmlongco/Factory/\(Versions.factory)"
         let docsDir = "Docs/Factory"
         let files = ["README.md": "README.md"]
         try await downloadFiles(baseURL: baseURL, files: files, destinationDir: docsDir)
     }
 
     private func downloadPulse() async throws {
-        print("📦  Обновление документации Pulse...")
-        let baseURL = "https://raw.githubusercontent.com/kean/Pulse/master"
+        print("📦  Обновление документации Pulse (версия: \(Versions.pulse))...")
+        let baseURL = "https://raw.githubusercontent.com/kean/Pulse/\(Versions.pulse)"
         let docsDir = "Docs/Pulse"
         let files = ["README.md": "README.md"]
         try await downloadFiles(baseURL: baseURL, files: files, destinationDir: docsDir)
     }
 
     private func downloadOllama() async throws {
-        print("📦  Обновление документации Ollama...")
-        let baseURL = "https://raw.githubusercontent.com/ollama/ollama/main/docs"
+        print("📦  Обновление документации Ollama (ревизия: \(Versions.ollamaDocs))...")
+        let baseURL = "https://raw.githubusercontent.com/ollama/ollama/\(Versions.ollamaDocs)/docs"
         let docsDir = "Docs/Ollama"
         let files = ["api.md": "api.md"]
         try await downloadFiles(baseURL: baseURL, files: files, destinationDir: docsDir)
     }
 
     private func downloadCodegen() async throws {
-        print("📦  Обновление документации Codegen (XcodeGen/SwiftGen)...")
+        print("📦  Обновление документации Codegen (XcodeGen: \(Versions.xcodegen), SwiftGen: \(Versions.swiftgen))...")
         let docsDir = "Docs/Codegen"
         
         // XcodeGen
         try await downloadFiles(
-            baseURL: "https://raw.githubusercontent.com/yonaskolb/XcodeGen/master",
+            baseURL: "https://raw.githubusercontent.com/yonaskolb/XcodeGen/\(Versions.xcodegen)",
             files: ["README.md": "XcodeGen/README.md"],
             destinationDir: docsDir
         )
         
         // SwiftGen
         try await downloadFiles(
-            baseURL: "https://raw.githubusercontent.com/SwiftGen/SwiftGen/master",
+            baseURL: "https://raw.githubusercontent.com/SwiftGen/SwiftGen/\(Versions.swiftgen)",
             files: ["README.md": "SwiftGen/README.md"],
             destinationDir: docsDir
         )

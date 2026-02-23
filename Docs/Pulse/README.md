@@ -1,17 +1,18 @@
-<img width="1440" alt="promo-1" src="https://github.com/user-attachments/assets/d36bbbb7-e884-4f96-8883-10789664cc52">
-
-<br/>
 <br/>
 
-**Pulse** is a powerful logging system for Apple Platforms. Native. Built with SwiftUI.
+<img width="2100" alt="01" src="https://user-images.githubusercontent.com/1567433/214217085-9bb92b02-045c-4760-a914-e12d76669153.png">
 
-Record and inspect logs and `URLSession` network requests right from your iOS app. Share logs and view them in [Pulse Pro](https://pulselogger.com) or use remote logging to see them in real time. Logs are stored locally and never leave your devices.
+[**Pulse**](https://kean.blog/pulse/home) is a powerful logging system for Apple Platforms. Native. Built with SwiftUI.
+
+Record and inspect logs and `URLSession` network requests right from your iOS app. Share logs and view them in [Pulse Pro](https://kean.blog/pulse/pro) or use remote logging to see them in real-time. Logs are stored locally and never leave your devices.
+
+> 🆕 Pulse Pro is soon getting replaced by a new Pulse for Mac app. [Join the public beta](https://testflight.apple.com/join/1jcanE3q)!
 
 ## About
 
 `Pulse` is not just a tool, it's a framework. It records events from `URLSession` or from frameworks that use it, such as [Alamofire](https://github.com/Alamofire/Alamofire) or [Get](https://github.com/kean/Get), and displays them using `PulseUI` views that you integrate directly into your app. This way Pulse console is available for everyone who has your test builds. You or your QA team can view the logs on the device and easily share them to attach to bug reports.
 
-> Pulse is **not** a network proxy. If you need one, check out [**Proxyman**](https://proxyman.io).
+> Pulse is **not** a network debugging proxy. If you need one, check out [**Proxyman**](https://proxyman.io).
 
 ## Getting Started
 
@@ -27,14 +28,16 @@ The best way to start using Pulse is with the [**Getting Started**](https://kean
 
 ## Pulse Pro
 
-[**Pulse Pro**](https://pulselogger.com) is a professional macOS app that allows you to view logs in real time. The app is designed to be flexible, expansive, and precise while using all the familiar macOS patterns. It makes it easy to navigate large log files with table and text modes, filters, an all-new network inspector, JSON filters, and more.
+[**Pulse Pro**](https://kean.blog/pulse/pro) is a professional open-source macOS app that allows you to view logs in real-time. The app is designed to be flexible, expansive, and precise while using all the familiar macOS patterns. It makes it easy to navigate large log files with table and text modes, filters, scroller markers, an all-new network inspector, JSON filters, and more.
+
+> warning: Pulse Pro will be discontinued soon and replaced with Pulse for macOS. You can find a pre-release build of Pulse for macOS in the [latest releases](https://github.com/kean/Pulse/releases).
 
 ## Minimum Requirements
 
-| Pulse      | Swift      | Xcode       | Platforms                                        |
-|------------|------------|-------------|--------------------------------------------------|
-| Pulse 5.0  | Swift 5.10 | Xcode 15.4  | iOS 15, tvOS 15, watchOS 8, macOS 12, visionOS 1 |
-| Pulse 4.0  | Swift 5.7  | Xcode 14.1  | iOS 14, tvOS 15, watchOS 8, macOS 12             |
+| Pulse      | Swift     | Xcode       | Platforms                                    |
+|------------|-----------|-------------|----------------------------------------------|
+| Pulse 4.0  | Swift 5.7 | Xcode 14.1  | iOS 14.0, tvOS 15.0, watchOS 8.0, macOS 12.0 |
+| Pulse 3.0  | Swift 5.7 | Xcode 14.1  | iOS 14.0, tvOS 14.0, watchOS 8.0, macOS 12.0 |
 
 ## License
 

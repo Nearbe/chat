@@ -131,6 +131,17 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: YES
 
+  Scripts:
+    type: tool
+    platform: macOS
+    dependencies:
+      - package: Scripts
+        product: scripts
+    settings:
+      base:
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        SWIFT_VERSION: "6.0"
+
 schemes:
   Chat:
     build:
@@ -147,3 +158,39 @@ schemes:
           defaultPlan: true
     archive:
       config: Release
+
+  "🛠️ Setup":
+    build:
+      targets:
+        Scripts: all
+    run:
+      executable: Scripts
+      arguments: setup
+  "🔍 Check":
+    build:
+      targets:
+        Scripts: all
+    run:
+      executable: Scripts
+      arguments: check
+  "🚢 Ship":
+    build:
+      targets:
+        Scripts: all
+    run:
+      executable: Scripts
+      arguments: ship
+  "📚 Download Docs":
+    build:
+      targets:
+        Scripts: all
+    run:
+      executable: Scripts
+      arguments: download-docs
+  "🔐 Configure Sudo":
+    build:
+      targets:
+        Scripts: all
+    run:
+      executable: Scripts
+      arguments: configure-sudo
