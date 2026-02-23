@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "161BCAAC-5E45-4F25-8D4F-234DCD24A29F",
+      "name" : "Default",
+      "options" : {
+        "codeCoverage" : true
+      }
+    }
+  ],
+  "defaultOptions" : {
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:Chat.xcodeproj",
+        "identifier" : "ChatTests",
+        "name" : "ChatTests"
+      }
+    }
+  ],
+  "version" : 1
+}

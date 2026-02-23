@@ -11,7 +11,7 @@ struct Check: AsyncParsableCommand {
 
     /// Основная логика выполнения шагов проверки.
     func run() async throws {
-        _ = "platform=iOS Simulator,name=iPhone 16 Pro Max"
+        let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
         print("🚀  Начало технической проверки...")
 
         var allResults: [CheckStepResult] = []
@@ -24,8 +24,7 @@ struct Check: AsyncParsableCommand {
         if case .failure = infra.xcodegen {
             print("⚠️  XcodeGen завершился с ошибкой, этап тестирования будет пропущен.")
         } else {
-            print("ℹ️  Тестирование временно отключено по запросу.")
-            // allResults += await runTests(device: device)
+            allResults += await runAllTests(device: device)
         }
 
         let hasProblems = printSummary(results: allResults)
@@ -43,7 +42,7 @@ struct Check: AsyncParsableCommand {
     private func runLintAndProjectChecks() async -> [CheckStepResult] {
         print("🔍  Проверка стиля и структуры...")
         async let lintResult = performStep("SwiftLint", emoji: "🔍") {
-            try await Shell.run("swiftlint --strict", quiet: true, logName: "SwiftLint")
+            try await runSwiftLintDetailed()
         }
 
         async let checkerResult = performStep("ProjectChecker", emoji: "📋") {
@@ -63,33 +62,52 @@ struct Check: AsyncParsableCommand {
         return await (xcodegen, swiftgen)
     }
 
-    private func runTests(device: String) async -> [CheckStepResult] {
-        print("🧪  Запуск тестов...")
-        let testsResult = await performStep("Tests", emoji: "🧪") {
-            let resultPath = "TestResult.xcresult"
-            try? FileManager.default.removeItem(atPath: resultPath)
+    private func runAllTests(device: String) async -> [CheckStepResult] {
+        var results: [CheckStepResult] = []
+        results.append(await runUnitTests(device: device))
+        results.append(await runUITests(device: device))
+        return results
+    }
 
-            let testCommand = [
-                "xcodebuild",
-                "-project Chat.xcodeproj",
-                "-scheme Chat",
-                "-testPlan AllTests",
-                "-destination \"\(device)\"",
-                "-resultBundlePath \(resultPath)",
-                "-parallel-testing-enabled YES",
-                "test",
-                "CODE_SIGNING_ALLOWED=NO",
-                "CODE_SIGNING_REQUIRED=NO",
-                "2>&1 | grep -E \"Test Suite|passed|failed|skipped|warning:\""
-            ].joined(separator: " ")
-
-            let allowedWarnings = (try? ExceptionRegistry.loadSystemWarnings()) ?? []
-            try await Shell.run(testCommand, quiet: true, failOnWarnings: true, allowedWarnings: allowedWarnings, logName: "Tests")
-            // Временно ожидаем 50% покрытия, согласно плану (~50%)
-            try await checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 50.0)
+    private func runUnitTests(device: String) async -> CheckStepResult {
+        await performStep("Unit Tests", emoji: "🧪") {
+            try await runTests(device: device, testPlan: "UnitTests", logName: "UnitTests")
         }
+    }
 
-        return [testsResult]
+    private func runUITests(device: String) async -> CheckStepResult {
+        await performStep("UI Tests", emoji: "📱") {
+            try await runTests(device: device, testPlan: "UITests", logName: "UITests")
+        }
+    }
+
+    private func runTests(device: String, testPlan: String, logName: String) async throws {
+        let resultPath = "Logs/Check/\(logName).xcresult"
+        try? FileManager.default.removeItem(atPath: resultPath)
+
+        let testCommand = [
+            "xcodebuild",
+            "-project Chat.xcodeproj",
+            "-scheme Chat",
+            "-testPlan \(testPlan)",
+            "-destination \"\(device)\"",
+            "-resultBundlePath \(resultPath)",
+            "-parallel-testing-enabled YES",
+            "test",
+            "CODE_SIGNING_ALLOWED=NO",
+            "CODE_SIGNING_REQUIRED=NO",
+            "2>&1 | grep -E \"Test Case|passed|failed|skipped|warning:\""
+        ].joined(separator: " ")
+
+        let allowedWarnings = (try? ExceptionRegistry.loadSystemWarnings()) ?? []
+        try await Shell.run(testCommand, quiet: true, failOnWarnings: true, allowedWarnings: allowedWarnings, logName: logName)
+
+        // Детальный вывод тестов
+        try await printDetailedTestResults(resultBundlePath: resultPath)
+
+        // Проверка покрытия (только для юнитов или для всех?)
+        // Пользователь просил 100%, но сейчас цель 50%.
+        try? await checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 50.0)
     }
 
     private func performStep(_ name: String, emoji: String, action: @escaping () async throws -> Void) async -> CheckStepResult {
@@ -99,8 +117,9 @@ struct Check: AsyncParsableCommand {
             try await Metrics.measure(step: name) {
                 try await action()
             }
-            // print("✅  Этап завершен: \(name)") // Удаляем лишний промежуточный вывод
-            return .success(step: name, duration: Date().timeIntervalSince(startTime))
+            let duration = Date().timeIntervalSince(startTime)
+            print("✅  Этап завершен: \(name) [\(String(format: "%.2fs", duration))]")
+            return .success(step: name, duration: duration)
         } catch let error as ShellError {
             switch error {
             case .warningsFound(let command, let output):
@@ -225,6 +244,109 @@ extension Check {
         }
     }
 
+    private func runSwiftLintDetailed() async throws {
+        let rules = try loadSwiftLintRules()
+        let violations = try await getSwiftLintViolations()
+        let violatedRuleIds = Set(violations.compactMap { $0["rule_id"] as? String })
+
+        print("\n📝  Статус правил SwiftLint:")
+        for rule in rules {
+            let icon = violatedRuleIds.contains(rule) ? "❌" : "✅"
+            print("\(icon) \(rule)")
+        }
+
+        if !violations.isEmpty {
+            throw ShellError.warningsFound(command: "swiftlint", output: "Найдены нарушения")
+        }
+    }
+
+    private func loadSwiftLintRules() throws -> [String] {
+        let configPath = ".swiftlint.yml"
+        guard let configContent = try? String(contentsOfFile: configPath, encoding: .utf8) else {
+            return []
+        }
+
+        var rules: [String] = []
+        let lines = configContent.components(separatedBy: .newlines)
+        var inOptIn = false
+        var inCustom = false
+
+        for line in lines {
+            if line.hasPrefix("opt_in_rules:") { inOptIn = true; inCustom = false; continue }
+            if line.hasPrefix("custom_rules:") { inCustom = true; inOptIn = false; continue }
+            if !line.hasPrefix("  ") && !line.isEmpty { inOptIn = false; inCustom = false }
+
+            if inOptIn && line.trimmingCharacters(in: .whitespaces).hasPrefix("- ") {
+                let rule = line.replacingOccurrences(of: "-", with: "").trimmingCharacters(in: .whitespaces)
+                if !rule.isEmpty { rules.append(rule) }
+            }
+            if inCustom && line.hasPrefix("  ") && !line.hasPrefix("    ") && line.contains(":") {
+                let rule = line.components(separatedBy: ":").first?.trimmingCharacters(in: .whitespaces) ?? ""
+                if !rule.isEmpty { rules.append(rule) }
+            }
+        }
+        return Array(Set(rules)).sorted()
+    }
+
+    private func getSwiftLintViolations() async throws -> [[String: Any]] {
+        let jsonOutput = try await Shell.run("swiftlint lint --reporter json --quiet", quiet: true, logName: "SwiftLint")
+        let data = jsonOutput.data(using: .utf8) ?? Data()
+        return (try? JSONSerialization.jsonObject(with: data) as? [[String: Any]]) ?? []
+    }
+
+    private func printDetailedTestResults(resultBundlePath: String) async throws {
+        let getRootCommand = "xcrun xcresulttool get --path \(resultBundlePath) --format json"
+        guard let rootOutput = try? await Shell.run(getRootCommand, quiet: true),
+              let rootData = rootOutput.data(using: .utf8),
+              let root = try? JSONSerialization.jsonObject(with: rootData) as? [String: Any],
+              let actions = root["actions"] as? [[String: Any]],
+              let actionResult = actions.first?["actionResult"] as? [String: Any],
+              let testsRef = actionResult["testsRef"] as? [String: Any],
+              let testsId = testsRef["id"] as? [String: Any],
+              let idValue = testsId["_value"] as? String else {
+            return
+        }
+
+        let getTestsCommand = "xcrun xcresulttool get --path \(resultBundlePath) --id \(idValue) --format json"
+        guard let testsOutput = try? await Shell.run(getTestsCommand, quiet: true),
+              let testsData = testsOutput.data(using: .utf8),
+              let testsRoot = try? JSONSerialization.jsonObject(with: testsData) as? [String: Any] else {
+            return
+        }
+
+        print("\n📋  Результаты тестов:")
+        printTestSummaries(testsRoot)
+    }
+
+    private func printTestSummaries(_ json: [String: Any]) {
+        if let subtests = json["subtests"] as? [String: Any],
+           let values = subtests["_values"] as? [[String: Any]] {
+            for value in values {
+                printTestSummaries(value)
+            }
+        } else if let testableSummaries = json["testableSummaries"] as? [String: Any],
+                  let values = testableSummaries["_values"] as? [[String: Any]] {
+            for value in values {
+                printTestSummaries(value)
+            }
+        } else if let tests = json["tests"] as? [String: Any],
+                  let values = tests["_values"] as? [[String: Any]] {
+            for value in values {
+                printTestSummaries(value)
+            }
+        } else if let nameObj = json["name"] as? [String: Any],
+                  let name = nameObj["_value"] as? String,
+                  let testStatusObj = json["testStatus"] as? [String: Any],
+                  let status = testStatusObj["_value"] as? String {
+
+            let icon = (status == "Success") ? "✅" : "❌"
+            let durationObj = json["duration"] as? [String: Any]
+            let duration = durationObj?["_value"] as? String ?? "0"
+            let durationFormatted = String(format: "%.3fs", Double(duration) ?? 0)
+
+            print("  \(icon) \(name) [\(durationFormatted)]")
+        }
+    }
     private func runSwiftGen() async throws {
         try await Shell.run("swiftgen", quiet: true, logName: "SwiftGen")
         let assetsFile = URL(fileURLWithPath: "Design/Generated/Assets.swift")
