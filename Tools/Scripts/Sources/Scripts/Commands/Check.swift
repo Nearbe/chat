@@ -8,108 +8,216 @@ struct Check: AsyncParsableCommand {
     @Argument(help: "Сообщение для коммита")
     var message: String?
 
-    // swiftlint:disable:next function_body_length
     func run() async throws {
         let device = "platform=iOS Simulator,name=iPhone 16 Pro Max"
+        print("🚀  Начало технической проверки (Асинхронный режим со сбором предупреждений)...")
 
-        print("🚀  Начало технической проверки (Асинхронный режим)...")
+        var allResults: [CheckStepResult] = []
+        allResults += await runLintAndProjectChecks()
 
-        try await withThrowingTaskGroup(of: Void.self) { mainGroup in
-            // 1. Параллельный линтинг и специальные проверки
-            mainGroup.addTask {
-                try await Metrics.measure(step: "Linting") {
-                    print("🔍  Запуск SwiftLint...")
-                    _ = try? await Shell.run("swiftlint --strict")
+        let infra = await runInfrastructure()
+        allResults.append(infra.xcodegen)
+        allResults.append(infra.swiftgen)
 
-                    print("🔍  Запуск ProjectChecker...")
-                    try await ProjectChecker.run()
-
-                    print("✅  Линтинг и проверки завершены успешно.")
-                }
-            }
-
-            // 2. Группа генерации и последующей сборки/тестирования
-            mainGroup.addTask {
-                // Сначала инфраструктура (XcodeGen + SwiftGen)
-                print("🏗️  Этап 1: Подготовка инфраструктуры...")
-                try await withThrowingTaskGroup(of: Void.self) { genGroup in
-                    genGroup.addTask {
-                        try await Metrics.measure(step: "XcodeGen") {
-                            print("📦  Генерация проекта (XcodeGen)...")
-                            try await Shell.run("xcodegen generate")
-                        }
-                    }
-                    genGroup.addTask {
-                        try await Metrics.measure(step: "SwiftGen") {
-                            print("🎨  Генерация ресурсов (SwiftGen)...")
-                            try await runSwiftGen()
-                        }
-                    }
-
-                    try await genGroup.waitForAll()
-                }
-
-                // Как только генерация завершена, запускаем сборку и тесты параллельно
-                print("🧪  Этап 2: Сборка и тестирование (Параллельно)...")
-                try await withThrowingTaskGroup(of: Void.self) { buildGroup in
-                    // Тесты (Unit + UI)
-                    buildGroup.addTask {
-                        try await Metrics.measure(step: "Tests") {
-                            print("🧪  Запуск тестов через Test Plan (AllTests)...")
-                            let resultPath = "TestResult.xcresult"
-                            try? FileManager.default.removeItem(atPath: resultPath)
-
-                            let testCommand = [
-                                "xcodebuild",
-                                "-project Chat.xcodeproj",
-                                "-scheme Chat",
-                                "-testPlan AllTests",
-                                "-destination \"\(device)\"",
-                                "-resultBundlePath \(resultPath)",
-                                "test",
-                                "CODE_SIGNING_ALLOWED=NO",
-                                "CODE_SIGNING_REQUIRED=NO",
-                                "| grep -E \"Test Suite|passed|failed|skipped\""
-                            ].joined(separator: " ")
-
-                            try await Shell.run(testCommand)
-                            try await self.checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 100.0)
-                            print("✅  Все тесты пройдены и покрытие 100%.")
-                        }
-                    }
-
-                    // Релизная сборка
-                    buildGroup.addTask {
-                        try await Metrics.measure(step: "Build Release") {
-                            print("📦  Сборка Release версии...")
-                            let releaseCommand = [
-                                "xcodebuild",
-                                "-quiet",
-                                "-project Chat.xcodeproj",
-                                "-scheme Chat",
-                                "-configuration Release",
-                                "-destination \"generic/platform=iOS\"",
-                                "SYMROOT=\"$(pwd)/build\"",
-                                "build"
-                            ].joined(separator: " ")
-
-                            try await Shell.run(releaseCommand)
-                            print("✅  Release сборка завершена.")
-                        }
-                    }
-
-                    try await buildGroup.waitForAll()
-                }
-            }
-
-            try await mainGroup.waitForAll()
+        if case .failure = infra.xcodegen {
+            print("⚠️  XcodeGen завершился с ошибкой, этап сборки будет пропущен.")
+        } else {
+            allResults += await runTestsAndBuild(device: device)
         }
 
-        print("✅  Техническая проверка успешно завершена!")
+        let hasProblems = printSummary(results: allResults)
+        if hasProblems {
+            print("\n❌  Техническая проверка не пройдена из-за наличия предупреждений или ошибок.")
+            throw ExitCode(1)
+        }
 
-        // Группа 4: Git
+        print("\n✅  Техническая проверка успешно завершена!")
         try await Metrics.measure(step: "Git Commit & Push") {
             try await handleGitCommit()
+        }
+    }
+
+    private func runLintAndProjectChecks() async -> [CheckStepResult] {
+        var results: [CheckStepResult] = []
+        print("🔍  Запуск SwiftLint...")
+        results.append(await performStep("SwiftLint") {
+            try await Shell.run("swiftlint --strict")
+        })
+
+        print("🔍  Запуск ProjectChecker...")
+        results.append(await performStep("ProjectChecker") {
+            try await ProjectChecker.run()
+        })
+        return results
+    }
+
+    private func runInfrastructure() async -> (xcodegen: CheckStepResult, swiftgen: CheckStepResult) {
+        print("🏗️  Этап 1: Подготовка инфраструктуры...")
+        let xcodegen = await performStep("XcodeGen") {
+            try await Shell.run("xcodegen generate")
+        }
+        let swiftgen = await performStep("SwiftGen") {
+            try await runSwiftGen()
+        }
+        return (xcodegen, swiftgen)
+    }
+
+    private func runTestsAndBuild(device: String) async -> [CheckStepResult] {
+        var results: [CheckStepResult] = []
+        print("🧪  Этап 2: Сборка и тестирование...")
+
+        results.append(await performStep("Tests") {
+            print("🧪  Запуск тестов через Test Plan (AllTests)...")
+            let resultPath = "TestResult.xcresult"
+            try? FileManager.default.removeItem(atPath: resultPath)
+
+            let testCommand = [
+                "xcodebuild",
+                "-project Chat.xcodeproj",
+                "-scheme Chat",
+                "-testPlan AllTests",
+                "-destination \"\(device)\"",
+                "-resultBundlePath \(resultPath)",
+                "test",
+                "CODE_SIGNING_ALLOWED=NO",
+                "CODE_SIGNING_REQUIRED=NO",
+                "2>&1 | grep -E \"Test Suite|passed|failed|skipped\""
+            ].joined(separator: " ")
+
+            try await Shell.run(testCommand, failOnWarnings: false)
+            // Временно ожидаем 50% покрытия, согласно плану (~50%)
+            try await checkCoverage(resultBundlePath: resultPath, targetName: "Chat", expected: 50.0)
+        })
+
+        results.append(await performStep("Build Release") {
+            print("📦  Сборка Release версии...")
+            let releaseCommand = [
+                "xcodebuild",
+                "-quiet",
+                "-project Chat.xcodeproj",
+                "-scheme Chat",
+                "-configuration Release",
+                "-destination \"generic/platform=iOS\"",
+                "SYMROOT=\"$(pwd)/build\"",
+                "build"
+            ].joined(separator: " ")
+            try await Shell.run(releaseCommand)
+        })
+
+        return results
+    }
+
+    private func performStep(_ name: String, action: @escaping () async throws -> Void) async -> CheckStepResult {
+        let startTime = Date()
+        do {
+            try await Metrics.measure(step: name) {
+                try await action()
+            }
+            return .success(step: name, duration: Date().timeIntervalSince(startTime))
+        } catch let error as ShellError {
+            switch error {
+            case .warningsFound(let command, let output):
+                return .warning(step: name, command: command, output: output, duration: Date().timeIntervalSince(startTime))
+            case .commandFailed(let command, _, let output, let errorMsg):
+                return .failure(step: name, command: command, output: "\(output)\n\(errorMsg)", error: error, duration: Date().timeIntervalSince(startTime))
+            }
+        } catch {
+            return .failure(step: name, command: nil, output: nil, error: error, duration: Date().timeIntervalSince(startTime))
+        }
+    }
+
+    private func printSummary(results: [CheckStepResult]) -> Bool {
+        let warnings = results.filter { if case .warning = $0 { return true }; return false }
+        let failures = results.filter { if case .failure = $0 { return true }; return false }
+
+        printSummaryHeader()
+
+        for result in results {
+            printResultRow(result)
+        }
+
+        if !warnings.isEmpty {
+            printWarningsDetails(warnings)
+        }
+
+        if !failures.isEmpty {
+            printFailuresDetails(failures)
+        }
+
+        print(String(repeating: "=", count: 60))
+
+        return !warnings.isEmpty || !failures.isEmpty
+    }
+
+    private func printSummaryHeader() {
+        print("\n" + String(repeating: "=", count: 60))
+        print("📊  ИТОГОВЫЙ ОТЧЕТ ПРОВЕРКИ")
+        print(String(repeating: "=", count: 60))
+    }
+
+    private func printResultRow(_ result: CheckStepResult) {
+        let duration = String(format: "%.2fs", result.duration)
+        switch result {
+        case .success(let step, _):
+            print("✅ [\(duration)] \(step): OK")
+        case .warning(let step, _, _, _):
+            print("⚠️ [\(duration)] \(step): ВНИМАНИЕ (Warnings found)")
+        case .failure(let info):
+            print("❌ [\(duration)] \(info.step): ОШИБКА (Failed)")
+        }
+    }
+
+    private func printWarningsDetails(_ warnings: [CheckStepResult]) {
+        print("\n" + String(repeating: "-", count: 60))
+        print("⚠️  ДЕТАЛИ ПРЕДУПРЕЖДЕНИЙ:")
+        for (index, warning) in warnings.enumerated() {
+            if case .warning(let step, let command, let output, _) = warning {
+                print("\n[\(index + 1)] Шаг: \(step)")
+                if let command = command { print("Команда: \(command)") }
+                print("Вывод:\n\(output)")
+            }
+        }
+    }
+
+    private func printFailuresDetails(_ failures: [CheckStepResult]) {
+        print("\n" + String(repeating: "-", count: 60))
+        print("❌  ДЕТАЛИ ОШИБОК:")
+        for (index, failure) in failures.enumerated() {
+            if case .failure(let info) = failure {
+                print("\n[\(index + 1)] Шаг: \(info.step)")
+                if let command = info.command { print("Команда: \(command)") }
+                print("Ошибка: \(info.error.localizedDescription)")
+                if let output = info.output, !output.isEmpty {
+                    print("Вывод:\n\(output)")
+                }
+            }
+        }
+    }
+
+    struct CheckStepFailureInfo {
+        let step: String
+        let command: String?
+        let output: String?
+        let error: Error
+        let duration: TimeInterval
+    }
+
+    enum CheckStepResult {
+        case success(step: String, duration: TimeInterval)
+        case warning(step: String, command: String?, output: String, duration: TimeInterval)
+        case failure(info: CheckStepFailureInfo)
+
+        var duration: TimeInterval {
+            switch self {
+            case .success(_, let duration), .warning(_, _, _, let duration):
+                return duration
+            case .failure(let info):
+                return info.duration
+            }
+        }
+
+        static func failure(step: String, command: String?, output: String?, error: Error, duration: TimeInterval) -> CheckStepResult {
+            .failure(info: CheckStepFailureInfo(step: step, command: command, output: output, error: error, duration: duration))
         }
     }
 

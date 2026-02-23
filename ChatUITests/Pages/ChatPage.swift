@@ -4,40 +4,35 @@ import XCTest
 /// Объект страницы для экрана чата
 @MainActor
 final class ChatPage {
-    let app: XCUIApplication
-    
-    init(app: XCUIApplication) {
-        self.app = app
-    }
     
     // MARK: - Элементы
     
-    var emptyStateText: XCUIElement {
-        app.staticTexts["empty_state_text"]
+    var emptyStateText: BaseElement {
+        BaseElement(app.staticTexts["empty_state_text"])
     }
     
-    var messageInputField: XCUIElement {
-        app.descendants(matching: .any)["message_input_field"]
+    var messageInputField: BaseElement {
+        BaseElement(app.descendants(matching: .any)["message_input_field"])
     }
     
-    var sendButton: XCUIElement {
-        app.buttons["send_button"]
+    var sendButton: BaseElement {
+        // Для кнопок, которые могут быть неактивны, отключаем ожидание в init
+        BaseElement(app.buttons["send_button"], waitForExistence: false)
     }
     
-    var historyButton: XCUIElement {
-        app.buttons["История чатов"]
+    var historyButton: BaseElement {
+        BaseElement(app.buttons["История чатов"], waitForExistence: false)
     }
     
-    var modelPickerButton: XCUIElement {
-        app.buttons["Выбор модели"]
+    var modelPickerButton: BaseElement {
+        BaseElement(app.buttons["Выбор модели"], waitForExistence: false)
     }
     
     // MARK: - Действия
     
     @discardableResult
     func typeMessage(_ text: String) -> Self {
-        messageInputField.tap()
-        messageInputField.typeText(text)
+        messageInputField.type(text)
         return self
     }
     
@@ -61,11 +56,11 @@ final class ChatPage {
     
     // MARK: - Проверки
     
-    func hasMessage(_ text: String, timeout: TimeInterval = 3) -> Bool {
-        app.staticTexts[text].waitForExistence(timeout: timeout)
+    func checkHasMessage(_ text: String) {
+        BaseElement(app.staticTexts[text]).check(exists: true)
     }
     
-    func isEmptyStateVisible(timeout: TimeInterval = 5) -> Bool {
-        emptyStateText.waitForExistence(timeout: timeout)
+    func checkEmptyStateVisible() {
+        emptyStateText.check(exists: true)
     }
 }

@@ -2,62 +2,50 @@
 import XCTest
 
 @MainActor
-final class ChatUITests: XCTestCase {
-    var app: XCUIApplication!
-
-    override func setUp() async throws {
-        try await super.setUp()
-        continueAfterFailure = false
-        app = XCUIApplication()
-        app.launchArguments = ["-reset"]
-        app.launch()
-    }
+final class ChatUITests: BaseTestCase {
 
     func testLaunch() async throws {
-        // Базовая проверка, что главный экран загрузился
-        XCTAssertTrue(app.exists)
+        step("Проверка запуска приложения") {
+            XCTAssertTrue(app.exists)
+        }
     }
 
     func testAuthenticationAndMessaging() async throws {
-        // Запускаем с авторизацией для теста сообщений
-        app.terminate()
-        app.launchArguments = ["-auth"]
-        app.launch()
+        step("Перезапуск с авторизацией") {
+            app.terminate()
+            app.launchArguments = ["-ui-tests", "-auth"]
+            app.launch()
+        }
         
-        let chatPage = ChatPage(app: app)
+        let chatPage = ChatPage()
         
-        // 1. Ожидаем появления интерфейса чата (пустого состояния)
-        XCTAssertTrue(chatPage.isEmptyStateVisible())
-        
-        // 2. Отправка сообщения
-        chatPage.typeMessage("Привет, AI!")
-        
-        // Если кнопка активна (выбрана модель и сервер доступен), нажимаем
-        if chatPage.sendButton.isEnabled {
-            chatPage.tapSend()
+        step("Отправка сообщения") {
+            chatPage.checkEmptyStateVisible()
+            chatPage.typeMessage("Привет, AI!")
             
-            // Проверяем появление "баббла" сообщения (по тексту)
-            XCTAssertTrue(chatPage.hasMessage("Привет, AI!"))
+            if chatPage.sendButton.element.isEnabled {
+                chatPage.tapSend()
+                chatPage.checkHasMessage("Привет, AI!")
+            }
         }
     }
 
     func testNavigation() async throws {
-        let chatPage = ChatPage(app: app)
+        let chatPage = ChatPage()
         
-        // 1. Проверка открытия боковой панели истории
-        if chatPage.historyButton.exists {
-            chatPage.openHistory()
-            // Проверяем, что панель открылась (например, по заголовку "История")
-            XCTAssertTrue(app.staticTexts["История"].waitForExistence(timeout: 2))
-            // Закрываем панель
-            app.swipeDown(velocity: .fast)
+        step("Проверка боковой панели истории") {
+            if chatPage.historyButton.element.exists {
+                chatPage.openHistory()
+                XCTAssertTrue(app.staticTexts["История"].waitForExistence(timeout: 2))
+                app.swipeDown(velocity: .fast)
+            }
         }
         
-        // 2. Проверка выбора модели
-        if chatPage.modelPickerButton.exists {
-            chatPage.openModelPicker()
-            // Проверяем наличие списка моделей
-            XCTAssertTrue(app.staticTexts["Доступные модели"].waitForExistence(timeout: 2))
+        step("Проверка выбора модели") {
+            if chatPage.modelPickerButton.element.exists {
+                chatPage.openModelPicker()
+                XCTAssertTrue(app.staticTexts["Доступные модели"].waitForExistence(timeout: 2))
+            }
         }
     }
 }

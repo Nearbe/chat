@@ -14,17 +14,9 @@ struct ChatApp: App {
     @Injected(\.networkMonitor) private var networkMonitor
 
     init() {
-        let args = ProcessInfo.processInfo.arguments
-        let tokenKey = DeviceConfiguration.configuration(for: DeviceIdentity.currentName)?.tokenKey ?? "auth_token_test"
-
-        if args.contains("-reset") {
-            // Очищаем токен для тестирования экрана авторизации
-            KeychainHelper.delete(key: tokenKey)
-            // И очищаем базу данных
-            Task { @MainActor in
-                PersistenceController.shared.deleteAll()
-            }
-        }
+        #if DEBUG
+        UITestModule.setupTestEnvironment()
+        #endif
     }
 
     var body: some Scene {
