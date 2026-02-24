@@ -561,6 +561,96 @@ Swift-based CLI в `Tools/Scripts/` (точка входа `Scripts.swift`):
 
 Документация также скачивается для Ollama (_docs), но runtime-интеграции нет.
 
+---
+
+## AI-Agent Команда
+
+> **Важно**: Вся команда разработки — AI агенты. Нет реальных людей. Human (пользователь) — только заказчик.
+
+### Обзор
+
+Проект разрабатывается командой из **29 AI-агентов**, координируемых через иерархическую структуру. Агенты работают
+параллельно, используя trigger keywords для маршрутизации задач.
+
+### Структура команды
+
+```
+                    ┌──────────────────┐
+                    │   USER REQUEST   │
+                    └────────┬─────────┘
+                             │
+                    ┌────────▼─────────┐
+                    │       CTO        │ ← Fallback, routing
+                    └────────┬─────────┘
+                             │
+     ┌───────────────────────┼───────────────────────┐
+     │                       │                       │
+┌────▼─────┐          ┌──────▼──────┐         ┌─────▼──────┐
+│  CLIENT  │          │   SERVER    │         │   DEVOPS   │
+│   LEAD   │          │    LEAD     │         │    LEAD    │
+└────┬─────┘          └──────┬──────┘         └─────┬──────┘
+     │                       │                       │
+  Все client            Все server              DevOps QA
+  агенты                агенты
+```
+
+### Типы агентов
+
+| Тип              | Режим           | Примеры                                      |
+|------------------|-----------------|----------------------------------------------|
+| **Координаторы** | Последовательно | CTO, Client Lead, Server Lead, DevOps Lead   |
+| **Исполнители**  | Параллельно     | Client Developer, Server Developer, Designer |
+| **Аналитики**    | Параллельно     | QA, Security, Performance, Accessibility     |
+| **Поддержка**    | Параллельно     | Docs, Metrics, Analytics, HR                 |
+
+### Волны запуска
+
+| Волна      | Недели | Фокус              | Агенты                                                                                     |
+|------------|--------|--------------------|--------------------------------------------------------------------------------------------|
+| **Wave 1** | 1-2    | Core Team          | CTO, Client Lead, Server Lead, DevOps Lead, Head of QA, Product Manager, Designer Lead, HR |
+| **Wave 2** | 3-6    | Implementation     | Client/Server Developer, Designer, Metrics, Docs                                           |
+| **Wave 3** | 7-10   | Quality & Security | QA Leads, Security Engineers, Accessibility                                                |
+| **Wave 4** | 11-16  | Advanced Features  | Integration, Research, Analytics                                                           |
+| **Wave 5** | 17+    | Platform Expansion | iPad, macOS, Widgets                                                                       |
+
+### Коммуникация
+
+См. полный протокол: `AGENT_COMMUNICATION.md`
+
+**Trigger Keywords:**
+
+- UI/SwiftUI → Client Developer
+- API/LM Studio → Server Developer
+- Security → Security Engineers
+- Testing → QA Leads
+- Documentation → Documents Lead
+
+### Анализ проекта
+
+Навык `project_analysis` позволяет проводить комплексный анализ состояния проекта.
+
+**Режимы:**
+
+| Режим           | Флаг                   | Описание                           |
+|-----------------|------------------------|------------------------------------|
+| Инкрементальный | (по умолч.)            | Только изменённые зоны             |
+| Полный          | `--full`               | Все роли с переиспользованием кэша |
+| Чистый          | `--force`              | Без кэша, полный анализ            |
+| Целевой         | `--roles r1,r2`        | Конкретные роли                    |
+| Review          | `--review`             | Обзор всех ANALYSIS файлов         |
+| Review роль     | `--review-role <role>` | Детальная проверка                 |
+
+**Примеры:**
+
+```bash
+# Безопасность + Performance
+project_analysis --roles client_security_engineer,client_performance_engineer
+
+# Проверить актуальность прошлых анализов
+project_analysis --review
+project_analysis --review-role client_security_engineer
+```
+
 ### Ограничения iOS-разработки
 
 - **Personal Team**: Без CloudKit, Push Notifications, IAP, Apple Pay

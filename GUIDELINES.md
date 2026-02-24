@@ -14,26 +14,37 @@
 Проект использует систему автономных агентов для разделения ответственности. Все агенты находятся в директории
 `Agents/`:
 
-| Агент                        | Описание                                                         | Уровень доступа |
-|------------------------------|------------------------------------------------------------------|-----------------|
-| **owner-product-consultant** | Консультант Owner Product, согласовывает решения с @nearbe       | Чтение          |
-| **product-manager**          | Технический PM, оценивает объём работ и составляет Roadmap       | Чтение          |
-| **cto**                      | Технический директор, архитектурные решения, координация агентов | Полный          |
-| **client-lead**              | Лид клиентской iOS-разработки                                    | Полный          |
-| **server-lead**              | Лид серверной разработки (LM Studio API)                         | Полный          |
-| **designer-lead**            | Лид дизайна                                                      | Полный          |
-| **devops-lead**              | Лид DevOps                                                       | Полный          |
-| **client-developer**         | Клиентский разработчик                                           | Полный          |
-| **server-developer**         | Серверный разработчик                                            | Полный          |
-| **designer**                 | Дизайнер                                                         | Чтение          |
-| **devops**                   | DevOps инженер                                                   | Чтение          |
-| **head-of-qa**               | Глава QA, координация всех QA команд                             | Чтение          |
-| **client-qa-lead**           | QA лид клиентской части                                          | Полный          |
-| **server-qa-lead**           | QA лид серверной части                                           | Полный          |
-| **designer-qa-lead**         | QA лид визуального тестирования                                  | Полный          |
-| **devops-qa-lead**           | QA лид DevOps                                                    | Полный          |
-| **documents-lead**           | Лид документации                                                 | Полный          |
-| **hr**                       | HR менеджер, создание новых агентов                              | Чтение          |
+| Агент                             | Описание                                                         | Уровень доступа |
+|-----------------------------------|------------------------------------------------------------------|-----------------|
+| **owner-product-consultant**      | Консультант Owner Product, согласовывает решения с @nearbe       | Чтение          |
+| **product-manager**               | Технический PM, оценивает объём работ и составляет Roadmap       | Чтение          |
+| **cto**                           | Технический директор, архитектурные решения, координация агентов | Полный          |
+| **client-lead**                   | Лид клиентской iOS-разработки                                    | Полный          |
+| **server-lead**                   | Лид серверной разработки (LM Studio API)                         | Полный          |
+| **designer-lead**                 | Лид дизайна                                                      | Полный          |
+| **devops-lead**                   | Лид DevOps                                                       | Полный          |
+| **client-developer**              | Клиентский разработчик                                           | Полный          |
+| **server-developer**              | Серверный разработчик                                            | Полный          |
+| **designer**                      | Дизайнер                                                         | Чтение          |
+| **devops**                        | DevOps инженер                                                   | Чтение          |
+| **head-of-qa**                    | Глава QA, координация всех QA команд                             | Чтение          |
+| **client-qa-lead**                | QA лид клиентской части                                          | Полный          |
+| **server-qa-lead**                | QA лид серверной части                                           | Полный          |
+| **designer-qa-lead**              | QA лид визуального тестирования                                  | Полный          |
+| **devops-qa-lead**                | QA лид DevOps                                                    | Полный          |
+| **documents-lead**                | Лид документации                                                 | Полный          |
+| **hr**                            | HR менеджер, создание новых агентов                              | Чтение          |
+| **staff-engineer**                | Staff Engineer, рефакторинг, технические стандарты               | Полный          |
+| **metrics**                       | Метрики, analytics, мониторинг                                   | Чтение          |
+| **client-security-engineer**      | Безопасность iOS, Keychain, Data Protection                      | Полный          |
+| **client-platform-engineer**      | iPad/macOS, widgets, кросс-платформенность                       | Полный          |
+| **client-performance-engineer**   | Производительность iOS, SwiftData, profiling                     | Полный          |
+| **client-accessibility-engineer** | Accessibility, VoiceOver, Dynamic Type                           | Полный          |
+| **client-localization-engineer**  | Локализация, i18n, String Catalogs, RTL                          | Полный          |
+| **server-security-engineer**      | Безопасность API, токены, уязвимости                             | Полный          |
+| **server-integration-engineer**   | Интеграция с Ollama/OpenAI, MCP, провайдеры                      | Полный          |
+| **cto-research-engineer**         | R&D, tool calling, новые технологии                              | Чтение          |
+| **analytics-engineer**            | Event tracking, user behavior, telemetry                         | Чтение          |
 
 ### Права доступа
 
@@ -43,8 +54,20 @@
 ### Workflow агентов
 
 ```
-@nearbe → Owner Product Consultant → Product Manager → CTO → Leads → Developers → QA → DevOps
+@nearbe → Owner Product Consultant → Product Manager → CTO → Department Leads → Engineers/Developers/QA → DevOps
 ```
+
+Организационная структура (9 отделов):
+
+- **Product**: Product Manager, Owner Product Consultant, Metrics, Analytics Engineer
+- **CTO**: Staff Engineer, Research Engineer
+- **Client**: Lead, Developer, QA Lead, Security/Platform/Performance/Accessibility/Localization Engineers
+- **Server**: Lead, Developer, QA Lead, Security/Integration Engineers
+- **Design**: Lead, Designer, QA Lead
+- **DevOps**: Lead, DevOps, QA Lead
+- **QA**: Head of QA
+- **Documentation**: Documents Lead
+- **HR**: HR
 
 Каждый агент активируется через skill system. Используйте соответствующий skill для запуска агента.
 
@@ -232,3 +255,21 @@
 - SnapshotTesting (Visual Regression Testing)
 - Apple Security framework (Keychain)
 - SwiftLint (Code Quality)
+
+## Анализ проекта
+
+Для оценки состояния проекта используется навык `project_analysis`.
+
+| Режим           | Флаг            | Описание               |
+|-----------------|-----------------|------------------------|
+| Инкрементальный | (по умолч.)     | Только изменённые зоны |
+| Полный          | `--full`        | Все роли с кэшем       |
+| Целевой         | `--roles r1,r2` | Конкретные роли        |
+| Review          | `--review`      | Обзор ANALYSIS файлов  |
+
+Примеры:
+
+```bash
+project_analysis --roles client_security_engineer,client_performance_engineer
+project_analysis --review
+```

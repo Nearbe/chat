@@ -18,6 +18,9 @@ packages:
   SnapshotTesting:
     url: https://github.com/pointfreeco/swift-snapshot-testing.git
     from: 1.15.4
+  SQLite:
+    url: https://github.com/stephencelis/SQLite.swift.git
+    from: 0.15.3
   Scripts:
     path: Tools/Scripts
 
@@ -138,9 +141,14 @@ targets:
   Scripts:
     type: tool
     platform: macOS
+    sources:
+      - path: Agents/metrics
+        group: Agents/metrics
     dependencies:
       - package: Scripts
         product: scripts
+      - package: SQLite
+        product: SQLite
     settings:
       base:
         MACOSX_DEPLOYMENT_TARGET: "14.0"

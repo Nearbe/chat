@@ -3,78 +3,26 @@ import Foundation
 
 /// Запись метрик выполнения операции.
 /// Хранится в SQLite базе данных для анализа производительности.
-///
-/// Связь с документацией:
-/// - SQLite.swift: https://github.com/stephencelis/SQLite.swift
-struct MetricsRecord: Codable, Sendable {
-    // MARK: - Идентификация
+public struct MetricsRecord: Codable {
+    public let id: UUID
+    public let operation: String
+    public let timestamp: Date
+    public var durationSeconds: Double
+    public var cpuBefore: Double
+    public var cpuDuringAvg: Double
+    public var cpuPeak: Double
+    public var ramBeforeMB: Int
+    public var ramDuringAvgMB: Int
+    public var ramPeakMB: Int
+    public var exitCode: Int
+    public var warningsCount: Int
+    public var errorsCount: Int
+    public var outputSizeKB: Int
+    public var xcodeVersion: String
+    public var swiftVersion: String
+    public var schemeName: String
 
-    /// Уникальный идентификатор записи
-    let id: UUID
-
-    /// Название операции (xcodebuild, test, check, ship)
-    let operation: String
-
-    /// Timestamp начала операции
-    let timestamp: Date
-
-    // MARK: - Временные метрики
-
-    /// Продолжительность операции в секундах
-    var durationSeconds: Double
-
-    // MARK: - CPU метрики (в процентах)
-
-    /// CPU до начала операции (0-100)
-    var cpuBefore: Double
-
-    /// Среднее CPU во время операции
-    var cpuDuringAvg: Double
-
-    /// Пиковое значение CPU
-    var cpuPeak: Double
-
-    // MARK: - RAM метрики (в MB)
-
-    /// RAM до начала операции
-    var ramBeforeMB: Int
-
-    /// Средняя RAM во время операции
-    var ramDuringAvgMB: Int
-
-    /// Пиковое значение RAM
-    var ramPeakMB: Int
-
-    // MARK: - Результат выполнения
-
-    /// Код завершения (0 = успех)
-    var exitCode: Int
-
-    /// Количество warnings
-    var warningsCount: Int
-
-    /// Количество errors
-    var errorsCount: Int
-
-    // MARK: - Артефакты
-
-    /// Размер вывода в KB
-    var outputSizeKB: Int
-
-    // MARK: - Метаданные
-
-    /// Версия Xcode
-    var xcodeVersion: String
-
-    /// Версия Swift
-    var swiftVersion: String
-
-    /// Имя схемы (Chat, Check, Ship)
-    var schemeName: String
-
-    // MARK: - Инициализация
-
-    init(
+    public init(
         id: UUID = UUID(),
         operation: String,
         timestamp: Date = Date(),
@@ -111,18 +59,12 @@ struct MetricsRecord: Codable, Sendable {
         self.swiftVersion = swiftVersion
         self.schemeName = schemeName
     }
-}
 
-// MARK: - Удобные методы
-
-extension MetricsRecord {
-    /// Успешная ли операция
-    var isSuccess: Bool {
+    public var isSuccess: Bool {
         exitCode == 0
     }
 
-    /// Форматированная продолжительность
-    var formattedDuration: String {
+    public var formattedDuration: String {
         if durationSeconds < 60 {
             return String(format: "%.1fs", durationSeconds)
         } else {
@@ -132,8 +74,7 @@ extension MetricsRecord {
         }
     }
 
-    /// Сводка по ресурсам
-    var resourcesSummary: String {
+    public var resourcesSummary: String {
         """
         CPU: \(String(format: "%.0f", cpuDuringAvg))% avg, \(String(format: "%.0f", cpuPeak))% peak
         RAM: \(ramDuringAvgMB) MB avg, \(ramPeakMB) MB peak

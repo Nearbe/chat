@@ -215,6 +215,18 @@ xcodebuild test -scheme Chat -destination 'platform=iOS Simulator,name=iPhone 16
 
 ## Настройка CI/CD
 
+### Важно: Локальный CI/CD
+
+Весь CI/CD работает **локально** на машине **Saint Celestine**:
+
+| Компонент       | Где выполняется                   |
+|-----------------|-----------------------------------|
+| `scripts check` | Локально (линтинг, сборка, тесты) |
+| `scripts setup` | Локально (XcodeGen, SwiftGen)     |
+| `scripts ship`  | Локально (релиз-сборка, деплой)   |
+
+**GitHub используется только как backup** — чтобы ничего не пропало. Никаких GitHub Actions, webhooks или облачного CI.
+
 ### Для Ship (деплой на устройство)
 
 ```bash

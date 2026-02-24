@@ -49,6 +49,29 @@ Features/Settings/      # Настройки
 Features/Common/        # Общие компоненты
 App/                    # Точка входа
 Design/                 # Дизайн-система
+Services/ThemeManager.swift
+```
+
+### Модели (Client)
+
+```
+Models/Message.swift          # SwiftData модель сообщения
+Models/ChatSession.swift      # SwiftData модель сессии
+Models/ModelInfo.swift        # Информация о модели
+Models/ModelCapabilities.swift
+Models/ModelQuantization.swift
+Models/GenerationStats.swift
+```
+
+### Общие директории (Shared)
+
+```
+Core/                         # Утилиты и расширения
+Data/                         # PersistenceController
+Resources/                    # Ресурсы
+Services/Errors/              # Общие ошибки
+Services/NetworkConfiguration.swift
+Models/Tool*.swift            # Инструменты (используют оба)
 ```
 
 ### Технологии

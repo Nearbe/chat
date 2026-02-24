@@ -15,7 +15,7 @@
     "testing": "TESTING.md",
     "versioning": "VERSIONING.md",
     "agents_readme": "Agents/README.md",
-    "team_structure": "Agents/hr/workspace/team-structure.md"
+    "team_structure": "AGENT_COMMUNICATION.md"
   },
   "deployment": {
     "setup": "swift run scripts setup",
@@ -25,8 +25,159 @@
   "design_system": "Design/",
   "api_standard": "LM Studio v1 API",
   "authentication": "Services/Auth/",
+  "project_analysis": {
+    "skill": "project_analysis",
+    "modes": {
+      "incremental": "По умолчанию - только изменённые зоны",
+      "full": "--full - все роли с кэшем",
+      "force": "--force - без кэша",
+      "targeted": "--roles r1,r2 - конкретные роли",
+      "review": "--review - обзор ANALYSIS файлов",
+      "review_role": "--review-role <role> - детальная проверка"
+    },
+    "roles": [
+      "client_developer",
+      "server_developer",
+      "designer",
+      "client_security_engineer",
+      "client_accessibility_engineer",
+      "client_performance_engineer",
+      "client_platform_engineer",
+      "client_lead",
+      "server_lead",
+      "devops_lead",
+      "head_of_qa",
+      "designer_lead",
+      "metrics"
+    ]
+  },
   "agents": {
-    "count": 18,
-    "workflow": "@nearbe → Owner Product Consultant → Product Manager → CTO → Leads → Developers → QA → DevOps"
+    "count": 29,
+    "communication": "AGENT_COMMUNICATION.md",
+    "wave_launch": {
+      "wave_1": [
+        "cto",
+        "client_lead",
+        "server_lead",
+        "devops_lead",
+        "head_of_qa",
+        "product_manager",
+        "designer_lead",
+        "hr"
+      ],
+      "wave_2": [
+        "client_developer",
+        "server_developer",
+        "designer",
+        "metrics",
+        "documents_lead"
+      ],
+      "wave_3": [
+        "client_qa_lead",
+        "server_qa_lead",
+        "client_security_engineer",
+        "server_security_engineer",
+        "client_accessibility_engineer"
+      ],
+      "wave_4": [
+        "server_integration_engineer",
+        "cto_research_engineer",
+        "analytics_engineer"
+      ],
+      "wave_5": [
+        "client_platform_engineer",
+        "client_localization_engineer"
+      ]
+    },
+    "departments": {
+      "client": {
+        "lead": "client_lead",
+        "roles": [
+          "client_developer",
+          "client_qa_lead",
+          "client_security_engineer",
+          "client_platform_engineer",
+          "client_performance_engineer",
+          "client_accessibility_engineer",
+          "client_localization_engineer"
+        ]
+      },
+      "server": {
+        "lead": "server_lead",
+        "roles": [
+          "server_developer",
+          "server_qa_lead",
+          "server_security_engineer",
+          "server_integration_engineer"
+        ]
+      },
+      "design": {
+        "lead": "designer_lead",
+        "roles": [
+          "designer",
+          "designer_qa_lead"
+        ]
+      },
+      "devops": {
+        "lead": "devops_lead",
+        "roles": [
+          "devops",
+          "devops_qa_lead"
+        ]
+      },
+      "cto": {
+        "roles": [
+          "staff_engineer",
+          "cto_research_engineer"
+        ]
+      },
+      "product": {
+        "lead": "product_manager",
+        "roles": [
+          "owner_product_consultant",
+          "metrics",
+          "analytics_engineer"
+        ]
+      },
+      "qa": {
+        "lead": "head_of_qa"
+      },
+      "documentation": {
+        "lead": "documents_lead"
+      },
+      "hr": {
+        "lead": "hr"
+      }
+    },
+    "agent_types": {
+      "coordinators": [
+        "cto",
+        "client_lead",
+        "server_lead",
+        "devops_lead",
+        "product_manager"
+      ],
+      "executors": [
+        "client_developer",
+        "server_developer",
+        "designer",
+        "devops"
+      ],
+      "analysts": [
+        "client_qa_lead",
+        "server_qa_lead",
+        "client_security_engineer",
+        "server_security_engineer",
+        "client_performance_engineer",
+        "client_accessibility_engineer"
+      ],
+      "support": [
+        "documents_lead",
+        "metrics",
+        "analytics_engineer",
+        "hr"
+      ]
+    },
+    "workflow": "USER_REQUEST → CTO (routing) → Lead (coordination) → Executors/Analysts (parallel execution)"
   }
 }

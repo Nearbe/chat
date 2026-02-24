@@ -45,8 +45,25 @@ Agents/server-lead/workspace/
 ```
 Services/Network/       # HTTP клиент, SSE парсер
 Services/Chat/          # ChatService, ChatSessionManager
-Models/LMStudio/        # API модели
 Services/Auth/          # Аутентификация
+```
+
+### Модели (Server)
+
+```
+Models/LMStudio/        # API модели LM Studio
+Models/API/             # Общие API модели
+```
+
+### Общие директории (Shared)
+
+```
+Core/                         # Утилиты и расширения
+Data/                         # PersistenceController
+Resources/                    # Ресурсы
+Services/Errors/              # Общие ошибки
+Services/NetworkConfiguration.swift
+Models/Tool*.swift            # Инструменты (используют оба)
 ```
 
 ### API интеграция

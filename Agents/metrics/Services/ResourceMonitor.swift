@@ -4,11 +4,11 @@ import Darwin
 
 /// Мониторинг системных ресурсов (CPU, RAM).
 /// Собирает метрики во время выполнения операций.
-final class ResourceMonitor: Sendable {
+final class ResourceMonitor: @unchecked Sendable {
 
     // MARK: - Типы данных
 
-    struct Snapshot: Sendable {
+    struct Snapshot {
         let timestamp: Date
         let cpuPercent: Double
         let usedMemoryMB: Int
@@ -31,15 +31,12 @@ final class ResourceMonitor: Sendable {
         samples = []
 
         // Запускаем мониторинг в фоне
-        monitoringTask = Task { [weak self] in
-            while !Task.isCancelled && self?.isMonitoring == true {
-                let snapshot = self?.captureSnapshot() ?? Snapshot(
-                    timestamp: Date(),
-                    cpuPercent: 0,
-                    usedMemoryMB: 0,
-                    freeMemoryMB: 0
-                )
-                self?.samples.append(snapshot)
+        let monitor = self
+        monitoringTask = Task {
+            @Sendable in
+            while !Task.isCancelled && monitor.isMonitoring {
+                let snapshot = monitor.captureSnapshot()
+                monitor.samples.append(snapshot)
 
                 // Интервал 100ms
                 try? await Task.sleep(nanoseconds: 100_000_000)
@@ -89,7 +86,6 @@ final class ResourceMonitor: Sendable {
         }
 
         let first = samples.first!
-        let last = samples.last!
 
         let cpuValues = samples.map(\.cpuPercent)
         let ramValues = samples.map(\.usedMemoryMB)
@@ -156,10 +152,13 @@ final class ResourceMonitor: Sendable {
 
         guard result == KERN_SUCCESS else { return 0 }
 
-        let pageSize = UInt64(vm_page_size)
-        let active = Int64(stats.active_count) * Int64(pageSize)
-        let wired = Int64(stats.wire_count) * Int64(pageSize)
-        let compressed = Int64(stats.compressor_page_count) * Int64(pageSize)
+        var pageSize: vm_size_t = 0
+        host_page_size(mach_host_self(), &pageSize)
+        let pageSize64 = UInt64(pageSize)
+
+        let active = Int64(stats.active_count) * Int64(pageSize64)
+        let wired = Int64(stats.wire_count) * Int64(pageSize64)
+        let compressed = Int64(stats.compressor_page_count) * Int64(pageSize64)
 
         let totalUsed = (active + wired + compressed) / 1_048_576
         return Int(totalUsed)
@@ -177,8 +176,11 @@ final class ResourceMonitor: Sendable {
 
         guard result == KERN_SUCCESS else { return 0 }
 
-        let pageSize = UInt64(vm_page_size)
-        let free = Int64(stats.free_count) * Int64(pageSize) / 1_048_576
+        var pageSize: vm_size_t = 0
+        host_page_size(mach_host_self(), &pageSize)
+        let pageSize64 = UInt64(pageSize)
+
+        let free = Int64(stats.free_count) * Int64(pageSize64) / 1_048_576
 
         return Int(free)
     }
@@ -186,7 +188,7 @@ final class ResourceMonitor: Sendable {
 
 // MARK: - Результаты мониторинга
 
-struct ResourceStats: Sendable {
+struct ResourceStats {
     let cpuBefore: Double
     let cpuAvg: Double
     let cpuPeak: Double

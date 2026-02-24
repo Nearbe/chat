@@ -1,10 +1,10 @@
 // MARK: - Связь с документацией: SQLite.swift (Версия 0.15.3). Статус: Синхронизировано.
 import Foundation
-import SQLite
+@preconcurrency import SQLite
 
 /// Менеджер базы данных SQLite для хранения метрик.
 /// Обеспечивает сохранение и запрос метрик выполнения операций.
-final class DatabaseManager: Sendable {
+final class DatabaseManager: @unchecked Sendable {
 
     // MARK: - Singleton
 
@@ -12,7 +12,7 @@ final class DatabaseManager: Sendable {
 
     // MARK: - Подключение
 
-    private let db: Connection?
+    private var db: Connection?
 
     // MARK: - Таблица
 
@@ -49,21 +49,25 @@ final class DatabaseManager: Sendable {
     // MARK: - Инициализация
 
     private init() {
+        // Вычисляем путь к базе
+        let workspacePath = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("repositories/Chat/Agents/metrics/workspace")
+        let dbPath = workspacePath.appendingPathComponent("metrics.db").path
+
         do {
             // Создаём директорию если нет
-            let directory = (databasePath as NSString).deletingLastPathComponent
+            let directory = (dbPath as NSString).deletingLastPathComponent
             try FileManager.default.createDirectory(
                 atPath: directory,
                 withIntermediateDirectories: true
             )
 
             // Подключаемся к базе
-            db = try Connection(databasePath)
+            db = try Connection(dbPath)
 
             // Создаём таблицу
             try createTable()
 
-            print("[Metrics] Database initialized at: \(databasePath)")
+            print("[Metrics] Database initialized at: \(dbPath)")
         } catch {
             print("[Metrics] Database init failed: \(error)")
             db = nil
@@ -96,8 +100,8 @@ final class DatabaseManager: Sendable {
         })
 
         // Создаём индексы для часто используемых запросов
-        try? db.run(metrics.createIndex(colOperation, ifNotExists: true))
-        try? db.run(metrics.createIndex(colTimestamp, ifNotExists: true))
+        _ = try ? db.run(metrics.createIndex(colOperation, ifNotExists: true))
+        _ = try ? db.run(metrics.createIndex(colTimestamp, ifNotExists: true))
     }
 
     // MARK: - CRUD операции
@@ -194,7 +198,7 @@ final class DatabaseManager: Sendable {
                 operation: operation,
                 avgDuration: avgDuration,
                 avgCPU: avgCPU,
-                avgRAM: avgRAM,
+                avgRAM: Int(avgRAM),
                 executionCount: count
             )
         } catch {
@@ -244,10 +248,18 @@ final class DatabaseManager: Sendable {
 
 // MARK: - Статистика
 
-struct MetricsStats: Sendable {
-    let operation: String
-    let avgDuration: Double
-    let avgCPU: Double
-    let avgRAM: Int
-    let executionCount: Int
+public struct MetricsStats {
+    public let operation: String
+    public let avgDuration: Double
+    public let avgCPU: Double
+    public let avgRAM: Int
+    public let executionCount: Int
+
+    public init(operation: String, avgDuration: Double, avgCPU: Double, avgRAM: Int, executionCount: Int) {
+        self.operation = operation
+        self.avgDuration = avgDuration
+        self.avgCPU = avgCPU
+        self.avgRAM = avgRAM
+        self.executionCount = executionCount
+    }
 }

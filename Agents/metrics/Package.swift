@@ -13,12 +13,9 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "MetricsCLI",
-            dependencies: ["MetricsCore", "SQLite"],
-            path: "CLI"
-        ),
-        .target(
-            name: "MetricsCore",
-            dependencies: ["SQLite"],
+            dependencies: [
+                .product(name: "SQLite", package: "SQLite.swift")
+            ],
             path: "."
         )
     ]

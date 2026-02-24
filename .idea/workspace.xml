@@ -25,40 +25,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще">
-      <change afterPath="$PROJECT_DIR$/Agents/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/client-developer/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/client-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/client-qa-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/cto/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/designer-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/designer/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/devops-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/devops-qa-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/devops/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/documents-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/head-of-qa/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/hr/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/hr/workspace/team-structure.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/owner-product-consultant/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/product-manager/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/server-developer/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/server-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/server-qa-lead/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FILE_ANALYSIS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/RegisterAgents.swift" afterDir="false" />
+    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще больше">
+      <change afterPath="$PROJECT_DIR$/AnalysisCache/last_run.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archive/TEAM_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Archive/TEAM_ANALYSIS_STARTUP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CLIENT_LOCALIZATION_ENGINEER_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CLIENT_PERFORMANCE_ENGINEER_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CLIENT_PLATFORM_ENGINEER_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CTO_RESEARCH_ENGINEER_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PLAN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PROJECT_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Skills/feature_analysis/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Skills/feature_analysis/examples/voice_messages_example.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Skills/feature_analysis/references/analysis_patterns.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Skills/feature_analysis/references/rejection_reasons.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.junie/context.json" beforeDir="false" afterPath="$PROJECT_DIR$/.junie/context.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.junie/instructions.md" beforeDir="false" afterPath="$PROJECT_DIR$/.junie/instructions.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-lead/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-localization-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-localization-engineer/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-platform-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-platform-engineer/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/devops/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/hr/workspace/team-structure.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/hr/workspace/team-structure.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/CLI/main.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/CLI/main.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Models/MetricsRecord.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Models/MetricsRecord.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Package.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Package.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Services/DatabaseManager.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Services/DatabaseManager.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Services/MetricsCollector.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Services/MetricsCollector.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Services/ResourceMonitor.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Services/ResourceMonitor.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-lead/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-security-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-security-engineer/SKILL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CTO_RESEARCH_ANALYSIS.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/GUIDELINES.md" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDELINES.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LOCALIZATION_ENGINEER_ANALYSIS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PERFORMANCE_ENGINEER_ANALYSIS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PLATFORM_ENGINEER_ANALYSIS.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/QWEN.md" beforeDir="false" afterPath="$PROJECT_DIR$/QWEN.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SETUP.md" beforeDir="false" afterPath="$PROJECT_DIR$/SETUP.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Setup.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Setup.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Scripts.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Scripts.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VERSIONING.md" beforeDir="false" afterPath="$PROJECT_DIR$/VERSIONING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TEAM_ANALYSIS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TEAM_ANALYSIS_STARTUP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Package.resolved" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Package.resolved" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Package.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Package.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Check.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Check.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Ship.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Ship.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents_mapping.json" beforeDir="false" afterPath="$PROJECT_DIR$/agents_mapping.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metrics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/metrics.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.yml" beforeDir="false" afterPath="$PROJECT_DIR$/project.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,7 +249,7 @@
       <workItem from="1771866387291" duration="10763000" />
       <workItem from="1771878011908" duration="7448000" />
       <workItem from="1771887233112" duration="2222000" />
-      <workItem from="1771915249876" duration="12743000" />
+      <workItem from="1771915249876" duration="22747000" />
     </task>
     <task id="LOCAL-00001" summary="Надо">
       <option name="closed" value="true" />
@@ -251,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771927491277</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Надо еще больше">
+      <option name="closed" value="true" />
+      <created>1771933551788</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1771933551788</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +294,8 @@
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
     <MESSAGE value="Надо" />
     <MESSAGE value="Надо еще" />
-    <option name="LAST_COMMIT_MESSAGE" value="Надо еще" />
+    <MESSAGE value="Надо еще больше" />
+    <option name="LAST_COMMIT_MESSAGE" value="Надо еще больше" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

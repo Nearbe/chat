@@ -3,11 +3,11 @@ import Foundation
 
 /// Основной сервис сбора метрик.
 /// Объединяет мониторинг ресурсов и сохранение в базу данных.
-final class MetricsCollector: Sendable {
+public final class MetricsCollector: @unchecked Sendable {
 
     // MARK: - Singleton
 
-    static let shared = MetricsCollector()
+    public static let shared = MetricsCollector()
 
     // MARK: - Зависимости
 
@@ -33,7 +33,7 @@ final class MetricsCollector: Sendable {
     // MARK: - Публичные методы
 
     /// Начать сбор метрик для операции
-    func start(
+    public func start(
         operation: String,
         scheme: String? = nil
     ) {
@@ -53,7 +53,7 @@ final class MetricsCollector: Sendable {
     }
 
     /// Остановить сбор метрик
-    func stop(
+    public func stop(
         exitCode: Int,
         warningsCount: Int = 0,
         errorsCount: Int = 0,
@@ -103,7 +103,7 @@ final class MetricsCollector: Sendable {
     }
 
     /// Отменить текущую операцию
-    func cancel() {
+    public func cancel() {
         _ = resourceMonitor.stop()
         currentOperation = nil
         startTime = nil
@@ -112,22 +112,22 @@ final class MetricsCollector: Sendable {
     }
 
     /// Получить все записи
-    func fetchAll() -> [MetricsRecord] {
+    public func fetchAll() -> [MetricsRecord] {
         database.fetchAll()
     }
 
     /// Получить записи по операции
-    func fetch(byOperation operation: String, limit: Int = 10) -> [MetricsRecord] {
+    public func fetch(byOperation operation: String, limit: Int = 10) -> [MetricsRecord] {
         database.fetch(byOperation: operation, limit: limit)
     }
 
     /// Получить статистику
-    func stats(forOperation operation: String) -> MetricsStats? {
+    public func stats(forOperation operation: String) -> MetricsStats? {
         database.stats(forOperation: operation)
     }
 
     /// Очистить старые записи
-    func cleanup(olderThanDays: Int = 30) {
+    public func cleanup(olderThanDays: Int = 30) {
         database.cleanup(olderThanDays: olderThanDays)
     }
 
@@ -191,7 +191,7 @@ final class MetricsCollector: Sendable {
 extension MetricsCollector {
 
     /// Обёртка для выполнения команды с метриками
-    func measure<T>(
+    public func measure<T>(
         operation: String,
         scheme: String? = nil,
         run: () throws -> T

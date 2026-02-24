@@ -1,15 +1,13 @@
 import Foundation
-import MetricsCore
 
 let collector = MetricsCollector.shared
 
 print("=== Metrics Agent CLI ===")
 print("Available commands:")
-print("  start <operation> [scheme]  - Start measuring")
-print("  stop <exitCode>             - Stop and save metrics")
+print("  current                     - Show current resource usage")
+print("  run <operation> <command>   - Run command and collect metrics")
 print("  stats [operation]           - Show statistics")
 print("  list [limit]                - List recent records")
-print("  current                     - Show current resource usage")
 print("")
 
 // Простой CLI
@@ -30,25 +28,58 @@ case "current":
     print("  CPU: \(String(format: "%.1f", snapshot.cpuPercent))%")
     print("  RAM: \(snapshot.usedMemoryMB) MB used, \(snapshot.freeMemoryMB) MB free")
 
-case "start":
-    guard args.count >= 3 else {
-        print("Usage: \(args[0]) start <operation> [scheme]")
+case "run":
+    guard args.count >= 4 else {
+        print("Usage: \(args[0]) run <operation> <command> [args...]")
+        print("Example: \(args[0]) run xcodebuild xcodebuild -scheme Chat build")
         exit(1)
     }
     let operation = args[2]
-    let scheme = args.count > 3 ? args[3] : nil
-    collector.start(operation: operation, scheme: scheme)
-    print("Started monitoring: \(operation)")
+    let shellCommand = args[3]
+    let shellArgs = Array(args.dropFirst(4))
 
-case "stop":
-    guard args.count >= 3, let exitCode = Int(args[2]) else {
-        print("Usage: \(args[0]) stop <exitCode>")
+    // Начинаем мониторинг
+    collector.start(operation: operation)
+
+    // Выполняем команду
+    let process = Process()
+    process.executableURL = URL(fileURLWithPath: "/bin/bash")
+    process.arguments = ["-c", shellCommand + " " + shellArgs.joined(separator: " ")]
+
+    let outputPipe = Pipe()
+    process.standardOutput = outputPipe
+    process.standardError = outputPipe
+
+    do {
+        try process.run()
+        process.waitUntilExit()
+
+        let exitCode = process.terminationStatus
+
+        // Читаем вывод
+        let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+        let outputSizeKB = outputData.count / 1024
+
+        // Подсчитываем warnings и errors
+        let output = String(data: outputData, encoding: .utf8) ?? ""
+        let warningsCount = output.components(separatedBy: "warning:").count - 1
+        let errorsCount = output.components(separatedBy: "error:").count - 1
+
+        // Останавливаем мониторинг
+        collector.stop(
+            exitCode: Int(exitCode),
+            warningsCount: warningsCount,
+            errorsCount: errorsCount,
+            outputSizeKB: outputSizeKB
+        )
+
+        print("Completed: \(operation) - exit code \(exitCode)")
+        exit(Int32(exitCode))
+    } catch {
+        collector.stop(exitCode: 1)
+        print("Failed to run command: \(error)")
         exit(1)
     }
-    let warnings = args.count > 3 ? Int(args[3]) ?? 0 : 0
-    let errors = args.count > 4 ? Int(args[4]) ?? 0 : 0
-    collector.stop(exitCode: exitCode, warningsCount: warnings, errorsCount: errors)
-    print("Stopped and saved metrics")
 
 case "stats":
     if args.count > 2 {

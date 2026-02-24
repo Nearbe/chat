@@ -14,6 +14,9 @@
 ├── CTO
 │   → Техническое руководство
 │
+├── Staff Engineer
+│   → Технические решения среднего уровня, code review, документация
+│
 ├── Client Lead
 │   └── Client Developer
 │
@@ -45,6 +48,7 @@
 | Owner Product Consultant | Чтение           | Нет     | Agents/owner-product-consultant/workspace/ |
 | Product Manager          | Чтение           | Нет     | Agents/product-manager/workspace/          |
 | CTO                      | Полный           | Да      | Agents/cto/workspace/                      |
+| Staff Engineer           | Полный           | Да      | Agents/staff-engineer/workspace/           |
 | Client Lead              | Полный           | Да      | Agents/client-lead/workspace/              |
 | Server Lead              | Полный           | Да      | Agents/server-lead/workspace/              |
 | Designer Lead            | Полный           | Да      | Agents/designer-lead/workspace/            |

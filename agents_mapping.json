@@ -526,6 +526,51 @@
         "дашборд"
       ],
       "domains": ["Analytics", "Event Tracking", "User Behavior", "Telemetry"]
+    },
+    {
+      "subagent_type": "project_analysis",
+      "skill_name": "project_analysis",
+      "path": "Skills/project_analysis/SKILL.md",
+      "workspace": "Skills/project_analysis/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "анализ проекта",
+        "аудит",
+        "комплексный обзор",
+        "состояние проекта",
+        "технический долг",
+        "wave",
+        "волна анализа"
+      ],
+      "domains": [
+        "Project Analysis",
+        "Audit",
+        "Technical Assessment",
+        "Team Coordination"
+      ]
+    },
+    {
+      "subagent_type": "feature_analysis",
+      "skill_name": "feature_analysis",
+      "path": "Skills/feature_analysis/SKILL.md",
+      "workspace": "Skills/feature_analysis/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "анализ фичи",
+        "оценка фичи",
+        "новая фича",
+        "предложить фичу",
+        "реализовать функционал",
+        "стоит ли делать",
+        "идея для приложения",
+        "улучшение функционала"
+      ],
+      "domains": [
+        "Feature Analysis",
+        "Feature Evaluation",
+        "Team Coordination",
+        "Product Decision"
+      ]
     }
   ],
   "fallback": {

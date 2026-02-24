@@ -13,24 +13,26 @@
 
 ## Текущее состояние
 
-| Параметр | Статус |
-|----------|--------|
-| `SWIFT_EMIT_LOC_STRINGS` | ✅ Включён |
-| `.xcstrings` (String Catalogs) | ❌ Отсутствуют |
-| `.strings` | ⚠️ Частично (2 строки) |
-| RTL поддержка | ❌ Отсутствует |
+| Параметр                       | Статус                 |
+|--------------------------------|------------------------|
+| `SWIFT_EMIT_LOC_STRINGS`       | ✅ Включён              |
+| `.xcstrings` (String Catalogs) | ❌ Отсутствуют          |
+| `.strings`                     | ⚠️ Частично (2 строки) |
+| RTL поддержка                  | ❌ Отсутствует          |
 
 ---
 
 ## Hardcoded строки
 
 ### Features (UI) — ~23 строки
+
 - ChatView: "Chat", "Требуется токен", "Начните разговор"
 - HistoryView: "Это действие нельзя отменить", "Нет истории"
 - ContextBar: "Генерация..."
 - ModelPicker: "Модели не найдены"
 
 ### Services — ~17 строк
+
 - NetworkError: 9 сообщений
 - AuthError: 3 сообщения
 - HTTPClient, ChatSessionManager
@@ -39,22 +41,24 @@
 
 ## Готовность к RTL
 
-| Критерий | Статус |
-|----------|--------|
-| layoutDirection environment | ❌ Отсутствует |
+| Критерий                           | Статус            |
+|------------------------------------|-------------------|
+| layoutDirection environment        | ❌ Отсутствует     |
 | flipsForRightToLeftLayoutDirection | ❌ Не используется |
-| CFBundleLocalizations | ❌ Отсутствует |
+| CFBundleLocalizations              | ❌ Отсутствует     |
 
 ---
 
 ## План действий
 
 ### Приоритет 1 (Критично)
+
 1. Создать Localizable.xcstrings
 2. Перевести все hardcoded строки на String(localized:)
 3. Добавить CFBundleLocalizations в Info.plist
 
 ### Приоритет 2 (Важно)
+
 4. Добавить RTL-поддержку
 5. Локализовать ошибки в Services
 6. Добавить английскую локализацию

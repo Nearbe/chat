@@ -13,24 +13,24 @@
 
 ## Оценка по категориям
 
-| Компонент | Статус |
-|-----------|--------|
-| Tool Calling | 5/10 |
-| R&D Потенциал | 7/10 |
-| Инновационность | 6/10 |
+| Компонент       | Статус |
+|-----------------|--------|
+| Tool Calling    | 5/10   |
+| R&D Потенциал   | 7/10   |
+| Инновационность | 6/10   |
 
 ---
 
 ## ✅ Реализовано
 
-| Компонент | Файл | Статус |
-|-----------|------|--------|
-| Модель вызова | Models/ToolCall.swift | ✅ |
-| Результат | Models/ToolCallResult.swift | ✅ |
-| API ответ | Models/ToolCallsResponse.swift | ✅ |
-| Определение | Models/ToolDefinition.swift | ✅ |
-| Streaming | Models/API/StreamingToolCall.swift | ✅ |
-| UI | ToolCallView.swift, ToolsStatusView.swift | ✅ |
+| Компонент     | Файл                                      | Статус |
+|---------------|-------------------------------------------|--------|
+| Модель вызова | Models/ToolCall.swift                     | ✅      |
+| Результат     | Models/ToolCallResult.swift               | ✅      |
+| API ответ     | Models/ToolCallsResponse.swift            | ✅      |
+| Определение   | Models/ToolDefinition.swift               | ✅      |
+| Streaming     | Models/API/StreamingToolCall.swift        | ✅      |
+| UI            | ToolCallView.swift, ToolsStatusView.swift | ✅      |
 
 ---
 
@@ -46,16 +46,19 @@
 ## R&D Направления
 
 ### Высокий приоритет
+
 - Tool Execution Engine
 - MCP Client
 - Streaming Tool Calls
 
 ### Средний приоритет
+
 - Structured Output
 - Advanced Tool Definition
 - Tool Discovery
 
 ### Низкий приоритет
+
 - Agent patterns (ReAct, CoT)
 - Tool use analytics
 - Кэширование tool calls
@@ -65,16 +68,19 @@
 ## План действий
 
 ### Приоритет 1
+
 1. Реализовать ToolExecutor протокол
 2. Обработка tool_calls в ChatViewModel.performStreaming()
 3. Включить tools в LMChatRequest
 
 ### Приоритет 2
+
 4. Streaming tool calls UI
 5. Multi-turn message loop
 6. Встроенные инструменты (time, calculate)
 
 ### Приоритет 3
+
 7. MCP Client архитектура
 8. Structured Output валидация
 9. Agent patterns

@@ -11,13 +11,15 @@ let package = Package(
         .executable(name: "scripts", targets: ["Scripts"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0")
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
+        .package(path: "../../Agents/metrics")
     ],
     targets: [
         .executableTarget(
             name: "Scripts",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser")
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .product(name: "MetricsCollector", package: "metrics")
             ],
             path: "Sources/Scripts"
         )
