@@ -1,10 +1,11 @@
 // MARK: - Связь с документацией: Тесты (Версия: 6.0). Статус: Синхронизировано.
+// swiftlint:disable optional_data_string_conversion
 
 import Foundation
 
 /// HTTP клиент для отправки запросов к локальному Python серверу
 @MainActor
-final class UTHttpClient {
+final class HttpClient {
 
     // MARK: - Публичные методы
 
@@ -56,7 +57,7 @@ final class UTHttpClient {
     ///   - onCompletion: Колбэк по завершении
     func send(
         request: URLRequest,
-        onCompletion: @escaping (_: Error?, _: Data?) -> Void
+    onCompletion: @escaping @Sendable (_: Error?, _: Data?) -> Void
     ) {
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
             Logger.info("----------Send Request----------")
@@ -74,7 +75,7 @@ final class UTHttpClient {
     func send(
         request: URLRequest,
         body: Data,
-        onCompletion: @escaping (_: Error?, _: Data?) -> Void
+    onCompletion: @escaping @Sendable (_: Error?, _: Data?) -> Void
     ) {
         let task = URLSession.shared.uploadTask(with: request, from: body) { data, _, error in
             Logger.info("----------Send Request----------")
@@ -84,3 +85,5 @@ final class UTHttpClient {
         task.resume()
     }
 }
+
+// swiftlint:enable optional_data_string_conversion

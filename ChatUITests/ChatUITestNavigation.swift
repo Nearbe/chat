@@ -4,10 +4,6 @@ import XCTest
 @MainActor
 final class ChatUITestNavigation: BaseTestCase {
 
-    override func setUp() async throws {
-        try await super.setUp()
-    }
-
     func testNavigation() async throws {
         let chatPage = ChatPage()
 

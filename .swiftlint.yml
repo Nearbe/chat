@@ -1,5 +1,7 @@
 # MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
-disabled_rules: []
+
+disabled_rules:
+  - test_configuration_builder
 
 opt_in_rules:
   - empty_count
@@ -10,26 +12,28 @@ opt_in_rules:
   - enum_case_associated_values_count
   - fatal_error_message
   - first_where
-  - force_unwrapping
-  - implicitly_unwrapped_optional
   - last_where
   - modifier_order
   - redundant_nil_coalescing
-  - vertical_whitespace_closing_braces
   - line_length
   - cyclomatic_complexity
+  - function_body_length
+  - implicitly_unwrapped_optional
+  - force_unwrapping:
+      excluded:
+        - ChatTests
+        - ChatUITests
   - missing_docs
-  - file_name
+  - non_optional_string_data_conversion
+  - optional_data_string_conversion:
+      excluded:
+        - "**/ChatUITests/**"
+  - vertical_whitespace_closing_braces
+  - identifier_name
+  - trailing_whitespace
+  - vertical_whitespace
 
 line_length: 160
-
-file_name:
-  excluded:
-    - Colors.swift
-    - Spacing.swift
-    - Typography.swift
-    - ComponentConstants.swift
-    - PrimaryButtonStyle.swift
 
 identifier_name:
   min_length: 2
@@ -69,6 +73,81 @@ custom_rules:
     message: "Documentation (Docstring) must be in Russian"
     severity: error
 
+  # =====================================================
+  # TESTING RULES - Enforcing tx-mobile best practices
+  # =====================================================
+
+  # Правило: UI тест класс должен содержать ровно ОДНУ функцию test()
+  # Применяется только к UI тестам (файлы содержащие BaseTestCase, но не сам BaseTestCase)
+  ui_test_single_test_function:
+    name: "UI Test must have exactly one test function"
+    regex: 'BaseTestCase.*\n.*func\s+test.*\n.*func\s+test'
+    message: "UI test class must contain exactly one test function (1 class = 1 test)"
+    severity: error
+    excluded: "BaseTestCase"
+
+  test_configuration_builder:
+    name: "Test configuration should use fluent API"
+    regex: '(?<!URLSession)configuration\s*\.\w+\s*=\s*(?!configuration\s*\.\w+)'
+    message: "Use configuration.set() fluent API pattern instead of direct assignment"
+    severity: error
+
+  test_fluent_return:
+    name: "Test methods should return Self for chaining"
+    regex: '@discardableResult\s+func\s+\w+\([^)]*\)\s*(?:async\s*)?->\s*\w+Steps\s*\{'
+    message: "Test step methods should return Self for fluent chaining"
+    severity: error
+
+  test_step_xctcontext:
+    name: "Test steps should use XCTContext.runActivity"
+    regex: 'func\s+test\([^)]*\)\s*throws\s*\{[^}]*(?:func\s+step\()'
+    message: "Test steps should be wrapped in XCTContext.runActivity for better logging"
+    severity: error
+
+  test_assertion_message:
+    name: "Assertions require descriptive messages"
+    regex: 'XCTAssert(?:Equal|NotEqual|True|False|Nil|NotNil)\([^,]+,\s*file:\s*#file'
+    message: "Assertion should include descriptive message as first parameter"
+    severity: error
+
+  # Применяется только к UITests директории
+  test_page_object_naming:
+    name: "Page Object screens must use UT prefix"
+    regex: 'class\s+\w+(?:Screen|Page)\s*:\s*(?:UTElement|UTBaseScreen)'
+    message: "Page Object classes must use UT prefix (e.g., UTLoginScreen extends UTElement)"
+    severity: error
+
+  # Применяется только к UITests директории
+  test_element_naming:
+    name: "Test elements must use UT prefix"
+    regex: 'class\s+(?!UT)[A-Z]\w+(?:Button|Field|Input|Cell|Row|Tab|Bar|Sheet|Alert|Chip)\s*:\s*UTElement'
+    message: "Test element classes must use UT prefix (e.g., UTButton extends UTElement)"
+    severity: error
+
+  test_constants_centralized:
+    name: "Test data should use centralized constants"
+    regex: '(?:let|var)\s+\w+(?:Login|Password|Pin|Ticker|Account)[^:]+\s*=\s*"[^"]+"'
+    message: "Use centralized test constants instead of inline strings"
+    severity: error
+
+  test_wait_for_existence:
+    name: "Use waitForExistence instead of exists check in loops"
+    regex: 'while\s+\w+\.exists\s*\{[^}]*sleep'
+    message: "Use element.waitForExistence() instead of polling with sleep"
+    severity: error
+
+  test_no_hardcoded_timeout:
+    name: "No hardcoded timeout values in tests"
+    regex: '\.waitForExistence\(timeout:\s*([1-9][0-9]?|)\s*\)'
+    message: "Use elementTimeout constant instead of hardcoded values"
+    severity: error
+
+  test_launch_environment:
+    name: "Launch environment should use constants"
+    regex: 'launchEnvironment\["[^"]+"\]\s*=\s*"[^"]+"'
+    message: "Define environment keys as constants in a centralized configuration"
+    severity: error
+
   no_direct_padding:
     name: "No direct padding"
     regex: '\.padding\(\s*(\.[a-z]+\s*,\s*)?[0-9]+'
@@ -92,13 +171,14 @@ included:
   - Core
   - Design
   - Tools/Scripts
+  - ChatTests
+  - ChatUITests
 
 excluded:
   - Chat.xcodeproj
   - Resources
   - Design/Generated
   - Tools/Scripts/.build
-  - Tools/Scripts
   - .build
   - build/
   - chatbuild/

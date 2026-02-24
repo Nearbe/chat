@@ -1,9 +1,11 @@
 // MARK: - Связь с документацией: Тесты (Версия: 6.0). Статус: Синхронизировано.
-import Testing
+
 import Foundation
+import Testing
 @testable import Chat
 
 @MainActor
+@Suite(.serialized)
 struct NetworkServiceTests {
     let networkService: NetworkService
     let httpClient: HTTPClient
@@ -13,11 +15,11 @@ struct NetworkServiceTests {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [URLProtocolMock.self]
         session = URLSession(configuration: configuration)
-        
+
         let netConfig = NetworkConfiguration(timeout: 5, session: session)
         httpClient = HTTPClient(configuration: netConfig, authProvider: nil)
         networkService = NetworkService(httpClient: httpClient)
-        
+
         // Reset mock state
         URLProtocolMock.testResponses = [:]
         URLProtocolMock.requestHandler = nil
@@ -42,8 +44,8 @@ struct NetworkServiceTests {
         """
         let responseData = responseJSON.data(using: .utf8)!
         let response = HTTPURLResponse(url: modelsURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        
-        URLProtocolMock.testResponses[modelsURL] = (responseData, response, nil)
+
+        URLProtocolMock.testResponses[modelsURL] = TestResponse(data: responseData, response: response, error: nil)
 
         // When
         let models = try await networkService.fetchModels()
@@ -70,7 +72,7 @@ struct NetworkServiceTests {
         """
         let responseData = responseJSON.data(using: .utf8)!
         let response = HTTPURLResponse(url: loadURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        
+
         URLProtocolMock.requestHandler = { request in
             #expect(request.url == loadURL)
             #expect(request.httpMethod == "POST")
@@ -99,7 +101,7 @@ struct NetworkServiceTests {
         """
         let responseData = responseJSON.data(using: .utf8)!
         let response = HTTPURLResponse(url: unloadURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        
+
         URLProtocolMock.requestHandler = { request in
             #expect(request.url == unloadURL)
             #expect(request.httpMethod == "POST")
@@ -128,7 +130,7 @@ struct NetworkServiceTests {
         """
         let responseData = responseJSON.data(using: .utf8)!
         let response = HTTPURLResponse(url: downloadURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        
+
         URLProtocolMock.requestHandler = { request in
             #expect(request.url == downloadURL)
             #expect(request.httpMethod == "POST")
@@ -158,7 +160,7 @@ struct NetworkServiceTests {
         """
         let responseData = responseJSON.data(using: .utf8)!
         let response = HTTPURLResponse(url: jobURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        
+
         URLProtocolMock.requestHandler = { request in
             #expect(request.url == jobURL)
             #expect(request.httpMethod == "GET")

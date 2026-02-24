@@ -4,10 +4,6 @@ import XCTest
 @MainActor
 final class ChatUITestAuth: BaseTestCase {
 
-    override func setUp() async throws {
-        try await super.setUp()
-    }
-
     func testAuthenticationAndMessaging() async throws {
         step("Перезапуск с авторизацией") {
             app.terminate()

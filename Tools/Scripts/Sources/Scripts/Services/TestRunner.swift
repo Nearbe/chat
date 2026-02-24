@@ -1,6 +1,5 @@
 // MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import Foundation
-import XCResultKit
 
 /// Сервис для запуска тестов.
 enum TestRunner {
@@ -10,7 +9,7 @@ enum TestRunner {
     /// Путь к директории результатов тестов.
     static let resultsDirectory = "/Users/nearbe/repositories/Chat/Logs/Check"
 
-    /// Запускает тесты с указанным тест-планом.
+    /// Запускает тесты с указанным тест-планом и выводит результаты в реальном времени.
     static func runTests(
         testPlan: String,
         device: String = defaultDevice,
@@ -18,6 +17,8 @@ enum TestRunner {
     ) async throws -> String {
         let resultPath = "\(resultsDirectory)/\(logName).xcresult"
         try? FileManager.default.removeItem(atPath: resultPath)
+
+        print("\n📋  \(testPlan):")
 
         let testCommand = [
             "cd /Users/nearbe/repositories/Chat && xcodebuild",
@@ -31,39 +32,30 @@ enum TestRunner {
             "CODE_SIGNING_REQUIRED=NO"
         ].joined(separator: " ")
 
-        let allowedWarnings = (try? ExceptionRegistry.loadSystemWarnings()) ?? []
-        try await Shell.run(testCommand, quiet: true, failOnWarnings: false, allowedWarnings: allowedWarnings, logName: logName)
+        let allowedWarnings = (try ? ExceptionService.loadSystemWarnings()) ?? []
+
+        // Используем стриминг для вывода результатов
+        try await Shell.run(
+            testCommand,
+            quiet: true,
+            failOnWarnings: false,
+            allowedWarnings: allowedWarnings,
+            logName: logName,
+            streamingHandler: {
+                line in
+                TestStreamParser.processLine(line)
+            }
+        )
 
         return resultPath
     }
 
-    /// Запускает Unit тесты.
-    static func runUnitTests(device: String = defaultDevice) async throws -> (resultPath: String, duration: TimeInterval) {
+    /// Запускает все тесты (Unit + UI).
+    static func runAllTests(device: String = defaultDevice) async throws -> (resultPath: String, duration: TimeInterval) {
         let startTime = Date()
-        let resultPath = try await runTests(testPlan: "UnitTests", device: device, logName: "UnitTests")
+        let resultPath = try await runTests(testPlan: "AllTests", device: device, logName: "AllTests")
         let duration = Date().timeIntervalSince(startTime)
         return (resultPath, duration)
-    }
-
-    /// Запускает UI тесты.
-    static func runUITests(device: String = defaultDevice) async throws -> (resultPath: String, duration: TimeInterval) {
-        let startTime = Date()
-        let resultPath = try await runTests(testPlan: "UITests", device: device, logName: "UITests")
-        let duration = Date().timeIntervalSince(startTime)
-        return (resultPath, duration)
-    }
-
-    /// Запускает все тесты.
-    static func runAllTests(device: String = defaultDevice) async throws -> [(name: String, resultPath: String, duration: TimeInterval)] {
-        var results: [(name: String, resultPath: String, duration: TimeInterval)] = []
-
-        let unitResult = try await runUnitTests(device: device)
-        results.append((name: "Unit Tests", resultPath: unitResult.resultPath, duration: unitResult.duration))
-
-        let uiResult = try await runUITests(device: device)
-        results.append((name: "UI Tests", resultPath: uiResult.resultPath, duration: uiResult.duration))
-
-        return results
     }
 
     /// Проверяет покрытие кода.

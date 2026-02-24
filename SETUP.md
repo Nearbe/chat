@@ -4,22 +4,13 @@
 
 ### Обязательное ПО
 
-| Инструмент | Версия | Назначение |
-|------------|--------|------------|
-| Xcode | 15.0+ | IDE и компилятор |
-| Swift | 6.0+ | Язык разработки |
-| XcodeGen | 2.44.1 | Генерация Xcode проекта |
-| SwiftGen | 6.6.3 | Генерация ресурсов |
-| SwiftLint | 0.63.2 | Линтинг кода |
+| Инструмент | Версия | Назначение                                        |
+|------------|--------|---------------------------------------------------|
+| Xcode      | 15.0+  | IDE и компилятор                                  |
+| Swift      | 6.0+   | Язык разработки                                   |
+| Homebrew   | latest | Менеджер пакетов (для автоустановки инструментов) |
 
-### Установка через Homebrew
-
-```bash
-# Установка инструментов
-brew install xcodegen
-brew install swiftgen
-brew install swiftlint
-```
+**Примечание:** XcodeGen, SwiftGen и SwiftLint устанавливаются автоматически при первом запуске `./scripts setup`.
 
 ---
 
@@ -29,6 +20,25 @@ brew install swiftlint
 # Клонирование
 git clone https://github.com/your-org/Chat.git
 cd Chat
+```
+
+### Разворачивание окружения
+
+```bash
+./deploy.sh
+```
+
+Этот скрипт:
+
+1. Проверит/установит XcodeGen, SwiftGen, SwiftLint через Homebrew
+2. Соберёт бинарник скриптов
+3. Создаст системные команды Setup, Check, Ship и др. в `~/bin`
+
+**После разворачивания** добавьте ~/bin в PATH если ещё не добавлен:
+
+```bash
+echo 'export PATH=$PATH:~/bin' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ---
@@ -42,6 +52,7 @@ cd Chat
 ```
 
 Это выполнит:
+
 1. `xcodegen generate` — генерация `.xcodeproj`
 2. `swiftgen` — генерация ресурсов дизайн-системы
 3. Откроет Xcode
@@ -74,20 +85,22 @@ open -a Xcode Chat.xcodeproj
 
 ### Схемы (Schemes)
 
-| Схема | Назначение |
-|-------|------------|
-| Chat | Основное приложение |
-| ChatTests | Unit-тесты |
-| ChatUITests | UI-тесты |
+| Схема       | Назначение          |
+|-------------|---------------------|
+| Chat        | Основное приложение |
+| ChatTests   | Unit-тесты          |
+| ChatUITests | UI-тесты            |
 
 ### Устройства
 
 **Симулятор:**
+
 - iPhone 16 (рекомендуется)
 - iPhone 16 Pro
 - iPhone 16 Pro Max
 
 **Реальное устройство:**
+
 - Saint Celestine (настроено для ship)
 
 ---
@@ -116,6 +129,16 @@ xcrun simctl launch booted com.your-org.Chat
 
 ## Запуск скриптов (check, setup, ship)
 
+### Установка (однократно)
+
+Для удобного доступа к скриптам из любой директории добавьте обёртку в PATH:
+
+```bash
+ln -s /Users/nearbe/repositories/Chat/chat-scripts.sh /usr/local/bin/chat-scripts
+```
+
+После этого команды `chat-scripts check`, `chat-scripts setup`, `chat-scripts ship` будут доступны глобально.
+
 ### Через Run Configuration (рекомендуется)
 
 В IntelliJ IDEA / WebStorm настроены Run Configurations для запуска скриптов:
@@ -132,10 +155,21 @@ xcrun simctl launch booted com.your-org.Chat
 ### Через терминал
 
 ```bash
-./scripts check
-./scripts setup
-./scripts ship
+# После установки (см. выше)
+chat-scripts check
+chat-scripts setup
+chat-scripts ship
+
+# Или напрямую
+./chat-scripts.sh check
+./chat-scripts.sh setup
+./chat-scripts.sh ship
 ```
+
+### Автоматическая сборка
+
+Если бинарник скриптов отсутствует (например, после очистки проекта `swift build --clean`), обёртка автоматически
+выполнит сборку перед запуском команды. Ручная пересборка не требуется.
 
 ---
 
@@ -210,11 +244,8 @@ ls -la project.yml
 ### Ошибка: "SwiftGen not found"
 
 ```bash
-# Установите SwiftGen
-brew install swiftgen
-
-# Или через Mint
-mint install SwiftGen/SwiftGen
+# Запустите setup - он установит все зависимости автоматически
+./scripts setup
 ```
 
 ### Ошибка: "No simulators available"
@@ -267,6 +298,7 @@ Chat/
 3. Нажать **Apply** → **OK**
 
 **Проверка:**
+
 - Откройте Commit tool window: **Alt + 0** (Windows/Linux) или **⌘ + 0** (macOS)
 - Выберите файлы → нажмите **Self-Review with AI**
 

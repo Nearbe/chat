@@ -554,6 +554,6 @@ Swift-based CLI в `Tools/Scripts/` (точка входа `Scripts.swift`):
 - **Целевое устройство**: «Saint Celestine» (реальный iPhone)
 
 ## Qwen Added Memories
-
 - Для запуска скриптов (check, setup, ship) использовать mcp__idea__execute_terminal_command с командой xcodebuild
   -scheme "🔍 Check" build && <path_to_scripts_binary> check
+- Do not change linting rules - keep .swiftlint.yml as is without modifications

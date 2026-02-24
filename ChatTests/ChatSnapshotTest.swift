@@ -5,7 +5,7 @@ import SnapshotTesting
 @testable import Chat
 
 @MainActor
-final class ChatSnapshotTest: XCTestCase {
+final class ChatSnapshotTest: UnitTestCase {
 
     func testChatViewDefault() async {
         let container = TestHelpers.createInMemoryContainer()

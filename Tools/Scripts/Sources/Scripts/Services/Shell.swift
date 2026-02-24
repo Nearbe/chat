@@ -16,6 +16,22 @@ public enum ShellError: Error, LocalizedError {
     }
 }
 
+/// Потокобезопасная обёртка для данных
+private final class SafeData: @unchecked Sendable {
+    var data = Data()
+    private let lock = NSLock()
+
+    func append(_ newData: Data) {
+        lock.lock()
+        data.append(newData)
+        lock.unlock()
+    }
+
+    var stringValue: String {
+        String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    }
+}
+
 /// Обертка для выполнения команд в терминале.
 public enum Shell {
     /// Выполняет команду в терминале и возвращает вывод
@@ -29,6 +45,7 @@ public enum Shell {
     ///   - failOnWarnings: Считать ли предупреждения ошибкой
     ///   - allowedWarnings: Список разрешенных паттернов предупреждений
     ///   - logName: Имя лог-файла (опционально)
+    ///   - streamingHandler: Callback для обработки каждой строки вывода
     /// - Returns: Стандартный вывод (stdout)
     @discardableResult
     public static func run(
@@ -40,7 +57,8 @@ public enum Shell {
         streamingPrefix: String? = nil,
         failOnWarnings: Bool = true,
         allowedWarnings: [String] = [],
-        logName: String? = nil
+    logName: String? = nil,
+    streamingHandler: (@Sendable (String) -> Void)? = nil
     ) async throws -> String {
         if !quiet {
             print("▶️  Запуск: \(command)")
@@ -69,7 +87,8 @@ public enum Shell {
             streamingPrefix: streamingPrefix,
             failOnWarnings: failOnWarnings,
             allowedWarnings: allowedWarnings,
-            logName: logName
+            logName: logName,
+            streamingHandler: streamingHandler
         )
     }
 
@@ -109,67 +128,130 @@ public enum Shell {
         streamingPrefix: String? = nil,
         failOnWarnings: Bool,
         allowedWarnings: [String] = [],
-        logName: String? = nil
+    logName: String? = nil,
+    streamingHandler: (@Sendable (String) -> Void)? = nil
     ) async throws -> String {
-        final class SafeData: @unchecked Sendable {
-            var data = Data()
-            private let lock = NSLock()
-            func append(_ newData: Data) {
-                lock.lock()
-                data.append(newData)
-                lock.unlock()
-            }
-        }
-
         let fullOutput = SafeData()
         let fullError = SafeData()
 
-        // Настраиваем обработчики для чтения в реальном времени
-        outputPipe.fileHandleForReading.readabilityHandler = { handle in
-            let data = handle.availableData
-            guard !data.isEmpty else { return }
-            fullOutput.append(data)
-            if let prefix = streamingPrefix, let line = String(data: data, encoding: .utf8) {
-                print("\(prefix) \(line.trimmingCharacters(in: .newlines))")
-            }
-        }
+        setupOutputHandler(
+            pipe: outputPipe,
+            dataHolder: fullOutput,
+            prefix: streamingPrefix,
+            isError: false,
+            streamingHandler: streamingHandler
+        )
 
-        errorPipe.fileHandleForReading.readabilityHandler = { handle in
-            let data = handle.availableData
-            guard !data.isEmpty else { return }
-            fullError.append(data)
-            if let prefix = streamingPrefix, let line = String(data: data, encoding: .utf8) {
-                print("\(prefix) [ERROR] \(line.trimmingCharacters(in: .newlines))")
-            }
-        }
+        setupErrorHandler(pipe: errorPipe, dataHolder: fullError, prefix: streamingPrefix)
 
         process.waitUntilExit()
+        cleanupHandlers(outputPipe: outputPipe, errorPipe: errorPipe)
 
-        // Очищаем обработчики
-        outputPipe.fileHandleForReading.readabilityHandler = nil
-        errorPipe.fileHandleForReading.readabilityHandler = nil
+        let output = fullOutput.stringValue
+        let error = fullError.stringValue
 
-        let output = String(data: fullOutput.data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let error = String(data: fullError.data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-
-        if let logName = logName {
-            logCommandOutput(name: logName, command: command, output: output, error: error)
-        }
+        logIfNeeded(logName: logName, command: command, output: output, error: error)
 
         if failOnWarnings {
             try checkForWarnings(output: output, error: error, command: command, allowedWarnings: allowedWarnings)
         }
 
-        if process.terminationStatus != 0 {
-            throw ShellError.commandFailed(
-                command: command,
-                exitCode: process.terminationStatus,
-                output: output,
-                error: error
-            )
-        }
+        try checkExitStatus(process: process, command: command, output: output, error: error)
 
         return output
+    }
+
+    private static func checkExitStatus(process: Process,
+    command: String,
+    output: String,
+    error: String) throws {
+        guard process.terminationStatus != 0 else {
+            return
+        }
+        throw ShellError.commandFailed(
+            command: command,
+            exitCode: process.terminationStatus,
+            output: output,
+            error: error
+        )
+    }
+
+    private static func logIfNeeded(logName: String?, command: String, output: String, error: String) {
+        guard let logName = logName else {
+            return
+        }
+        logCommandOutput(name: logName, command: command, output: output, error: error)
+    }
+
+    private static func setupOutputHandler(pipe: Pipe,
+    dataHolder: SafeData,
+    prefix : String?,
+    isError: Bool,
+    streamingHandler: (@Sendable (String) -> Void)?) {
+        pipe.fileHandleForReading.readabilityHandler = {
+            handle in
+            let data = handle.availableData
+            guard !data.isEmpty else {
+                return
+            }
+            dataHolder.append(data)
+
+            Self.processStreamedData(
+                data: data,
+                prefix: prefix,
+                isError: isError,
+                streamingHandler: streamingHandler
+            )
+        }
+    }
+
+    private static func setupErrorHandler(pipe: Pipe, dataHolder: SafeData, prefix : String?) {
+        pipe.fileHandleForReading.readabilityHandler = {
+            handle in
+            let data = handle.availableData
+            guard !data.isEmpty else {
+                return
+            }
+            dataHolder.append(data)
+
+            if let line = String(data: data, encoding: .utf8) {
+                let lines = line.components(separatedBy: .newlines)
+                for line in lines {
+                    let trimmed = line.trimmingCharacters(in: .newlines)
+                    if !trimmed.isEmpty, let prefix = prefix {
+                        print("\(prefix) [ERROR] \(trimmed)")
+                    }
+                }
+            }
+        }
+    }
+
+    private static func processStreamedData(data: Data,
+    prefix : String?,
+    isError: Bool,
+    streamingHandler: (@Sendable (String) -> Void)?) {
+        guard let line = String(data: data, encoding: .utf8) else {
+            return
+        }
+        let lines = line.components(separatedBy: .newlines)
+
+        for line in lines {
+            let trimmed = line.trimmingCharacters(in: .newlines)
+            guard !trimmed.isEmpty else {
+                continue
+            }
+
+            if let prefix = prefix {
+                let label = isError ? "[ERROR]": ""
+                print("\(prefix) \(label) \(trimmed)")
+            }
+            streamingHandler ?(trimmed)
+        }
+    }
+
+    private static func cleanupHandlers(outputPipe: Pipe, errorPipe: Pipe) {
+        outputPipe.fileHandleForReading.readabilityHandler = nil
+        errorPipe.fileHandleForReading.readabilityHandler = nil
     }
 
     private static func checkForWarnings(output: String, error: String, command: String, allowedWarnings: [String]) throws {

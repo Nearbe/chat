@@ -9,7 +9,16 @@ import XCTest
 ///
 /// Требует запущенного Python сервера: `python AutotestsLocalWebServer.py`
 @MainActor
-final class LocalServer {
+public final class LocalServer {
+
+    // MARK: - Вспомогательные функции
+
+    private func getEnvironmentVariable(_ name: String, swallowAssert: Bool = false) -> String {
+        guard let value = ProcessInfo.processInfo.environment[name] else {
+            return ""
+        }
+        return value
+    }
 
     // MARK: - Свойства
 
@@ -44,8 +53,8 @@ final class LocalServer {
     /// Удалить приложение с симулятора
     func deleteApplication(bundleIdentifier: String) {
         let expectation = XCTestExpectation(description: "Delete Application")
-        let setTestingDevices = "--set testing "
-        let command = "xcrun simctl \(isParallelizationEnabled == "true" ? "\(setTestingDevices)" : "")uninstall \(udid) \(bundleIdentifier)"
+        let setParallel = "--set parallel "
+        let command = "xcrun simctl \(isParallelizationEnabled == "true" ? "\(setParallel)": "")uninstall \(udid) \(bundleIdentifier)"
         execute(command: command, fulfill: expectation)
         XCTWaiter().wait(for: [expectation], timeout: 20)
     }
@@ -57,8 +66,8 @@ final class LocalServer {
             return
         }
         let expectation = XCTestExpectation(description: "Install Application")
-        let setTestingDevices = "--set testing "
-        let command = "xcrun simctl \(isParallelizationEnabled == "true" ? "\(setTestingDevices)" : "")install \(udid) \(appPath)"
+        let setParallel = "--set parallel "
+        let command = "xcrun simctl \(isParallelizationEnabled == "true" ? "\(setParallel)": "")install \(udid) \(appPath)"
         execute(command: command, fulfill: expectation)
         XCTWaiter().wait(for: [expectation], timeout: 20)
     }
@@ -80,8 +89,8 @@ final class LocalServer {
             if let error = error {
                 Logger.error(error.localizedDescription)
             }
-            if let success = success {
-                Logger.info(String(decoding: success, as: UTF8.self))
+            if let data = success, let string = String(bytes: data, encoding: .utf8) {
+                Logger.info(string)
             }
             expectation.fulfill()
         }
@@ -89,4 +98,5 @@ final class LocalServer {
 }
 
 /// Глобальный экземпляр для управления локальным сервером
+@MainActor
 public let localServer = LocalServer()

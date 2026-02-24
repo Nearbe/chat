@@ -131,6 +131,9 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
+        SWIFT_OBJC_BRIDGING_HEADER: ChatUITests/Utils/Biometric/ChatUITests-Bridging-Header.h
+        CLANG_ENABLE_MODULES: YES
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
 
   Scripts:
     type: tool
@@ -155,9 +158,8 @@ schemes:
     test:
       config: Debug
       testPlans:
-        - path: TestPlans/UnitTests.xctestplan
+        - path: TestPlans/AllTests.xctestplan
           defaultPlan: true
-        - path: TestPlans/UITests.xctestplan
     archive:
       config: Release
 

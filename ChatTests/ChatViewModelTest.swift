@@ -5,25 +5,28 @@ import Combine
 @testable import Chat
 
 @MainActor
-final class ChatViewModelTests: XCTestCase {
-    var container: ModelContainer!
-    var viewModel: ChatViewModel!
-    var chatServiceMock: ChatServiceMock!
-    var networkMonitorMock: NetworkMonitorMock!
-    var sessionManager: ChatSessionManager!
+final class ChatViewModelTest: UnitTestCase {
+    var container: ModelContainer?
+    var viewModel: ChatViewModel?
+    var chatServiceMock: ChatServiceMock?
+    var networkMonitorMock: NetworkMonitorMock?
+    var sessionManager: ChatSessionManager?
 
     override func setUp() async throws {
         try await super.setUp()
-        container = TestHelpers.createInMemoryContainer()
+        guard let container = TestHelpers.createInMemoryContainer() else {
+            return
+        }
+        self.container = container
         sessionManager = ChatSessionManager(modelContext: container.mainContext)
         chatServiceMock = ChatServiceMock()
         networkMonitorMock = NetworkMonitorMock()
 
         viewModel = ChatViewModel()
-        viewModel.setup(
-            sessionManager: sessionManager,
-            chatService: chatServiceMock,
-            networkMonitor: networkMonitorMock
+        viewModel?.setup(
+            sessionManager: sessionManager !,
+            chatService: chatServiceMock !,
+            networkMonitor: networkMonitorMock !
         )
     }
 

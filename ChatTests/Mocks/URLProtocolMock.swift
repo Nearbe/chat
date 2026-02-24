@@ -1,8 +1,15 @@
 // MARK: - Связь с документацией: Тесты (Версия: 6.0). Статус: Синхронизировано.
 import Foundation
 
+/// Тестовый ответ для URLProtocol.
+struct TestResponse: Sendable {
+    let data: Data
+    let response: HTTPURLResponse
+    let error: Error?
+}
+
 class URLProtocolMock: URLProtocol {
-    nonisolated(unsafe) static var testResponses: [URL: (data: Data, response: HTTPURLResponse, error: Error?)] = [:]
+    nonisolated (unsafe) static var testResponses: [URL: TestResponse] = [:]
     nonisolated(unsafe) static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?
 
     override class func canInit(with request: URLRequest) -> Bool {

@@ -12,7 +12,7 @@ enum TestHelpers {
             Message.self
         ])
         let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
-        
+
         do {
             return try ModelContainer(for: schema, configurations: [configuration])
         } catch {
@@ -80,6 +80,7 @@ extension ViewImageConfig {
     /// Конфигурация для iPhone 16 Pro Max для SnapshotTesting
     public static let iPhone16ProMax = ViewImageConfig.iphone16ProMax
 
+    /// Альтернативное имя для конфигурации iPhone 16 Pro Max
     public static let iphone16ProMax = ViewImageConfig(
         safeArea: UIEdgeInsets(top: 59, left: 0, bottom: 34, right: 0),
         size: CGSize(width: 440, height: 956),
@@ -88,6 +89,7 @@ extension ViewImageConfig {
 }
 
 extension UITraitCollection {
+    /// Конфигурация iPhone 16 Pro Max для UI-тестов
     public static let iphone16ProMax = UITraitCollection(mutations: { traits in
         traits.forceTouchCapability = .unavailable
         traits.layoutDirection = .leftToRight

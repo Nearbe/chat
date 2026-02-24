@@ -1,26 +1,26 @@
 // MARK: - Связь с документацией: Тесты (Версия: 6.0). Статус: Синхронизировано.
 
 import Foundation
-import XCTest
 
-/// Переиспользуемые предикаты для ожидания элементов
-public enum Predicates {
-    /// Элемент включен
+/// Предикаты для ожидания элементов.
+/// Аналог UTPredicates из tx-mobile.
+public enum UTPredicates {
+    /// Элемент включен.
     case enabled
-    /// Элемент выключен
+    /// Элемент выключен.
     case disabled
-    /// Элемент доступен для тапа
+    /// Элемент доступен для тапа.
     case hittable
-    /// Элемент видим
+    /// Элемент видим.
     case visible
-    /// Элемент в фокусе клавиатуры
+    /// Элемент имеет фокус клавиатуры.
     case keyboardFocused
-    /// Метка равна указанному значению
+    /// Label элемента равен указанному значению.
     case labelEquals(String)
-    /// Значение равно указанному
+    /// Value элемента равен указанному значению.
     case valueEquals(String)
 
-    /// Преобразование в NSPredicate
+    /// Получить NSPredicate для использования с XCTWaiter.
     public func get() -> NSPredicate {
         switch self {
         case .enabled:

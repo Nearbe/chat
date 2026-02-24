@@ -13,6 +13,7 @@ public final class ChatSteps {
 
     // MARK: - Отправка сообщений
 
+    /// Отправка сообщения в чат
     @discardableResult
     public func sendMessage(_ text: String) -> ChatSteps {
         XCTContext.runActivity(named: "Отправка сообщения: '\(text)'") { _ in
@@ -22,6 +23,7 @@ public final class ChatSteps {
         return self
     }
 
+    /// Отправка нескольких сообщений
     @discardableResult
     public func sendMultipleMessages(_ messages: [String]) -> ChatSteps {
         XCTContext.runActivity(named: "Отправка нескольких сообщений") { _ in
@@ -34,6 +36,7 @@ public final class ChatSteps {
 
     // MARK: - Проверки
 
+    /// Проверка наличия сообщения
     @discardableResult
     public func verifyMessageExists(_ text: String) -> ChatSteps {
         XCTContext.runActivity(named: "Проверка наличия сообщения: '\(text)'") { _ in
@@ -42,6 +45,7 @@ public final class ChatSteps {
         return self
     }
 
+    /// Проверка видимости пустого состояния
     @discardableResult
     public func verifyEmptyState() -> ChatSteps {
         XCTContext.runActivity(named: "Проверка пустого состояния") { _ in
@@ -50,6 +54,7 @@ public final class ChatSteps {
         return self
     }
 
+    /// Проверка индикатора генерации
     @discardableResult
     public func verifyThinkingIndicator() -> ChatSteps {
         XCTContext.runActivity(named: "Проверка индикатора генерации") { _ in
@@ -60,17 +65,21 @@ public final class ChatSteps {
 
     // MARK: - Навигация
 
+    /// Открытие истории чатов
     @discardableResult
     public func openHistory() -> ChatSteps {
-        XCTContext.runActivity(named: "Открытие истории чатов") { _ in
+        _ = XCTContext.runActivity(named: "Открытие истории чатов") {
+            _ in
             chatPage.openHistory()
         }
         return self
     }
 
+    /// Открытие выбора модели
     @discardableResult
     public func openModelPicker() -> ChatSteps {
-        XCTContext.runActivity(named: "Открытие выбора модели") { _ in
+        _ = XCTContext.runActivity(named: "Открытие выбора модели") {
+            _ in
             chatPage.openModelPicker()
         }
         return self
@@ -78,10 +87,12 @@ public final class ChatSteps {
 
     // MARK: - Очистка
 
+    /// Очистка поля ввода
     @discardableResult
     public func clearInput() -> ChatSteps {
         XCTContext.runActivity(named: "Очистка поля ввода") { _ in
-            chatPage.messageInputField.clear()
+            chatPage.messageInputField.element.tap()
+            chatPage.messageInputField.element.tap()
         }
         return self
     }

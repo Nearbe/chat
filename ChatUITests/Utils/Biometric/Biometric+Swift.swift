@@ -10,28 +10,28 @@ public enum Biometric {
     /// Зарегистрировать биометрию (Touch ID/Face ID будут доступны)
     public static func enrolled() {
         XCTContext.runActivity(named: "Biometric: enrolled") { _ in
-            UTBiometricObjc.enrolled()
+            UTBiometric.enrolled()
         }
     }
 
     /// Отменить регистрацию биометрии (Touch ID/Face ID не будут доступны)
     public static func unenrolled() {
         XCTContext.runActivity(named: "Biometric: unenrolled") { _ in
-            UTBiometricObjc.unenrolled()
+            UTBiometric.unenrolled()
         }
     }
 
     /// Симулировать успешную аутентификацию (Face ID / Touch ID успешен)
     public static func successfulAuthentication() {
         XCTContext.runActivity(named: "Biometric: successful authentication") { _ in
-            UTBiometricObjc.successfulAuthentication()
+            UTBiometric.successfulAuthentication()
         }
     }
 
     /// Симулировать неуспешную аутентификацию (Face ID / Touch ID провален)
     public static func unsuccessfulAuthentication() {
         XCTContext.runActivity(named: "Biometric: unsuccessful authentication") { _ in
-            UTBiometricObjc.unsuccessfulAuthentication()
+            UTBiometric.unsuccessfulAuthentication()
         }
     }
 }

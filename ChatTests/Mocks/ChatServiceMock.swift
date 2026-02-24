@@ -7,7 +7,7 @@ import Combine
 final class ChatServiceMock: ChatServiceProtocol {
     var fetchModelsResult: Result<[ModelInfo], Error> = .success([])
     var streamChatResult: AsyncThrowingStream<ChatCompletionStreamPart, Error>?
-    
+
     var fetchModelsCalled = false
     var streamChatCalled = false
 

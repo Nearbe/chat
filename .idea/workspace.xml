@@ -26,14 +26,91 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/deviceManager.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/swift-toolchain.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.swift-format" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/ApplicationContexts.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/TestConfigurationBuilder.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/TypedElements.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/UTPredicates.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/UTTestObserver.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChatUITests/Pages/Steps.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Commands/Check" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Commands/ConfigureSudo" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Commands/Setup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Commands/Ship" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Commands/UpdateDocsLinks" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/COMPARISON_WITH_TX_MOBILE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/TX_MOBILE_CHECKLIST.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/DependencyService.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-scripts.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deploy.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/_Check.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/_Check.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/_Configure_Sudo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/_Configure_Sudo.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/_Download_Docs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/_Download_Docs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/_Setup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/_Setup.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/_Ship.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/_Ship.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/_Update_Docs_Links.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/_Update_Docs_Links.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.swiftlint.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.swiftlint.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/ChatServiceTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ChatServiceTests.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/ChatSessionManagerTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ChatSessionManagerTests.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/ChatSnapshotTest.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ChatSnapshotTest.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/ChatSnapshotTests.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/ChatViewModelTest.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ChatViewModelTest.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/ChatViewModelTests.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/HTTPClientTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/HTTPClientTests.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/Mocks/ChatServiceMock.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/Mocks/ChatServiceMock.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/Mocks/MockLMStudioServer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/Mocks/MockLMStudioServer.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/Mocks/NetworkMonitorMock.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/Mocks/NetworkMonitorMock.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/Mocks/URLProtocolMock.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/Mocks/URLProtocolMock.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/ModelDecodingTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ModelDecodingTests.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/NetworkServiceTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/NetworkServiceTests.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/SSEParserTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/SSEParserTests.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/TestHelpers.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/TestHelpers.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/UnitTestCase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/UnitTestCase.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/__Snapshots__/ChatSnapshotTests/testChatViewDarkMode.1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/__Snapshots__/ChatSnapshotTests/testChatViewDefault.1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatTests/__Snapshots__/ChatSnapshotTests/testChatViewWithDynamicType.1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/ChatUITestAuth.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/ChatUITestAuth.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/ChatUITestLaunch.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/ChatUITestLaunch.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/ChatUITestNavigation.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/ChatUITestNavigation.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/ChatUITests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/ChatUITests.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseElement+Queries.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/BaseElement+Queries.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseElement.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/BaseElement.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseTestCase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/BaseTestCase.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseTestCaseTest.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseTestCaseUITest.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/Configuration.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/Configuration.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/Constants.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/Constants.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/Predicates.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/Predicates.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/XCTestCase+DSL.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Elements/Button.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Elements/UTButton.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Pages/ChatPage.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Pages/ChatPage.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Pages/SettingsPage.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Pages/SettingsPage.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Screens/BaseScreen.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Screens/BaseScreen.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Steps/ChatSteps.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Steps/ChatSteps.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Utils/Biometric/Biometric+Swift.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Utils/Biometric/Biometric+Swift.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Utils/Network/HttpClient.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Utils/Network/HttpClient.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatUITests/Utils/Network/LocalServer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Utils/Network/LocalServer.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Testing/ChatUITestsBase.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Testing/UnitTestCase.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIDELINES.md" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDELINES.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IMPROVEMENT_PLAN.md" beforeDir="false" afterPath="$PROJECT_DIR$/IMPROVEMENT_PLAN.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QWEN.md" beforeDir="false" afterPath="$PROJECT_DIR$/QWEN.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SETUP.md" beforeDir="false" afterPath="$PROJECT_DIR$/SETUP.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlans/UITests.xctestplan" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestPlans/UnitTests.xctestplan" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Package.resolved" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Package.resolved" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Check.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Check.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/ConfigureSudo.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/ConfigureSudo.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/DownloadDocs.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/DownloadDocs.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Setup.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Setup.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Ship.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Ship.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/UpdateDocsLinks.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/UpdateDocsLinks.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/LogOutput.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/LogOutput.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/Shell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/Shell.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/TestResultParser.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/TestRunner.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/TestRunner.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/metrics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/metrics.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.yml" beforeDir="false" afterPath="$PROJECT_DIR$/project.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +128,7 @@
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="9041" />
+    <option name="cachedIndexableFilesCount" value="14008" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="macos_macos_arm64" />
@@ -87,7 +164,7 @@
     <urls />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="AISelfReview" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="IDEA" />
@@ -111,48 +188,57 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Swift Package Run.Scripts.executor": "Run",
-    "Swift Package Run.🔍 Check.executor": "Run",
-    "Xcode Application.🔍 Check.executor": "Run",
-    "Xcode Application.🔐 Configure Sudo.executor": "Run",
-    "Xcode Application.🚢 Ship.executor": "Run",
-    "cidr.known.project.marker": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/nearbe/repositories/Chat",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.30214724",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "ml.llm.AIAssistantPromptsLibrary",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Swift Package Run.Scripts.executor&quot;: &quot;Run&quot;,
+    &quot;Swift Package Run.🔍 Check.executor&quot;: &quot;Run&quot;,
+    &quot;Xcode Application.🔍 Check.executor&quot;: &quot;Run&quot;,
+    &quot;Xcode Application.🔐 Configure Sudo.executor&quot;: &quot;Run&quot;,
+    &quot;Xcode Application.🚢 Ship.executor&quot;: &quot;Run&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nearbe/repositories/Chat&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.30214724&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.mcp&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="QodanaProblemsViewState">
+    <option name="showBaselineProblems" value="true" />
+  </component>
   <component name="RecapUselessUpdatesCounter">
     <option name="suspendCountdown" value="0" />
   </component>
-  <component name="RunManager" selected="Xcode Application.🚢 Ship">
+  <component name="RunManager" selected="Xcode Application.🔍 Check">
+    <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" DEVELOPMENT_TEAM="${TEAM_ID}" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
+      <embedded_app_extension_list />
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Scripts" type="SwiftPackageManagerRunConfiguration" factoryName="Swift Package Run" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Chat" TARGET_NAME="Scripts" CONFIG_NAME="Scripts" RUN_TARGET_PROJECT_NAME="Chat" RUN_TARGET_NAME="Scripts">
       <method v="2">
         <option name="SPM.BUILD_TASK_PROVIDER" enabled="true" />
@@ -196,7 +282,10 @@
       <workItem from="1771865345225" duration="165000" />
       <workItem from="1771865540133" duration="345000" />
       <workItem from="1771865921136" duration="281000" />
-      <workItem from="1771866387291" duration="221000" />
+      <workItem from="1771866387291" duration="10763000" />
+      <workItem from="1771878011908" duration="7448000" />
+      <workItem from="1771887233112" duration="2222000" />
+      <workItem from="1771915249876" duration="7770000" />
     </task>
     <servers />
   </component>
@@ -225,19 +314,19 @@
   <component name="XcodeBuildConfigurationMetadata">
     <buildConfigurationMetadataMap>
       <entry key="Xcode Application. Check">
-        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" wasRun="true" />
+        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" />
       </entry>
       <entry key="Xcode Application. Configure Sudo">
         <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" wasRun="true" />
       </entry>
       <entry key="Xcode Application. Ship">
-        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" />
+        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" wasRun="true" />
+      </entry>
+      <entry key="Xcode Application.Chat">
+        <BuildConfigurationMetadata buildDestinationId="iphoneos_00008140-001E75D13468801C" isDestinationPhysicalDevice="true" />
       </entry>
       <entry key="Xcode Application. Check">
-        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" wasRun="true" />
-      </entry>
-      <entry key="Xcode Application. Ship">
-        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" wasRun="true" />
+        <BuildConfigurationMetadata buildDestinationId="macos_macos_arm64" />
       </entry>
     </buildConfigurationMetadataMap>
   </component>

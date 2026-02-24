@@ -1,6 +1,7 @@
 // MARK: - Связь с документацией: Тесты (Версия: 6.0). Статус: Синхронизировано.
-import Testing
+
 import Foundation
+import Testing
 @testable import Chat
 
 @MainActor
@@ -13,10 +14,10 @@ struct HTTPClientTests {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [URLProtocolMock.self]
         session = URLSession(configuration: configuration)
-        
+
         let netConfig = NetworkConfiguration(timeout: 5, session: session)
         httpClient = HTTPClient(configuration: netConfig, authProvider: nil)
-        
+
         // Reset mock state
         URLProtocolMock.testResponses = [:]
         URLProtocolMock.requestHandler = nil
@@ -27,10 +28,10 @@ struct HTTPClientTests {
     func getRequestSuccess() async throws {
         // Given
         let url = URL(string: "https://api.example.com/test")!
-        let responseData = "{\"status\": \"ok\"}".data(using: .utf8)!
+        let responseData = Data("{\"status\": \"ok\"}".utf8)
         let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        
-        URLProtocolMock.testResponses[url] = (responseData, response, nil)
+
+        URLProtocolMock.testResponses[url] = TestResponse(data: responseData, response: response, error: nil)
 
         // When
         let (data, _) = try await httpClient.get(url: url)
@@ -45,9 +46,9 @@ struct HTTPClientTests {
         // Given
         let url = URL(string: "https://api.example.com/post")!
         let body = ["key": "value"]
-        let responseData = "{\"result\": \"success\"}".data(using: .utf8)!
+        let responseData = Data("{\"result\": \"success\"}".utf8)
         let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        
+
         URLProtocolMock.requestHandler = { request in
             #expect(request.httpMethod == "POST")
             #expect(request.value(forHTTPHeaderField: "Content-Type") == "application/json")
@@ -71,7 +72,7 @@ struct HTTPClientTests {
         let url = URL(string: "https://api.example.com/error")!
         let headerFields = statusCode == 429 ? ["Retry-After": "60"] : nil
         let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: headerFields)!
-        URLProtocolMock.testResponses[url] = (Data(), response, nil)
+        URLProtocolMock.testResponses[url] = TestResponse(data: Data(), response: response, error: nil)
 
         // When/Then
         await #expect(throws: NetworkError.self) {

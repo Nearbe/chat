@@ -59,7 +59,8 @@ public final class LogOutput: @unchecked Sendable {
     /// Останавливает логирование и закрывает файл
     public func stop() {
         // Записываем завершающую часть
-        let footer = "\n\n================================================================================\n===  END OF LOG\n================================================================================\n"
+        let separator = String(repeating: "=", count: 80)
+        let footer = "\n\n\(separator)\n===  END OF LOG\n\(separator)\n"
         write(footer, toConsole: false)
 
         // Закрываем файл

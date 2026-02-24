@@ -1,0 +1,18 @@
+{
+  "indentation": {
+    "spaces": 4
+  },
+  "maximumBlankLines": 1,
+  "lineLength": 160,
+  "version": 1,
+  "respectsExistingLineBreaks": true,
+  "lineBreakBeforeControlFlowKeywords": true,
+  "lineBreakBeforeEachArgument": false,
+  "indentConditionalCompilationBlocks": true,
+  "indentSwitchCaseLabels": false,
+  "spacesAroundRangeFormationOperators": false,
+  "prioritizeKeepingFunctionOutputTogether": true,
+  "prioritizeKeepingPropertyOutputTogether": true,
+  "elseOnSameLineAsClosingBrace": false,
+  "explicitMemberTypeAnnotationStyle": "column"
+}

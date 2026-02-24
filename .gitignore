@@ -45,3 +45,4 @@ Thumbs.db
 .xcresult/
 /TestResult.xcresult/
 .output.txt
+/Logs/
