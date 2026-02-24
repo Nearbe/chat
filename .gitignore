@@ -20,9 +20,7 @@ xcuserdata/
 *.xcworkspace/
 
 # Swift Package Manager
-#
-# Add this line if you want to avoid tracking the test connectivity and performance.
-# .build/
+.build/
 
 # Trace and Diagnostic files
 *.trace

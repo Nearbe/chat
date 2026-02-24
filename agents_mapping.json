@@ -1,0 +1,535 @@
+{
+  "version": "1.0",
+  "description": "Маппинг субагентов на скиллы для проекта Chat. Статическая конфигурация виртуальной команды.",
+  "agents": [
+    {
+      "subagent_type": "client_developer",
+      "skill_name": "client_developer",
+      "path": "Agents/client-developer/SKILL.md",
+      "workspace": "Agents/client-developer/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "UI",
+        "SwiftUI",
+        "экран",
+        "компонент",
+        "View",
+        "ViewModel",
+        "интерфейс",
+        "верстка",
+        "кнопка",
+        "список",
+        "навигация",
+        "модальное окно"
+      ],
+      "domains": ["iOS", "SwiftUI", "MVVM", "UI Components"]
+    },
+    {
+      "subagent_type": "client_lead",
+      "skill_name": "client_lead",
+      "path": "Agents/client-lead/SKILL.md",
+      "workspace": "Agents/client-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "клиентская часть",
+        "iOS разработка",
+        "UI компонент",
+        "экран",
+        "SwiftUI",
+        "SwiftData",
+        "MVVM",
+        "code review",
+        "координация клиента"
+      ],
+      "domains": ["iOS Architecture", "Code Review", "Team Coordination"]
+    },
+    {
+      "subagent_type": "server_developer",
+      "skill_name": "server_developer",
+      "path": "Agents/server-developer/SKILL.md",
+      "workspace": "Agents/server-developer/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "API",
+        "сеть",
+        "network",
+        "запрос",
+        "HTTP",
+        "SSE",
+        "парсинг",
+        "LM Studio",
+        "ollama",
+        "chat completion",
+        "stream",
+        "модель",
+        "загрузка модели"
+      ],
+      "domains": ["API Integration", "Network Layer", "SSE Streaming", "JSON Parsing"]
+    },
+    {
+      "subagent_type": "server_lead",
+      "skill_name": "server_lead",
+      "path": "Agents/server-lead/SKILL.md",
+      "workspace": "Agents/server-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "серверная часть",
+        "API интеграция",
+        "LM Studio",
+        "network",
+        "SSE",
+        "HTTP клиент",
+        "code review",
+        "координация сервера",
+        "эндпоинт"
+      ],
+      "domains": ["API Architecture", "Server Integration", "Code Review"]
+    },
+    {
+      "subagent_type": "designer",
+      "skill_name": "designer",
+      "path": "Agents/designer/SKILL.md",
+      "workspace": "Agents/designer/workspace/",
+      "access": "read",
+      "trigger_keywords": [
+        "дизайн",
+        "иконка",
+        "визуальный",
+        "макет",
+        "прототип",
+        "цвет",
+        "шрифт",
+        "компонент",
+        "UI элемент"
+      ],
+      "domains": ["UI Design", "Visual Elements", "Design System"]
+    },
+    {
+      "subagent_type": "designer_lead",
+      "skill_name": "designer_lead",
+      "path": "Agents/designer-lead/SKILL.md",
+      "workspace": "Agents/designer-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "визуальная концепция",
+        "UX решение",
+        "дизайн система",
+        "design system",
+        "UI/UX",
+        "координация дизайна",
+        "прототип"
+      ],
+      "domains": ["Visual Design", "UX Strategy", "Design System Leadership"]
+    },
+    {
+      "subagent_type": "devops",
+      "skill_name": "devops",
+      "path": "Agents/devops/SKILL.md",
+      "workspace": "Agents/devops/workspace/",
+      "access": "read",
+      "trigger_keywords": [
+        "скрипт",
+        "автоматизация",
+        "сборка",
+        "build",
+        "деплой",
+        "CI/CD",
+        "xcodebuild",
+        "fastlane",
+        "provisioning"
+      ],
+      "domains": ["Scripts", "Build Automation", "CI/CD"]
+    },
+    {
+      "subagent_type": "devops_lead",
+      "skill_name": "devops_lead",
+      "path": "Agents/devops-lead/SKILL.md",
+      "workspace": "Agents/devops-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "инфраструктура",
+        "CI/CD",
+        "деплой",
+        "сборка",
+        "автоматизация",
+        "xcodegen",
+        "swiftgen",
+        "code signing",
+        "устройство"
+      ],
+      "domains": ["Infrastructure", "CI/CD Leadership", "Deployment"]
+    },
+    {
+      "subagent_type": "client_qa_lead",
+      "skill_name": "client_qa_lead",
+      "path": "Agents/client-qa-lead/SKILL.md",
+      "workspace": "Agents/client-qa-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "QA клиент",
+        "тестирование UI",
+        "UI тест",
+        "SnapshotTesting",
+        "XCTest",
+        "Page Object"
+      ],
+      "domains": ["UI Testing", "Client Quality Assurance"]
+    },
+    {
+      "subagent_type": "server_qa_lead",
+      "skill_name": "server_qa_lead",
+      "path": "Agents/server-qa-lead/SKILL.md",
+      "workspace": "Agents/server-qa-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "QA сервер",
+        "API тест",
+        "интеграционный тест",
+        "mock",
+        "тестирование API"
+      ],
+      "domains": ["API Testing", "Server Quality Assurance"]
+    },
+    {
+      "subagent_type": "designer_qa_lead",
+      "skill_name": "designer_qa_lead",
+      "path": "Agents/designer-qa-lead/SKILL.md",
+      "workspace": "Agents/designer-qa-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "QA дизайн",
+        "визуальное тестирование",
+        "регрессия",
+        "pixel perfect",
+        "снапшот"
+      ],
+      "domains": ["Visual Testing", "Design Quality Assurance"]
+    },
+    {
+      "subagent_type": "devops_qa_lead",
+      "skill_name": "devops_qa_lead",
+      "path": "Agents/devops-qa-lead/SKILL.md",
+      "workspace": "Agents/devops-qa-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "QA DevOps",
+        "тестирование сборки",
+        "тестирование CI/CD",
+        "pipeline тест"
+      ],
+      "domains": ["Infrastructure Testing", "CI/CD Quality Assurance"]
+    },
+    {
+      "subagent_type": "head_of_qa",
+      "skill_name": "head_of_qa",
+      "path": "Agents/head-of-qa/SKILL.md",
+      "workspace": "Agents/head-of-qa/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "стратегия тестирования",
+        "QA процесс",
+        "качество",
+        "координация QA",
+        "покрытие",
+        "тест план",
+        "метрики качества"
+      ],
+      "domains": ["QA Strategy", "Quality Assurance Leadership", "Test Coordination"]
+    },
+    {
+      "subagent_type": "cto",
+      "skill_name": "cto",
+      "path": "Agents/cto/SKILL.md",
+      "workspace": "Agents/cto/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "архитектура",
+        "рефакторинг",
+        "технологии",
+        "architecture",
+        "техническое решение",
+        "инфраструктурная задача",
+        "координация агентов",
+        "выбор технологии",
+        "dependency injection"
+      ],
+      "domains": ["Architecture", "Technology Decisions", "Team Coordination", "Technical Leadership"]
+    },
+    {
+      "subagent_type": "product_manager",
+      "skill_name": "product_manager",
+      "path": "Agents/product-manager/SKILL.md",
+      "workspace": "Agents/product-manager/workspace/",
+      "access": "read",
+      "trigger_keywords": [
+        "roadmap",
+        "оценка",
+        "объём работ",
+        "план",
+        "срок",
+        "приоритет",
+        "разбить задачу",
+        "подзадачи"
+      ],
+      "domains": ["Project Planning", "Estimation", "Roadmap Creation"]
+    },
+    {
+      "subagent_type": "owner_product_consultant",
+      "skill_name": "owner_product_consultant",
+      "path": "Agents/owner-product-consultant/SKILL.md",
+      "workspace": "Agents/owner-product-consultant/workspace/",
+      "access": "read",
+      "trigger_keywords": [
+        "продукт",
+        "видение",
+        "бизнес",
+        "требование",
+        "фича",
+        " функциональность"
+      ],
+      "domains": ["Product Vision", "Business Requirements", "Feature Definition"]
+    },
+    {
+      "subagent_type": "documents_lead",
+      "skill_name": "documents_lead",
+      "path": "Agents/documents-lead/SKILL.md",
+      "workspace": "Agents/documents-lead/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "документация",
+        "docs",
+        "API docs",
+        "READM",
+        "описание",
+        "комментарий",
+        "docstring"
+      ],
+      "domains": ["Documentation", "API Documentation", "Documentation Leadership"]
+    },
+    {
+      "subagent_type": "hr",
+      "skill_name": "hr",
+      "path": "Agents/hr/SKILL.md",
+      "workspace": "Agents/hr/workspace/",
+      "access": "read",
+      "trigger_keywords": [
+        "новый агент",
+        "создать роль",
+        "добавить разработчика",
+        "должность",
+        "команда"
+      ],
+      "domains": ["Agent Creation", "Role Definition", "Team Management"]
+    },
+    {
+      "subagent_type": "staff_engineer",
+      "skill_name": "staff_engineer",
+      "path": "Agents/staff-engineer/SKILL.md",
+      "workspace": "Agents/staff-engineer/workspace/",
+      "access": "full",
+      "trigger_keywords": [
+        "рефакторинг",
+        "оптимизация",
+        "технический долг",
+        "улучшение кода",
+        "стандарты",
+        "best practices",
+        "code quality"
+      ],
+      "domains": ["Code Quality", "Refactoring", "Technical Standards"]
+    },
+    {
+      "subagent_type": "metrics",
+      "skill_name": "metrics",
+      "path": "Agents/metrics/SKILL.md",
+      "workspace": "Agents/metrics/workspace/",
+      "access": "read",
+      "trigger_keywords": [
+        "метрика",
+        "analytics",
+        "статистика",
+        "логирование",
+        "мониторинг",
+        "telemetry"
+      ],
+      "domains": ["Metrics", "Analytics", "Monitoring"]
+    },
+    {
+      "subagent_type": "client_security_engineer",
+      "skill_name": "client_security_engineer",
+      "path": "Agents/client-security-engineer/SKILL.md",
+      "workspace": "Agents/client-security-engineer/workspace/",
+      "access": "full",
+      "department": "client",
+      "trigger_keywords": [
+        "client безопасность",
+        "ios security",
+        "keychain",
+        "data protection",
+        "hardcoded",
+        "уязвимость iOS",
+        "sandbox"
+      ],
+      "domains": ["iOS Security", "Keychain", "Data Protection", "App Sandbox"]
+    },
+    {
+      "subagent_type": "client_platform_engineer",
+      "skill_name": "client_platform_engineer",
+      "path": "Agents/client-platform-engineer/SKILL.md",
+      "workspace": "Agents/client-platform-engineer/workspace/",
+      "access": "full",
+      "department": "client",
+      "trigger_keywords": [
+        "iPad",
+        "macOS",
+        "кросс-платформенность",
+        "adaptiv",
+        "NavigationSplitView",
+        "multidevice",
+        "widget",
+        "Apple Watch"
+      ],
+      "domains": ["iPad", "macOS", "Cross-Platform", "Widgets", "Adaptive UI"]
+    },
+    {
+      "subagent_type": "client_performance_engineer",
+      "skill_name": "client_performance_engineer",
+      "path": "Agents/client-performance-engineer/SKILL.md",
+      "workspace": "Agents/client-performance-engineer/workspace/",
+      "access": "full",
+      "department": "client",
+      "trigger_keywords": [
+        "производительность iOS",
+        "performance",
+        "оптимизация UI",
+        "memory leak",
+        "fps",
+        "time profiling",
+        "swiftdata",
+        "lazy",
+        "render"
+      ],
+      "domains": ["iOS Performance", "Profiling", "SwiftData", "Memory Management", "UI Optimization"]
+    },
+    {
+      "subagent_type": "client_accessibility_engineer",
+      "skill_name": "client_accessibility_engineer",
+      "path": "Agents/client-accessibility-engineer/SKILL.md",
+      "workspace": "Agents/client-accessibility-engineer/workspace/",
+      "access": "full",
+      "department": "client",
+      "trigger_keywords": [
+        "accessibility",
+        "a11y",
+        "voiceover",
+        "dynamic type",
+        "swipe",
+        "accessibility identifier",
+        "uiaction",
+        "assistive"
+      ],
+      "domains": ["Accessibility", "VoiceOver", "Dynamic Type", "Assistive Technologies"]
+    },
+    {
+      "subagent_type": "client_localization_engineer",
+      "skill_name": "client_localization_engineer",
+      "path": "Agents/client-localization-engineer/SKILL.md",
+      "workspace": "Agents/client-localization-engineer/workspace/",
+      "access": "full",
+      "department": "client",
+      "trigger_keywords": [
+        "локализация",
+        "i18n",
+        "translation",
+        "string catalog",
+        "multilingual",
+        "язык",
+        "locale",
+        "rtl"
+      ],
+      "domains": ["Localization", "i18n", "String Catalogs", "Multilingual Support"]
+    },
+    {
+      "subagent_type": "server_security_engineer",
+      "skill_name": "server_security_engineer",
+      "path": "Agents/server-security-engineer/SKILL.md",
+      "workspace": "Agents/server-security-engineer/workspace/",
+      "access": "full",
+      "department": "server",
+      "trigger_keywords": [
+        "server безопасность",
+        "api security",
+        "шифрование",
+        "токен",
+        "уязвимость API",
+        "MITM",
+        "rate limit",
+        "cors"
+      ],
+      "domains": ["API Security", "Encryption", "Token Management", "Vulnerability Assessment"]
+    },
+    {
+      "subagent_type": "server_integration_engineer",
+      "skill_name": "server_integration_engineer",
+      "path": "Agents/server-integration-engineer/SKILL.md",
+      "workspace": "Agents/server-integration-engineer/workspace/",
+      "access": "full",
+      "department": "server",
+      "trigger_keywords": [
+        "ollama",
+        "openai",
+        "api совместимость",
+        "rest api",
+        "интеграция",
+        "провайдер",
+        "adapter",
+        "mcp"
+      ],
+      "domains": ["API Integration", "Ollama", "OpenAI", "MCP", "Provider Abstraction"]
+    },
+    {
+      "subagent_type": "cto_research_engineer",
+      "skill_name": "cto_research_engineer",
+      "path": "Agents/cto-research-engineer/SKILL.md",
+      "workspace": "Agents/cto-research-engineer/workspace/",
+      "access": "read",
+      "department": "cto",
+      "trigger_keywords": [
+        "исследование",
+        "research",
+        "R&D",
+        "tool calling",
+        "function calling",
+        "mcp",
+        "agent",
+        "новые возможности",
+        "trending"
+      ],
+      "domains": ["R&D", "Tool Calling", "MCP", "AI Agents", "Innovation"]
+    },
+    {
+      "subagent_type": "analytics_engineer",
+      "skill_name": "analytics_engineer",
+      "path": "Agents/analytics-engineer/SKILL.md",
+      "workspace": "Agents/analytics-engineer/workspace/",
+      "access": "read",
+      "department": "product",
+      "trigger_keywords": [
+        "analytics",
+        "событие",
+        "event tracking",
+        "telemetry",
+        "mixpanel",
+        "firebase",
+        "amplitude",
+        "user behavior",
+        "дашборд"
+      ],
+      "domains": ["Analytics", "Event Tracking", "User Behavior", "Telemetry"]
+    }
+  ],
+  "fallback": {
+    "default_subagent": "cto",
+    "description": "Если задача не подходит под известные ключевые слова, используется CTO для анализа и маршрутизации"
+  }
+}
