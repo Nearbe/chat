@@ -31,7 +31,7 @@ enum DocumentationService {
         let enumerator = fileManager.enumerator(atPath: ".")
         var files: [String] = []
 
-        while let file = enumerator?.nextObject() as ?String {
+        while let file = enumerator?.nextObject() as?String {
             guard file.hasSuffix(".swift") || file.hasSuffix(".yml") else {
                 continue
             }
@@ -55,7 +55,7 @@ enum DocumentationService {
         }
     }
 
-    private static func formatDocComment(forfilePath: String, info: (name: String, version: String)) -> String {
+    private static func formatDocComment(for filePath: String, info: (name: String, version: String)) -> String {
         let message = "MARK: - Связь с документацией: \(info.name) (Версия: \(info.version)). Статус: Синхронизировано."
         if filePath.hasSuffix(".yml") || filePath.hasSuffix(".yaml") {
             return "# \(message)"
@@ -63,7 +63,7 @@ enum DocumentationService {
         return "// \(message)"
     }
 
-    private static func determineDocInfo(forfilePath: String, content: String) -> (name: String, version: String) {
+    private static func determineDocInfo(for filePath: String, content: String) -> (name: String, version: String) {
         if filePath.contains("Models/LMStudio") || filePath.contains("Services/Chat") {
             return ("LM Studio", Versions.lmStudioDocs)
         } else if content.contains("import Factory") {
@@ -90,7 +90,7 @@ enum DocumentationService {
     private static func updateFile(fileURL: URL, content: String, docComment: String) -> Bool {
         if !content.contains("MARK: - Связь с документацией:") {
             let newContent = docComment + "\n" + content
-            try ? newContent.write(to: fileURL, atomically: true, encoding: .utf8)
+            try? newContent.write(to: fileURL, atomically: true, encoding: .utf8)
             return true
         }
 
@@ -105,7 +105,7 @@ enum DocumentationService {
             }
             let newContent = updatedLines.joined(separator: "\n")
             if newContent != content {
-                try ? newContent.write(to: fileURL, atomically: true, encoding: .utf8)
+                try? newContent.write(to: fileURL, atomically: true, encoding: .utf8)
                 return true
             }
         }

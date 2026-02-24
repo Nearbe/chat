@@ -14,7 +14,7 @@ enum TestService {
     private static func runTests() async -> CheckStepResult {
         await StepExecutor.execute(name: "All Tests", emoji: "🧪") {
             let result = try await TestRunner.runAllTests()
-            try ? await TestRunner.checkCoverage(
+            try? await TestRunner.checkCoverage(
                 resultBundlePath: result.resultPath,
                 targetName: "Chat",
                 expected: 50.0

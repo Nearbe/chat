@@ -32,7 +32,7 @@ enum TestRunner {
             "CODE_SIGNING_REQUIRED=NO"
         ].joined(separator: " ")
 
-        let allowedWarnings = (try ? ExceptionService.loadSystemWarnings()) ?? []
+        let allowedWarnings = (try? ExceptionService.loadSystemWarnings()) ?? []
 
         // Используем стриминг для вывода результатов
         try await Shell.run(

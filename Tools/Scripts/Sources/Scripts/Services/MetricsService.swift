@@ -9,7 +9,7 @@ typealias Metrics = MetricsService
 enum MetricsService {
     private static let fileName = "metrics.csv"
     private static let lock = NSLock()
-    nonisolated (unsafe) private static var startTime = CFAbsoluteTimeGetCurrent()
+    nonisolated(unsafe) private static var startTime = CFAbsoluteTimeGetCurrent()
 
     /// Сбрасывает таймер.
     static func start() {
@@ -34,13 +34,13 @@ enum MetricsService {
         let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: fileURL.path) {
             let header = "Date,Step,Duration(s),Status\n"
-            _ = try ? header.write(to: fileURL, atomically: true, encoding: .utf8)
+            _ = try? header.write(to: fileURL, atomically: true, encoding: .utf8)
         }
 
-        if let fileHandle = try ? FileHandle(forWritingTo: fileURL),
+        if let fileHandle = try? FileHandle(forWritingTo: fileURL),
         let data = line.data(using: .utf8) {
             defer {
-                try ? fileHandle.close()
+                try? fileHandle.close()
             }
             fileHandle.seekToEndOfFile()
             fileHandle.write(data)

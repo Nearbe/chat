@@ -245,7 +245,7 @@ public enum Shell {
                 let label = isError ? "[ERROR]": ""
                 print("\(prefix) \(label) \(trimmed)")
             }
-            streamingHandler ?(trimmed)
+            streamingHandler?(trimmed)
         }
     }
 

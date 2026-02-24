@@ -25,7 +25,7 @@ struct RegisterAgents: AsyncParsableCommand {
         let qwenSkillsPath = Path.homeDirectory + ".qwen/skills"
 
         // Создаём директорию ~/.qwen/skills/ если нет
-        try ? FileManager.default.createDirectory(
+        try? FileManager.default.createDirectory(
             atPath: qwenSkillsPath.string,
             withIntermediateDirectories: true
         )
@@ -60,7 +60,7 @@ struct RegisterAgents: AsyncParsableCommand {
         let targetPath = qwenPath + name
 
         // Создаём папку агента
-        try ? FileManager.default.createDirectory(
+        try? FileManager.default.createDirectory(
             atPath: targetPath.string,
             withIntermediateDirectories: true
         )
@@ -85,7 +85,7 @@ struct RegisterAgents: AsyncParsableCommand {
         }
 
         let frontmatter = String(content[frontmatterMatch])
-        let body = String(content[frontmatterMatch.upperBound ...])
+        let body = String(content[frontmatterMatch.upperBound...])
 
         // Конвертируем name в snake_case для названия навыка
         let skillName = agentName.replacingOccurrences(of: "-", with: "_")

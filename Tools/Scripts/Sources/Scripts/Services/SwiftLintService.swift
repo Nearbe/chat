@@ -9,7 +9,7 @@ enum SwiftLintService {
         let rules = try loadRules()
         let violations = try await getViolations()
         let violatedRuleIds = Set(violations.compactMap {
-            $0["rule_id"] as ?String
+            $0["rule_id"] as?String
         })
 
         print("\n📝  Статус правил SwiftLint:")
@@ -26,7 +26,7 @@ enum SwiftLintService {
     /// Загружает список правил из конфигурации.
     private static func loadRules() throws -> [String] {
         let configPath = ".swiftlint.yml"
-        guard let configContent = try ? String(contentsOfFile: configPath, encoding: .utf8) else {
+        guard let configContent = try? String(contentsOfFile: configPath, encoding: .utf8) else {
             return []
         }
 
@@ -66,6 +66,6 @@ enum SwiftLintService {
     private static func getViolations() async throws -> [[String: Any]] {
         let jsonOutput = try await Shell.run("swiftlint lint --reporter json --quiet", quiet: true, logName: "SwiftLint")
         let data = jsonOutput.data(using: .utf8) ?? Data()
-        return (try ? JSONSerialization.jsonObject(with: data) as ? [[String: Any]]) ?? []
+        return (try? JSONSerialization.jsonObject(with: data) as? [[String: Any]]) ?? []
     }
 }

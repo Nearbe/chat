@@ -31,7 +31,7 @@ enum DependencyService {
 
     /// Проверяет наличие инструмента и устанавливает если отсутствует
     private static func ensureTool(name: String, brewName: String, version: String) async throws {
-        let installedVersion = try ? await getInstalledVersion(of: name)
+        let installedVersion = try? await getInstalledVersion(of: name)
 
         if let installed = installedVersion {
             print("  ✅ \(name) (\(installed)) уже установлен")
@@ -40,7 +40,7 @@ enum DependencyService {
 
         print("  ⚠️  \(name) не найден. Установка через Homebrew...")
 
-        let brewPath = try ? await getBrewPath()
+        let brewPath = try? await getBrewPath()
         guard let brew = brewPath else {
             throw DependencyError.brewNotFound
         }
@@ -75,8 +75,8 @@ enum DependencyService {
         // Извлекаем версию из вывода (формат может быть разным)
         // Ожидаемый формат: "X.Y.Z" или "X.Y.Z (YYYY-MM-DD)"
         let versionPattern = #"(\d+\.\d+\.\d+)"#
-        guard let regex = try ? NSRegularExpression(pattern: versionPattern),
-        let match = regex.firstMatch(in: output, range: NSRange(output.startIndex ..., in: output)),
+        guard let regex = try? NSRegularExpression(pattern: versionPattern),
+        let match = regex.firstMatch(in: output, range: NSRange(output.startIndex..<output.endIndex, in: output)),
         let range = Range(match.range(at: 1), in: output) else {
             return nil
         }
@@ -98,7 +98,7 @@ enum DependencyService {
         _ = try await Shell.run(installCommand)
 
         // Проверяем, что установка прошла успешно
-        if let version = try ? await getInstalledVersion(of: name) {
+        if let version = try? await getInstalledVersion(of: name) {
             print("  ✅ \(name) (\(version)) успешно установлен")
         } else {
             throw DependencyError.installationFailed(tool: name)

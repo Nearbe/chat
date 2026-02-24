@@ -44,7 +44,7 @@ struct Setup: AsyncParsableCommand {
         }
 
         let qwenSkillsPath = Path.homeDirectory + ".qwen/skills"
-        try ? FileManager.default.createDirectory(
+        try? FileManager.default.createDirectory(
             atPath: qwenSkillsPath.string,
             withIntermediateDirectories: true
         )
@@ -64,7 +64,7 @@ struct Setup: AsyncParsableCommand {
             }
 
             let targetPath = qwenSkillsPath + agentName
-            try ? FileManager.default.createDirectory(
+            try? FileManager.default.createDirectory(
                 atPath: targetPath.string,
                 withIntermediateDirectories: true
             )
@@ -84,7 +84,7 @@ struct Setup: AsyncParsableCommand {
         }
 
         let frontmatter = String(content[frontmatterMatch])
-        let body = String(content[frontmatterMatch.upperBound ...])
+        let body = String(content[frontmatterMatch.upperBound...])
 
         let skillName = agentName.replacingOccurrences(of: "-", with: "_")
 

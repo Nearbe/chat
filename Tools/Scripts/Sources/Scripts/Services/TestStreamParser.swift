@@ -38,8 +38,8 @@ enum TestStreamParser {
 
     /// Парсит строку вывода теста.
     static func parseLine(_ line: String) -> LiveTestResult? {
-        guard let regex = try ? NSRegularExpression(pattern: testCasePattern, options: []),
-        let match = regex.firstMatch(in: line, options: [], range: NSRange(line.startIndex ..., in: line)) else {
+        guard let regex = try? NSRegularExpression(pattern: testCasePattern, options: []),
+        let match = regex.firstMatch(in: line, options: [], range: NSRange(line.startIndex..<line.endIndex, in: line)) else {
             return nil
         }
 
@@ -74,8 +74,8 @@ enum TestStreamParser {
 
     /// Извлекает количество попыток из строки.
     static func parseAttempts(_ line: String) -> Int? {
-        guard let regex = try ? NSRegularExpression(pattern: attemptPattern, options: []),
-        let match = regex.firstMatch(in: line, options: [], range: NSRange(line.startIndex ..., in: line)),
+        guard let regex = try? NSRegularExpression(pattern: attemptPattern, options: []),
+        let match = regex.firstMatch(in: line, options: [], range: NSRange(line.startIndex..<line.endIndex, in: line)),
         let range = Range(match.range(at: 1), in: line) else {
             return nil
         }
