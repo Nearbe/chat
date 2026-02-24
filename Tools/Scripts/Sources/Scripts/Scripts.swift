@@ -13,7 +13,8 @@ struct Scripts: AsyncParsableCommand {
             Ship.self,
             DownloadDocs.self,
             UpdateDocsLinks.self,
-            ConfigureSudo.self
+            ConfigureSudo.self,
+            RegisterAgents.self
         ],
         defaultSubcommand: Check.self
     )

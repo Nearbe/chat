@@ -40,12 +40,15 @@ iOS-приложение на SwiftUI с интеграцией LLM (совме�
 ```
 Chat/
 ├── App/                    # Точка входа (ChatApp.swift)
+├── Core/                   # Универсальные типы, расширения, DI
+│   ├── Extensions/        # Расширения (Color+Hex, String+Markdown, ChatSession+Export)
+│   ├── AnyCodable.swift   # Универсальный Codable тип
+│   └── Container+Registrations.swift # Регистрации Factory (DI)
 ├── Features/               # Функциональные модули
 │   ├── Chat/              # Экран чата (Views, ViewModels, Components)
 │   ├── History/           # Экран истории
 │   ├── Settings/          # Экран настроек
 │   └── Common/            # Общие UI-компоненты
-├── Core/                  # Универсальные типы, расширения, утилиты
 ├── Data/                  # Конфигурация SwiftData (PersistenceController)
 ├── Design/                # Дизайн-система (Colors, Spacing, Typography)
 ├── Models/                # Модели данных
@@ -233,10 +236,10 @@ SwiftData                                   SSE Stream
 | Файл                     | Директория                      | Назначение              |
 |--------------------------|---------------------------------|-------------------------|
 | `ChatView.swift`         | `Features/Chat/Views/`          | Главный экран чата      |
-| `ChatMessagesView.swift` | `Features/Chat/Views/`          | Список сообщений        |
-| `MessageInputView.swift` | `Features/Chat/Views/`          | Поле ввода сообщения    |
+| `ChatMessagesView.swift` | `Features/Chat/Components/`     | Список сообщений        |
+| `MessageInputView.swift` | `Features/Chat/Components/`     | Поле ввода сообщения    |
 | `MessageBubble.swift`    | `Features/Chat/Components/`     | Пузырь сообщения        |
-| `ShieldView.swift`       | `Features/Chat/Components/`     | 3D щит для ввода токена |
+| `ShieldView.swift`       | `Features/Common/Components/`   | 3D щит для ввода токена |
 | `HistoryView.swift`      | `Features/History/Views/`       | Экран истории чатов     |
 | `SessionRowView.swift`   | `Features/History/Components/`  | Строка сессии в истории |
 | `ModelPicker.swift`      | `Features/Settings/Views/`      | Экран выбора модели     |
@@ -251,18 +254,22 @@ SwiftData                                   SSE Stream
 
 ### Сервисы (Services)
 
-| Файл                          | Директория          | Назначение                      |
-|-------------------------------|---------------------|---------------------------------|
-| `ChatService.swift`           | `Services/Chat/`    | Основной сервис для API чата    |
-| `ChatSessionManager.swift`    | `Services/Chat/`    | Управление сессиями SwiftData   |
-| `ChatStreamService.swift`     | `Services/Chat/`    | SSE стриминг ответов            |
-| `NetworkService.swift`        | `Services/Network/` | HTTP клиент для LM Studio API   |
-| `HTTPClient.swift`            | `Services/Network/` | Низкоуровневый HTTP клиент      |
-| `SSEParser.swift`             | `Services/Network/` | Парсинг SSE потока              |
-| `NetworkMonitor.swift`        | `Services/Network/` | Мониторинг сетевого подключения |
-| `AuthorizationProvider.swift` | `Services/Network/` | Провайдер авторизации           |
-| `KeychainHelper.swift`        | `Services/Auth/`    | Работа с Keychain               |
-| `DeviceIdentity.swift`        | `Services/Auth/`    | Идентификация устройства        |
+| Файл                          | Директория          | Назначение                               |
+|-------------------------------|---------------------|------------------------------------------|
+| `ChatService.swift`           | `Services/Chat/`    | Основной сервис для API чата             |
+| `ChatSessionManager.swift`    | `Services/Chat/`    | Управление сессиями SwiftData            |
+| `ChatStreamService.swift`     | `Services/Chat/`    | SSE стриминг ответов                     |
+| `NetworkService.swift`        | `Services/Network/` | HTTP клиент для LM Studio API            |
+| `HTTPClient.swift`            | `Services/Network/` | Низкоуровневый HTTP клиент               |
+| `SSEParser.swift`             | `Services/Network/` | Парсинг SSE потока                       |
+| `NetworkMonitor.swift`        | `Services/Network/` | Мониторинг сетевого подключения          |
+| `AuthorizationProvider.swift` | `Services/Network/` | Провайдер авторизации                    |
+| `NetworkConfiguration.swift`  | `Services/`         | Конфигурация сети (Pulse интеграция)     |
+| `ThemeManager.swift`          | `Services/`         | Управление темой приложения              |
+| `KeychainHelper.swift`        | `Services/Auth/`    | Работа с Keychain                        |
+| `DeviceIdentity.swift`        | `Services/Auth/`    | Идентификация устройства                 |
+| `DeviceAuthManager.swift`     | `Services/Auth/`    | Менеджер авторизации (токены в Keychain) |
+| `DeviceConfiguration.swift`   | `Services/Auth/`    | Конфигурация устройств                   |
 
 ### Модели (Models)
 
@@ -277,15 +284,19 @@ SwiftData                                   SSE Stream
 
 ### Конфигурация
 
-| Файл                                                | Назначение                           |
-|-----------------------------------------------------|--------------------------------------|
-| `project.yml`                                       | Конфигурация XcodeGen                |
-| `swiftgen.yml`                                      | Конфигурация SwiftGen                |
-| `.swiftlint.yml`                                    | Правила SwiftLint                    |
-| `GUIDELINES.md`                                     | Полное руководство по разработке     |
-| `IMPROVEMENT_PLAN.md`                               | План улучшений                       |
-| `VERSIONING.md`                                     | Управление версиями                  |
-| `Tools/Scripts/Sources/Scripts/Core/Versions.swift` | Централизованное управление версиями |
+| Файл                     | Назначение                         |
+|--------------------------|------------------------------------|
+| `project.yml`            | Конфигурация XcodeGen              |
+| `swiftgen.yml`           | Конфигурация SwiftGen              |
+| `.swiftlint.yml`         | Правила SwiftLint                  |
+| `GUIDELINES.md`          | Полное руководство по разработке   |
+| `TESTING.md`             | Руководство по тестированию        |
+| `IMPROVEMENT_PLAN.md`    | План улучшений                     |
+| `VERSIONING.md`          | Управление версиями                |
+| `SETUP.md`               | Настройка окружения                |
+| `AGENTS.md`              | Краткое руководство для AI-агентов |
+| `.junie/context.json`    | Техническая карта проекта          |
+| `.junie/instructions.md` | Инструкции для AI-помощников       |
 
 ## Сборка и запуск
 
@@ -423,8 +434,11 @@ SwiftData                                   SSE Stream
 При любых изменениях в структуре проекта, ключевых компонентах или архитектуре, **обязательно** проверить и обновить:
 
 1. `.junie/context.json` — техническая карта проекта
-2. `GUIDELINES.md` — общее руководство
+2. `GUIDELINES.md` — общее руководство по разработке
 3. `.junie/instructions.md` — специфические инструкции для AI
+4. `AGENTS.md` — краткое руководство для AI-агентов (синхронизировано с QWEN.md)
+5. `SETUP.md` — настройка окружения (при изменении зависимостей)
+6. `VERSIONING.md` — при изменении версий инструментов
 
 Информационная связность — залог корректной работы будущих сессий.
 
@@ -530,7 +544,7 @@ Swift-based CLI в `Tools/Scripts/` (точка входа `Scripts.swift`):
 
 ### Версионирование
 
-Централизованное управление версиями в `Tools/Scripts/Sources/Scripts/Core/Versions.swift`:
+Централизованное управление версиями в `Tools/Scripts/Sources/Scripts/Models/Versions.swift`:
 
 - XcodeGen, SwiftGen, SwiftLint
 - SPM зависимости: Factory, Pulse, SnapshotTesting

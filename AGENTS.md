@@ -27,7 +27,7 @@ iOS-приложение для чата с интеграцией LLM (совм
 
 ### XcodeGen
 
-- **Версия**: 2.44.1 (см. `Tools/Scripts/Sources/Scripts/Core/Versions.swift`)
+- **Версия**: 2.44.1 (см. `Tools/Scripts/Sources/Scripts/Models/Versions.swift`)
 - **Файл конфигурации**: `project.yml`
 
 ### SwiftGen
@@ -147,15 +147,19 @@ xcodebuild test -scheme Chat -destination 'platform=iOS Simulator,name=iPhone 16
 
 ## Важные файлы
 
-| Файл | Назначение |
-|------|------------|
-| `QWEN.md` | Полный контекст проекта |
-| `GUIDELINES.md` | Руководство по разработке |
-| `VERSIONING.md` | Управление версиями |
-| `project.yml` | Конфигурация XcodeGen |
-| `swiftgen.yml` | Конфигурация SwiftGen |
-| `.swiftlint.yml` | Правила SwiftLint |
-| `Tools/Scripts/Sources/Scripts/Core/Versions.swift` | Централизованное управление версиями |
+| Файл                                                  | Назначение                           |
+|-------------------------------------------------------|--------------------------------------|
+| `QWEN.md`                                             | Полный контекст проекта              |
+| `GUIDELINES.md`                                       | Руководство по разработке            |
+| `SETUP.md`                                            | Настройка окружения                  |
+| `TESTING.md`                                          | Руководство по тестированию          |
+| `VERSIONING.md`                                       | Управление версиями                  |
+| `project.yml`                                         | Конфигурация XcodeGen                |
+| `swiftgen.yml`                                        | Конфигурация SwiftGen                |
+| `.swiftlint.yml`                                      | Правила SwiftLint                    |
+| `.junie/context.json`                                 | Техническая карта проекта            |
+| `.junie/instructions.md`                              | Инструкции для AI-помощников         |
+| `Tools/Scripts/Sources/Scripts/Models/Versions.swift` | Централизованное управление версиями |
 
 ---
 

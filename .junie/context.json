@@ -6,12 +6,16 @@
     "main_view": "Features/Chat/Views/ChatView.swift",
     "main_logic": "Features/Chat/ViewModels/ChatViewModel.swift",
     "network_gateway": "Services/Network/NetworkService.swift",
-    "data_persistence": "Data/PersistenceController.swift"
+    "data_persistence": "Data/PersistenceController.swift",
+    "agents_directory": "Agents/"
   },
   "documentation": {
     "guidelines": "GUIDELINES.md",
     "instructions": ".junie/instructions.md",
-    "testing_plan": "TESTING_PLAN.md"
+    "testing": "TESTING.md",
+    "versioning": "VERSIONING.md",
+    "agents_readme": "Agents/README.md",
+    "team_structure": "Agents/hr/workspace/team-structure.md"
   },
   "deployment": {
     "setup": "swift run scripts setup",
@@ -20,5 +24,9 @@
   },
   "design_system": "Design/",
   "api_standard": "LM Studio v1 API",
-  "authentication": "Services/Auth/"
+  "authentication": "Services/Auth/",
+  "agents": {
+    "count": 18,
+    "workflow": "@nearbe → Owner Product Consultant → Product Manager → CTO → Leads → Developers → QA → DevOps"
+  }
 }

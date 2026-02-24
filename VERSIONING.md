@@ -4,7 +4,7 @@
 
 ## Центральный файл версий
 Все версии прописаны в файле:
-`Tools/Scripts/Sources/Scripts/Core/Versions.swift`
+`Tools/Scripts/Sources/Scripts/Models/Versions.swift`
 
 Этот файл является единственным источником истины для:
 - CLI инструментов (XcodeGen, SwiftGen, SwiftLint)
@@ -27,7 +27,8 @@
 ## Как обновить версию
 
 Если вам нужно обновить инструмент или библиотеку:
-1. Измените версию в `Tools/Scripts/Sources/Scripts/Core/Versions.swift`.
+
+1. Измените версию в `Tools/Scripts/Sources/Scripts/Models/Versions.swift`.
 2. Если это зависимость SPM или таргет платформы, обновите соответствующие значения в `project.yml`.
 3. Запустите `./scripts download-docs`, чтобы обновить локальную документацию.
 4. Запустите `./scripts setup` для перегенерации проекта.

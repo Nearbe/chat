@@ -86,7 +86,7 @@
 
 ## Где смотреть
 
-- Текущая версия: `Tools/Scripts/Sources/Scripts/Core/Versions.swift`
+- Текущая версия: `Tools/Scripts/Sources/Scripts/Models/Versions.swift`
 - Управление версиями: `VERSIONING.md`
 
 ---

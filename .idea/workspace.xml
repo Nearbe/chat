@@ -25,92 +25,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/deviceManager.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/swift-toolchain.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.swift-format" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/ApplicationContexts.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/TestConfigurationBuilder.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/TypedElements.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/UTPredicates.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChatUITests/Core/UTTestObserver.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChatUITests/Pages/Steps.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Commands/Check" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Commands/ConfigureSudo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Commands/Setup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Commands/Ship" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Commands/UpdateDocsLinks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/COMPARISON_WITH_TX_MOBILE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/TX_MOBILE_CHECKLIST.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/DependencyService.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-scripts.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deploy.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/_Check.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/_Check.xml" afterDir="false" />
+    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще">
+      <change afterPath="$PROJECT_DIR$/Agents/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/client-developer/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/client-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/client-qa-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/cto/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/designer-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/designer/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/devops-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/devops-qa-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/devops/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/documents-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/head-of-qa/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/hr/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/hr/workspace/team-structure.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/owner-product-consultant/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/product-manager/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/server-developer/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/server-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/server-qa-lead/SKILL.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FILE_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/RegisterAgents.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.swiftlint.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.swiftlint.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/ChatServiceTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ChatServiceTests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/ChatSessionManagerTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ChatSessionManagerTests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/ChatSnapshotTest.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ChatSnapshotTest.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/ChatSnapshotTests.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/ChatViewModelTest.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ChatViewModelTest.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/ChatViewModelTests.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/HTTPClientTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/HTTPClientTests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/Mocks/ChatServiceMock.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/Mocks/ChatServiceMock.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/Mocks/MockLMStudioServer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/Mocks/MockLMStudioServer.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/Mocks/NetworkMonitorMock.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/Mocks/NetworkMonitorMock.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/Mocks/URLProtocolMock.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/Mocks/URLProtocolMock.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/ModelDecodingTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/ModelDecodingTests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/NetworkServiceTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/NetworkServiceTests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/SSEParserTests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/SSEParserTests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/TestHelpers.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/TestHelpers.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/UnitTestCase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatTests/UnitTestCase.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/__Snapshots__/ChatSnapshotTests/testChatViewDarkMode.1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/__Snapshots__/ChatSnapshotTests/testChatViewDefault.1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatTests/__Snapshots__/ChatSnapshotTests/testChatViewWithDynamicType.1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/ChatUITestAuth.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/ChatUITestAuth.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/ChatUITestLaunch.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/ChatUITestLaunch.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/ChatUITestNavigation.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/ChatUITestNavigation.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/ChatUITests.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/ChatUITests.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseElement+Queries.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/BaseElement+Queries.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseElement.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/BaseElement.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseTestCase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/BaseTestCase.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseTestCaseTest.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/BaseTestCaseUITest.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/Configuration.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/Configuration.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/Constants.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/Constants.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/Predicates.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/Predicates.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/XCTestCase+DSL.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Elements/Button.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Elements/UTButton.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Pages/ChatPage.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Pages/ChatPage.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Pages/SettingsPage.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Pages/SettingsPage.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Screens/BaseScreen.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Screens/BaseScreen.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Steps/ChatSteps.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Steps/ChatSteps.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Utils/Biometric/Biometric+Swift.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Utils/Biometric/Biometric+Swift.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Utils/Network/HttpClient.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Utils/Network/HttpClient.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Utils/Network/LocalServer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Utils/Network/LocalServer.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Testing/ChatUITestsBase.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Testing/UnitTestCase.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.junie/context.json" beforeDir="false" afterPath="$PROJECT_DIR$/.junie/context.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.junie/instructions.md" beforeDir="false" afterPath="$PROJECT_DIR$/.junie/instructions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUIDELINES.md" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDELINES.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IMPROVEMENT_PLAN.md" beforeDir="false" afterPath="$PROJECT_DIR$/IMPROVEMENT_PLAN.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/QWEN.md" beforeDir="false" afterPath="$PROJECT_DIR$/QWEN.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SETUP.md" beforeDir="false" afterPath="$PROJECT_DIR$/SETUP.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlans/UITests.xctestplan" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlans/UnitTests.xctestplan" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Package.resolved" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Package.resolved" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Check.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Check.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/ConfigureSudo.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/ConfigureSudo.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/DownloadDocs.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/DownloadDocs.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Setup.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Setup.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Ship.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Ship.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/UpdateDocsLinks.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/UpdateDocsLinks.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/LogOutput.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/LogOutput.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/Shell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/Shell.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/TestResultParser.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/TestRunner.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/TestRunner.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metrics.csv" beforeDir="false" afterPath="$PROJECT_DIR$/metrics.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.yml" beforeDir="false" afterPath="$PROJECT_DIR$/project.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Scripts.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Scripts.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VERSIONING.md" beforeDir="false" afterPath="$PROJECT_DIR$/VERSIONING.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -285,8 +233,25 @@
       <workItem from="1771866387291" duration="10763000" />
       <workItem from="1771878011908" duration="7448000" />
       <workItem from="1771887233112" duration="2222000" />
-      <workItem from="1771915249876" duration="7770000" />
+      <workItem from="1771915249876" duration="12743000" />
     </task>
+    <task id="LOCAL-00001" summary="Надо">
+      <option name="closed" value="true" />
+      <created>1771927450065</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1771927450065</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Надо еще">
+      <option name="closed" value="true" />
+      <created>1771927491277</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1771927491277</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,6 +268,9 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="SHOW_DIRTY_RECURSIVELY" value="true" />
+    <MESSAGE value="Надо" />
+    <MESSAGE value="Надо еще" />
+    <option name="LAST_COMMIT_MESSAGE" value="Надо еще" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
