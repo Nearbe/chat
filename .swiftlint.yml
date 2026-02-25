@@ -18,6 +18,8 @@ opt_in_rules:
   - line_length
   - cyclomatic_complexity
   - function_body_length
+  - type_body_length
+  - file_length
   - implicitly_unwrapped_optional
   - force_unwrapping:
       excluded:
@@ -34,6 +36,13 @@ opt_in_rules:
   - vertical_whitespace
 
 line_length: 160
+
+# Лимиты для предотвращения "километровых файлов"
+file_length: 150
+
+function_body_length: 20
+
+type_body_length: 100
 
 identifier_name:
   min_length: 2

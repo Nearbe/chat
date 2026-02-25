@@ -84,7 +84,7 @@ public final class Configuration {
         animations: Bool = false,
         clearState: Bool = true,
         startScreen: StartScreen = .chat,
-        apiURL: String = "http://192.168.1.91:64721"
+    apiURL: String = ""
     ) {
         self.metaData = metaData
         self.authorizationType = authorizationType

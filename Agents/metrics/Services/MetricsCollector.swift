@@ -30,6 +30,10 @@ public final class MetricsCollector: @unchecked Sendable {
         getSwiftVersion()
     }
 
+    private var macOSVersion: String {
+        getMacOSVersion()
+    }
+
     // MARK: - Публичные методы
 
     /// Начать сбор метрик для операции
@@ -58,7 +62,14 @@ public final class MetricsCollector: @unchecked Sendable {
         warningsCount: Int = 0,
         errorsCount: Int = 0,
         outputSizeKB: Int = 0,
-        scheme: String? = nil
+    scheme: String? = nil,
+    // Параметры метрик проекта
+    sloc: Int = 0,
+    fileCount: Int = 0,
+    testCount: Int = 0,
+    codeCoveragePercent: Double = 0,
+    bundleSizeKB: Int = 0,
+    dependenciesCount: Int = 0
     ) {
         guard let operation = currentOperation,
               let start = startTime else {
@@ -88,7 +99,14 @@ public final class MetricsCollector: @unchecked Sendable {
             outputSizeKB: outputSizeKB,
             xcodeVersion: xcodeVersion,
             swiftVersion: swiftVersion,
-            schemeName: scheme ?? ""
+            macOSVersion: macOSVersion,
+            schemeName: scheme ?? "",
+            sloc: sloc,
+            fileCount: fileCount,
+            testCount: testCount,
+            codeCoveragePercent: codeCoveragePercent,
+            bundleSizeKB: bundleSizeKB,
+            dependenciesCount: dependenciesCount
         )
 
         // Сохраняем в базу
@@ -183,6 +201,56 @@ public final class MetricsCollector: @unchecked Sendable {
         }
 
         return "Unknown"
+    }
+
+    /// Получить версию macOS
+    private func getMacOSVersion() -> String {
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/usr/bin/sw_vers")
+        task.arguments = ["-productVersion"]
+
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.standardError = FileHandle.nullDevice
+
+        do {
+            try task.run()
+            task.waitUntilExit()
+
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            if let output = String(data: data, encoding: .utf8) {
+                let version = output.trimmingCharacters(in: .whitespacesAndNewlines)
+                // Добавляем имя версии для информативности
+                let versionName = getMacOSVersionName(version)
+                return "\(version) (\(versionName))"
+            }
+        } catch {
+            return "Unknown"
+        }
+
+        return "Unknown"
+    }
+
+    /// Получить кодовое имя версии macOS
+    private func getMacOSVersionName(_ version: String) -> String {
+        let majorVersion = version.split(separator: ".").first.flatMap {
+            Int($0)
+        } ?? 0
+
+        switch majorVersion {
+        case 14:
+            return "Sonoma"
+        case 13:
+            return "Ventura"
+        case 12:
+            return "Monterey"
+        case 11:
+            return "Big Sur"
+        case 10:
+            return "Catalina"
+        default:
+            return "Unknown"
+        }
     }
 }
 

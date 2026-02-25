@@ -1,6 +1,7 @@
 // MARK: - Связь с документацией: Factory (Версия: 2.3.0). Статус: Синхронизировано.
 import Factory
 import Foundation
+import SwiftUI
 
 /// - Документация: [Docs/Factory/README.md](../Docs/Factory/README.md)
 @MainActor
@@ -23,5 +24,12 @@ extension Container {
     /// Монитор сетевого статуса
     var networkMonitor: Factory<NetworkMonitor> {
         self { @MainActor in NetworkMonitor() }.singleton
+    }
+
+    /// Сервис мониторинга и управления LM Studio сервером
+    var serverStatusService: Factory<ServerStatusService> {
+        self {
+            @MainActor in ServerStatusService()
+        }.singleton
     }
 }

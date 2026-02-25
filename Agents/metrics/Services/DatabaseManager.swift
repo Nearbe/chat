@@ -100,8 +100,8 @@ final class DatabaseManager: @unchecked Sendable {
         })
 
         // Создаём индексы для часто используемых запросов
-        _ = try ? db.run(metrics.createIndex(colOperation, ifNotExists: true))
-        _ = try ? db.run(metrics.createIndex(colTimestamp, ifNotExists: true))
+        try ? db.run(metrics.createIndex(colOperation, ifNotExists: true))
+        try ? db.run(metrics.createIndex(colTimestamp, ifNotExists: true))
     }
 
     // MARK: - CRUD операции

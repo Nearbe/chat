@@ -1,4 +1,5 @@
 import Foundation
+import MetricsCollector
 
 let collector = MetricsCollector.shared
 

@@ -25,9 +25,10 @@ final class AppConfig: ObservableObject {
     @AppStorage("api_token") var apiToken: String = ""
 
     /// Базовый URL LM Studio API
-    /// По умолчанию: http://192.168.1.91:64721 (локальный IP)
+    /// По умолчанию: пустая строка (требует настройки пользователем)
     /// Формат: http://<ip>:<port>
-    @AppStorage("lm_base_url") var baseURL: String = "http://192.168.1.91:64721"
+    /// Пример: http://192.168.1.91:64721
+    @AppStorage("lm_base_url") var baseURL: String = ""
 
     /// Таймаут сетевого запроса в секундах
     /// По умолчанию: 30 секунд
@@ -59,6 +60,20 @@ final class AppConfig: ObservableObject {
     /// Ограничивает длину одного ответа модели
     /// Примечание: Реальное ограничение зависит от модели и контекста
     @AppStorage("max_tokens") var maxTokens: Int = 4096
+
+    // MARK: - SSH Свойства (SSH Properties)
+
+    /// SSH хост для удалённого управления LM Studio
+    /// Формат: user@hostname или просто hostname
+    /// Пример: admin@192.168.1.100
+    @AppStorage("ssh_host") var sshHost: String = ""
+
+    /// SSH порт (по умолчанию: 22)
+    @AppStorage("ssh_port") var sshPort: Int = 22
+
+    /// SSH путь к LM Studio на удалённом Mac
+    /// Пример: /Applications/LM\ Studio.app/Contents/Frameworks/lmstudio
+    @AppStorage("ssh_lmstudio_path") var lmStudioPath: String = "/Applications/LM Studio.app/Contents/Frameworks/lmstudio"
 
     // MARK: - UI Свойства (UI Properties)
 
@@ -103,7 +118,7 @@ final class AppConfig: ObservableObject {
     /// Используется для сброса конфигурации при проблемах
     /// Примечание: Не сбрашивает выбранную модель и токен
     func reset() {
-        baseURL = "http://192.168.1.91:64721"
+        baseURL = ""
         timeout = 30.0
         mcpToolsEnabled = false
         temperature = 0.7

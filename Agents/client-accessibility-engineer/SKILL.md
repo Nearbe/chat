@@ -7,6 +7,8 @@ department: client
 
 # Client Accessibility Engineer
 
+> **Руководящий принцип**: Инклюзивность — доступность для всех пользователей.
+
 ## Обзор
 
 Инженер по доступности iOS-приложения. Отвечает за VoiceOver поддержку, Dynamic Type, accessibility identifiers и соответствие стандартам доступности Apple (WCAG).

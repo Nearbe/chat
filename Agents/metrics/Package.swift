@@ -5,7 +5,8 @@ let package = Package(
     name: "MetricsAgent",
     platforms: [.macOS(.v14)],
     products: [
-        .executable(name: "metrics-collector", targets: ["MetricsCLI"])
+        .executable(name: "metrics-collector", targets: ["MetricsCLI"]),
+        .library(name: "MetricsCollector", targets: ["MetricsCollector"])
     ],
     dependencies: [
         .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.15.3")
@@ -14,9 +15,17 @@ let package = Package(
         .executableTarget(
             name: "MetricsCLI",
             dependencies: [
+                .product(name: "SQLite", package: "SQLite.swift"),
+                "MetricsCollector"
+            ],
+            path: "CLI"
+        ),
+        .target(
+            name: "MetricsCollector",
+            dependencies: [
                 .product(name: "SQLite", package: "SQLite.swift")
             ],
-            path: "."
+            path: "Lib"
         )
     ]
 )

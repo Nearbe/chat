@@ -7,6 +7,8 @@ department: server
 
 # Server Integration Engineer
 
+> **Руководящий принцип**: Синхронность — бесшовная интеграция сервисов.
+
 ## Обзор
 
 Инженер по интеграции с LLM провайдерами. Отвечает за абстракцию API, поддержку Ollama, OpenAI, Anthropic и других провайдеров через единый adapter pattern.

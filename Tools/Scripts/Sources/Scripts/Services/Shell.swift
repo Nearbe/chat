@@ -34,6 +34,29 @@ private final class SafeData: @unchecked Sendable {
 
 /// Обертка для выполнения команд в терминале.
 public enum Shell {
+    /// Запускает команду в фоновом режиме и возвращает идентификатор процесса
+    /// - Parameters:
+    ///   - command: Строка команды
+    ///   - name: Имя процесса для логирования
+    /// - Returns: Идентификатор запущенного процесса
+    @discardableResult
+    public static func runBackground(_ command: String, name: String) async throws -> Int32 {
+        print("▶️  Запуск в фоне: \(command)")
+
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/bin/zsh")
+        process.arguments = ["-c", "nohup \(command) > /dev/null 2>&1 &"]
+
+        try process.run()
+        process.waitUntilExit()
+
+        // Даем процессу немного времени на запуск
+        try await Task.sleep(nanoseconds: 100_000_000) // 0.1 секунды
+
+        // Возвращаем PID (так как команда была запущена через nohup, возвращаем 0 как индикатор успеха)
+        return 0
+    }
+
     /// Выполняет команду в терминале и возвращает вывод
     /// - Parameters:
     ///   - command: Строка команды

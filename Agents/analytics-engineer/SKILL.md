@@ -7,6 +7,8 @@ department: product
 
 # Analytics Engineer
 
+> **Руководящий принцип**: Глубина — детальный анализ данных для инсайтов.
+
 ## Обзор
 
 Инженер по аналитике. Отвечает за внедрение event tracking, user behavior analysis, telemetry и создание дашбордов для

@@ -1,5 +1,6 @@
 // MARK: - Связь с документацией: Документация проекта (Версия: 1.0.0). Статус: Синхронизировано.
 import ArgumentParser
+import Foundation
 import MetricsCollector
 
 /// Команда для выполнения технической проверки проекта.
@@ -12,8 +13,11 @@ struct Check: AsyncParsableCommand {
     var message: String?
 
     func run() async throws {
-        // Start metrics collection
+        // Start metrics collection (включает сбор системной информации: Xcode, Swift, macOS)
         MetricsCollector.shared.start(operation: "check", scheme: "Check")
+
+        // Выводим информацию о системе
+        SystemInfoService.printSystemInfo()
 
         let logger = try Log.start(logFileName: "CheckRun")
         Log.writeln("🚀  Начало технической проверки...")

@@ -1,0 +1,46 @@
+# docker-compose для LM Studio headless server (llmster)
+# Использование: docker-compose up -d
+
+services:
+  lmstudio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chat-lmstudio
+    ports:
+      - "1234:1234"
+    environment:
+      - LM_API_HOST=0.0.0.0
+      - LM_API_PORT=1234
+      # Опционально: API token для безопасности
+      # - LM_API_TOKEN=${LM_API_TOKEN}
+    volumes:
+      # Хранение моделей между перезапусками
+      - lmstudio_models:/root/.cache/lm-studio/models
+      # Конфигурация LM Studio
+      - lmstudio_config:/root/.config/lm-studio
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:1234/api/v1/models" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - chat-network
+    # GPU поддержка (раскомментировать при наличии NVIDIA GPU)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+networks:
+  chat-network:
+    driver: bridge
+
+volumes:
+  lmstudio_models:
+  lmstudio_config:

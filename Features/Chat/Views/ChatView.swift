@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftData
 import PulseUI
 import UIKit
+import Factory
 
 // MARK: - Главный экран чата (Chat Screen)
 
@@ -31,6 +32,12 @@ struct ChatView: View {
     /// ViewModel содержит всю бизнес-логику чата
     @StateObject private var viewModel = ChatViewModel()
 
+    /// Сервис статуса сервера
+    @Injected(\.serverStatusService) private var serverStatusService
+
+    /// ViewModel статуса сервера
+    @State private var serverStatusViewModel = ServerStatusViewModel()
+
     /// Контекст SwiftData для персистентности данных
     /// Получается из SwiftUI environment автоматически
     @Environment(\.modelContext) private var modelContext
@@ -45,6 +52,9 @@ struct ChatView: View {
 
     /// Флаг отображения консоли Pulse
     @State private var showingPulse = false
+
+    /// Флаг отображения экрана статуса сервера
+    @State private var showingServerStatus = false
 
     /// Флаг отображения ShareSheet для экспорта
     @State private var showingExport = false
@@ -125,6 +135,8 @@ struct ChatView: View {
                 Task {
                     await viewModel.checkServerConnection()
                 }
+                // Настраиваем и запускаем мониторинг сервера
+                serverStatusViewModel.setup(serverService: serverStatusService)
             }
             // Настройка навигационной панели
             .navigationBarTitleDisplayMode(.inline)  // Компактный заголовок
@@ -166,12 +178,13 @@ struct ChatView: View {
                     .accessibilityLabel("Выбор модели")
                 }
 
-                // Индикатор подключения к серверу (слева от центра)
+                // Индикатор и кнопка статуса LM Studio сервера
                 ToolbarItem(placement: .navigationBarLeading) {
-                    // Зелёный - сервер доступен, красный - недоступен
-                    Circle()
-                        .fill(viewModel.isServerReachable ? Color.green : Color.red)
-                        .frame(width: 10, height: 10)
+                    Button {
+                        showingServerStatus = true
+                    } label: {
+                        ServerStatusIndicator(status: serverStatusViewModel.serverStatus)
+                    }.accessibilityLabel("Статус LM Studio сервера")
                 }
 
                 // Кнопка включения/выключения MCP инструментов (справа)
@@ -236,6 +249,10 @@ struct ChatView: View {
             .sheet(isPresented: $showingExport) {
                 ShareSheet(items: [exportText])
                     .presentationDetents([PresentationDetent.medium, PresentationDetent.large])
+            }
+
+            // Статус LM Studio сервера.sheet(isPresented: $showingServerStatus) {
+                ServerStatusView(viewModel: serverStatusViewModel).presentationDetents([PresentationDetent.medium])
             }
 
             // MARK: - Наблюдение за изменениями (Observers)

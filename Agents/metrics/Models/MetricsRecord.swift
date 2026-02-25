@@ -20,7 +20,23 @@ public struct MetricsRecord: Codable {
     public var outputSizeKB: Int
     public var xcodeVersion: String
     public var swiftVersion: String
+    public var macOSVersion: String
     public var schemeName: String
+
+    // MARK: - Метрики проекта
+
+    /// Количество строк кода (SLOC) - только Swift файлы
+    public var sloc: Int
+    /// Количество файлов в проекте
+    public var fileCount: Int
+    /// Количество тестов
+    public var testCount: Int
+    /// Процент покрытия тестами (0-100)
+    public var codeCoveragePercent: Double
+    /// Размер бандла в KB
+    public var bundleSizeKB: Int
+    /// Количество SPM зависимостей
+    public var dependenciesCount: Int
 
     public init(
         id: UUID = UUID(),
@@ -39,7 +55,14 @@ public struct MetricsRecord: Codable {
         outputSizeKB: Int = 0,
         xcodeVersion: String = "",
         swiftVersion: String = "",
-        schemeName: String = ""
+    macOSVersion: String = "",
+    schemeName: String = "",
+    sloc: Int = 0,
+    fileCount: Int = 0,
+    testCount: Int = 0,
+    codeCoveragePercent: Double = 0,
+    bundleSizeKB: Int = 0,
+    dependenciesCount: Int = 0
     ) {
         self.id = id
         self.operation = operation
@@ -57,7 +80,14 @@ public struct MetricsRecord: Codable {
         self.outputSizeKB = outputSizeKB
         self.xcodeVersion = xcodeVersion
         self.swiftVersion = swiftVersion
+        self.macOSVersion = macOSVersion
         self.schemeName = schemeName
+        self.sloc = sloc
+        self.fileCount = fileCount
+        self.testCount = testCount
+        self.codeCoveragePercent = codeCoveragePercent
+        self.bundleSizeKB = bundleSizeKB
+        self.dependenciesCount = dependenciesCount
     }
 
     public var isSuccess: Bool {

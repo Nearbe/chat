@@ -7,6 +7,8 @@ department: client
 
 # Client Localization Engineer
 
+> **Руководящий принцип**: Открытость — принятие и уважение разных культур.
+
 ## Обзор
 
 Инженер по локализации iOS-приложения. Отвечает за i18n (internationalization), String Catalogs, переводы и RTL (
