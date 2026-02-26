@@ -25,80 +25,61 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще больше этого">
-      <change afterPath="$PROJECT_DIR$/Agents/cto-research-engineer/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/metrics/Lib/DatabaseManager.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/metrics/Lib/MetricsCollector.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/metrics/Lib/MetricsRecord.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/metrics/Lib/ResourceMonitor.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/project-analysis/SKILL.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FEATURE_ANALYSIS_LMStudio_Server_Control_20260225.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Features/Server/Components/ServerStatusIndicator.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Features/Server/ViewModels/ServerStatusViewModel.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Features/Server/Views/ServerStatusView.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/lmstudio/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/lmstudio/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Infrastructure/lmstudio/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Server/ServerStatusService.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Models/Path.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/AgentScanner.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/ProjectMetricsCollector.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/ReadmeGenerator.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/SkillFileParser.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/SkillRegistrar.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/SystemInfoService.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrate_metrics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/swift-toolchain.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/swift-toolchain.xml" afterDir="false" />
+    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще больше этого AI">
+      <change afterPath="$PROJECT_DIR$/.ai/system_prompt/assistent/system_prompt.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/markdown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChatDebug.entitlements" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/01_project_overview.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/01_project_overview.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/02_architecture.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/02_architecture.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/03_navigation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/03_navigation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/04_data_models.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/05_api_integration.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/06_ui_components.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/07_state_management.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/08_authentication.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/09_localization.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/10_push_notifications.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/11_deep_linking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/12_cloud_sync.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/99_references.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/TASK_01_project_overview.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Docs/modules/TASK_02_architecture.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART1.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART2.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART3.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART4.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART5.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART6.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_REPORT.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/McpMemory/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/McpMemory/deploy-to-windows.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/McpMemory/load-project-data.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/McpMemory/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/McpMemory/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/ARCHITECTURE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/CHECKLIST.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/FILES_OVERVIEW.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/FINAL_SUMMARY.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/INSTRUCTIONS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/OVERVIEW.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/QUICKSTART.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/SUMMARY.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/autogen_agents_generator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/index_to_qdrant.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orchestrator/langgraph_orchestrator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/mcp/mcp.json" beforeDir="false" afterPath="$PROJECT_DIR$/Windows/setup.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/ai-rules.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.swiftlint.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.swiftlint.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-accessibility-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-accessibility-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-developer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-developer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-localization-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-localization-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-performance-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-performance-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-platform-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-platform-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-qa-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-qa-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/cto/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/cto/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/designer-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/designer-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/designer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/designer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/devops-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops-platform/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/devops-platform/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops-qa-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/devops-qa-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/devops/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/documents-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/documents-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/head-of-qa/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/head-of-qa/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/hr/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/hr/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/metrics/CLI/main.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/CLI/main.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/metrics/Models/MetricsRecord.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Models/MetricsRecord.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/metrics/Package.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Package.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/metrics/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/metrics/Services/DatabaseManager.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Services/DatabaseManager.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/metrics/Services/MetricsCollector.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/Services/MetricsCollector.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/metrics/workspace/metrics.db" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/metrics/workspace/metrics.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/owner-product-consultant/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/owner-product-consultant/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/product-manager/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/product-manager/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-developer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-developer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-integration-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-integration-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-qa-lead/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-qa-lead/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-security-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-security-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/staff-engineer/SKILL.md" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/staff-engineer/SKILL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatUITests/Core/Configuration.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ChatUITests/Core/Configuration.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Container+Registrations.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Container+Registrations.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Features/Chat/Views/ChatView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Features/Chat/Views/ChatView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Features/Settings/ViewModels/AppConfig.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Features/Settings/ViewModels/AppConfig.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Network/AuthorizationProvider.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Network/AuthorizationProvider.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestPlans/AllTests.xctestplan" beforeDir="false" afterPath="$PROJECT_DIR$/TestPlans/AllTests.xctestplan" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Check.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Check.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/RegisterAgents.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/RegisterAgents.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Ship.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Commands/Ship.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/MetricsService.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/MetricsService.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/Shell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/Shell.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/TestService.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Tools/Scripts/Sources/Scripts/Services/TestService.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metrics.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AGENT_COMMUNICATION.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENT_COMMUNICATION.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIDELINES.md" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDELINES.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QWEN.md" beforeDir="false" afterPath="$PROJECT_DIR$/QWEN.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Info.plist" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +97,7 @@
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="34760" />
+    <option name="cachedIndexableFilesCount" value="34809" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="macos_macos_arm64" />
@@ -146,6 +127,7 @@
 }</component>
   <component name="LLMProjectSettings">
     <option name="guidelines_file_path" value="$PROJECT_DIR$/AI-SELF-REVIEW.md" />
+    <option name="turned_on" value="false" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -176,49 +158,59 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Swift Package Run.Scripts.executor": "Run",
-    "Swift Package Run.🔍 Check.executor": "Run",
-    "Xcode Application.🔍 Check.executor": "Run",
-    "Xcode Application.🔐 Configure Sudo.executor": "Run",
-    "Xcode Application.🚢 Ship.executor": "Run",
-    "cidr.known.project.marker": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/nearbe/repositories/Chat",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.30214724",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Swift Package Run.Scripts.executor&quot;: &quot;Run&quot;,
+    &quot;Swift Package Run.🔍 Check.executor&quot;: &quot;Run&quot;,
+    &quot;Xcode Application.🔍 Check.executor&quot;: &quot;Run&quot;,
+    &quot;Xcode Application.🔐 Configure Sudo.executor&quot;: &quot;Run&quot;,
+    &quot;Xcode Application.🚢 Ship.executor&quot;: &quot;Run&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nearbe/repositories/Chat/.ai/system_prompt&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.30214724&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="QodanaProblemsViewState">
     <option name="showBaselineProblems" value="true" />
   </component>
   <component name="RecapUselessUpdatesCounter">
     <option name="suspendCountdown" value="0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.ai/system_prompt" />
+      <recent name="$PROJECT_DIR$/.ai" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.ai/system_prompt/assistent" />
+    </key>
   </component>
   <component name="RunManager" selected="Xcode Application.🔍 Check">
     <configuration default="true" type="AppleRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" IS_LOCATION_SIMULATION_SUPPORTED="false" IS_LOCATION_SIMULATION_ALLOWED="true" APPLICATION_LANGUAGE="IDELaunchSchemeLanguageUseSystemLanguage" APPLICATION_REGION="" DEVELOPMENT_TEAM="${TEAM_ID}" MAKE_ACTIVE="TRUE" SHOULD_DEBUG_EXTENSIONS="false">
@@ -275,7 +267,14 @@
       <workItem from="1771887233112" duration="2222000" />
       <workItem from="1771915249876" duration="24461000" />
       <workItem from="1771963794028" duration="4257000" />
-      <workItem from="1771976974585" duration="2841000" />
+      <workItem from="1771976974585" duration="2903000" />
+      <workItem from="1771994282896" duration="86000" />
+      <workItem from="1771994375689" duration="158000" />
+      <workItem from="1771996325761" duration="28494000" />
+      <workItem from="1772099655716" duration="5959000" />
+      <workItem from="1772106129714" duration="2383000" />
+      <workItem from="1772108872392" duration="32000" />
+      <workItem from="1772108913390" duration="2144000" />
     </task>
     <task id="LOCAL-00001" summary="Надо">
       <option name="closed" value="true" />
@@ -309,7 +308,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771960380777</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Надо еще больше этого AI">
+      <option name="closed" value="true" />
+      <created>1771993697530</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1771993697530</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -330,7 +337,8 @@
     <MESSAGE value="Надо еще" />
     <MESSAGE value="Надо еще больше" />
     <MESSAGE value="Надо еще больше этого" />
-    <option name="LAST_COMMIT_MESSAGE" value="Надо еще больше этого" />
+    <MESSAGE value="Надо еще больше этого AI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Надо еще больше этого AI" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

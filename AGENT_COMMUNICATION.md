@@ -1,3 +1,12 @@
+<document>
+  <metadata>
+    <title>Протокол коммуникации AI-агентов проекта Chat</title>
+    <version>1.0.0</version>
+    <last_updated>2026-02-24</last_updated>
+  </metadata>
+
+  <content>
+    <section name="overview">
 # Agent Communication Protocol
 
 **Дата:** 24 февраля 2026
@@ -7,9 +16,11 @@
 
 ## Обзор
 
-Этот документ описывает протокол коммуникации между AI-агентами в проекте Chat. Определяет как агенты вызывают друг друга, передают контекст и координируют работу.
+Этот документ описывает протокол коммуникации между AI-агентами в проекте Chat. Определяет как агенты вызывают друг
+друга, передают контекст и координируют работу.
+</section>
 
----
+    <section name="agent_architecture">
 
 ## 1. Архитектура агентов
 
@@ -45,14 +56,16 @@
 
 ### 1.2 Типы агентов
 
-| Тип | Роль | Примеры | Режим |
-|-----|------|---------|-------|
-| **Координаторы** | Принимают решения, распределяют | CTO, Leads | Последовательно |
-| **Исполнители** | Выполняют задачи | Developers | Параллельно |
-| **Аналитики** | Проверяют, оценивают | QA, Security | Параллельно |
-| **Поддержка** | Документация, метрики | Docs, Metrics | Параллельно |
+| Тип              | Роль                            | Примеры       | Режим           |
+|------------------|---------------------------------|---------------|-----------------|
+| **Координаторы** | Принимают решения, распределяют | CTO, Leads    | Последовательно |
+| **Исполнители**  | Выполняют задачи                | Developers    | Параллельно     |
+| **Аналитики**    | Проверяют, оценивают            | QA, Security  | Параллельно     |
+| **Поддержка**    | Документация, метрики           | Docs, Metrics | Параллельно     |
 
----
+    </section>
+
+    <section name="trigger_keywords">
 
 ## 2. Trigger Keywords
 
@@ -79,26 +92,28 @@ User Input
 
 ### 2.2 Матрица ключевых слов
 
-| Ключевое слово | Агент | Приоритет |
-|----------------|-------|-----------|
-| UI, SwiftUI, экран, компонент | Client Developer | 1 |
-| архитектура, технологии | CTO | 1 |
-| iOS, клиентская часть | Client Lead | 1 |
-| API, сеть, LM Studio | Server Developer | 1 |
-| серверная часть | Server Lead | 1 |
-| дизайн, визуальный | Designer | 1 |
-| безопасность, токен | Server/Client Security | 1 |
-| тестирование, QA | QA Lead | 1 |
-| документация | Documents Lead | 1 |
-| локализация, i18n | Localization Engineer | 1 |
-| iPad, macOS, widget | Platform Engineer | 1 |
-| производительность | Performance Engineer | 1 |
-| accessibility, voiceover | Accessibility Engineer | 1 |
-| analytics, event tracking | Analytics Engineer | 1 |
-| roadmap, план | Product Manager | 1 |
-| рефакторинг | Staff Engineer | 1 |
+| Ключевое слово                | Агент                  | Приоритет |
+|-------------------------------|------------------------|-----------|
+| UI, SwiftUI, экран, компонент | Client Developer       | 1         |
+| архитектура, технологии       | CTO                    | 1         |
+| iOS, клиентская часть         | Client Lead            | 1         |
+| API, сеть, LM Studio          | Server Developer       | 1         |
+| серверная часть               | Server Lead            | 1         |
+| дизайн, визуальный            | Designer               | 1         |
+| безопасность, токен           | Server/Client Security | 1         |
+| тестирование, QA              | QA Lead                | 1         |
+| документация                  | Documents Lead         | 1         |
+| локализация, i18n             | Localization Engineer  | 1         |
+| iPad, macOS, widget           | Platform Engineer      | 1         |
+| производительность            | Performance Engineer   | 1         |
+| accessibility, voiceover      | Accessibility Engineer | 1         |
+| analytics, event tracking     | Analytics Engineer     | 1         |
+| roadmap, план                 | Product Manager        | 1         |
+| рефакторинг                   | Staff Engineer         | 1         |
 
----
+    </section>
+
+    <section name="call_patterns">
 
 ## 3. Паттерны вызова
 
@@ -147,10 +162,9 @@ User: "Новый экран настроек"
 2. Client Lead → Client Developer: "Реализуй"
 3. Client Lead → Client QA Lead: "Протестируй"
 4. Client Lead → Client Security Engineer: "Аудит"
-```
+    </section>
 
----
-
+    <section name="context_transfer">
 ## 4. Передача контекста
 
 ### 4.1 Что передаётся между агентами
@@ -166,32 +180,37 @@ User: "Новый экран настроек"
 ### 4.2 Пример передачи контекста
 
 ```
+
 От: Client Lead
 Кому: Client Developer
 
 Задача: Добавить экран истории чатов
 
 Контекст:
+
 - Проект: Chat (iOS + LM Studio)
 - UI: SwiftUI, MVVM
 - Data: SwiftData
 - Navigation: NavigationStack
 
 Файлы:
+
 - Features/History/Views/HistoryView.swift (существует)
 - Models/ChatSession.swift (использовать)
 
 Ограничения:
+
 - SwiftLint 160 символов
 - Docstrings на русском
 - Использовать Design System (AppColors, Typography)
 
 Ссылки:
+
 - QWEN.md - обзор проекта
 - GUIDELINES.md - код стайл
-```
+    </section>
 
----
+    <section name="workflows">
 
 ## 5. Workflows
 
@@ -288,54 +307,61 @@ USER REQUEST: "Новый экран с API"
 │   Full Stack    │
 │   Integration   │
 └─────────────────┘
-```
+    </section>
 
----
-
+    <section name="error_handling">
 ## 6. Обработка ошибок
 
 ### 6.1 Агент не найден
 
 ```
+
 User: "Сделай что-то непонятное"
 
-→ Ни один агент не匹配
+→ Ни один агент не match
 → CTO как fallback
 → CTO анализирует и либо:
-  ├── Выполняет сам (если в компетенции)
-  ├── Перенаправляет к правильному агенту
-  └── Запрашивает уточнение у пользователя
+├── Выполняет сам (если в компетенции)
+├── Перенаправляет к правильному агенту
+└── Запрашивает уточнение у пользователя
+
 ```
 
 ### 6.2 Конфликт агентов
 
 ```
+
 Ситуация: Два агента хотят редактировать один файл
 
 Решение:
+
 1. Первый агент получает lock
 2. Второй ждёт или работает с другим файлом
-3. При merge - CTU resolution
+3. При merge - CTO resolution
+
 ```
 
 ### 6.3 Агент не может выполнить задачу
 
 ```
+
 Ситуация: Agent skills не хватает
 
 Решение:
+
 1. Агент возвращает "нужен дополнительный контекст"
 2. Запрашивает уточнение
 3. CTO перенаправляет к другому агенту
-```
+    </section>
 
----
+    <section name="best_practices">
 
 ## 7. Best Practices
 
 ### 7.1 Для вызывающего агента
 
 ✅ **Давайте:**
+
 - Чёткое описание задачи
 - Контекст проекта
 - Релевантные файлы
@@ -343,6 +369,7 @@ User: "Сделай что-то непонятное"
 - Ссылки на документацию
 
 ❌ **Не давайте:**
+
 - Расплывчатые задачи ("сделай хорошо")
 - Конфликтующие требования
 - Слишком много агентов сразу
@@ -350,12 +377,14 @@ User: "Сделай что-то непонятное"
 ### 7.2 Для вызываемого агента
 
 ✅ **Делайте:**
+
 - Запрашивайте уточнение если нужно
 - Сообщайте о проблемах сразу
 - Документируйте изменения
 - Придерживайтесь конвенций проекта
 
 ❌ **Не делайте:**
+
 - Не работайте вслепую
 - Не игнорируйте ограничения
 - Не меняйте то, что не просили
@@ -363,38 +392,42 @@ User: "Сделай что-то непонятное"
 ### 7.3 Для CTO (координатор)
 
 ✅ **Делайте:**
+
 - Выбирайте правильного агента по контексту
 - Объединяйте параллельные задачи
 - Следите за зависимостями
 - Обеспечивайте коммуникацию
+    </section>
 
----
+    <section name="command_reference">
 
 ## 8. Command Reference
 
 ### 8.1 Типичные команды
 
-| Команда | Агент | Описание |
-|---------|-------|----------|
-| "Добавь экран..." | Client Developer | Новый UI |
-| "Интегрируй API..." | Server Developer | Новый endpoint |
-| "Спроектируй..." | Designer | UI/UX |
-| "Проведи аудит..." | Security | Security review |
-| "Протестируй..." | QA | Testing |
-| "Документируй..." | Docs | Documentation |
-| "Рефакторинг..." | Staff Engineer | Code quality |
-| "Оптимизируй..." | Performance | Performance |
+| Команда             | Агент            | Описание        |
+|---------------------|------------------|-----------------|
+| "Добавь экран..."   | Client Developer | Новый UI        |
+| "Интегрируй API..." | Server Developer | Новый endpoint  |
+| "Спроектируй..."    | Designer         | UI/UX           |
+| "Проведи аудит..."  | Security         | Security review |
+| "Протестируй..."    | QA               | Testing         |
+| "Документируй..."   | Docs             | Documentation   |
+| "Рефакторинг..."    | Staff Engineer   | Code quality    |
+| "Оптимизируй..."    | Performance      | Performance     |
 
 ### 8.2 Сложные команды
 
-| Команда | Кто координирует | Участники |
-|---------|-----------------|-----------|
-| "Новая фича" | Product Manager | Lead → Dev + QA + Design |
-| "Security audit" | Server Lead | Security + Staff Engineer |
-| "Performance review" | CTO | Performance + QA |
-| "Миграция" | Staff Engineer | Multiple Devs |
+| Команда              | Кто координирует | Участники                 |
+|----------------------|------------------|---------------------------|
+| "Новая фича"         | Product Manager  | Lead → Dev + QA + Design  |
+| "Security audit"     | Server Lead      | Security + Staff Engineer |
+| "Performance review" | CTO              | Performance + QA          |
+| "Миграция"           | Staff Engineer   | Multiple Devs             |
 
----
+    </section>
+
+    <section name="interaction_examples">
 
 ## 9. Примеры взаимодействия
 
@@ -443,18 +476,20 @@ User: "Полный рефакторинг безопасности"
 → Результат: PR
 ```
 
----
+    </section>
+
+    <section name="team_metrics">
 
 ## 10. Метрики команды
 
-| Метрика | Цель | Как измерять |
-|---------|------|--------------|
-| Task success rate | >90% | Сколько задач выполнено |
-| First-pass accuracy | >80% | Сколько с первого раза |
-| Agent utilization | Сбалансировано | Распределение задач |
-| Communication overhead | <20% | Время на координацию |
+| Метрика                | Цель           | Как измерять            |
+|------------------------|----------------|-------------------------|
+| Task success rate      | >90%           | Сколько задач выполнено |
+| First-pass accuracy    | >80%           | Сколько с первого раза  |
+| Agent utilization      | Сбалансировано | Распределение задач     |
+| Communication overhead | <20%           | Время на координацию    |
 
----
+    </section>
 
-*Документ создан: 24 февраля 2026*
-*Для вопросов: CTO Agent*
+  </content>
+</document>
