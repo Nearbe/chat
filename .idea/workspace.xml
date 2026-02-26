@@ -25,61 +25,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще больше этого AI">
-      <change afterPath="$PROJECT_DIR$/.ai/system_prompt/assistent/system_prompt.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/markdown.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChatDebug.entitlements" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/01_project_overview.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/01_project_overview.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/02_architecture.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/02_architecture.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/03_navigation.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/03_navigation.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/04_data_models.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/05_api_integration.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/06_ui_components.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/07_state_management.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/08_authentication.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/09_localization.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/10_push_notifications.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/11_deep_linking.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/12_cloud_sync.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/99_references.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/TASK_01_project_overview.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Docs/modules/TASK_02_architecture.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART1.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART2.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART3.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART4.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART5.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_PLAN_PART6.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_REPORT.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/McpMemory/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/McpMemory/deploy-to-windows.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/McpMemory/load-project-data.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/McpMemory/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/McpMemory/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/ARCHITECTURE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/CHECKLIST.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/FILES_OVERVIEW.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/FINAL_SUMMARY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/INSTRUCTIONS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/OVERVIEW.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/QUICKSTART.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/SUMMARY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/autogen_agents_generator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/index_to_qdrant.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orchestrator/langgraph_orchestrator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ai/mcp/mcp.json" beforeDir="false" afterPath="$PROJECT_DIR$/Windows/setup.ps1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiassistant/rules/ai-rules.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще больше этого AI сгенерированного">
+      <change afterPath="$PROJECT_DIR$/.ai/system_prompt/assistent/OPTIMIZATION_REPORT.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/system_prompt/assistent/system_prompt_optimized.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/assistent/system_prompt.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/system_prompt/assistent/system_prompt.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGENT_COMMUNICATION.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENT_COMMUNICATION.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDELINES.md" beforeDir="false" afterPath="$PROJECT_DIR$/GUIDELINES.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QWEN.md" beforeDir="false" afterPath="$PROJECT_DIR$/QWEN.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Info.plist" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,7 +224,7 @@
       <workItem from="1772099655716" duration="5959000" />
       <workItem from="1772106129714" duration="2383000" />
       <workItem from="1772108872392" duration="32000" />
-      <workItem from="1772108913390" duration="2144000" />
+      <workItem from="1772108913390" duration="3037000" />
     </task>
     <task id="LOCAL-00001" summary="Надо">
       <option name="closed" value="true" />
@@ -316,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771993697530</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Надо еще больше этого AI сгенерированного">
+      <option name="closed" value="true" />
+      <created>1772112622932</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772112622932</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,7 +296,8 @@
     <MESSAGE value="Надо еще больше" />
     <MESSAGE value="Надо еще больше этого" />
     <MESSAGE value="Надо еще больше этого AI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Надо еще больше этого AI" />
+    <MESSAGE value="Надо еще больше этого AI сгенерированного" />
+    <option name="LAST_COMMIT_MESSAGE" value="Надо еще больше этого AI сгенерированного" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
