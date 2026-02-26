@@ -25,10 +25,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще больше этого AI сгенерированного кода">
-      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/assistent/OPTIMIZATION_REPORT.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/assistent/system_prompt.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/assistent/system_prompt_optimized.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/system_prompt/assistent.md" afterDir="false" />
+    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще больше этого AI сгенерированного кода!">
+      <change afterPath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.schema.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/analytics-engineer/scripts/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agents/analytics-engineer/scripts/validate_skill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +225,7 @@
       <workItem from="1772099655716" duration="5959000" />
       <workItem from="1772106129714" duration="2383000" />
       <workItem from="1772108872392" duration="32000" />
-      <workItem from="1772108913390" duration="3344000" />
+      <workItem from="1772108913390" duration="5286000" />
     </task>
     <task id="LOCAL-00001" summary="Надо">
       <option name="closed" value="true" />
@@ -281,7 +283,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772113592512</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Надо еще больше этого AI сгенерированного кода!">
+      <option name="closed" value="true" />
+      <created>1772113755422</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1772113755422</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,7 +315,8 @@
     <MESSAGE value="Надо еще больше этого AI" />
     <MESSAGE value="Надо еще больше этого AI сгенерированного" />
     <MESSAGE value="Надо еще больше этого AI сгенерированного кода" />
-    <option name="LAST_COMMIT_MESSAGE" value="Надо еще больше этого AI сгенерированного кода" />
+    <MESSAGE value="Надо еще больше этого AI сгенерированного кода!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Надо еще больше этого AI сгенерированного кода!" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
