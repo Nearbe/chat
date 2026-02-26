@@ -25,12 +25,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Надо еще больше этого AI сгенерированного кода!">
-      <change afterPath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/analytics-engineer/scripts/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Agents/analytics-engineer/scripts/validate_skill.py" afterDir="false" />
+    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Аналитик инженер">
+      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/новый.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/system_prompt/новый.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/cto-research-engineer/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/cto/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/cto/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/cto/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/designer-lead/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/designer/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops-lead/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops-platform/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops-qa-lead/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/devops/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/documents-lead/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/head-of-qa/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/hr/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/hr/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/hr/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/owner-product-consultant/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/product-manager/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/project-analysis/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-developer/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-developer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-developer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-integration-engineer/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-lead/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-qa-lead/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-security-engineer/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/staff-engineer/SKILL.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,44 +134,44 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Swift Package Run.Scripts.executor&quot;: &quot;Run&quot;,
-    &quot;Swift Package Run.🔍 Check.executor&quot;: &quot;Run&quot;,
-    &quot;Xcode Application.🔍 Check.executor&quot;: &quot;Run&quot;,
-    &quot;Xcode Application.🔐 Configure Sudo.executor&quot;: &quot;Run&quot;,
-    &quot;Xcode Application.🚢 Ship.executor&quot;: &quot;Run&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/nearbe/repositories/Chat/.ai/system_prompt&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.30214724&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Swift Package Run.Scripts.executor": "Run",
+    "Swift Package Run.🔍 Check.executor": "Run",
+    "Xcode Application.🔍 Check.executor": "Run",
+    "Xcode Application.🔐 Configure Sudo.executor": "Run",
+    "Xcode Application.🚢 Ship.executor": "Run",
+    "cidr.known.project.marker": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/nearbe/repositories/Chat/.ai/system_prompt",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.30214724",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "com.intellij.mcpserver.settings",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="QodanaProblemsViewState">
     <option name="showBaselineProblems" value="true" />
   </component>
@@ -225,7 +250,7 @@
       <workItem from="1772099655716" duration="5959000" />
       <workItem from="1772106129714" duration="2383000" />
       <workItem from="1772108872392" duration="32000" />
-      <workItem from="1772108913390" duration="5286000" />
+      <workItem from="1772108913390" duration="22271000" />
     </task>
     <task id="LOCAL-00001" summary="Надо">
       <option name="closed" value="true" />
@@ -291,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772113755422</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Аналитик инженер">
+      <option name="closed" value="true" />
+      <created>1772115970888</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1772115970888</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,7 +349,8 @@
     <MESSAGE value="Надо еще больше этого AI сгенерированного" />
     <MESSAGE value="Надо еще больше этого AI сгенерированного кода" />
     <MESSAGE value="Надо еще больше этого AI сгенерированного кода!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Надо еще больше этого AI сгенерированного кода!" />
+    <MESSAGE value="Аналитик инженер" />
+    <option name="LAST_COMMIT_MESSAGE" value="Аналитик инженер" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
