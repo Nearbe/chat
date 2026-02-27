@@ -25,37 +25,49 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Аналитик инженер">
-      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/новый.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/system_prompt/новый.md" afterDir="false" />
+    <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Агенты">
+      <change afterPath="$PROJECT_DIR$/.ai/AGENTS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/AGENT_COMMUNICATION.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/CONTRIBUTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/GUIDELINES.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/IMPROVEMENT_PLAN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/METRICS_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART1.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART2.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART3.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART4.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART5.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART6.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_REPORT.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/PLAN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/SECURITY.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/SETUP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/TESTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/VERSIONING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/migrations/junie_migration.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/cto-research-engineer/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/cto/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/cto/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/cto/SKILL.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/designer-lead/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/designer/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops-lead/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops-platform/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops-qa-lead/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/devops/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/devops/SKILL.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/documents-lead/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/head-of-qa/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/hr/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/hr/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/hr/SKILL.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/metrics/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/owner-product-consultant/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/product-manager/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/project-analysis/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-developer/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-developer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/server-developer/SKILL.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-integration-engineer/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-lead/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-qa-lead/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/server-security-engineer/SKILL.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/staff-engineer/SKILL.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AGENT_COMMUNICATION.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIDELINES.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IMPROVEMENT_PLAN.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/METRICS_ANALYSIS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART1.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART3.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART4.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART5.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART6.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIGRATION_REPORT.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PLAN.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SECURITY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SETUP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TESTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VERSIONING.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +179,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.30214724",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "com.intellij.mcpserver.settings",
+    "settings.editor.selected.configurable": "ml.llm.mcp",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -250,7 +262,7 @@
       <workItem from="1772099655716" duration="5959000" />
       <workItem from="1772106129714" duration="2383000" />
       <workItem from="1772108872392" duration="32000" />
-      <workItem from="1772108913390" duration="22271000" />
+      <workItem from="1772108913390" duration="33269000" />
     </task>
     <task id="LOCAL-00001" summary="Надо">
       <option name="closed" value="true" />
@@ -324,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772115970888</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Агенты">
+      <option name="closed" value="true" />
+      <created>1772139138511</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1772139138511</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,7 +370,8 @@
     <MESSAGE value="Надо еще больше этого AI сгенерированного кода" />
     <MESSAGE value="Надо еще больше этого AI сгенерированного кода!" />
     <MESSAGE value="Аналитик инженер" />
-    <option name="LAST_COMMIT_MESSAGE" value="Аналитик инженер" />
+    <MESSAGE value="Агенты" />
+    <option name="LAST_COMMIT_MESSAGE" value="Агенты" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
