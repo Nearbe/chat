@@ -26,48 +26,113 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Агенты">
-      <change afterPath="$PROJECT_DIR$/.ai/AGENTS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/AGENT_COMMUNICATION.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/CHANGELOG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/CONTRIBUTING.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/GUIDELINES.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/IMPROVEMENT_PLAN.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/METRICS_ANALYSIS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART1.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART2.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART3.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART4.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART5.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART6.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/MIGRATION_REPORT.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/PLAN.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/SECURITY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/SETUP.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/TESTING.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/VERSIONING.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/migrations/junie_migration.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/Codegen/SwiftGen/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/Codegen/XcodeGen/ProjectSpec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/Codegen/XcodeGen/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/Factory/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/IGNORED_WARNINGS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/app/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/cli/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/api-changelog.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/chat-completions.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/models.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/structured-output.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/tools.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/chat.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/download-status.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/download.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/endpoints.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/list.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/load.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/quickstart.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/streaming-events.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/unload.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/Ollama/api.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/OpenAI/cookbook_readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/OpenAI/openapi.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/Pulse/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/docs/mcp_tools_reference.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/mcp/ai-filesystem-mcp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/mcp/lumina" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/01_project_overview.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/01_project_overview.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/02_architecture.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/02_architecture.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/03_navigation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/03_navigation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/04_data_models.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/05_api_integration.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/06_ui_components.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/07_state_management.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/08_authentication.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/09_localization.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/10_push_notifications.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/11_deep_linking.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/12_cloud_sync.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/99_references.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/TASK_01_project_overview.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/modules/TASK_02_architecture.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ai/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/docs/INDEX.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/docs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/assistent.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/system_prompt/assistent.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.aiignore" beforeDir="false" afterPath="$PROJECT_DIR$/.aiignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGENT_COMMUNICATION.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDELINES.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/IMPROVEMENT_PLAN.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/METRICS_ANALYSIS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART1.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART2.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART3.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART4.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART5.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MIGRATION_PLAN_PART6.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MIGRATION_REPORT.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PLAN.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SECURITY.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SETUP.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TESTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VERSIONING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Codegen/SwiftGen/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Codegen/XcodeGen/ProjectSpec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Codegen/XcodeGen/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Factory/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/IGNORED_WARNINGS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/app/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/cli/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/api-changelog.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/chat-completions.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/models.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/structured-output.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/tools.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/chat.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/download-status.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/download.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/endpoints.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/list.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/load.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/quickstart.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/streaming-events.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/unload.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Ollama/api.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/OpenAI/cookbook_readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/OpenAI/openapi.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Pulse/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/01_project_overview.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/01_project_overview.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/02_architecture.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/02_architecture.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/03_navigation.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/03_navigation.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/04_data_models.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/05_api_integration.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/06_ui_components.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/07_state_management.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/08_authentication.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/09_localization.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/10_push_notifications.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/11_deep_linking.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/12_cloud_sync.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/99_references.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/TASK_01_project_overview.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/modules/TASK_02_architecture.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +327,7 @@
       <workItem from="1772099655716" duration="5959000" />
       <workItem from="1772106129714" duration="2383000" />
       <workItem from="1772108872392" duration="32000" />
-      <workItem from="1772108913390" duration="33269000" />
+      <workItem from="1772108913390" duration="36921000" />
     </task>
     <task id="LOCAL-00001" summary="Надо">
       <option name="closed" value="true" />

@@ -9,9 +9,6 @@
 Эти файлы генерируются автоматически, не редактируйте их вручную.
 
 ```
-# XcodeGen
-Chat.xcodeproj/
-*.xcodeproj/
 
 # SwiftGen
 Design/Generated/
@@ -40,14 +37,6 @@ Carthage/Checkouts/
 ## IDE и инструменты
 
 Файлы конфигурации IDE и инструментов.
-# Xcode
-*.xcuserstate
-*.xcuserdatad
-*.xcworkspace/xcuserdata/
-UserInterfaceState.xcuserstate
-
-# IntelliJ IDEA
-!.idea/
 
 # VS Code
 .vscode/
