@@ -26,113 +26,206 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac9d52ba-70c2-4773-a915-e3d168efa8ef" name="Changes" comment="Агенты">
-      <change afterPath="$PROJECT_DIR$/.ai/Codegen/SwiftGen/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/Codegen/XcodeGen/ProjectSpec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/Codegen/XcodeGen/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/Factory/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/IGNORED_WARNINGS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/app/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/cli/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/api-changelog.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/chat-completions.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/models.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/structured-output.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/tools.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/chat.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/download-status.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/download.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/endpoints.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/list.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/load.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/quickstart.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/streaming-events.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/unload.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/LMStudio/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/Ollama/api.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/OpenAI/cookbook_readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/OpenAI/openapi.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/Pulse/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/docs/mcp_tools_reference.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/mcp/ai-filesystem-mcp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/mcp/lumina" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/01_project_overview.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/01_project_overview.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/02_architecture.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/02_architecture.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/03_navigation.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/03_navigation.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/04_data_models.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/05_api_integration.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/06_ui_components.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/07_state_management.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/08_authentication.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/09_localization.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/10_push_notifications.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/11_deep_linking.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/12_cloud_sync.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/99_references.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/TASK_01_project_overview.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.ai/modules/TASK_02_architecture.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ai/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ai/docs/INDEX.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ai/docs/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/assistent.md" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/system_prompt/assistent.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.aiignore" beforeDir="false" afterPath="$PROJECT_DIR$/.aiignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/docs/INFRASTRUCTURE_DEPLOYMENT_GUIDE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/mcp/memory-service/examples/README_alfred_deployment.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/mcp/memory-service/examples/setup_alfred_windows.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ai/mcp/memory-service/scripts/deploy_alfred.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/AnalysisCache/last_run.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/Archive/TEAM_ANALYSIS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/Archive/TEAM_ANALYSIS_STARTUP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/agents_mapping.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/docs/Factory/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/docs/architecture/hardware-specs-and-deployment-strategy.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/mcp/alfred_installation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/mcp/alfred_setup_guide.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ai/mcp/install_alfred.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/AGENTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/AGENT_COMMUNICATION.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/AGENT_COMMUNICATION.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/CONTRIBUTING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/Codegen/SwiftGen/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/Codegen/SwiftGen/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/Codegen/XcodeGen/ProjectSpec.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/Codegen/XcodeGen/ProjectSpec.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/Codegen/XcodeGen/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/Codegen/XcodeGen/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/Factory/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/Factory/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/GUIDELINES.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/GUIDELINES.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/IGNORED_WARNINGS.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/IGNORED_WARNINGS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/IMPROVEMENT_PLAN.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/IMPROVEMENT_PLAN.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/app/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/app/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/cli/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/cli/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/api-changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/api-changelog.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/chat-completions.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/openai-compat/chat-completions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/openai-compat/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/models.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/openai-compat/models.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/structured-output.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/openai-compat/structured-output.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/openai-compat/tools.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/openai-compat/tools.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/chat.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/chat.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/download-status.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/download-status.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/download.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/download.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/endpoints.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/endpoints.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/list.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/list.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/load.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/load.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/quickstart.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/quickstart.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/streaming-events.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/streaming-events.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/developer/rest/unload.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/developer/rest/unload.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/LMStudio/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/LMStudio/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/METRICS_ANALYSIS.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/METRICS_ANALYSIS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART1.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/MIGRATION_PLAN_PART1.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART2.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/MIGRATION_PLAN_PART2.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART3.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/MIGRATION_PLAN_PART3.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART4.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/MIGRATION_PLAN_PART4.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART5.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/MIGRATION_PLAN_PART5.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/MIGRATION_PLAN_PART6.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/MIGRATION_PLAN_PART6.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/MIGRATION_REPORT.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/MIGRATION_REPORT.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/Ollama/api.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/Ollama/api.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/OpenAI/cookbook_readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/OpenAI/cookbook_readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/OpenAI/openapi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/OpenAI/openapi.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/PLAN.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/PLAN.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/Pulse/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/Pulse/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/SECURITY.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/SECURITY.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/SETUP.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/SETUP.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/TESTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/TESTING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/VERSIONING.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/VERSIONING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/analytics-engineer/SKILL.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/analytics-engineer/SKILL.schema.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/analytics-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/analytics-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-accessibility-engineer/SKILL.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-accessibility-engineer/SKILL.schema.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-accessibility-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-accessibility-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-developer/SKILL.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-developer/SKILL.schema.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-developer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-developer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-lead/SKILL.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-lead/SKILL.schema.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-localization-engineer/SKILL.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-localization-engineer/SKILL.schema.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-localization-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-localization-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-performance-engineer/SKILL.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-performance-engineer/SKILL.schema.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-performance-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-performance-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-platform-engineer/SKILL.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-platform-engineer/SKILL.schema.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-platform-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-platform-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-qa-lead/SKILL.schema.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-qa-lead/SKILL.schema.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-qa-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-qa-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/client-security-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/client-security-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/cto-research-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/cto-research-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/cto/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/cto/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/designer-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/designer-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/designer-qa-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/designer-qa-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/designer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/designer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/devops-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/devops-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/devops-platform/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/devops-platform/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/devops-qa-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/devops-qa-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/devops/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/devops/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/documents-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/documents-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/head-of-qa/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/head-of-qa/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/hr/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/hr/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/metrics/Package.resolved" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/metrics/Package.resolved" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/metrics/Package.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/metrics/Package.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/metrics/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/metrics/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/owner-product-consultant/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/owner-product-consultant/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/product-manager/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/product-manager/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/project-analysis/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/project-analysis/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/server-developer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/server-developer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/server-integration-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/server-integration-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/server-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/server-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/server-qa-lead/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/server-qa-lead/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/server-security-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/server-security-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/agents/staff-engineer/SKILL.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/agents/staff-engineer/SKILL.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/docs/mcp_tools_reference.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/docs/mcp_tools_reference.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/hardware/Alfred.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/hardware/Alfred.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/hardware/Galatea.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/hardware/Galatea.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/hardware/Lilly.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/hardware/Lilly.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/hardware/Poring.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/hardware/Poring.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/hardware/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/hardware/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/mcp/ai-filesystem-mcp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/mcp/lumina" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/migrations/junie_migration.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/migrations/junie_migration.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/01_project_overview.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/01_project_overview.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/01_project_overview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/01_project_overview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/02_architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/02_architecture.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/02_architecture.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/02_architecture.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/03_navigation.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/03_navigation.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/03_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/03_navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/04_data_models.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/04_data_models.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/05_api_integration.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/05_api_integration.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/06_ui_components.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/06_ui_components.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/07_state_management.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/07_state_management.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/08_authentication.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/08_authentication.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/09_localization.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/09_localization.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/10_push_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/10_push_notifications.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/11_deep_linking.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/11_deep_linking.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/12_cloud_sync.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/12_cloud_sync.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/99_references.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/99_references.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/TASK_01_project_overview.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/TASK_01_project_overview.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/modules/TASK_02_architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/TASK_02_architecture.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ai/system_prompt/assistent.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/system_prompt/assistent.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Codegen/SwiftGen/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Codegen/XcodeGen/ProjectSpec.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Codegen/XcodeGen/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Factory/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/IGNORED_WARNINGS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/app/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/cli/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/api-changelog.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/chat-completions.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/models.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/structured-output.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/openai-compat/tools.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/chat.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/download-status.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/download.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/endpoints.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/list.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/load.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/quickstart.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/streaming-events.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/developer/rest/unload.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/LMStudio/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Ollama/api.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/OpenAI/cookbook_readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/OpenAI/openapi.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Pulse/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/01_project_overview.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/01_project_overview.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/02_architecture.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/02_architecture.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/03_navigation.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/03_navigation.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/04_data_models.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/05_api_integration.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/06_ui_components.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/07_state_management.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/08_authentication.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/09_localization.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/10_push_notifications.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/11_deep_linking.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/12_cloud_sync.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/99_references.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/TASK_01_project_overview.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/modules/TASK_02_architecture.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/analytics-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-accessibility-engineer/SKILL.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-accessibility-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-developer/SKILL.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-developer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-lead/SKILL.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-localization-engineer/SKILL.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-localization-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-performance-engineer/SKILL.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-performance-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-platform-engineer/SKILL.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-platform-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-qa-lead/SKILL.schema.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-qa-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/client-security-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/cto-research-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/cto/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/cto/workspace/tech-decisions/recommendations-2026-02-24.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/designer-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/designer-qa-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/designer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops-platform/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops-qa-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/devops/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/documents-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/head-of-qa/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/hr/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/hr/workspace/team-structure.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/CLI/main.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Lib/DatabaseManager.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Lib/MetricsCollector.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Lib/MetricsRecord.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Lib/ResourceMonitor.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Models/MetricsRecord.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Package.resolved" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Package.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Services/DatabaseManager.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Services/MetricsCollector.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/Services/ResourceMonitor.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/workspace/history/initial-metrics.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/metrics/workspace/metrics.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/owner-product-consultant/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/owner-product-consultant/workspace/analysis/current-state-2026-02-24.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/product-manager/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/project-analysis/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-developer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-integration-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-qa-lead/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/server-security-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agents/staff-engineer/SKILL.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnalysisCache/last_run.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Archive/TEAM_ANALYSIS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Archive/TEAM_ANALYSIS_STARTUP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agents_mapping.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/src/commands/implementations/directory/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/src/commands/implementations/directory/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/src/commands/implementations/file/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/src/commands/implementations/file/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/src/commands/registry/CommandLoader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp/src/commands/registry/CommandLoader.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +327,7 @@
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/nearbe/repositories/Chat/.ai/system_prompt",
+    "last_opened_file_path": "/Users/nearbe/repositories/Chat/ai",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -244,7 +337,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.30214724",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "ml.llm.mcp",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -257,6 +350,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ai" />
       <recent name="$PROJECT_DIR$/.ai/system_prompt" />
       <recent name="$PROJECT_DIR$/.ai" />
       <recent name="$PROJECT_DIR$" />
@@ -327,7 +421,7 @@
       <workItem from="1772099655716" duration="5959000" />
       <workItem from="1772106129714" duration="2383000" />
       <workItem from="1772108872392" duration="32000" />
-      <workItem from="1772108913390" duration="36921000" />
+      <workItem from="1772108913390" duration="45102000" />
     </task>
     <task id="LOCAL-00001" summary="Надо">
       <option name="closed" value="true" />

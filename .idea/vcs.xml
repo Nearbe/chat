@@ -2,7 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ai-filesystem-mcp" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lumina" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ai/mcp/ai-filesystem-mcp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ai/mcp/lumina" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ai/mcp/mcp-memory-service" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ai/mcp/memory-service" vcs="Git" />
   </component>
 </project>
