@@ -1,4 +1,6 @@
-# AI Documentation Hub 🤖
+## 🛠️ Шаблон для новых MCP инструментов
+
+- **[README.template.md](docs/README.template.md)** - Шаблон документации для новых MCP серверов# AI Documentation Hub 🤖
 
 Единая база знаний по AI инструментам, агентам и best practices проекта Chat.
 
