@@ -3,6 +3,7 @@
 ## 🎯 Цель
 
 Подключить локально развернутый MCP Memory Service к проекту Chat для:
+
 - Автоматического сохранения контекста проекта
 - Семантического поиска по коду и документации
 - Сохранения архитектурных решений и паттернов
@@ -15,13 +16,13 @@
 ### ✅ Развернутые компоненты
 
 1. **MCP Memory Service** (Python 3.14, v10.18.1)
-   - Виртуальное окружение: `.venv/`
-   - Хранилище: SQLite-vec (локальное)
-   - Порт: 8000
+    - Виртуальное окружение: `.venv/`
+    - Хранилище: SQLite-vec (локальное)
+    - Порт: 8000
 
 2. **Web Dashboard**
-   - URL: http://localhost:8000/
-   - API Docs: http://localhost:8000/api/docs
+    - URL: http://localhost:8000/
+    - API Docs: http://localhost:8000/api/docs
 
 ---
 
@@ -52,10 +53,10 @@ python -m mcp_memory_service.server --http
 1. Откройте **Settings** (`Cmd + ,`)
 2. Перейдите в раздел **Tools → MCP Clients** или **AI Tools**
 3. Добавьте новый MCP сервер:
-   - **Name**: `Memory Service`
-   - **Command**: `/Users/nearbe/repositories/Chat/ai/mcp/memory-service/.venv/bin/python`
-   - **Args**: `-m mcp_memory_service.server`
-   
+    - **Name**: `Memory Service`
+    - **Command**: `/Users/nearbe/repositories/Chat/ai/mcp/memory-service/.venv/bin/python`
+    - **Args**: `-m mcp_memory_service.server`
+
 4. Примените настройки и перезапустите IDE
 
 #### Для Claude Desktop
@@ -86,9 +87,9 @@ python -m mcp_memory_service.server --http
 1. Откройте **Settings** (`Cmd + ,`)
 2. Найдите **MCP Configuration** или **AI Tools → MCP Servers**
 3. Добавьте новый сервер:
-   - **Name**: `Memory Service`
-   - **Command**: `/Users/nearbe/repositories/Chat/ai/mcp/memory-service/.venv/bin/python`
-   - **Args**: `-m mcp_memory_service.server`
+    - **Name**: `Memory Service`
+    - **Command**: `/Users/nearbe/repositories/Chat/ai/mcp/memory-service/.venv/bin/python`
+    - **Args**: `-m mcp_memory_service.server`
 
 ### Шаг 3: Настройка автоматического контекста
 
@@ -97,14 +98,14 @@ python -m mcp_memory_service.server --http
 Используйте встроенные hooks Memory Service для автоматического сохранения контекста:
 
 1. **Git-aware context** - автоматически извлекает информацию о проекте:
-   - Последние коммиты
-   - Текущие изменения в git
-   - Ключевые файлы проекта
+    - Последние коммиты
+    - Текущие изменения в git
+    - Ключевые файлы проекта
 
 2. **Memory Hooks** - автоматическое сохранение при определенных событиях:
-   - `#remember` - ручное сохранение важной информации
-   - `#skip` - пропуск сохранения
-   - SessionStart/SessionEnd hooks - автоматическое управление контекстом
+    - `#remember` - ручное сохранение важной информации
+    - `#skip` - пропуск сохранения
+    - SessionStart/SessionEnd hooks - автоматическое управление контекстом
 
 #### Примеры использования в проекте Chat
 
@@ -150,36 +151,43 @@ python -m mcp_memory_service.server --http
 ### Основные возможности
 
 #### 1. **Dashboard** - Общий обзор
+
 - Статистика памяти (общее количество, за последнюю неделю)
 - Топ тегов и категорий
 - Карта памяти по времени
 
 #### 2. **Search** - Семантический поиск
+
 - Поиск по содержанию с использованием векторных эмбеддингов
 - Фильтрация по тегам и временным диапазонам
 - Естественный язык: "архитектурные решения проекта"
 
 #### 3. **Browse** - Просмотр всех воспоминаний
+
 - Список всех сохраненных контекстов
 - Сортировка по дате, релевантности, тегу
 - Детальный просмотр каждой записи
 
 #### 4. **Documents** - Управление документами
+
 - Загрузка PDF, MD, TXT файлов проекта
 - Автоматическое чанкование больших документов
 - Индексация для поиска внутри документов
 
 #### 5. **Manage** - Настройки
+
 - Конфигурация бэкенда (SQLite, Cloudflare, Hybrid)
 - Управление API ключами и OAuth
 - Экспорт/импорт данных
 
 #### 6. **Analytics** - Аналитика
+
 - Графики активности по времени
 - Статистика тегов и категорий
 - Метрики качества памяти
 
 #### 7. **Knowledge Graph** (v9.2.0+) - Визуализация связей
+
 - Интерактивная графическая визуализация отношений между памятью
 - Типы отношений: causes, fixes, contradicts, supports, follows, related
 - Фильтрация по типам и тегам
@@ -275,16 +283,18 @@ asyncio.run(main())
 **Задача**: Ваш AI ассистент должен знать структуру проекта Chat перед выполнением задач.
 
 **Решение**:
+
 - Настройте Memory Hooks для автоматического сохранения при:
-  - Открытии файлов проекта
-  - Изменении структуры кода
-  - Коммитах в git
+    - Открытии файлов проекта
+    - Изменении структуры кода
+    - Коммитах в git
 
 ### 2. Семантический поиск по документации
 
 **Задача**: Найти информацию о том, как использовать конкретный инструмент MCP IDEA.
 
 **Решение**:
+
 ```python
 # Поиск через API
 results = await memory.search_project_context(
@@ -298,6 +308,7 @@ results = await memory.search_project_context(
 **Задача**: Сохранить и отслеживать архитектурные решения проекта.
 
 **Решение**:
+
 - Создайте тег `architecture` для всех решений
 - Используйте метаданные для связи с конкретными файлами
 - Визуализируйте через Knowledge Graph Dashboard
@@ -307,6 +318,7 @@ results = await memory.search_project_context(
 **Задача**: Сохранять информацию о используемых инструментах и процессах.
 
 **Решение**:
+
 ```python
 await memory.store_project_context(
     context_type="workflow",
@@ -392,6 +404,7 @@ WantedBy=multi-user.target
 ```
 
 Запуск:
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable mcp-memory.service
@@ -427,6 +440,7 @@ sudo systemctl start mcp-memory.service
 ```
 
 Запуск:
+
 ```bash
 launchctl load ~/Library/LaunchAgents/com.memory-service.plist
 ```

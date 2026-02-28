@@ -82,6 +82,7 @@ curl http://localhost:8000/api/health
 ```
 
 Ожидаемый ответ:
+
 ```json
 {"status":"healthy","version":"10.18.1","timestamp":"...","uptime_seconds":123}
 ```
@@ -117,12 +118,12 @@ curl http://localhost:8000/api/health
 
 ## 🔍 Структура конфига
 
-| Поле | Значение | Описание |
-|------|----------|----------|
-| `mcpServers.memory-service.command` | `/Users/nearbe/repositories/Chat/ai/mcp/memory-service/.venv/bin/python` | Путь к Python интерпретатору из виртуального окружения |
-| `mcpServers.memory-service.args[0]` | `-m` | Запуск модуля Python |
-| `mcpServers.memory-service.args[1]` | `mcp_memory_service.server` | Модуль server.py для запуска MCP сервера |
-| `mcpServers.memory-service.env.MCP_MEMORY_STORAGE_BACKEND` | `sqlite_vec` | Тип хранилища (локальное SQLite с векторами) |
+| Поле                                                       | Значение                                                                 | Описание                                               |
+|------------------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------|
+| `mcpServers.memory-service.command`                        | `/Users/nearbe/repositories/Chat/ai/mcp/memory-service/.venv/bin/python` | Путь к Python интерпретатору из виртуального окружения |
+| `mcpServers.memory-service.args[0]`                        | `-m`                                                                     | Запуск модуля Python                                   |
+| `mcpServers.memory-service.args[1]`                        | `mcp_memory_service.server`                                              | Модуль server.py для запуска MCP сервера               |
+| `mcpServers.memory-service.env.MCP_MEMORY_STORAGE_BACKEND` | `sqlite_vec`                                                             | Тип хранилища (локальное SQLite с векторами)           |
 
 ---
 

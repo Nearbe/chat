@@ -21,7 +21,7 @@
 Использование LM Studio как замены OpenAI API.
 - [Chat Completions](developer/openai-compat/chat-completions.md) — совместимость с OpenAI Chat API.
 - [Models](developer/openai-compat/models.md) — получение списка моделей.
-- [Tools / Function Calling](developer/openai-compat/tools.md) — использование инструментов и функций.
+#### [Tools / Function Calling](./tools.md)
 - [Structured Output](developer/openai-compat/structured-output.md) — генерация структурированных данных (JSON).
 
 ### [LM Studio CLI](cli/index.md)

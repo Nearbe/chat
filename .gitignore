@@ -44,3 +44,4 @@ Thumbs.db
 /TestResult.xcresult/
 .output.txt
 /Logs/
+/ai/mcp/memory-service/.venv/
