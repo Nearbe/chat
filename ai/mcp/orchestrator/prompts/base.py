@@ -77,24 +77,26 @@ class PromptTemplate:
     
     def _register_in_cache(self):
         """Register this template in the global environment cache."""
-        if self.name not in self._environment and self.template_str:
-            env = Environment(
-                loader=FileSystemLoader('.'),
-                autoescape=False,  # We want raw text for prompts
-                trim_blocks=True,
-                lstrip_blocks=True
-            )
-            
-            # Compile template and cache it
-            compiled_template = env.from_string(self.template_str)
-            self._environment = env
-            
-            # Store in global cache with hash as key
+        if self.template_str:
+            # Check if we need to create a new environment
             template_hash = self._compute_hash()
-            self._template_cache[template_hash] = {
-                'env': env,
-                'template': compiled_template
-            }
+            if template_hash not in self._template_cache:
+                env = Environment(
+                    loader=FileSystemLoader('.'),
+                    autoescape=False,  # We want raw text for prompts
+                    trim_blocks=True,
+                    lstrip_blocks=True
+                )
+                
+                # Compile template and cache it
+                compiled_template = env.from_string(self.template_str)
+                self._environment = env
+                
+                # Store in global cache with hash as key
+                self._template_cache[template_hash] = {
+                    'env': env,
+                    'template': compiled_template
+                }
     
     def _compute_hash(self) -> str:
         """Compute a unique hash for this template based on name and content."""
