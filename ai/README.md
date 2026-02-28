@@ -12,6 +12,7 @@
 Мощный MCP сервер для LM Studio с расширенными возможностями документации.
 
 **Документация:**
+- [Настройка для LM Studio](docs/lumina_lmstudio_setup.md) - Быстрый старт и конфигурация ✨
 - [Интеграция в проект](docs/lumina_integration.md) - Quick start guide
 - [README](mcp/lumina/README.md) - Общая информация
 - [LMStudio Setup](mcp/lumina/LMSTUDIO_SETUP_COMPLETE.md) - Установка и настройка
