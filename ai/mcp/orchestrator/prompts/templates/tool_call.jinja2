@@ -1,0 +1,46 @@
+# Tool Call Template
+
+You have access to the following tools:
+
+{{tools_description}}
+
+## When to Use Tools
+
+Use a tool when you need to:
+- {{tool_usage_examples}}
+- Access information outside your knowledge base
+- Perform actions that require external systems
+- Validate facts or get real-time data
+
+## Tool Usage Guidelines
+
+1. **Choose the right tool**: Select the most appropriate tool for the task
+2. **Provide complete parameters**: Include all required arguments
+3. **Handle errors gracefully**: If a tool fails, try an alternative approach
+4. **Respect rate limits**: Be mindful of usage constraints
+
+## Tool Call Format
+
+When you need to use a tool, respond with:
+
+```json
+{{tool_call_format}}
+```
+
+Where:
+- `action`: The name of the tool to call
+- `parameters`: Dictionary of arguments for the tool
+- `reasoning`: Brief explanation of why this tool is needed
+
+## Example Tool Calls
+
+{% for example in tool_examples %}
+### Example {{loop.index}}
+**Task**: {{example.task}}
+**Tool**: {{example.tool_name}}
+**Parameters**: {{example.parameters_json}}
+**Result**: {{example.result_summary}}
+
+{% endfor %}
+
+Remember: Only use tools when necessary. If you can answer a question with your existing knowledge, do so without calling a tool.

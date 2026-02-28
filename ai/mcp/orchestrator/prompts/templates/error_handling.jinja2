@@ -1,0 +1,52 @@
+# Error Handling Template
+
+An error occurred while processing your request. Let me explain what went wrong and how we can proceed.
+
+## Error Details
+
+- **Error Type**: {{error_type}}
+- **Message**: {{error_message}}
+- **Timestamp**: {{timestamp}}
+
+## What Happened
+
+{{context_description}}
+
+The system encountered an issue when trying to: {{action_that_failed}}
+
+This could be due to:
+{% if possible_causes %}
+1. {{possible_cause_1}}
+2. {{possible_cause_2}}
+3. {{possible_cause_3}}
+{% else %}
+- Temporary connectivity issues
+- Invalid input parameters
+- Resource limitations
+- System constraints
+{% endif %}
+
+## Suggested Actions
+
+Here are some things you can try:
+
+1. **Retry the operation**: Sometimes errors are temporary
+2. **Check your input**: Verify that all required information is correct
+3. **Simplify the request**: Try a smaller or simpler version of what you requested
+4. **Contact support**: If the issue persists, reach out to our team
+
+## Technical Details (for debugging)
+
+```json
+{{error_details_json}}
+```
+
+## Next Steps
+
+Would you like me to:
+1. Retry the operation with different parameters?
+2. Try an alternative approach?
+3. Provide more information about the error?
+4. Help you with something else instead?
+
+Please let me know how you'd like to proceed, and I'll do my best to assist you.
