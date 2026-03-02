@@ -130,7 +130,7 @@ $env:MCP_QUALITY_BOOST_ENABLED = "true"
 $env:MCP_CONSOLIDATION_ENABLED = "true"
 
 # Start server
-python scripts/server/run_memory_server.py --http --port 8000
+python scripts/server/run_memory_server.py --http --port 8002
 ```
 
 **Alternative: Master (M4 Max)** - Development & Testing

@@ -68,7 +68,7 @@ See: [setup_alfred_windows.md](./memory-service/examples/setup_alfred_windows.md
 
 ### 1. MCP Memory Service (Primary Component)
 
-- **Port:** 8000
+- **Port:** 8002
 - **Backend:** SQLite-vec with ONNX embeddings
 - **Embedding Model:** `all-MiniLM-L6-v2` (~85MB, optimized for GPU via ONNX)
 - **Features Enabled:**
@@ -97,22 +97,22 @@ See: [setup_alfred_windows.md](./memory-service/examples/setup_alfred_windows.md
 
 ```bash
 # Test health endpoint
-curl http://192.168.1.107:8000/health
+curl http://192.168.1.107:8002/health
 
 # Expected: {"status": "ok"}
 
 # Store a test memory
-curl -X POST http://192.168.1.107:8000/api/memories \
+curl -X POST http://192.168.1.107:8002/api/memories \
   -H "Content-Type: application/json" \
   -d '{"content": "Deployment test", "tags": ["test"], "type": "observation"}'
 
 # Search for the memory
-curl -X POST http://192.168.1.107:8000/api/memories/search \
+curl -X POST http://192.168.1.107:8002/api/memories/search \
   -H "Content-Type: application/json" \
   -d '{"query": "deployment", "limit": 5}'
 
 # Check web dashboard (optional)
-open http://192.168.1.107:8000
+open http://192.168.1.107:8002
 ```
 
 ---
@@ -128,7 +128,7 @@ Create `~/.claude/settings.json`:
   "mcpServers": {
     "memory-http": {
       "transportType": "http",
-      "url": "http://192.168.1.107:8000/mcp"
+      "url": "http://192.168.1.107:8002/mcp"
     }
   }
 }
@@ -141,7 +141,7 @@ from langgraph.graph import StateGraph, MessagesState
 from mcp_memory_service.client import MemoryClient
 
 # Initialize shared memory client
-memory = MemoryClient(base_url="http://localhost:8000")
+memory = MemoryClient(base_url="http://localhost:8002")
 
 # Create agent nodes with memory integration
 def research_node(state: MessagesState):
@@ -250,7 +250,7 @@ ssh -v e@192.168.1.107 "echo 'Connection successful'"
 chmod 600 ~/.ssh/id_ed25519
 ```
 
-### Issue: Port 8000 Already in Use
+### Issue: Port 8002 Already in Use
 
 ```powershell
 # On Alfred, find process using port 8000

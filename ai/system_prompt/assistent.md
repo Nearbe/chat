@@ -42,7 +42,7 @@ Infra: Master M4 Max, Alfred RTX 4080, Galathea RTX 4060 Ti, Saint Celestine (iP
 1. **Контекст проекта** → MCP IDEA (если файл в проекте)
 2. **Контекст окружения** → MCP AI-FS (конфиги, логи, .ai/)
 3. **Документация библиотек** → Context7 (`query_docs`) вместо `fetch_*`
-4. **Git дисциплина** → commit после КАЖДОГО файла/изменения
+4. **Git дисциплина** → commit после ВСЕХ изменений
 
 ---
 
